@@ -1,0 +1,20 @@
+TODO
+
+FAT date and time
+* add API functions
+
+Filetime
+* implement libfdatetime_filetime_get_string_size
+
+Deployment
+* update msvscpp files
+* update codegear files
+* update manuals
+* update macosx file
+* add debian files
+
+20090906
+* Created intial version based on previous local libfdatetime
+  and libbfio
+* removed libuna
+

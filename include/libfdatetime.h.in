@@ -1,0 +1,155 @@
+/*
+ * Library to support support (abstracted) basic file IO
+ *
+ * Copyright (c) 2009, Joachim Metz <forensics@hoffmannbv.nl>,
+ * Hoffmann Investigations. All rights reserved.
+ *
+ * Refer to AUTHORS for acknowledgements.
+ *
+ * This software is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#if !defined( _LIBFDATETIME_H )
+#define _LIBFDATETIME_H
+
+#include <libfdatetime/definitions.h>
+#include <libfdatetime/error.h>
+#include <libfdatetime/extern.h>
+#include <libfdatetime/features.h>
+#include <libfdatetime/types.h>
+
+#include <stdio.h>
+
+#if defined( __cplusplus )
+extern "C" {
+#endif
+
+/* -------------------------------------------------------------------------
+ * Support functions
+ * ------------------------------------------------------------------------- */
+
+/* Returns the library version
+ */
+LIBFDATETIME_EXTERN const char *libfdatetime_get_version(
+                                 void );
+
+/* -------------------------------------------------------------------------
+ * Error functions
+ * ------------------------------------------------------------------------- */
+
+/* Frees the error including elements
+ */
+LIBFDATETIME_EXTERN void libfdatetime_error_free(
+                          libfdatetime_error_t **error );
+
+/* Prints a descriptive string of the error to the stream
+ * Returns the amount of printed characters if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_error_fprint(
+                         libfdatetime_error_t *error,
+                         FILE *stream );
+
+/* Prints a descriptive string of the error to the string
+ * Returns the amount of printed characters if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_error_sprint(
+                         libfdatetime_error_t *error,
+                         char *string, 
+                         size_t size );
+
+/* Prints a backtrace of the error to the stream
+ * Returns the amount of printed characters if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_error_backtrace_fprint(
+                         libfdatetime_error_t *error,
+                         FILE *stream );
+
+/* Prints a backtrace of the error to the string
+ * Returns the amount of printed characters if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_error_backtrace_sprint(
+                         libfdatetime_error_t *error,
+                         char *string,
+                         size_t size );
+
+/* -------------------------------------------------------------------------
+ * FAT date and time functions
+ * ------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------
+ * Filetime functions
+ * ------------------------------------------------------------------------- */
+
+/* Initialize a filetime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_filetime_initialize(
+                         libfdatetime_filetime_t **filetime,
+                         libfdatetime_error_t **error );
+
+/* Frees an exisisting filetime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_filetime_free(
+                         libfdatetime_filetime_t **filetime,
+                         libfdatetime_error_t **error );
+
+/* Converts a byte stream into a filetime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_filetime_copy_from_byte_stream(
+                         libfdatetime_filetime_t *filetime,
+                         uint8_t *byte_stream,
+                         size_t byte_stream_size,
+                         uint8_t byte_order,
+                         libfdatetime_error_t **error );
+
+/* Converts a 64-bit value into a filetime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_filetime_copy_from_uint64(
+                         libfdatetime_filetime_t *filetime,
+                         uint64_t value_64bit,
+                         libfdatetime_error_t **error );
+
+/* Deterimes the size of the string for the filetime
+ * The string size includes the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_filetime_get_string_size(
+                         libfdatetime_filetime_t *filetime,
+                         size_t *string_size,
+                         uint8_t string_format_flags,
+                         int date_time_format,
+                         libfdatetime_error_t **error );
+
+/* Converts the filetime into a string
+ * The strings is encoded in UTF-8
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_filetime_copy_to_string(
+                         libfdatetime_filetime_t *filetime,
+                         uint8_t *string,
+                         size_t string_size,
+                         uint8_t string_format_flags,
+                         int date_time_format,
+                         libfdatetime_error_t **error );
+
+#if defined( __cplusplus )
+}
+#endif
+
+#endif
+
