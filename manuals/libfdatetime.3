@@ -1,4 +1,4 @@
-.Dd September 6, 2009
+.Dd September 8, 2009
 .Dt libfdatetime 3
 .Os libfdatetime
 .Sh NAME
@@ -32,6 +32,8 @@ Filetime functions
 .Fn libfdatetime_filetime_initialize "libfdatetime_filetime_t **filetime, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_filetime_free "libfdatetime_filetime_t **filetime, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_filetime_add "libfdatetime_filetime_t *filetime, libfdatetime_filetime_t *additional_filetime, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_filetime_copy_from_byte_stream "libfdatetime_filetime_t *filetime, uint8_t *byte_stream, size_t byte_stream_size, uint8_t byte_order, libfdatetime_error_t **error"
 .Ft int

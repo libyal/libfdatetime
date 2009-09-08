@@ -59,6 +59,11 @@ LIBFDATETIME_EXTERN int libfdatetime_filetime_free(
                          libfdatetime_filetime_t **filetime,
                          liberror_error_t **error );
 
+LIBFDATETIME_EXTERN int libfdatetime_filetime_add(
+                         libfdatetime_filetime_t *filetime,
+                         libfdatetime_filetime_t *additional_filetime,
+                         liberror_error_t **error );
+
 LIBFDATETIME_EXTERN int libfdatetime_filetime_copy_from_byte_stream(
                          libfdatetime_filetime_t *filetime,
                          uint8_t *byte_stream,

@@ -125,6 +125,50 @@ int libfdatetime_filetime_free(
 	return( 1 );
 }
 
+/* Adds the additional filetime to the filetime
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_filetime_add(
+     libfdatetime_filetime_t *filetime,
+     libfdatetime_filetime_t *additional_filetime,
+     liberror_error_t **error )
+{
+	libfdatetime_internal_filetime_t *internal_additional_filetime = NULL;
+	libfdatetime_internal_filetime_t *internal_filetime            = NULL;
+	static char *function                                          = "libfdatetime_filetime_add";
+
+	if( filetime == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid filetime.",
+		 function );
+
+		return( -1 );
+	}
+	internal_filetime = (libfdatetime_internal_filetime_t *) filetime;
+
+	if( additional_filetime == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid additional filetime.",
+		 function );
+
+		return( -1 );
+	}
+	internal_additional_filetime = (libfdatetime_internal_filetime_t *) additional_filetime;
+
+	internal_filetime->lower += internal_additional_filetime->lower;
+	internal_filetime->upper += internal_additional_filetime->upper;
+
+	return( 1 );
+}
+
 /* Converts a byte stream into a filetime
  * Returns 1 if successful or -1 on error
  */

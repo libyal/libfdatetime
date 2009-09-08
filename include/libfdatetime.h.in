@@ -105,6 +105,14 @@ LIBFDATETIME_EXTERN int libfdatetime_filetime_free(
                          libfdatetime_filetime_t **filetime,
                          libfdatetime_error_t **error );
 
+/* Adds the additional filetime to the filetime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_filetime_add(
+                         libfdatetime_filetime_t *filetime,
+                         libfdatetime_filetime_t *additional_filetime,
+                         libfdatetime_error_t **error );
+
 /* Converts a byte stream into a filetime
  * Returns 1 if successful or -1 on error
  */

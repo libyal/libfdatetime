@@ -13,6 +13,9 @@ Deployment
 * update macosx file
 * add debian files
 
+20090908
+* added filetime addition function
+
 20090906
 * Created intial version based on previous local libfdatetime
   and libbfio
