@@ -21,7 +21,7 @@
  */
 
 #include <common.h>
-#include <endian.h>
+#include <byte_stream.h>
 #include <memory.h>
 #include <types.h>
 
@@ -242,27 +242,27 @@ int libfdatetime_filetime_copy_from_byte_stream(
 	}
 	if( byte_order == LIBFDATETIME_ENDIAN_LITTLE )
 	{
-		endian_little_convert_32bit(
-		 internal_filetime->lower,
-		 byte_stream );
+		byte_stream_copy_to_uint32_little_endian(
+		 byte_stream,
+		 internal_filetime->lower );
 
 		byte_stream += 4;
 
-		endian_little_convert_32bit(
-		internal_filetime->upper,
-		byte_stream );
+		byte_stream_copy_to_uint32_little_endian(
+		byte_stream,
+		internal_filetime->upper );
 	}
 	else if( byte_order == LIBFDATETIME_ENDIAN_BIG )
 	{
-		endian_big_convert_32bit(
-		 internal_filetime->upper,
-		 byte_stream );
+		byte_stream_copy_to_uint32_big_endian(
+		 byte_stream,
+		 internal_filetime->upper );
 
 		byte_stream += 4;
 
-		endian_big_convert_32bit(
-		internal_filetime->lower,
-		byte_stream );
+		byte_stream_copy_to_uint32_big_endian(
+		byte_stream,
+		internal_filetime->lower );
 	}
 	return( 1 );
 }

@@ -35,7 +35,7 @@
  * for local use of libfdatetime
  */
 #else
-#include <endian.h>
+#include <byte_stream.h>
 
 #define LIBFDATETIME_VERSION				@VERSION@
 
@@ -45,8 +45,8 @@
 
 /* The endian definitions
  */
-#define LIBFDATETIME_ENDIAN_BIG				_ENDIAN_BIG
-#define LIBFDATETIME_ENDIAN_LITTLE			_ENDIAN_LITTLE
+#define LIBFDATETIME_ENDIAN_BIG				_BYTE_STREAM_ENDIAN_BIG
+#define LIBFDATETIME_ENDIAN_LITTLE			_BYTE_STREAM_ENDIAN_LITTLE
 
 /* The string format definition flags
  */

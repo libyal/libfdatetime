@@ -1,4 +1,11 @@
 TODO
+* add a more sophisticated day of the month check in date time values
+* have API functions return 0 if value is not a valid date and time
+* implement libfdatetime_date_time_values_copy_to_string_size
+* implement individual fat_date and fat_time support
+* implement libfatdatetime_fat_date_time_copy_to_string_size
+* implement libfiletime_filetime_copy_to_string_size
+* implement support for duration string
 
 FAT date and time
 * add API functions
@@ -12,6 +19,10 @@ Deployment
 * update manuals
 * update macosx file
 * add debian files
+
+20091026
+* changed common/endian.h into common/byte_stream.h
+  this prevents possible name conflict with endian.h
 
 20090908
 * added filetime addition function

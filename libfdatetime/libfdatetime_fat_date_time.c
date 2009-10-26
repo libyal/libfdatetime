@@ -21,7 +21,7 @@
  */
 
 #include <common.h>
-#include <endian.h>
+#include <byte_stream.h>
 #include <memory.h>
 #include <types.h>
 
@@ -199,27 +199,27 @@ int libfdatetime_fat_date_time_copy_from_byte_stream(
 	}
 	if( byte_order == LIBFDATETIME_ENDIAN_LITTLE )
 	{
-		endian_little_convert_16bit(
-		 internal_fat_date_time->date,
-		 byte_stream );
+		byte_stream_copy_to_uint16_little_endian(
+		 byte_stream,
+		 internal_fat_date_time->date );
 
 		byte_stream += 2;
 
-		endian_little_convert_16bit(
-		internal_fat_date_time->time,
-		byte_stream );
+		byte_stream_copy_to_uint16_little_endian(
+		byte_stream,
+		internal_fat_date_time->time );
 	}
 	else if( byte_order == LIBFDATETIME_ENDIAN_BIG )
 	{
-		endian_big_convert_16bit(
-		 internal_fat_date_time->date,
-		 byte_stream );
+		byte_stream_copy_to_uint16_big_endian(
+		 byte_stream,
+		 internal_fat_date_time->date );
 
 		byte_stream += 2;
 
-		endian_big_convert_16bit(
-		internal_fat_date_time->time,
-		byte_stream );
+		byte_stream_copy_to_uint16_big_endian(
+		byte_stream,
+		internal_fat_date_time->time );
 	}
 	return( 1 );
 }
