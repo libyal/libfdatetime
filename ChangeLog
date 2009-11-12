@@ -20,6 +20,10 @@ Deployment
 * update macosx file
 * add debian files
 
+20091112
+* removed All rights reserved
+* updated common, liberror
+
 20091026
 * changed common/endian.h into common/byte_stream.h
   this prevents possible name conflict with endian.h

@@ -6,7 +6,7 @@
 /* Define to 1 if you have the `close' function. */
 #undef HAVE_CLOSE
 
-/* Defines if debug output should be used */
+/* Define to 1 if debug output should be used. */
 #undef HAVE_DEBUG_OUTPUT
 
 /* Define to 1 if you have the declaration of `memrchr', and to 0 if you
@@ -170,7 +170,7 @@
 /* Define to 1 if you have the <varargs.h> header file. */
 #undef HAVE_VARARGS_H
 
-/* Defines if verbose output should be used */
+/* Define to 1 if verbose output should be used. */
 #undef HAVE_VERBOSE_OUTPUT
 
 /* Define to 1 if you have the `vfprintf' function. */
@@ -209,7 +209,7 @@
 /* Define to 1 if you have the `wcstoull' function. */
 #undef HAVE_WCSTOULL
 
-/* Defines if wide character type should be used */
+/* Define to 1 if wide character type should be used. */
 #undef HAVE_WIDE_CHARACTER_TYPE
 
 /* Define to 1 if you have the `wmemchr' function. */

@@ -2,7 +2,7 @@
  * Narrow character string functions
  *
  * Copyright (c) 2006-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations. All rights reserved.
+ * Hoffmann Investigations.
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -194,9 +194,11 @@ extern "C" {
 #define narrow_string_vsnprintf( string, size, format, ... ) \
 	g_vsnprintf( string, size, format, __VA_ARGS__ )
 
+/* This definition causes problems
 #elif defined( _MSC_VER )
 #define narrow_string_vsnprintf( string, size, format, ... ) \
-	_vsnprintf( string, size, format, __VA_ARGS__ )
+	_vsnprintf_s( string, size, size, format, __VA_ARGS__ )
+*/
 
 #elif defined( HAVE_VSNPRINTF ) || defined( WINAPI )
 #define narrow_string_vsnprintf( string, size, format, ... ) \
