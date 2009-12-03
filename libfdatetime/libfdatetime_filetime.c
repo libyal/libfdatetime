@@ -2,7 +2,7 @@
  * Filetime functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations.
+ * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -297,6 +297,169 @@ int libfdatetime_filetime_copy_from_uint64(
 	return( 1 );
 }
 
+/* Converts a filetime into date time values
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_filetime_copy_to_date_time_values(
+     libfdatetime_internal_filetime_t *internal_filetime,
+     libfdatetime_date_time_values_t *date_time_values,
+     liberror_error_t **error )
+{
+	static char *function  = "libfdatetime_filetime_copy_to_date_time_values";
+	uint64_t filetimestamp = 0;
+	uint32_t remainder     = 0;
+	uint16_t days_in_year  = 0;
+	uint8_t days_in_month  = 0;
+
+	if( internal_filetime == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid internal filetime.",
+		 function );
+
+		return( -1 );
+	}
+	if( date_time_values == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid date time values.",
+		 function );
+
+		return( -1 );
+	}
+	/* Combine the lower and upper filetime parts into a single filetime timestamp
+	 */
+	filetimestamp = ( (uint64_t) ( internal_filetime->upper ) << 32 ) + internal_filetime->lower;
+
+	/* The timestamp is in units of 100 nano seconds correct the value to seconds
+	 */
+	remainder      = filetimestamp % 10000000;
+	filetimestamp /= 10000000;
+
+	/* There are 60 seconds in a minute correct the value to minutes
+	 */
+	date_time_values->seconds = filetimestamp % 60;
+	filetimestamp            /= 60;
+
+	/* There are 60 minutes in an hour correct the value to hours
+	 */
+	date_time_values->minutes = filetimestamp % 60;
+	filetimestamp            /= 60;
+
+	/* There are 24 hours in a day correct the value to days
+	 */
+	date_time_values->hours = filetimestamp % 24;
+	filetimestamp          /= 24;
+
+	/* Add 1 day to compensate that Jan 1 1601 is represented as 0
+	 */
+	filetimestamp += 1;
+
+	/* Determine the amount of years starting at '1 Jan 1601 00:00:00'
+	 * correct the value to days within the year
+	 */
+	date_time_values->year = 1601;
+
+	while( filetimestamp > 0 )
+	{
+		/* Check for a leap year
+		 * The year is ( ( dividable by 4 ) and ( not dividable by 100 ) ) or ( dividable by 400 )
+		 */
+		if( ( ( ( date_time_values->year % 4 ) == 0 )
+		  && ( ( date_time_values->year % 100 ) != 0 ) )
+		 || ( ( date_time_values->year % 400 ) == 0 ) )
+		{
+			days_in_year = 366;
+		}
+		else
+		{
+			days_in_year = 365;
+		}
+		if( filetimestamp <= days_in_year )
+		{
+			break;
+		}
+		filetimestamp -= days_in_year;
+
+		date_time_values->year++;
+	}
+	/* Determine the month correct the value to days within the month
+	 */
+	date_time_values->month = 1;
+
+	while( filetimestamp > 0 )
+	{
+		/* February (2)
+		 */
+		if( date_time_values->month == 2 )
+		{
+			if( ( ( ( date_time_values->year % 4 ) == 0 )
+			  && ( ( date_time_values->year % 100 ) != 0 ) )
+			 || ( ( date_time_values->year % 400 ) == 0 ) )
+			{
+				days_in_month = 29;
+			}
+			else
+			{
+				days_in_month = 28;
+			}
+		}
+		/* April (4), June (6), September (9), November (11)
+		 */
+		else if( ( date_time_values->month == 4 )
+		      || ( date_time_values->month == 6 )
+		      || ( date_time_values->month == 9 )
+		      || ( date_time_values->month == 11 ) )
+		{
+			days_in_month = 30;
+		}
+		/* Januari (1), March (3), May (5), July (7), August (8), October (10), December (12)
+		 */
+		else if( ( date_time_values->month == 1 )
+		      || ( date_time_values->month == 3 )
+		      || ( date_time_values->month == 5 )
+		      || ( date_time_values->month == 7 )
+		      || ( date_time_values->month == 8 )
+		      || ( date_time_values->month == 10 )
+		      || ( date_time_values->month == 12 ) )
+		{
+			days_in_month = 31;
+		}
+		/* This should never happen, but just in case
+		 */
+		else
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported month: %d.",
+			 function,
+			 date_time_values->month );
+
+			return( -1 );
+		}
+		if( filetimestamp <= days_in_month )
+		{
+			break;
+		}
+		filetimestamp -= days_in_month;
+
+		date_time_values->month++;
+	}
+	/* Determine the day
+	 */
+	date_time_values->day = (uint8_t) filetimestamp;
+
+	return( 1 );
+}
+
 /* Deterimes the size of the string for the filetime
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
@@ -308,19 +471,82 @@ int libfdatetime_filetime_get_string_size(
      int date_time_format,
      liberror_error_t **error )
 {
-	/* TODO implement */
-	return( -1 );
+	libfdatetime_date_time_values_t date_time_values;
+
+	static char *function = "libfdatetime_filetime_get_string_size";
+
+	if( filetime == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid filetime.",
+		 function );
+
+		return( -1 );
+	}
+	if( string_size == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid string size.",
+		 function );
+
+		return( -1 );
+	}
+	if( libfdatetime_filetime_copy_to_date_time_values(
+	     (libfdatetime_internal_filetime_t *) filetime,
+	     &date_time_values,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set date time values.",
+		 function );
+
+		return( -1 );
+	}
+	/* Create the date and time string
+	 */
+	if( libfdatetime_date_time_values_get_string_size(
+	     &date_time_values,
+	     string_size,
+	     string_format_flags,
+	     date_time_format,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 "%s: unable to get string size.",
+		 function );
+
+		return( -1 );
+	}
+	/* Make sure the string can hold the hexadecimal representation
+	 * of a filetime
+	 */
+	if( *string_size < 24 )
+	{
+		*string_size = 24;
+	}
+	return( 1 );
 }
 
-/* Converts the filetime into a string
- * The strings is encoded in UTF-8
+/* Converts the filetime into an UTF-8 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_filetime_copy_to_string(
+int libfdatetime_filetime_copy_to_utf8_string(
      libfdatetime_filetime_t *filetime,
-     uint8_t *string,
-     size_t string_size,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
      uint8_t string_format_flags,
      int date_time_format,
      liberror_error_t **error )
@@ -328,12 +554,10 @@ int libfdatetime_filetime_copy_to_string(
 	libfdatetime_date_time_values_t date_time_values;
 
 	libfdatetime_internal_filetime_t *internal_filetime = NULL;
-	static char *function                               = "libfdatetime_filetime_copy_to_string";
-	uint64_t filetimestamp                              = 0;
-	uint32_t remainder                                  = 0;
-	uint16_t days_in_year                               = 0;
-	uint8_t days_in_month                               = 0;
-	int print_count                                     = 0;
+	static char *function                               = "libfdatetime_filetime_copy_to_utf8_string";
+	size_t string_index                                 = 0;
+	uint8_t byte_value                                  = 0;
+	uint8_t byte_shift                                  = 0;
 	int result                                          = 0;
 
 	if( filetime == NULL )
@@ -349,136 +573,26 @@ int libfdatetime_filetime_copy_to_string(
 	}
 	internal_filetime = (libfdatetime_internal_filetime_t *) filetime;
 
-	/* Combine the lower and upper filetime parts into a single filetime timestamp
-	 */
-	filetimestamp = ( (uint64_t) ( internal_filetime->upper ) << 32 ) + internal_filetime->lower;
-
-	/* The timestamp is in units of 100 nano seconds correct the value to seconds
-	 */
-	remainder      = filetimestamp % 10000000;
-	filetimestamp /= 10000000;
-
-	/* There are 60 seconds in a minute correct the value to minutes
-	 */
-	date_time_values.seconds = filetimestamp % 60;
-	filetimestamp           /= 60;
-
-	/* There are 60 minutes in an hour correct the value to hours
-	 */
-	date_time_values.minutes = filetimestamp % 60;
-	filetimestamp           /= 60;
-
-	/* There are 24 hours in a day correct the value to days
-	 */
-	date_time_values.hours = filetimestamp % 24;
-	filetimestamp         /= 24;
-
-	/* Add 1 day to compensate that Jan 1 1601 is represented as 0
-	 */
-	filetimestamp += 1;
-
-	/* Determine the amount of years starting at '1 Jan 1601 00:00:00'
-	 * correct the value to days within the year
-	 */
-	date_time_values.year = 1601;
-
-	while( filetimestamp > 0 )
+	if( libfdatetime_filetime_copy_to_date_time_values(
+	     internal_filetime,
+	     &date_time_values,
+	     error ) != 1 )
 	{
-		/* Check for a leap year
-		 * The year is ( ( dividable by 4 ) and ( not dividable by 100 ) ) or ( dividable by 400 )
-		 */
-		if( ( ( ( date_time_values.year % 4 ) == 0 )
-		  && ( ( date_time_values.year % 100 ) != 0 ) )
-		 || ( ( date_time_values.year % 400 ) == 0 ) )
-		{
-			days_in_year = 366;
-		}
-		else
-		{
-			days_in_year = 365;
-		}
-		if( filetimestamp <= days_in_year )
-		{
-			break;
-		}
-		filetimestamp -= days_in_year;
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set date time values.",
+		 function );
 
-		date_time_values.year++;
+		return( -1 );
 	}
-	/* Determine the month correct the value to days within the month
-	 */
-	date_time_values.month = 1;
-
-	while( filetimestamp > 0 )
-	{
-		/* February (2)
-		 */
-		if( date_time_values.month == 2 )
-		{
-			if( ( ( ( date_time_values.year % 4 ) == 0 )
-			  && ( ( date_time_values.year % 100 ) != 0 ) )
-			 || ( ( date_time_values.year % 400 ) == 0 ) )
-			{
-				days_in_month = 29;
-			}
-			else
-			{
-				days_in_month = 28;
-			}
-		}
-		/* April (4), June (6), September (9), November (11)
-		 */
-		else if( ( date_time_values.month == 4 )
-		      || ( date_time_values.month == 6 )
-		      || ( date_time_values.month == 9 )
-		      || ( date_time_values.month == 11 ) )
-		{
-			days_in_month = 30;
-		}
-		/* Januari (1), March (3), May (5), July (7), August (8), October (10), December (12)
-		 */
-		else if( ( date_time_values.month == 1 )
-		      || ( date_time_values.month == 3 )
-		      || ( date_time_values.month == 5 )
-		      || ( date_time_values.month == 7 )
-		      || ( date_time_values.month == 8 )
-		      || ( date_time_values.month == 10 )
-		      || ( date_time_values.month == 12 ) )
-		{
-			days_in_month = 31;
-		}
-		/* This should never happen, but just in case
-		 */
-		else
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
-			 "%s: unsupported month: %d.",
-			 function,
-			 date_time_values.month );
-
-			return( -1 );
-		}
-		if( filetimestamp <= days_in_month )
-		{
-			break;
-		}
-		filetimestamp -= days_in_month;
-
-		date_time_values.month++;
-	}
-	/* Determine the day
-	 */
-	date_time_values.day = (uint8_t) filetimestamp;
-
 	/* Create the date and time string
 	 */
-	result = libfdatetime_date_time_values_copy_to_string(
+	result = libfdatetime_date_time_values_copy_to_utf8_string(
 	          &date_time_values,
-	          string,
-	          string_size,
+	          utf8_string,
+	          utf8_string_size,
 	          string_format_flags,
 	          date_time_format,
 	          error );
@@ -496,36 +610,396 @@ int libfdatetime_filetime_copy_to_string(
 	}
 	else if( result == 0 )
 	{
-		if( string_size < 19 )
+		if( utf8_string == NULL )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-8 string.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf8_string_size > (size_t) SSIZE_MAX )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+			 "%s: invalid UTF-8 string size value exceeds maximum.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf8_string_size < 24 )
 		{
 			liberror_error_set(
 			 error,
 			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-			 "%s: string is too small.",
+			 "%s: UTF-8 string is too small.",
 			 function );
 
 			return( -1 );
 		}
-		print_count = libfdatetime_string_snprintf(
-			       string,
-			       string_size,
-			       "(0x%08" PRIx32 "%08" PRIx32 ")",
-		               internal_filetime->upper,
-		               internal_filetime->lower );
+		utf8_string[ string_index++ ] = (uint8_t) '(';
+		utf8_string[ string_index++ ] = (uint8_t) '0';
+		utf8_string[ string_index++ ] = (uint8_t) 'x';
 
-		if( ( print_count < 0 )
-		 || ( (size_t) print_count > string_size ) )
+		byte_shift = 28;
+
+		do
+		{
+			byte_value = ( internal_filetime->upper >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+			}
+			else
+			{
+				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf8_string[ string_index++ ] = (uint8_t) ' ';
+		utf8_string[ string_index++ ] = (uint8_t) '0';
+		utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+		byte_shift = 28;
+
+		do
+		{
+			byte_value = ( internal_filetime->lower >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+			}
+			else
+			{
+				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf8_string[ string_index++ ] = (uint8_t) ')';
+
+		utf8_string[ string_index++ ] = 0;
+	}
+	return( 1 );
+}
+
+/* Converts the filetime into an UTF-16 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_filetime_copy_to_utf16_string(
+     libfdatetime_filetime_t *filetime,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     uint8_t string_format_flags,
+     int date_time_format,
+     liberror_error_t **error )
+{
+	libfdatetime_date_time_values_t date_time_values;
+
+	libfdatetime_internal_filetime_t *internal_filetime = NULL;
+	static char *function                               = "libfdatetime_filetime_copy_to_utf16_string";
+	size_t string_index                                 = 0;
+	uint8_t byte_value                                  = 0;
+	uint8_t byte_shift                                  = 0;
+	int result                                          = 0;
+
+	if( filetime == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid filetime.",
+		 function );
+
+		return( -1 );
+	}
+	internal_filetime = (libfdatetime_internal_filetime_t *) filetime;
+
+	if( libfdatetime_filetime_copy_to_date_time_values(
+	     internal_filetime,
+	     &date_time_values,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set date time values.",
+		 function );
+
+		return( -1 );
+	}
+	/* Create the date and time string
+	 */
+	result = libfdatetime_date_time_values_copy_to_utf16_string(
+	          &date_time_values,
+	          utf16_string,
+	          utf16_string_size,
+	          string_format_flags,
+	          date_time_format,
+	          error );
+
+	if( result == -1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set string.",
+		 function );
+
+		return( -1 );
+	}
+	else if( result == 0 )
+	{
+		if( utf16_string == NULL )
 		{
 			liberror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to set string.",
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-16 string.",
 			 function );
 
 			return( -1 );
 		}
+		if( utf16_string_size > (size_t) SSIZE_MAX )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+			 "%s: invalid UTF-16 string size value exceeds maximum.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf16_string_size < 24 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UTF-16 string is too small.",
+			 function );
+
+			return( -1 );
+		}
+		utf16_string[ string_index++ ] = (uint16_t) '(';
+		utf16_string[ string_index++ ] = (uint16_t) '0';
+		utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+		byte_shift = 28;
+
+		do
+		{
+			byte_value = ( internal_filetime->upper >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+			}
+			else
+			{
+				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf16_string[ string_index++ ] = (uint16_t) ' ';
+		utf16_string[ string_index++ ] = (uint16_t) '0';
+		utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+		byte_shift = 28;
+
+		do
+		{
+			byte_value = ( internal_filetime->lower >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+			}
+			else
+			{
+				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf16_string[ string_index++ ] = (uint16_t) ')';
+
+		utf16_string[ string_index++ ] = 0;
+	}
+	return( 1 );
+}
+
+/* Converts the filetime into an UTF-32 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_filetime_copy_to_utf32_string(
+     libfdatetime_filetime_t *filetime,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     uint8_t string_format_flags,
+     int date_time_format,
+     liberror_error_t **error )
+{
+	libfdatetime_date_time_values_t date_time_values;
+
+	libfdatetime_internal_filetime_t *internal_filetime = NULL;
+	static char *function                               = "libfdatetime_filetime_copy_to_utf32_string";
+	size_t string_index                                 = 0;
+	uint8_t byte_value                                  = 0;
+	uint8_t byte_shift                                  = 0;
+	int result                                          = 0;
+
+	if( filetime == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid filetime.",
+		 function );
+
+		return( -1 );
+	}
+	internal_filetime = (libfdatetime_internal_filetime_t *) filetime;
+
+	if( libfdatetime_filetime_copy_to_date_time_values(
+	     internal_filetime,
+	     &date_time_values,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set date time values.",
+		 function );
+
+		return( -1 );
+	}
+	/* Create the date and time string
+	 */
+	result = libfdatetime_date_time_values_copy_to_utf32_string(
+	          &date_time_values,
+	          utf32_string,
+	          utf32_string_size,
+	          string_format_flags,
+	          date_time_format,
+	          error );
+
+	if( result == -1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set string.",
+		 function );
+
+		return( -1 );
+	}
+	else if( result == 0 )
+	{
+		if( utf32_string == NULL )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-32 string.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf32_string_size > (size_t) SSIZE_MAX )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+			 "%s: invalid UTF-32 string size value exceeds maximum.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf32_string_size < 24 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UTF-32 string is too small.",
+			 function );
+
+			return( -1 );
+		}
+		utf32_string[ string_index++ ] = (uint32_t) '(';
+		utf32_string[ string_index++ ] = (uint32_t) '0';
+		utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+		byte_shift = 28;
+
+		do
+		{
+			byte_value = ( internal_filetime->upper >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+			}
+			else
+			{
+				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf32_string[ string_index++ ] = (uint32_t) ' ';
+		utf32_string[ string_index++ ] = (uint32_t) '0';
+		utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+		byte_shift = 28;
+
+		do
+		{
+			byte_value = ( internal_filetime->lower >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+			}
+			else
+			{
+				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf32_string[ string_index++ ] = (uint32_t) ')';
+
+		utf32_string[ string_index++ ] = 0;
 	}
 	return( 1 );
 }

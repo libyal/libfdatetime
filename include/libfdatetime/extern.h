@@ -4,7 +4,7 @@
  * library functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations.
+ * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
  *

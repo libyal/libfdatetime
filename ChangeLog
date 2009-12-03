@@ -20,9 +20,9 @@ Deployment
 * update macosx file
 * add debian files
 
-20091112
-* removed All rights reserved
-* updated common, liberror
+20091203
+* updated common
+* added UTF-16 and UTF-32 string functions
 
 20091026
 * changed common/endian.h into common/byte_stream.h

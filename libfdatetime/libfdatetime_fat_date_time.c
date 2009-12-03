@@ -2,7 +2,7 @@
  * FAT date and time functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations.
+ * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -254,15 +254,155 @@ int libfdatetime_fat_date_time_copy_from_uint32(
 	return( 1 );
 }
 
-/* Converts the FAT date and time into a string
- * The strings is encoded in UTF-8
+/* Converts a FAT date and time into date time values
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_fat_date_time_copy_to_date_time_values(
+     libfdatetime_internal_fat_date_time_t *internal_fat_date_time,
+     libfdatetime_date_time_values_t *date_time_values,
+     liberror_error_t **error )
+{
+	static char *function = "libfdatetime_fat_date_time_copy_to_date_time_values";
+
+	if( internal_fat_date_time == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid internal fat date time.",
+		 function );
+
+		return( -1 );
+	}
+	if( date_time_values == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid date time values.",
+		 function );
+
+		return( -1 );
+	}
+	/* The year value is stored in bits 9 - 15 of the date (7 bits)
+	 * A year value of 0 represents 1980
+	 */
+	date_time_values->year = (uint16_t) ( 1980 + ( ( internal_fat_date_time->date >> 9 ) & 0x7f ) );
+
+	/* The month value is stored in bits 5 - 8 of the date (4 bits)
+	 * A month value of 1 represents January
+	 */
+	date_time_values->month = (uint8_t) ( ( internal_fat_date_time->date >> 5 ) & 0x0f );
+
+	/* The day value is stored in bits 0 - 4 of the date (5 bits)
+	 */
+	date_time_values->day = (uint8_t) ( internal_fat_date_time->date & 0x1f );
+
+	/* The hours value is stored in bits 11 - 15 of the time (5 bits)
+	 */
+	date_time_values->hours = (uint8_t) ( ( internal_fat_date_time->time >> 11 ) & 0x1f );
+
+	/* The minutes value is stored in bits 5 - 10 of the time (6 bits)
+	 */
+	date_time_values->minutes = (uint8_t) ( ( internal_fat_date_time->time >> 5 ) & 0x3f );
+
+	/* The seconds value is stored in bits 0 - 4 of the time (5 bits)
+	 * The seconds are stored as 2 second intervals
+	 */
+	date_time_values->seconds = (uint8_t) ( internal_fat_date_time->time & 0x1f ) * 2;
+
+	return( 1 );
+}
+
+/* Deterimes the size of the string for the fat date time
+ * The string size includes the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_fat_date_time_get_string_size(
+     libfdatetime_fat_date_time_t *fat_date_time,
+     size_t *string_size,
+     uint8_t string_format_flags,
+     int date_time_format,
+     liberror_error_t **error )
+{
+	libfdatetime_date_time_values_t date_time_values;
+
+	static char *function = "libfdatetime_fat_date_time_get_string_size";
+
+	if( fat_date_time == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid fat date time.",
+		 function );
+
+		return( -1 );
+	}
+	if( string_size == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid string size.",
+		 function );
+
+		return( -1 );
+	}
+	if( libfdatetime_fat_date_time_copy_to_date_time_values(
+	     (libfdatetime_internal_fat_date_time_t *) fat_date_time,
+	     &date_time_values,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set date time values.",
+		 function );
+
+		return( -1 );
+	}
+	/* Create the date and time string
+	 */
+	if( libfdatetime_date_time_values_get_string_size(
+	     &date_time_values,
+	     string_size,
+	     string_format_flags,
+	     date_time_format,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 "%s: unable to get string size.",
+		 function );
+
+		return( -1 );
+	}
+	/* Make sure the string can hold the hexadecimal representation
+	 * of a fat date time
+	 */
+	if( *string_size < 18 )
+	{
+		*string_size = 18;
+	}
+	return( 1 );
+}
+
+/* Converts the FAT date and time into an UTF-8 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_to_string(
+int libfdatetime_fat_date_time_copy_to_utf8_string(
      libfdatetime_fat_date_time_t *fat_date_time,
-     uint8_t *string,
-     size_t string_size,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
      uint8_t string_format_flags,
      int date_time_format,
      liberror_error_t **error )
@@ -270,8 +410,10 @@ int libfdatetime_fat_date_time_copy_to_string(
 	libfdatetime_date_time_values_t date_time_values;
 
 	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
-	static char *function                                         = "libfdatetime_fat_date_time_copy_to_string";
-	int print_count                                               = 0;
+	static char *function                                         = "libfdatetime_fat_date_time_copy_to_utf8_string";
+	size_t string_index                                           = 0;
+	uint8_t byte_value                                            = 0;
+	uint8_t byte_shift                                            = 0;
 	int result                                                    = 0;
 
 	if( fat_date_time == NULL )
@@ -287,39 +429,26 @@ int libfdatetime_fat_date_time_copy_to_string(
 	}
 	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
 
-	/* The year value is stored in bits 9 - 15 of the date (7 bits)
-	 * A year value of 0 represents 1980
-	 */
-	date_time_values.year = (uint16_t) ( 1980 + ( ( internal_fat_date_time->date >> 9 ) & 0x7f ) );
+	if( libfdatetime_fat_date_time_copy_to_date_time_values(
+	     internal_fat_date_time,
+	     &date_time_values,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set date time values.",
+		 function );
 
-	/* The month value is stored in bits 5 - 8 of the date (4 bits)
-	 * A month value of 1 represents January
-	 */
-	date_time_values.month = (uint8_t) ( ( internal_fat_date_time->date >> 5 ) & 0x0f );
-
-	/* The day value is stored in bits 0 - 4 of the date (5 bits)
-	 */
-	date_time_values.day = (uint8_t) ( internal_fat_date_time->date & 0x1f );
-
-	/* The hours value is stored in bits 11 - 15 of the time (5 bits)
-	 */
-	date_time_values.hours = (uint8_t) ( ( internal_fat_date_time->time >> 11 ) & 0x1f );
-
-	/* The minutes value is stored in bits 5 - 10 of the time (6 bits)
-	 */
-	date_time_values.minutes = (uint8_t) ( ( internal_fat_date_time->time >> 5 ) & 0x3f );
-
-	/* The seconds value is stored in bits 0 - 4 of the time (5 bits)
-	 * The seconds are stored as 2 second intervals
-	 */
-	date_time_values.seconds = (uint8_t) ( internal_fat_date_time->time & 0x1f ) * 2;
-
+		return( -1 );
+	}
 	/* Create the date and time string
 	 */
-	result = libfdatetime_date_time_values_copy_to_string(
+	result = libfdatetime_date_time_values_copy_to_utf8_string(
 	          &date_time_values,
-	          string,
-	          string_size,
+	          utf8_string,
+	          utf8_string_size,
 	          string_format_flags,
 	          date_time_format,
 	          error );
@@ -330,14 +459,36 @@ int libfdatetime_fat_date_time_copy_to_string(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set string.",
+		 "%s: unable to set UTF-8 string.",
 		 function );
 
 		return( -1 );
 	}
 	else if( result == 0 )
 	{
-		if( string_size < 16 )
+		if( utf8_string == NULL )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-8 string.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf8_string_size > (size_t) SSIZE_MAX )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+			 "%s: invalid UTF-8 string size value exceeds maximum.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf8_string_size < 16 )
 		{
 			liberror_error_set(
 			 error,
@@ -348,25 +499,363 @@ int libfdatetime_fat_date_time_copy_to_string(
 
 			return( -1 );
 		}
-		print_count = libfdatetime_string_snprintf(
-			       string,
-			       string_size,
-			       "(0x%04" PRIx16 " 0x%04" PRIx16 ")",
-		               internal_fat_date_time->date,
-		               internal_fat_date_time->time );
+		utf8_string[ string_index++ ] = (uint8_t) '(';
+		utf8_string[ string_index++ ] = (uint8_t) '0';
+		utf8_string[ string_index++ ] = (uint8_t) 'x';
 
-		if( ( print_count < 0 )
-		 || ( (size_t) print_count > string_size ) )
+		byte_shift = 12;
+
+		do
+		{
+			byte_value = ( internal_fat_date_time->date >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+			}
+			else
+			{
+				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf8_string[ string_index++ ] = (uint8_t) ' ';
+		utf8_string[ string_index++ ] = (uint8_t) '0';
+		utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+		byte_shift = 12;
+
+		do
+		{
+			byte_value = ( internal_fat_date_time->time >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+			}
+			else
+			{
+				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf8_string[ string_index++ ] = (uint8_t) ')';
+
+		utf8_string[ string_index++ ] = 0;
+	}
+	return( 1 );
+}
+
+/* Converts the FAT date and time into an UTF-16 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_fat_date_time_copy_to_utf16_string(
+     libfdatetime_fat_date_time_t *fat_date_time,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     uint8_t string_format_flags,
+     int date_time_format,
+     liberror_error_t **error )
+{
+	libfdatetime_date_time_values_t date_time_values;
+
+	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
+	static char *function                                         = "libfdatetime_fat_date_time_copy_to_utf16_string";
+	size_t string_index                                           = 0;
+	uint8_t byte_value                                            = 0;
+	uint8_t byte_shift                                            = 0;
+	int result                                                    = 0;
+
+	if( fat_date_time == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid FAT date time.",
+		 function );
+
+		return( -1 );
+	}
+	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
+
+	if( libfdatetime_fat_date_time_copy_to_date_time_values(
+	     internal_fat_date_time,
+	     &date_time_values,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set date time values.",
+		 function );
+
+		return( -1 );
+	}
+	/* Create the date and time string
+	 */
+	result = libfdatetime_date_time_values_copy_to_utf16_string(
+	          &date_time_values,
+	          utf16_string,
+	          utf16_string_size,
+	          string_format_flags,
+	          date_time_format,
+	          error );
+
+	if( result == -1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set UTF-16 string.",
+		 function );
+
+		return( -1 );
+	}
+	else if( result == 0 )
+	{
+		if( utf16_string == NULL )
 		{
 			liberror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_RUNTIME,
-			 LIBERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to set string.",
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-16 string.",
 			 function );
 
 			return( -1 );
 		}
+		if( utf16_string_size > (size_t) SSIZE_MAX )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+			 "%s: invalid UTF-16 string size value exceeds maximum.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf16_string_size < 16 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: string is too small.",
+			 function );
+
+			return( -1 );
+		}
+		utf16_string[ string_index++ ] = (uint16_t) '(';
+		utf16_string[ string_index++ ] = (uint16_t) '0';
+		utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+		byte_shift = 12;
+
+		do
+		{
+			byte_value = ( internal_fat_date_time->date >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+			}
+			else
+			{
+				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf16_string[ string_index++ ] = (uint16_t) ' ';
+		utf16_string[ string_index++ ] = (uint16_t) '0';
+		utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+		byte_shift = 12;
+
+		do
+		{
+			byte_value = ( internal_fat_date_time->time >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+			}
+			else
+			{
+				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf16_string[ string_index++ ] = (uint16_t) ')';
+
+		utf16_string[ string_index++ ] = 0;
+	}
+	return( 1 );
+}
+
+/* Converts the FAT date and time into an UTF-32 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_fat_date_time_copy_to_utf32_string(
+     libfdatetime_fat_date_time_t *fat_date_time,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     uint8_t string_format_flags,
+     int date_time_format,
+     liberror_error_t **error )
+{
+	libfdatetime_date_time_values_t date_time_values;
+
+	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
+	static char *function                                         = "libfdatetime_fat_date_time_copy_to_utf32_string";
+	size_t string_index                                           = 0;
+	uint8_t byte_value                                            = 0;
+	uint8_t byte_shift                                            = 0;
+	int result                                                    = 0;
+
+	if( fat_date_time == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid FAT date time.",
+		 function );
+
+		return( -1 );
+	}
+	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
+
+	if( libfdatetime_fat_date_time_copy_to_date_time_values(
+	     internal_fat_date_time,
+	     &date_time_values,
+	     error ) != 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set date time values.",
+		 function );
+
+		return( -1 );
+	}
+	/* Create the date and time string
+	 */
+	result = libfdatetime_date_time_values_copy_to_utf32_string(
+	          &date_time_values,
+	          utf32_string,
+	          utf32_string_size,
+	          string_format_flags,
+	          date_time_format,
+	          error );
+
+	if( result == -1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 "%s: unable to set UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	else if( result == 0 )
+	{
+		if( utf32_string == NULL )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-32 string.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf32_string_size > (size_t) SSIZE_MAX )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+			 "%s: invalid UTF-32 string size value exceeds maximum.",
+			 function );
+
+			return( -1 );
+		}
+		if( utf32_string_size < 16 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: string is too small.",
+			 function );
+
+			return( -1 );
+		}
+		utf32_string[ string_index++ ] = (uint32_t) '(';
+		utf32_string[ string_index++ ] = (uint32_t) '0';
+		utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+		byte_shift = 12;
+
+		do
+		{
+			byte_value = ( internal_fat_date_time->date >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+			}
+			else
+			{
+				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf32_string[ string_index++ ] = (uint32_t) ' ';
+		utf32_string[ string_index++ ] = (uint32_t) '0';
+		utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+		byte_shift = 12;
+
+		do
+		{
+			byte_value = ( internal_fat_date_time->time >> byte_shift ) & 0x0f;
+
+			if( byte_value <= 9 )
+			{
+				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+			}
+			else
+			{
+				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value;
+			}
+			byte_shift -= 4;
+		}
+		while( byte_shift > 0 );
+
+		utf32_string[ string_index++ ] = (uint32_t) ')';
+
+		utf32_string[ string_index++ ] = 0;
 	}
 	return( 1 );
 }

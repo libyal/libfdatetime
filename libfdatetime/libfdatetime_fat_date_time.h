@@ -2,7 +2,7 @@
  * FAT date and time functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations.
+ * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -72,17 +72,22 @@ int libfdatetime_fat_date_time_copy_from_uint32(
      uint32_t value_32bit,
      liberror_error_t **error );
 
-int libfdatetime_fat_date_time_copy_to_string_size(
+int libfdatetime_fat_dat_time_copy_to_date_time_values(
+     libfdatetime_internal_fat_date_time_t *internal_fat_date_time,
+     libfdatetime_date_time_values_t *date_time_values,
+     liberror_error_t **error );
+
+int libfdatetime_fat_date_time_get_string_size(
      libfdatetime_fat_date_time_t *fat_date_time,
      size_t *string_size,
      uint8_t string_format_flags,
      int date_time_format,
      liberror_error_t **error );
 
-int libfdatetime_fat_date_time_copy_to_string(
+int libfdatetime_fat_date_time_copy_to_utf8_string(
      libfdatetime_fat_date_time_t *fat_date_time,
-     uint8_t *string,
-     size_t string_size,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
      uint8_t string_format_flags,
      int date_time_format,
      liberror_error_t **error );

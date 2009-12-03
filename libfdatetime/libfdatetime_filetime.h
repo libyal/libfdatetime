@@ -2,7 +2,7 @@
  * Filetime functions
  *
  * Copyright (c) 2008-2009, Joachim Metz <forensics@hoffmannbv.nl>,
- * Hoffmann Investigations.
+ * Hoffmann Investigations. All rights reserved.
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -76,6 +76,11 @@ LIBFDATETIME_EXTERN int libfdatetime_filetime_copy_from_uint64(
                          uint64_t value_64bit,
                          liberror_error_t **error );
 
+int libfdatetime_filetime_copy_to_date_time_values(
+     libfdatetime_internal_filetime_t *internal_filetime,
+     libfdatetime_date_time_values_t *date_time_values,
+     liberror_error_t **error );
+
 LIBFDATETIME_EXTERN int libfdatetime_filetime_get_string_size(
                          libfdatetime_filetime_t *filetime,
                          size_t *string_size,
@@ -83,10 +88,26 @@ LIBFDATETIME_EXTERN int libfdatetime_filetime_get_string_size(
                          int date_time_format,
                          liberror_error_t **error );
 
-LIBFDATETIME_EXTERN int libfdatetime_filetime_copy_to_string(
+LIBFDATETIME_EXTERN int libfdatetime_filetime_copy_to_utf8_string(
                          libfdatetime_filetime_t *filetime,
-                         uint8_t *string,
-                         size_t string_size,
+                         uint8_t *utf8_string,
+                         size_t utf8_string_size,
+                         uint8_t string_format_flags,
+                         int date_time_format,
+                         liberror_error_t **error );
+
+LIBFDATETIME_EXTERN int libfdatetime_filetime_copy_to_utf16_string(
+                         libfdatetime_filetime_t *filetime,
+                         uint16_t *utf16_string,
+                         size_t utf16_string_size,
+                         uint8_t string_format_flags,
+                         int date_time_format,
+                         liberror_error_t **error );
+
+LIBFDATETIME_EXTERN int libfdatetime_filetime_copy_to_utf32_string(
+                         libfdatetime_filetime_t *filetime,
+                         uint32_t *utf32_string,
+                         size_t utf32_string_size,
                          uint8_t string_format_flags,
                          int date_time_format,
                          liberror_error_t **error );
