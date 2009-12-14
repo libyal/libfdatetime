@@ -306,14 +306,14 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 			utf8_string[ string_index++ ] = (uint8_t) ',';
 			utf8_string[ string_index++ ] = (uint8_t) ' ';
 
-			year_value                       = date_time_values->year;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 1000 );
-			year_value                      %= 1000;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 100 );
-			year_value                      %= 100;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 10 );
-			year_value                      %= 10;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + year_value;
+			year_value                    = date_time_values->year;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 1000 );
+			year_value                   %= 1000;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 100 );
+			year_value                   %= 100;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 10 );
+			year_value                   %= 10;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) year_value;
 
 			utf8_string[ string_index++ ] = (uint8_t) ' ';
 
@@ -358,14 +358,14 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 			utf8_string[ string_index++ ] = (uint8_t) ',';
 			utf8_string[ string_index++ ] = (uint8_t) ' ';
 
-			year_value                       = date_time_values->year;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 1000 );
-			year_value                      %= 1000;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 100 );
-			year_value                      %= 100;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 10 );
-			year_value                      %= 10;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + year_value;
+			year_value                    = date_time_values->year;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 1000 );
+			year_value                   %= 1000;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 100 );
+			year_value                   %= 100;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 10 );
+			year_value                   %= 10;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) year_value;
 
 			utf8_string[ string_index++ ] = 0;
 		}
@@ -415,14 +415,14 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 				return( -1 );
 			}
 			/* Format: yyyy-mm-ddTHH:MM:SS */
-			year_value                       = date_time_values->year;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 1000 );
-			year_value                      %= 1000;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 100 );
-			year_value                      %= 100;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 10 );
-			year_value                      %= 10;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + year_value;
+			year_value                    = date_time_values->year;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 1000 );
+			year_value                   %= 1000;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 100 );
+			year_value                   %= 100;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 10 );
+			year_value                   %= 10;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) year_value;
 
 			utf8_string[ string_index++ ] = (uint8_t) '-';
 
@@ -465,14 +465,14 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 				return( -1 );
 			}
 			/* Format: yyyy-mm-dd */
-			year_value                       = date_time_values->year;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 1000 );
-			year_value                      %= 1000;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 100 );
-			year_value                      %= 100;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( year_value / 10 );
-			year_value                      %= 10;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + year_value;
+			year_value                    = date_time_values->year;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 1000 );
+			year_value                   %= 1000;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 100 );
+			year_value                   %= 100;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 10 );
+			year_value                   %= 10;
+			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) year_value;
 
 			utf8_string[ string_index++ ] = (uint8_t) '-';
 
@@ -698,13 +698,13 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 			utf16_string[ string_index++ ] = (uint16_t) ',';
 			utf16_string[ string_index++ ] = (uint16_t) ' ';
 
-			year_value                        = date_time_values->year;
+			year_value                     = date_time_values->year;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 1000 );
-			year_value                       %= 1000;
+			year_value                    %= 1000;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 100 );
-			year_value                       %= 100;
+			year_value                    %= 100;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 10 );
-			year_value                       %= 10;
+			year_value                    %= 10;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + year_value;
 
 			utf16_string[ string_index++ ] = (uint16_t) ' ';
@@ -750,13 +750,13 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 			utf16_string[ string_index++ ] = (uint16_t) ',';
 			utf16_string[ string_index++ ] = (uint16_t) ' ';
 
-			year_value                        = date_time_values->year;
+			year_value                     = date_time_values->year;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 1000 );
-			year_value                       %= 1000;
+			year_value                    %= 1000;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 100 );
-			year_value                       %= 100;
+			year_value                    %= 100;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 10 );
-			year_value                       %= 10;
+			year_value                    %= 10;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + year_value;
 
 			utf16_string[ string_index++ ] = 0;
@@ -807,13 +807,13 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 				return( -1 );
 			}
 			/* Format: yyyy-mm-ddTHH:MM:SS */
-			year_value                        = date_time_values->year;
+			year_value                     = date_time_values->year;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 1000 );
-			year_value                       %= 1000;
+			year_value                    %= 1000;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 100 );
-			year_value                       %= 100;
+			year_value                    %= 100;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 10 );
-			year_value                       %= 10;
+			year_value                    %= 10;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + year_value;
 
 			utf16_string[ string_index++ ] = (uint16_t) '-';
@@ -857,14 +857,14 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 				return( -1 );
 			}
 			/* Format: yyyy-mm-dd */
-			year_value                        = date_time_values->year;
-			utf16_string[ string_index++ ] = '0' + (uint16_t) ( year_value / 1000 );
-			year_value                       %= 1000;
-			utf16_string[ string_index++ ] = '0' + (uint16_t) ( year_value / 100 );
-			year_value                       %= 100;
-			utf16_string[ string_index++ ] = '0' + (uint16_t) ( year_value / 10 );
-			year_value                       %= 10;
-			utf16_string[ string_index++ ] = '0' + (uint16_t) year_value;
+			year_value                     = date_time_values->year;
+			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 1000 );
+			year_value                    %= 1000;
+			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 100 );
+			year_value                    %= 100;
+			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 10 );
+			year_value                    %= 10;
+			utf16_string[ string_index++ ] = (uint16_t) '0' + year_value;
 
 			utf16_string[ string_index++ ] = (uint16_t) '-';
 
@@ -1090,14 +1090,14 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 			utf32_string[ string_index++ ] = (uint32_t) ',';
 			utf32_string[ string_index++ ] = (uint32_t) ' ';
 
-			year_value                        = date_time_values->year;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 1000 );
-			year_value                       %= 1000;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 100 );
-			year_value                       %= 100;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 10 );
-			year_value                       %= 10;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + year_value;
+			year_value                     = date_time_values->year;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 1000 );
+			year_value                    %= 1000;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 100 );
+			year_value                    %= 100;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 10 );
+			year_value                    %= 10;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
 
 			utf32_string[ string_index++ ] = (uint32_t) ' ';
 
@@ -1142,14 +1142,14 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 			utf32_string[ string_index++ ] = (uint32_t) ',';
 			utf32_string[ string_index++ ] = (uint32_t) ' ';
 
-			year_value                        = date_time_values->year;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 1000 );
-			year_value                       %= 1000;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 100 );
-			year_value                       %= 100;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 10 );
-			year_value                       %= 10;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + year_value;
+			year_value                     = date_time_values->year;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 1000 );
+			year_value                    %= 1000;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 100 );
+			year_value                    %= 100;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 10 );
+			year_value                    %= 10;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
 
 			utf32_string[ string_index++ ] = 0;
 		}
@@ -1199,14 +1199,14 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 				return( -1 );
 			}
 			/* Format: yyyy-mm-ddTHH:MM:SS */
-			year_value                        = date_time_values->year;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 1000 );
-			year_value                       %= 1000;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 100 );
-			year_value                       %= 100;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 10 );
-			year_value                       %= 10;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + year_value;
+			year_value                     = date_time_values->year;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 1000 );
+			year_value                    %= 1000;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 100 );
+			year_value                    %= 100;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 10 );
+			year_value                    %= 10;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
 
 			utf32_string[ string_index++ ] = (uint32_t) '-';
 
@@ -1249,14 +1249,14 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 				return( -1 );
 			}
 			/* Format: yyyy-mm-dd */
-			year_value                        = date_time_values->year;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 1000 );
-			year_value                       %= 1000;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 100 );
-			year_value                       %= 100;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 10 );
-			year_value                       %= 10;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + year_value;
+			year_value                     = date_time_values->year;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 1000 );
+			year_value                    %= 1000;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 100 );
+			year_value                    %= 100;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 10 );
+			year_value                    %= 10;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
 
 			utf32_string[ string_index++ ] = (uint32_t) '-';
 

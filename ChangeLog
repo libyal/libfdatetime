@@ -20,6 +20,9 @@ Deployment
 * update macosx file
 * add debian files
 
+20091214
+* fixes for windows build
+
 20091203
 * updated common
 * added UTF-16 and UTF-32 string functions
