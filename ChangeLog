@@ -20,6 +20,9 @@ Deployment
 * update macosx file
 * add debian files
 
+20091217
+* removed all rights reserved
+
 20091214
 * fixes for windows build
 
