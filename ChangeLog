@@ -17,8 +17,14 @@ Deployment
 * update msvscpp files
 * update codegear files
 * update manuals
-* update macosx file
+* add macosx file
 * add debian files
+
+20100103
+* 2010 update
+* updated common, liberror
+* removed macosx files (for now)
+* updated include/types.h
 
 20091217
 * removed all rights reserved

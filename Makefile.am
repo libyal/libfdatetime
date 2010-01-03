@@ -6,7 +6,6 @@ SUBDIRS = \
 	liberror \
 	libfdatetime \
 	manuals \
-	macosx \
 	borland \
 	msvscpp
 

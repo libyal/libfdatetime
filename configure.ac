@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
-  [20091217],
+  [20100103],
   [forensics@hoffmannbv.nl])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libfdatetime],
- [20091217])
+ [20100103])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -357,9 +357,12 @@ AC_CHECK_FUNCS(
 AC_CHECK_FUNCS(
  [vsnprintf],
  [],
- [AC_MSG_FAILURE(
-  [Missing function: vsnprintf],
-  [1]) ])
+ [AC_CHECK_FUNCS(
+  [vsprintf],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: vsnprintf and vsprintf],
+   [1]) ]) ])
 
 dnl File input/output functions used in libfdatetime/libfdatetime_file.h
 AC_CHECK_FUNCS(
@@ -456,6 +459,13 @@ AS_IF(
 	 [],
 	 [AC_MSG_FAILURE(
 	  [Missing functions: swprintf],
+	  [1]) ])
+
+	AC_CHECK_FUNCS(
+	 [vswprintf],
+	 [],
+	 [AC_MSG_FAILURE(
+	  [Missing function: vswprintf],
 	  [1]) ])
 
 	AC_CHECK_FUNCS(
@@ -590,7 +600,6 @@ AC_CONFIG_FILES([common/Makefile])
 AC_CONFIG_FILES([liberror/Makefile])
 AC_CONFIG_FILES([libfdatetime/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
-AC_CONFIG_FILES([macosx/Makefile])
 AC_CONFIG_FILES([borland/Makefile])
 AC_CONFIG_FILES([msvscpp/Makefile])
 dnl Have configure make the include files
@@ -601,7 +610,6 @@ AC_CONFIG_FILES([include/libfdatetime/types.h])
 AC_CONFIG_FILES([libfdatetime/libfdatetime_definitions.h])
 dnl Have configure make distribution specific files
 AC_CONFIG_FILES([common/types.h])
-AC_CONFIG_FILES([macosx/Introduction.rtf])
 AC_CONFIG_FILES([libfdatetime.pc])
 AC_CONFIG_FILES([libfdatetime.spec])
 dnl Have configure write its configuration
