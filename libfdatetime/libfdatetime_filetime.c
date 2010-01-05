@@ -659,7 +659,7 @@ int libfdatetime_filetime_copy_to_utf8_string(
 			}
 			else
 			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value;
+				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
 			}
 			byte_shift -= 4;
 		}
@@ -681,7 +681,7 @@ int libfdatetime_filetime_copy_to_utf8_string(
 			}
 			else
 			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value;
+				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
 			}
 			byte_shift -= 4;
 		}
@@ -814,7 +814,7 @@ int libfdatetime_filetime_copy_to_utf16_string(
 			}
 			else
 			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value;
+				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
 			}
 			byte_shift -= 4;
 		}
@@ -836,7 +836,7 @@ int libfdatetime_filetime_copy_to_utf16_string(
 			}
 			else
 			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value;
+				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
 			}
 			byte_shift -= 4;
 		}
@@ -969,7 +969,7 @@ int libfdatetime_filetime_copy_to_utf32_string(
 			}
 			else
 			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value;
+				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
 			}
 			byte_shift -= 4;
 		}
@@ -991,7 +991,7 @@ int libfdatetime_filetime_copy_to_utf32_string(
 			}
 			else
 			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value;
+				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
 			}
 			byte_shift -= 4;
 		}

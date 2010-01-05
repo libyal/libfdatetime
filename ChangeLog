@@ -20,6 +20,9 @@ Deployment
 * add macosx file
 * add debian files
 
+20100105
+* base16 fix
+
 20100103
 * 2010 update
 * updated common, liberror
