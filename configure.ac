@@ -2,15 +2,15 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
-  [20100105],
-  [forensics@hoffmannbv.nl])
+  [20100222],
+  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
  [include/libfdatetime.h.in])
 
 AM_INIT_AUTOMAKE(
  [libfdatetime],
- [20100105])
+ [20100222])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -268,12 +268,9 @@ AC_CHECK_FUNCS(
 AC_CHECK_FUNCS(
  [snprintf],
  [],
- [AC_CHECK_FUNCS(
-  [sprintf],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: snprintf and sprintf],
-   [1]) ]) ])
+ [AC_MSG_FAILURE(
+  [Missing functions: snprintf],
+  [1]) ])
 
 AC_CHECK_FUNCS(
  [sscanf],
@@ -357,12 +354,9 @@ AC_CHECK_FUNCS(
 AC_CHECK_FUNCS(
  [vsnprintf],
  [],
- [AC_CHECK_FUNCS(
-  [vsprintf],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: vsnprintf and vsprintf],
-   [1]) ]) ])
+ [AC_MSG_FAILURE(
+  [Missing functions: vsnprintf],
+  [1]) ])
 
 dnl File input/output functions used in libfdatetime/libfdatetime_file.h
 AC_CHECK_FUNCS(

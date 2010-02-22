@@ -1,6 +1,7 @@
 /*
  * Narrow character string functions
  *
+ * Copyright (c) 2010, Joachim Metz <jbmetz@users.sourceforge.net>
  * Copyright (c) 2006-2010, Joachim Metz <forensics@hoffmannbv.nl>,
  * Hoffmann Investigations.
  *
@@ -126,11 +127,7 @@ extern "C" {
 
 /* String formatted print (snprintf)
  */
-#if defined( __BORLANDC__ ) && __BORLANDC__ < 0x0560
-/* No snprintf available
- */
-
-#elif defined( HAVE_GLIB_H )
+#if defined( HAVE_GLIB_H )
 #define narrow_string_snprintf( target, size, ... ) \
 	g_snprintf( target, size, __VA_ARGS__ )
 
@@ -138,25 +135,18 @@ extern "C" {
 #define narrow_string_snprintf( target, size, ... ) \
 	sprintf_s( target, size, __VA_ARGS__ )
 
+#elif defined( __BORLANDC__ ) && ( __BORLANDC__ < 0x0560 )
+#define narrow_string_snprintf \
+	snprintf
+
 #elif defined( HAVE_SNPRINTF ) || defined( WINAPI )
 #define narrow_string_snprintf( target, size, ... ) \
 	snprintf( target, size, __VA_ARGS__ )
 #endif
 
-/* String formatted print (sprintf)
- */
-#if defined( __BORLANDC__ ) && __BORLANDC__ < 0x0560
-#define narrow_string_sprintf \
-	sprintf
-
-#elif defined( HAVE_SPRINTF ) || defined( WINAPI )
-#define narrow_string_sprintf( target, ... ) \
-	sprintf( target, __VA_ARGS__ )
-#endif
-
 /* String input conversion (sscanf)
  */
-#if defined( __BORLANDC__ ) && __BORLANDC__ < 0x0560
+#if defined( __BORLANDC__ ) && ( __BORLANDC__ < 0x0560 )
 #define narrow_string_sscanf \
 	sscanf
 
@@ -165,7 +155,7 @@ extern "C" {
 	sscanf( string, format, __VA_ARGS__ )
 #endif
 
-/* String to singed long long (int64)
+/* String to signed long long (int64)
  */
 #if defined( HAVE_GLIB_H )
 #define narrow_string_to_signed_long_long( string, end_of_string, base ) \
@@ -205,34 +195,17 @@ extern "C" {
 
 /* Variable arguments formatted print to string function (vsnprintf)
  */
-#if defined( __BORLANDC__ ) && __BORLANDC__ < 0x0560
-/* No vsnprintf available
- */
-
-#elif defined( HAVE_GLIB_H )
+#if defined( HAVE_GLIB_H )
 #define narrow_string_vsnprintf( string, size, format, ... ) \
 	g_vsnprintf( string, size, format, __VA_ARGS__ )
 
-/* This definition causes problems
-#elif defined( _MSC_VER )
-#define narrow_string_vsnprintf( string, size, format, ... ) \
-	_vsnprintf_s( string, size, size, format, __VA_ARGS__ )
-*/
+#elif defined( __BORLANDC__ ) && ( __BORLANDC__ < 0x0560 )
+#define narrow_string_vsnprintf \
+	vsnprintf
 
 #elif defined( HAVE_VSNPRINTF ) || defined( WINAPI )
 #define narrow_string_vsnprintf( string, size, format, ... ) \
 	vsnprintf( string, size, format, __VA_ARGS__ )
-#endif
-
-/* Variable arguments formatted print to string function (vnprintf)
- */
-#if defined( __BORLANDC__ ) && __BORLANDC__ < 0x0560
-#define narrow_string_vsprintf \
-	vsprintf
-
-#elif defined( HAVE_VSPRINTF ) || defined( WINAPI )
-#define narrow_string_vsprintf( string, format, ... ) \
-	vsprintf( string, format, __VA_ARGS__ )
 #endif
 
 #if defined( __cplusplus )

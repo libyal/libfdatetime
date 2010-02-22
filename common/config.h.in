@@ -104,9 +104,6 @@
 /* Define to 1 if you have the `snprintf' function. */
 #undef HAVE_SNPRINTF
 
-/* Define to 1 if you have the `sprintf' function. */
-#undef HAVE_SPRINTF
-
 /* Define to 1 if you have the `sscanf' function. */
 #undef HAVE_SSCANF
 
@@ -178,9 +175,6 @@
 
 /* Define to 1 if you have the `vsnprintf' function. */
 #undef HAVE_VSNPRINTF
-
-/* Define to 1 if you have the `vsprintf' function. */
-#undef HAVE_VSPRINTF
 
 /* Define to 1 if you have the `vswprintf' function. */
 #undef HAVE_VSWPRINTF
