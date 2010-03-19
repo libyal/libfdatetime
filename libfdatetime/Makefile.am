@@ -9,6 +9,7 @@ libfdatetime_la_SOURCES = \
 	libfdatetime_error.c libfdatetime_error.h \
 	libfdatetime_fat_date_time.c libfdatetime_fat_date_time.h \
 	libfdatetime_filetime.c libfdatetime_filetime.h \
+	libfdatetime_nsf_timedate.c libfdatetime_nsf_timedate.h \
 	libfdatetime_string.h \
 	libfdatetime_support.c libfdatetime_support.h \
 	libfdatetime_types.h

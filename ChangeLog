@@ -13,12 +13,25 @@ FAT date and time
 Filetime
 * implement libfdatetime_filetime_get_string_size
 
+HFS date/time
+* implement
+
+NFS timedate
+* implement
+
+Unix timestamp
+* implement
+
 Deployment
 * update msvscpp files
 * update codegear files
 * update manuals
 * add macosx file
 * add debian files
+
+20100319
+* worked on NSF timedate
+* clean up of configure.ac
 
 20100222
 * email update

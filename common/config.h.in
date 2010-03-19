@@ -6,9 +6,6 @@
 /* Define to 1 if you have the `close' function. */
 #undef HAVE_CLOSE
 
-/* Defines if debug output should be used */
-#undef HAVE_DEBUG_OUTPUT
-
 /* Define to 1 if you have the declaration of `memrchr', and to 0 if you
    don't. */
 #undef HAVE_DECL_MEMRCHR
@@ -34,9 +31,6 @@
 
 /* Define to 1 if you have the `fgets' function. */
 #undef HAVE_FGETS
-
-/* Define to 1 if you have the `fgetws' function. */
-#undef HAVE_FGETWS
 
 /* Define to 1 if you have the `fopen' function. */
 #undef HAVE_FOPEN
@@ -152,9 +146,6 @@
 /* Define to 1 if you have the `strtoull' function. */
 #undef HAVE_STRTOULL
 
-/* Define to 1 if you have the `swprintf' function. */
-#undef HAVE_SWPRINTF
-
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #undef HAVE_SYS_STAT_H
 
@@ -167,62 +158,11 @@
 /* Define to 1 if you have the <varargs.h> header file. */
 #undef HAVE_VARARGS_H
 
-/* Defines if verbose output should be used */
-#undef HAVE_VERBOSE_OUTPUT
-
 /* Define to 1 if you have the `vfprintf' function. */
 #undef HAVE_VFPRINTF
 
 /* Define to 1 if you have the `vsnprintf' function. */
 #undef HAVE_VSNPRINTF
-
-/* Define to 1 if you have the `vswprintf' function. */
-#undef HAVE_VSWPRINTF
-
-/* Define to 1 if you have the <wchar.h> header file. */
-#undef HAVE_WCHAR_H
-
-/* Define to 1 if you have the `wcschr' function. */
-#undef HAVE_WCSCHR
-
-/* Define to 1 if you have the `wcscmp' function. */
-#undef HAVE_WCSCMP
-
-/* Define to 1 if you have the `wcscpy' function. */
-#undef HAVE_WCSCPY
-
-/* Define to 1 if you have the `wcslen' function. */
-#undef HAVE_WCSLEN
-
-/* Define to 1 if you have the `wcsncmp' function. */
-#undef HAVE_WCSNCMP
-
-/* Define to 1 if you have the `wcsncpy' function. */
-#undef HAVE_WCSNCPY
-
-/* Define to 1 if you have the `wcsrchr' function. */
-#undef HAVE_WCSRCHR
-
-/* Define to 1 if you have the `wcstoll' function. */
-#undef HAVE_WCSTOLL
-
-/* Define to 1 if you have the `wcstoull' function. */
-#undef HAVE_WCSTOULL
-
-/* Defines if wide character type should be used */
-#undef HAVE_WIDE_CHARACTER_TYPE
-
-/* Define to 1 if you have the `wmemchr' function. */
-#undef HAVE_WMEMCHR
-
-/* Define to 1 if you have the `wmemcmp' function. */
-#undef HAVE_WMEMCMP
-
-/* Define to 1 if you have the `wmemcpy' function. */
-#undef HAVE_WMEMCPY
-
-/* Define to 1 if you have the `wmemrchr' function. */
-#undef HAVE_WMEMRCHR
 
 /* Define to 1 if you have the `write' function. */
 #undef HAVE_WRITE
@@ -254,9 +194,6 @@
 
 /* The size of `size_t', as computed by sizeof. */
 #undef SIZEOF_SIZE_T
-
-/* The size of `wchar_t', as computed by sizeof. */
-#undef SIZEOF_WCHAR_T
 
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS

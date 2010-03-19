@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
-  [20100222],
+  [20100319],
   [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libfdatetime],
- [20100222])
+ [20100319])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -19,13 +19,6 @@ AC_CANONICAL_HOST
 
 dnl Check for large file support
 AC_SYS_LARGEFILE
-
-dnl Check for configure arguments
-LIBFDATETIME_TEST_ENABLE(
- [wide-character-type],
- [wide_character_type],
- [enable wide character type support],
- [no])
 
 dnl Check for libtool DLL support
 AC_LIBTOOL_WIN32_DLL
@@ -418,156 +411,6 @@ LIBFDATETIME_PRINTF_ZD
 dnl Checks for libraries and library functions
 dnl ac_libfdatetime_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
 
-dnl Check if libfdatetime should be build with wide character type support
-AS_IF(
-	[test "x$ac_cv_libfdatetime_enable_wide_character_type" != xno ],
-	[dnl Check for the wide character header
-	AC_CHECK_HEADERS(
-	 [wchar.h],
-	 [AC_DEFINE(
-	  [HAVE_WCHAR_H],
-	  [1],
-	  [Define to 1 if you have the <wchar.h> header file.])
-	 AC_SUBST(
-	  [HAVE_WCHAR_H],
-	  [1]) ],
-	 [AC_MSG_FAILURE(
-	  [Missing header: wchar.h],
-	  [1]) ])
-
-	dnl Determine wide character byte size
-	AC_CHECK_SIZEOF([wchar_t])
-
-	dnl Check for wide character string functions
-
-	dnl Wide character string functions used in common/wide_string.h
-	AC_CHECK_FUNCS(
-	 [fgetws],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing functions: fgetws],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [swprintf],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing functions: swprintf],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [vswprintf],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing function: vswprintf],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcschr],
-	 [],
-	 [AC_CHECK_FUNCS(
-	  [wmemchr],
-	  [],
-	  [AC_MSG_FAILURE(
-	   [Missing functions: wcschr and wmemchr],
-	   [1]) ]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcsncmp],
-	 [],
-	 [AC_CHECK_FUNCS(
-	  [wmemcmp],
-	  [],
-	  [AC_CHECK_FUNCS(
-	   [wcscmp],
-	   [],
-	   [AC_MSG_FAILURE(
-	    [Missing functions: wcsncmp, wmemcmp and wcscmp],
-	    [1]) ]) ]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcsncpy],
-	 [],
-	 [AC_CHECK_FUNCS(
-	  [wmemcpy],
-	  [],
-	  [AC_CHECK_FUNCS(
-	   [wcscpy],
-	   [],
-	   [AC_MSG_FAILURE(
-	    [Missing functions: wcsncpy, wmemcpy and wcscpy],
-	    [1]) ]) ]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcslen],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing functions: wcslen],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcsrchr],
-	 [],
-	 [AC_CHECK_FUNCS(
-	  [wmemrchr],
-	  [],
-	  [AC_MSG_FAILURE(
-	   [Missing functions: wcsrchr and wmemrchr],
-	   [1]) ]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcstoll],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing functions: wcstoll],
-	  [1]) ])
-
-	AC_CHECK_FUNCS(
-	 [wcstoull],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing functions: wcstoull],
-	  [1]) ])
-
-	dnl Make the necessary definitions
-	AC_DEFINE(
-	 [HAVE_WIDE_CHARACTER_TYPE],
-	 [1],
-	 [Defines if wide character type should be used])
-	AC_SUBST(
-	 [HAVE_WIDE_CHARACTER_TYPE],
-	 [1])
-	ac_cv_libfdatetime_enable_wide_character_type=yes],
-
-	[AC_SUBST(
-	 [HAVE_WIDE_CHARACTER_TYPE],
-	 [0])
-	AC_SUBST(
-	 [HAVE_WCHAR_H],
-	 [0]) ])
-
-AC_SUBST(
- [HAVE_WIDE_CHARACTER_SUPPORT_FUNCTIONS],
- [0])
-
-dnl Check if libfdatetime should be build with verbose output
-AS_IF(
-	[test "x$ac_cv_libfdatetime_enable_verbose_output" != xno ],
-	[AC_DEFINE(
-	 [HAVE_VERBOSE_OUTPUT],
-	 [1],
-	 [Defines if verbose output should be used] )
-	ac_cv_libfdatetime_enable_verbose_output=yes])
-
-dnl Check if libfdatetime should be build with debug output
-AS_IF(
-	[test "x$ac_cv_libfdatetime_enable_debug_output" != xno ],
-	[AC_DEFINE(
-	 [HAVE_DEBUG_OUTPUT],
-	 [1],
-	 [Defines if debug output should be used] )
-	ac_cv_libfdatetime_enable_debug_output=yes])
-
 dnl Set memwatch support
 ac_libfdatetime_have_memwatch=no
 
@@ -610,11 +453,4 @@ dnl Have configure write its configuration
 AC_CONFIG_HEADERS([common/config.h])
 
 AC_OUTPUT
-
-dnl Print a summary
-AC_MSG_NOTICE([
-Features:
-   Wide character type support: $ac_cv_libfdatetime_enable_wide_character_type
-]);
-
 

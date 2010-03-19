@@ -39,6 +39,7 @@ typedef intptr_t libfdatetime_fat_date_time_t;
 typedef intptr_t libfdatetime_fat_date_t;
 typedef intptr_t libfdatetime_fat_time_t;
 typedef intptr_t libfdatetime_filetime_t;
+typedef intptr_t libfdatetime_nsf_timedate_t;
 
 #endif
 

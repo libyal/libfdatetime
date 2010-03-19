@@ -1,18 +1,3 @@
-dnl Function to test if a certain feature was enabled
-AC_DEFUN([LIBFDATETIME_TEST_ENABLE],
-	[AC_ARG_ENABLE(
-	 [$1],
-	 [AS_HELP_STRING(
-	  [--enable-$1],
-	  [$3 (default is $4)])],
-	 [ac_cv_libfdatetime_enable_$2=$enableval],
-	 [ac_cv_libfdatetime_enable_$2=$4])dnl
-	 AC_CACHE_CHECK(
-	  [whether to enable $3],
-	  [ac_cv_libfdatetime_enable_$2],
-	  [ac_cv_libfdatetime_enable_$2=$4])dnl
-])
-
 dnl Function to detect whether printf conversion specifier "%jd" is available
 AC_DEFUN([LIBFDATETIME_PRINTF_JD],
 	[SAVE_CFLAGS="$CFLAGS"
