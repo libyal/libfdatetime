@@ -357,15 +357,15 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 
 	/* Determine the year
 	 */
-	date_time_values->year = amount_of_years - 4800 + ( ( amount_of_months + 2 ) / 12 );
+	date_time_values->year = (uint16_t) ( amount_of_years - 4800 + ( ( amount_of_months + 2 ) / 12 ) );
 
 	/* Determine the month
 	 */
 	date_time_values->month = ( ( amount_of_months + 2 ) % 12 ) + 1;
 
-	/* Determine the day
+	/* Determine the day of the month
 	 */
-	date_time_values->day = nsf_julian_day + 1;
+	date_time_values->day = (uint8_t) ( nsf_julian_day + 1 );
 
 	/* Retrieve the amount of seconds from the lower part of the NFS timedate
 	 * which contains the amount of 100th of seconds
@@ -384,7 +384,7 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 
 	/* There are 24 hours in a day correct the value to days
 	 */
-	date_time_values->hours = nsf_time;
+	date_time_values->hours = (uint8_t) nsf_time;
 
 	/* TODO day light savings and timezone */
 
