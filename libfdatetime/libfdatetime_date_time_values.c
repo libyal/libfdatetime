@@ -23,14 +23,12 @@
 
 #include <common.h>
 #include <memory.h>
-#include <narrow_string.h>
 #include <types.h>
 
 #include <liberror.h>
 
 #include "libfdatetime_definitions.h"
 #include "libfdatetime_date_time_values.h"
-#include "libfdatetime_string.h"
 #include "libfdatetime_types.h"
 
 /* Deterimes the size of the string for the date and time values

@@ -11,20 +11,18 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #if !defined( _LIBFDATETIME_TYPES_H )
 #define _LIBFDATETIME_TYPES_H
-
-#include <libfdatetime/features.h>
 
 #if @HAVE_SYS_TYPES_H@ || defined( HAVE_SYS_TYPES_H )
 #include <sys/types.h>
@@ -72,7 +70,6 @@ typedef __int32			ssize_t;
 #endif /* LIBFDATETIME_DEFINITION_INTEGER_TYPES */
 
 #elif defined( __BORLANDC__ )
-
 #if __BORLANDC__ <= 0x0560
 
 /* Define LIBFDATETIME_DEFINITION_INTEGER_TYPES to avoid conflict
@@ -128,53 +125,6 @@ typedef unsigned __int32	intptr_t;
 #error Missing integer type definitions (inttypes.h, stdint.h)
 #endif
 
-#if defined( LIBFDATETIME_WIDE_CHARACTER_TYPE )
-
-#if defined( _MSC_VER )
-#include <wchar.h>
-
-#elif defined( __BORLANDC__ )
-#if __BORLANDC__ <= 0x0520
-#include <string.h>
-
-#else
-#include <wchar.h>
-#endif /* __BORLANDC__ <= 0x0520 */
-
-#elif @HAVE_WCHAR_H@ || defined( HAVE_WCHAR_H )
-
-/* __USE_UNIX98 is required to add swprintf definition
- */
-#if !defined( __USE_UNIX98 )
-#define __USE_UNIX98
-#define LIBFDATETIME_DEFINITION_UNIX98
-#endif
-
-/* __USE_ISOC99 is required to add wcstoll and wcstuoll definition
- */
-#if !defined( __USE_ISOC99 )
-#define __USE_ISOC99
-#define LIBFDATETIME_DEFINITION_ISOC99
-#endif
-
-#include <wchar.h>
-
-#if defined( LIBFDATETIME_DEFINITION_UNIX98 )
-#undef __USE_UNIX98
-#undef LIBFDATETIME_DEFINITION_UNIX98
-#endif
-
-#if defined( LIBFDATETIME_DEFINITION_ISOC99 )
-#undef __USE_ISOC99
-#undef LIBFDATETIME_DEFINITION_ISOC99
-#endif
-
-#else
-#error Missing wide character type definition (wchar.h)
-#endif
-
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -201,10 +151,25 @@ typedef int64_t off64_t;
 
 /* The following type definitions hide internal data structures
  */
+
+/* FAT 16-bit date and 16-bit time definition
+ */
 typedef intptr_t libfdatetime_fat_date_time_t;
+
+/* FAT 16-bit date time definition
+ */
 typedef intptr_t libfdatetime_fat_date_t;
+
+/* FAT 16-bit time definition
+ */
 typedef intptr_t libfdatetime_fat_time_t;
+
+/* 64-bit filetime definition
+ */
 typedef intptr_t libfdatetime_filetime_t;
+
+/* 64-bit NSF timedate definition
+ */
 typedef intptr_t libfdatetime_nsf_timedate_t;
 
 #ifdef __cplusplus

@@ -3,28 +3,15 @@
 /* Define to 1 if you have the `atoll' function. */
 #undef HAVE_ATOLL
 
-/* Define to 1 if you have the `close' function. */
-#undef HAVE_CLOSE
-
 /* Define to 1 if you have the declaration of `memrchr', and to 0 if you
    don't. */
 #undef HAVE_DECL_MEMRCHR
 
-/* Define to 1 if you have the declaration of `strerror_r', and to 0 if you
-   don't. */
-#undef HAVE_DECL_STRERROR_R
-
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
-/* Define to 1 if you have the <errno.h> header file. */
-#undef HAVE_ERRNO_H
-
 /* Define to 1 if you have the `fclose' function. */
 #undef HAVE_FCLOSE
-
-/* Define to 1 if you have the <fcntl.h> header file. */
-#undef HAVE_FCNTL_H
 
 /* Define to 1 if you have the `feof' function. */
 #undef HAVE_FEOF
@@ -44,9 +31,6 @@
 /* Define to 1 if you have the `fseeko' function. */
 #undef HAVE_FSEEKO
 
-/* Define to 1 if you have the `fstat' function. */
-#undef HAVE_FSTAT
-
 /* Define to 1 if you have the `fwrite' function. */
 #undef HAVE_FWRITE
 
@@ -55,9 +39,6 @@
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
-
-/* Define to 1 if you have the `lseek' function. */
-#undef HAVE_LSEEK
 
 /* Define to 1 if you have the `malloc' function. */
 #undef HAVE_MALLOC
@@ -80,17 +61,11 @@
 /* Define to 1 if you have the `memset' function. */
 #undef HAVE_MEMSET
 
-/* Define to 1 if you have the `open' function. */
-#undef HAVE_OPEN
-
 /* Define to 1 whether printf supports the conversion specifier "%jd". */
 #undef HAVE_PRINTF_JD
 
 /* Define to 1 whether printf supports the conversion specifier "%zd". */
 #undef HAVE_PRINTF_ZD
-
-/* Define to 1 if you have the `read' function. */
-#undef HAVE_READ
 
 /* Define to 1 if you have the `realloc' function. */
 #undef HAVE_REALLOC
@@ -110,6 +85,9 @@
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
 
+/* Define to 1 if you have the `strcasecmp' function. */
+#undef HAVE_STRCASECMP
+
 /* Define to 1 if you have the `strchr' function. */
 #undef HAVE_STRCHR
 
@@ -119,9 +97,6 @@
 /* Define to 1 if you have the `strcpy' function. */
 #undef HAVE_STRCPY
 
-/* Define to 1 if you have the `strerror_r' function. */
-#undef HAVE_STRERROR_R
-
 /* Define to 1 if you have the <strings.h> header file. */
 #undef HAVE_STRINGS_H
 
@@ -130,6 +105,9 @@
 
 /* Define to 1 if you have the `strlen' function. */
 #undef HAVE_STRLEN
+
+/* Define to 1 if you have the `strncasecmp' function. */
+#undef HAVE_STRNCASECMP
 
 /* Define to 1 if you have the `strncmp' function. */
 #undef HAVE_STRNCMP
@@ -164,9 +142,6 @@
 /* Define to 1 if you have the `vsnprintf' function. */
 #undef HAVE_VSNPRINTF
 
-/* Define to 1 if you have the `write' function. */
-#undef HAVE_WRITE
-
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
 #undef LT_OBJDIR
@@ -197,9 +172,6 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
-
-/* Define to 1 if strerror_r returns char *. */
-#undef STRERROR_R_CHAR_P
 
 /* Version number of package */
 #undef VERSION

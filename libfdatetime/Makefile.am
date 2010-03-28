@@ -1,4 +1,8 @@
-AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/liberror @MEMWATCH_CPPFLAGS@
+AM_CPPFLAGS = \
+	-I$(top_srcdir)/include \
+	-I$(top_srcdir)/common \
+	-I$(top_srcdir)/liberror \
+	@MEMWATCH_CPPFLAGS@
 
 lib_LTLIBRARIES = libfdatetime.la
 
@@ -10,11 +14,12 @@ libfdatetime_la_SOURCES = \
 	libfdatetime_fat_date_time.c libfdatetime_fat_date_time.h \
 	libfdatetime_filetime.c libfdatetime_filetime.h \
 	libfdatetime_nsf_timedate.c libfdatetime_nsf_timedate.h \
-	libfdatetime_string.h \
 	libfdatetime_support.c libfdatetime_support.h \
 	libfdatetime_types.h
 
-libfdatetime_la_LIBADD  = ../liberror/liberror.la
+libfdatetime_la_LIBADD = \
+	../liberror/liberror.la
+
 libfdatetime_la_LDFLAGS = -no-undefined -version-info 1:0:0
 
 EXTRA_DIST = \

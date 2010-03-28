@@ -23,11 +23,16 @@ Unix timestamp
 * implement
 
 Deployment
-* update msvscpp files
-* update codegear files
 * update manuals
 * add macosx file
 * add debian files
+
+20100328
+* added libcstring
+* updated liberror
+* removed common/narrow_string.h common/wide_string.h
+* worked on libcstring support
+* worked on msvscpp and codegear support
 
 20100321
 * small changes for msvscpp compilation

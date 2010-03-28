@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="libfdatetime_dll"
 	ProjectGUID="{B5225323-AC67-411D-8FBA-199E9467FAB5}"
 	RootNamespace="libfdatetime"
@@ -94,7 +94,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\libfdatetime\libfdatetime.c"
+				RelativePath="..\..\libfdatetime\libfdatetime_date_time_values.c"
 				>
 			</File>
 			<File
@@ -102,31 +102,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_error_string.c"
+				RelativePath="..\..\libfdatetime\libfdatetime_fat_date_time.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_file.c"
+				RelativePath="..\..\libfdatetime\libfdatetime_filetime.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_handle.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_list_type.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_memory_range.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_offset_list.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_pool.c"
+				RelativePath="..\..\libfdatetime\libfdatetime_nsf_timedate.c"
 				>
 			</File>
 			<File
@@ -140,6 +124,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\libfdatetime\libfdatetime_date_time_values.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libfdatetime\libfdatetime_definitions.h"
 				>
 			</File>
@@ -148,47 +136,23 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_error_string.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\libfdatetime\libfdatetime_extern.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_file.h"
+				RelativePath="..\..\libfdatetime\libfdatetime_fat_date_time.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_handle.h"
+				RelativePath="..\..\libfdatetime\libfdatetime_filetime.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_libuna.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_list_type.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_memory_range.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_offset_list.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_pool.h"
+				RelativePath="..\..\libfdatetime\libfdatetime_nsf_timedate.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\libfdatetime\libfdatetime_support.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libfdatetime\libfdatetime_system_string.h"
 				>
 			</File>
 			<File

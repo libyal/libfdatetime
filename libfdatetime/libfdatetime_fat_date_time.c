@@ -31,7 +31,6 @@
 #include "libfdatetime_definitions.h"
 #include "libfdatetime_date_time_values.h"
 #include "libfdatetime_fat_date_time.h"
-#include "libfdatetime_string.h"
 #include "libfdatetime_types.h"
 
 /* Initialize a FAT date and time

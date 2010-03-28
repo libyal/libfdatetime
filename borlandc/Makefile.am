@@ -1,8 +1,8 @@
 CODEGEAR_FILES = \
+	codegear/libcstring/libcstring.cbproj \
 	codegear/liberror/liberror.cbproj \
-	codegear/libbfio/libbfio.cbproj \
-	codegear/libuna/libuna.cbproj \
-	codegear/libbfio.groupproj
+	codegear/libfdatetime/libfdatetime.cbproj \
+	codegear/libfdatetime.groupproj
 
 EXTRA_DIST = \
 	$(CODEGEAR_FILES)

@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
-  [20100321],
+  [20100328],
   [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libfdatetime],
- [20100321])
+ [20100328])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -79,21 +79,20 @@ AC_CHECK_HEADER(
 dnl Headers included in common/types.h
 AC_CHECK_HEADERS([limits.h])
 
-dnl Headers included in common/narrow_string.h
+dnl Headers included in common/memory.h and libcstring/libcstring_narrow_string.h
 AC_CHECK_HEADERS([string.h])
-
-dnl Headers included in common/memory.h
 AC_CHECK_HEADERS([stdlib.h])
 
-dnl Headers included in common/notify.c
-AC_CHECK_HEADERS([stdarg.h])
-AC_CHECK_HEADERS([varargs.h])
-
-dnl Headers included in libfdatetime/libfdatetime_file.h
-AC_CHECK_HEADERS([sys/stat.h])
-AC_CHECK_HEADERS([errno.h])
-AC_CHECK_HEADERS([fcntl.h])
-AC_CHECK_HEADERS([unistd.h])
+dnl Headers included in liberror/liberror_error.c
+AC_CHECK_HEADERS(
+ [stdarg.h],
+ [],
+ [AC_CHECK_HEADERS(
+  [varargs.h],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing headers: stdarg.h and varargs.h],
+   [1]) ]) ])
 
 dnl Check for declarations and type definitions
 AC_TYPE_OFF_T
@@ -250,7 +249,7 @@ AC_CHECK_FUNCS(
   [Missing function: realloc],
   [1]) ])
 
-dnl Narrow character string functions used in common/narrow_string.h
+dnl Narrow character string functions used in libcstring/libcstring_narrow_string.h
 AC_CHECK_FUNCS(
  [fgets],
  [],
@@ -259,10 +258,63 @@ AC_CHECK_FUNCS(
   [1]) ])
 
 AC_CHECK_FUNCS(
+ [memchr],
+ [],
+ [AC_CHECK_FUNCS(
+  [strchr],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: memchr and strchr],
+   [1]) ]) ])
+
+AC_CHECK_FUNCS(
+ [memcmp],
+ [],
+ [AC_CHECK_FUNCS(
+  [strncmp],
+  [],
+  [AC_CHECK_FUNCS(
+   [strcmp],
+   [],
+   [AC_MSG_FAILURE(
+    [Missing functions: memcmp, strncmp and strcmp],
+    [1]) ]) ]) ])
+
+AC_CHECK_FUNCS(
+ [memcpy],
+ [],
+ [AC_CHECK_FUNCS(
+  [strncpy],
+  [],
+  [AC_CHECK_FUNCS(
+   [strcpy],
+   [],
+   [AC_MSG_FAILURE(
+    [Missing functions: memcpy, strncpy and strcpy],
+    [1]) ]) ]) ])
+
+AC_CHECK_FUNCS(
+ [memrchr],
+ [AC_CHECK_DECLS(
+  [memrchr],
+  [ac_libfdatetime_have_memrchr=yes],
+  [ac_libfdatetime_have_memrchr=no]) ],
+ [ac_libfdatetime_have_memrchr=no])
+
+AS_IF(
+	[test "x$ac_libfdatetime_have_memrchr" = xno],
+	[AC_CHECK_FUNCS(
+	 [strrchr],
+	 [],
+	 [AC_MSG_FAILURE(
+	  [Missing functions: strrchr and memrchr],
+	  [1]) ]) ])
+
+AC_CHECK_FUNCS(
  [snprintf],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: snprintf],
+  [Missing function: snprintf],
   [1]) ])
 
 AC_CHECK_FUNCS(
@@ -280,48 +332,13 @@ AC_CHECK_FUNCS(
   [1]) ])
 
 AC_CHECK_FUNCS(
- [strchr],
+ [strncasecmp],
  [],
  [AC_CHECK_FUNCS(
-  [memchr],
+  [strcasecmp],
   [],
   [AC_MSG_FAILURE(
-   [Missing functions: strchr and memchr],
-   [1]) ]) ])
-
-AC_CHECK_FUNCS(
- [strncmp],
- [],
- [AC_CHECK_FUNCS(
-  [strcmp],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: strncmp and strcmp],
-   [1]) ]) ])
-
-AC_CHECK_FUNCS(
- [strncpy],
- [],
- [AC_CHECK_FUNCS(
-  [strcpy],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: strncpy and strcpy],
-   [1]) ]) ])
-
-AC_CHECK_FUNCS(
- [strrchr],
- [],
- [AC_CHECK_FUNCS(
-  [memrchr],
-  [AC_CHECK_DECLS(
-   [memrchr],
-   [],
-   [AC_MSG_FAILURE(
-    [Missing declaration for function memrchr],
-    [1]) ]) ],
-  [AC_MSG_FAILURE(
-   [Missing functions: strrchr and memrchr],
+   [Missing functions: strncasecmp and strcasecmp],
    [1]) ]) ])
 
 AC_CHECK_FUNCS(
@@ -348,61 +365,8 @@ AC_CHECK_FUNCS(
  [vsnprintf],
  [],
  [AC_MSG_FAILURE(
-  [Missing functions: vsnprintf],
+  [Missing function: vsnprintf],
   [1]) ])
-
-dnl File input/output functions used in libfdatetime/libfdatetime_file.h
-AC_CHECK_FUNCS(
- [close],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: close],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [lseek],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: lseek],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [open],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: open],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [read],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: read],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [write],
- [],
- [AC_MSG_FAILURE(
-  [Missing functions: write],
-  [1]) ])
-
-AC_CHECK_FUNCS(
- [fstat],
- [],
- [AC_MSG_FAILURE(
-  [Missing function: fstat],
-  [1]) ])
-
-dnl Check for error string functions used in libfdatetime/libfdatetime_error_string.h
-AC_FUNC_STRERROR_R(
- [],
- [AC_CHECK_FUNCS(
-  [strerror],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing functions: strerror_r and strerror],
-   [1]) ]) ])
 
 dnl Check for printf conversion specifier support
 LIBFDATETIME_PRINTF_JD
@@ -434,15 +398,15 @@ dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([include/Makefile])
 AC_CONFIG_FILES([common/Makefile])
+AC_CONFIG_FILES([libcstring/Makefile])
 AC_CONFIG_FILES([liberror/Makefile])
 AC_CONFIG_FILES([libfdatetime/Makefile])
 AC_CONFIG_FILES([manuals/Makefile])
-AC_CONFIG_FILES([borland/Makefile])
+AC_CONFIG_FILES([borlandc/Makefile])
 AC_CONFIG_FILES([msvscpp/Makefile])
 dnl Have configure make the include files
 AC_CONFIG_FILES([include/libfdatetime.h])
 AC_CONFIG_FILES([include/libfdatetime/definitions.h])
-AC_CONFIG_FILES([include/libfdatetime/features.h])
 AC_CONFIG_FILES([include/libfdatetime/types.h])
 AC_CONFIG_FILES([libfdatetime/libfdatetime_definitions.h])
 dnl Have configure make distribution specific files
