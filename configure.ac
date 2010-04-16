@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
-  [20100328],
+  [20100416],
   [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libfdatetime],
- [20100328])
+ [20100416])
 
 AC_CONFIG_MACRO_DIR([m4])
 
