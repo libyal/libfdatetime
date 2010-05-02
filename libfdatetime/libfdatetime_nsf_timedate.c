@@ -263,8 +263,8 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 	static char *function          = "libfdatetime_nsf_timedate_copy_to_date_time_values";
 	uint32_t nsf_julian_day        = 0;
 	uint32_t nsf_time              = 0;
-	uint32_t amount_of_years       = 0;
-	uint32_t amount_of_months      = 0;
+	uint32_t number_of_years       = 0;
+	uint32_t number_of_months      = 0;
 	uint32_t julian_quad_cycles    = 0;
 	uint32_t gregorian_cent_cycles = 0;
 	uint32_t gregorian_quad_cycles = 0;
@@ -306,14 +306,14 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 	 */
 	nsf_julian_day += 32044;
 
-	/* Determine the amount of Gregorian quadricentennial cycles
+	/* Determine the number of Gregorian quadricentennial cycles
 	 * 1 cycle consists of 146097 days
 	 */
 	gregorian_quad_cycles = nsf_julian_day / 146097;
 
 	nsf_julian_day %= 146097;
 
-	/* Determine the amount of Gregorian centennial cycles
+	/* Determine the number of Gregorian centennial cycles
 	 * 1 cycle consists of 36524 days
 	 * Correct for leap years per cycle, either 3 or 4
 	 */
@@ -321,53 +321,53 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 
 	nsf_julian_day -= gregorian_cent_cycles * 36524;
 
-	/* Determine the amount of Julian quadrennial cycles
+	/* Determine the number of Julian quadrennial cycles
 	 * 1 cycle consists of 1461 days per 4 year
 	 */
 	julian_quad_cycles = nsf_julian_day / 1461;
 
 	nsf_julian_day %= 1461;
 
-	/* Determine the amount of Roman annual cycles
+	/* Determine the number of Roman annual cycles
 	 * 1 cycle consists of 365 days
 	 * Correct for leap years per cycle, either 3 or 4
 	 */
 	roman_annual_cycles = ( ( ( nsf_julian_day / 365 ) + 1 ) * 3 ) / 4;
 
-	/* The amount of days remaining in the current Julian year
+	/* The number of days remaining in the current Julian year
 	 */
 	nsf_julian_day -= roman_annual_cycles * 365;
 
-	/* Determine the amount of years since March 1, 4801 BC
+	/* Determine the number of years since March 1, 4801 BC
 	 */
-	amount_of_years = ( gregorian_quad_cycles * 400 )
+	number_of_years = ( gregorian_quad_cycles * 400 )
 	                + ( gregorian_cent_cycles * 100 )
 	                + ( julian_quad_cycles * 4 )
 	                + roman_annual_cycles;
 
-	/* Determine the amount of months since March
+	/* Determine the number of months since March
 	 */
-	amount_of_months = ( ( ( nsf_julian_day * 5 ) + 308 ) / 153 ) - 2;
+	number_of_months = ( ( ( nsf_julian_day * 5 ) + 308 ) / 153 ) - 2;
 
-	/* Determine the amount of days since the 1st of the month
+	/* Determine the number of days since the 1st of the month
 	 */
-	nsf_julian_day -= ( ( ( amount_of_months + 4 ) * 153 ) / 5 );
+	nsf_julian_day -= ( ( ( number_of_months + 4 ) * 153 ) / 5 );
 	nsf_julian_day += 122;
 
 	/* Determine the year
 	 */
-	date_time_values->year = (uint16_t) ( amount_of_years - 4800 + ( ( amount_of_months + 2 ) / 12 ) );
+	date_time_values->year = (uint16_t) ( number_of_years - 4800 + ( ( number_of_months + 2 ) / 12 ) );
 
 	/* Determine the month
 	 */
-	date_time_values->month = ( ( amount_of_months + 2 ) % 12 ) + 1;
+	date_time_values->month = ( ( number_of_months + 2 ) % 12 ) + 1;
 
 	/* Determine the day of the month
 	 */
 	date_time_values->day = (uint8_t) ( nsf_julian_day + 1 );
 
-	/* Retrieve the amount of seconds from the lower part of the NFS timedate
-	 * which contains the amount of 100th of seconds
+	/* Retrieve the number of seconds from the lower part of the NFS timedate
+	 * which contains the number of 100th of seconds
 	 */ 
 	nsf_time = internal_nsf_timedate->lower / 100;
 

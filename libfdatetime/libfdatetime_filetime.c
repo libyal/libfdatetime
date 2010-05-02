@@ -361,7 +361,7 @@ int libfdatetime_filetime_copy_to_date_time_values(
 	 */
 	filetimestamp += 1;
 
-	/* Determine the amount of years starting at '1 Jan 1601 00:00:00'
+	/* Determine the number of years starting at '1 Jan 1601 00:00:00'
 	 * correct the value to days within the year
 	 */
 	date_time_values->year = 1601;

@@ -38,9 +38,9 @@ extern "C" {
 typedef struct libfdatetime_internal_nsf_timedate libfdatetime_internal_nsf_timedate_t;
 
 /* Contains a 64-bit value which consists of:
- * The lower 32-bit value represents the amount of 100th seconds
+ * The lower 32-bit value represents the number of 100th seconds
  * The upper 32-bit value which consists of:
- * a 24-bit value which contains the amount of Julian day
+ * a 24-bit value which contains the number of Julian day
  * a 4-bit value which contains the UTC timezone difference in hours
  * a 2-bit value which contains the UTC timezone difference in 15 minutes periods
  * a 1-bit value to indicate if the timezone difference is negative (0) or positive (1)

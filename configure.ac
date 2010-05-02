@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
-  [20100416],
+  [20100502],
   [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -10,7 +10,7 @@ AC_CONFIG_SRCDIR(
 
 AM_INIT_AUTOMAKE(
  [libfdatetime],
- [20100416])
+ [20100502])
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -19,6 +19,13 @@ AC_CANONICAL_HOST
 
 dnl Check for large file support
 AC_SYS_LARGEFILE
+
+dnl Check for configure arguments
+LIBFDATETIME_TEST_ENABLE(
+ [winapi],
+ [winapi],
+ [enable WINAPI support for cross-compilation],
+ [no])
 
 dnl Check for libtool DLL support
 AC_LIBTOOL_WIN32_DLL
@@ -76,23 +83,38 @@ AC_CHECK_HEADER(
   [HAVE_STDINT_H],
   [0])])
 
+dnl Headers included in common/common.h
+AS_IF(
+ [test "x$ac_cv_libfdatetime_enable_winapi" = xyes],
+ [AC_CHECK_HEADERS([windows.h])
+
+ AS_IF(
+  [test "x$ac_cv_header_windows_h" = xno],
+  [AC_MSG_FAILURE(
+   [Missing header: windows.h header is required to compile with winapi support],
+   [1]) ])
+ ])
+
 dnl Headers included in common/types.h
 AC_CHECK_HEADERS([limits.h])
 
 dnl Headers included in common/memory.h and libcstring/libcstring_narrow_string.h
-AC_CHECK_HEADERS([string.h])
-AC_CHECK_HEADERS([stdlib.h])
+AC_CHECK_HEADERS([stdlib.h string.h])
 
-dnl Headers included in liberror/liberror_error.c
-AC_CHECK_HEADERS(
- [stdarg.h],
- [],
- [AC_CHECK_HEADERS(
-  [varargs.h],
-  [],
-  [AC_MSG_FAILURE(
-   [Missing headers: stdarg.h and varargs.h],
-   [1]) ]) ])
+dnl Headers included in liberror/liberror_error.c and libnotify/libnotify_print.c
+AC_CHECK_HEADERS([stdarg.h])
+
+AS_IF(
+ [test "x$ac_cv_header_stdarg_h" != xyes],
+ [AC_CHECK_HEADERS([varargs.h]) ])
+
+AS_IF(
+ [test "x$ac_cv_header_stdarg_h" != xyes && test "x$ac_cv_header_varargs_h" != xyes],
+ [AC_MSG_FAILURE(
+  [Missing headers: stdarg.h and varargs.h],
+  [1]) ])
+
+dnl Other headers
 
 dnl Check for declarations and type definitions
 AC_TYPE_OFF_T
@@ -188,9 +210,12 @@ AC_CHECK_FUNCS(
 AC_CHECK_FUNCS(
  [fseeko],
  [],
- [AC_MSG_FAILURE(
-  [Missing function: fseeko],
-  [1]) ])
+ [AC_CHECK_FUNCS(
+  [fseeko64],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing function: fseeko and fseeko64],
+   [1]) ]) ])
 
 AC_CHECK_FUNCS(
  [fwrite],
@@ -302,13 +327,13 @@ AC_CHECK_FUNCS(
  [ac_libfdatetime_have_memrchr=no])
 
 AS_IF(
-	[test "x$ac_libfdatetime_have_memrchr" = xno],
-	[AC_CHECK_FUNCS(
-	 [strrchr],
-	 [],
-	 [AC_MSG_FAILURE(
-	  [Missing functions: strrchr and memrchr],
-	  [1]) ]) ])
+ [test "x$ac_libfdatetime_have_memrchr" = xno],
+ [AC_CHECK_FUNCS(
+  [strrchr],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing functions: strrchr and memrchr],
+   [1]) ]) ])
 
 AC_CHECK_FUNCS(
  [snprintf],
@@ -369,8 +394,8 @@ AC_CHECK_FUNCS(
   [1]) ])
 
 dnl Check for printf conversion specifier support
-LIBFDATETIME_PRINTF_JD
-LIBFDATETIME_PRINTF_ZD
+LIBFDATETIME_CHECK_FUNC_PRINTF_JD
+LIBFDATETIME_CHECK_FUNC_PRINTF_ZD
 
 dnl Checks for libraries and library functions
 dnl ac_libfdatetime_dummy is used to prevent AC_CHECK_LIB adding unnecessary -l<library> arguments
@@ -379,13 +404,13 @@ dnl Set memwatch support
 ac_libfdatetime_have_memwatch=no
 
 AS_IF(
-	[test "x$ac_libfdatetime_have_memwatch" != xno ],
-	[AC_SUBST(
-	 [MEMWATCH_CPPFLAGS],
-	 ["-DMEMWATCH -DMEMWATCH_STDIO"])
-	AC_SUBST(
-	 [MEMWATCH_LIBADD],
-	 [../common/libmemwatch.la]) ])
+ [test "x$ac_libfdatetime_have_memwatch" != xno ],
+ [AC_SUBST(
+  [MEMWATCH_CPPFLAGS],
+  ["-DMEMWATCH -DMEMWATCH_STDIO"])
+ AC_SUBST(
+  [MEMWATCH_LIBADD],
+  [../common/libmemwatch.la]) ])
 
 AM_CONDITIONAL(
  [HAVE_MEMWATCH],

@@ -31,6 +31,9 @@
 /* Define to 1 if you have the `fseeko' function. */
 #undef HAVE_FSEEKO
 
+/* Define to 1 if you have the `fseeko64' function. */
+#undef HAVE_FSEEKO64
+
 /* Define to 1 if you have the `fwrite' function. */
 #undef HAVE_FWRITE
 
@@ -141,6 +144,9 @@
 
 /* Define to 1 if you have the `vsnprintf' function. */
 #undef HAVE_VSNPRINTF
+
+/* Define to 1 if you have the <windows.h> header file. */
+#undef HAVE_WINDOWS_H
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */

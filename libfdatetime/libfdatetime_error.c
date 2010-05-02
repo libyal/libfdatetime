@@ -42,7 +42,7 @@ void libfdatetime_error_free(
 }
 
 /* Prints a descriptive string of the error to the stream
- * Returns the amount of printed characters if successful or -1 on error
+ * Returns the number of printed characters if successful or -1 on error
  */
 int libfdatetime_error_fprint(
      libfdatetime_error_t *error,
@@ -54,7 +54,7 @@ int libfdatetime_error_fprint(
 }
 
 /* Prints a descriptive string of the error to the string
- * Returns the amount of printed characters if successful or -1 on error
+ * Returns the number of printed characters if successful or -1 on error
  */
 int libfdatetime_error_sprint(
      libfdatetime_error_t *error,
@@ -68,7 +68,7 @@ int libfdatetime_error_sprint(
 }
 
 /* Prints a backtrace of the error to the stream
- * Returns the amount of printed characters if successful or -1 on error
+ * Returns the number of printed characters if successful or -1 on error
  */
 int libfdatetime_error_backtrace_fprint(
      libfdatetime_error_t *error,
@@ -80,7 +80,7 @@ int libfdatetime_error_backtrace_fprint(
 }
 
 /* Prints a backtrace of the error to the string
- * Returns the amount of printed characters if successful or -1 on error
+ * Returns the number of printed characters if successful or -1 on error
  */
 int libfdatetime_error_backtrace_sprint(
      libfdatetime_error_t *error,

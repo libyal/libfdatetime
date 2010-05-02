@@ -27,6 +27,10 @@ Deployment
 * add macosx file
 * add debian files
 
+20100502
+* updated common, libcstring, liberror
+* changed amount of in number of
+
 20100416
 * updated liberror
 
