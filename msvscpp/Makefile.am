@@ -4,6 +4,9 @@ EXTRA_DIST = \
 	libfdatetime_dll/libfdatetime_dll.vcproj \
 	libfdatetime.sln
 
+MAINTAINERCLEANFILES = \
+	Makefile.in
+
 distclean: clean
 	/bin/rm -f Makefile
 

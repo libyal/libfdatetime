@@ -12,6 +12,9 @@ EXTRA_DIST = \
 	libfdatetime/definitions.h.in \
 	libfdatetime/types.h.in
 
+MAINTAINERCLEANFILES = \
+	Makefile.in
+
 distclean: clean
 	/bin/rm -f libfdatetime.h
 	/bin/rm -f libfdatetime/definitions.h

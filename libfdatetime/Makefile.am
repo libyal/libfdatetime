@@ -25,7 +25,11 @@ libfdatetime_la_LDFLAGS = -no-undefined -version-info 1:0:0
 EXTRA_DIST = \
 	libfdatetime_definitions.h.in
 
+MAINTAINERCLEANFILES = \
+	Makefile.in
+
 distclean: clean
+	/bin/rm -f libfdatetime_definitions.h
 	/bin/rm -f Makefile
 
 splint:

@@ -27,6 +27,9 @@ Deployment
 * add macosx file
 * add debian files
 
+20100505
+* updated configure.ac and added MAINTAINERCLEANFILES to Makefile.am files
+
 20100502
 * updated common, libcstring, liberror
 * changed amount of in number of

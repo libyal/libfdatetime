@@ -18,6 +18,9 @@ EXTRA_DIST = \
         $(REDHAT_FILES) \
 	libfdatetime.pc.in
 
+MAINTAINERCLEANFILES = \
+	Makefile.in
+
 pkgconfigdir = $(libdir)/pkgconfig
 
 pkgconfig_DATA = \
