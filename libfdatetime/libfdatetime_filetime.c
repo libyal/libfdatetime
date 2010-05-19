@@ -249,8 +249,8 @@ int libfdatetime_filetime_copy_from_byte_stream(
 		byte_stream += 4;
 
 		byte_stream_copy_to_uint32_little_endian(
-		byte_stream,
-		internal_filetime->upper );
+		 byte_stream,
+		 internal_filetime->upper );
 	}
 	else if( byte_order == LIBFDATETIME_ENDIAN_BIG )
 	{
@@ -261,8 +261,8 @@ int libfdatetime_filetime_copy_from_byte_stream(
 		byte_stream += 4;
 
 		byte_stream_copy_to_uint32_big_endian(
-		byte_stream,
-		internal_filetime->lower );
+		 byte_stream,
+		 internal_filetime->lower );
 	}
 	return( 1 );
 }
