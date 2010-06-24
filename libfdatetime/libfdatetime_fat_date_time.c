@@ -117,11 +117,10 @@ int libfdatetime_fat_date_time_free(
 	if( *fat_date_time != NULL )
 	{
 		internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) *fat_date_time;
+		*fat_date_time         = NULL;
 
 		memory_free(
 		 internal_fat_date_time );
-
-		*fat_date_time = NULL;
 	}
 	return( 1 );
 }

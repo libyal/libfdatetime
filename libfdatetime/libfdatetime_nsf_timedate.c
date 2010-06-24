@@ -115,11 +115,10 @@ int libfdatetime_nsf_timedate_free(
 	if( *nsf_timedate != NULL )
 	{
 		internal_nsf_timedate = (libfdatetime_internal_nsf_timedate_t *) *nsf_timedate;
+		*nsf_timedate         = NULL;
 
 		memory_free(
 		 internal_nsf_timedate );
-
-		*nsf_timedate = NULL;
 	}
 	return( 1 );
 }

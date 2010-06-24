@@ -27,6 +27,9 @@ Deployment
 * add macosx file
 * add debian files
 
+20100624
+* small changes
+
 20100505
 * updated configure.ac and added MAINTAINERCLEANFILES to Makefile.am files
 

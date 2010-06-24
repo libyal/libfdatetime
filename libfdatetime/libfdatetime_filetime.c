@@ -116,11 +116,10 @@ int libfdatetime_filetime_free(
 	if( *filetime != NULL )
 	{
 		internal_filetime = (libfdatetime_internal_filetime_t *) *filetime;
+		*filetime         = NULL;
 
 		memory_free(
 		 internal_filetime );
-
-		*filetime = NULL;
 	}
 	return( 1 );
 }
