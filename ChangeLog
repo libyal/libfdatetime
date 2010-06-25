@@ -27,6 +27,9 @@ Deployment
 * add macosx file
 * add debian files
 
+20100625
+* fix in fallback print
+
 20100624
 * small changes
 

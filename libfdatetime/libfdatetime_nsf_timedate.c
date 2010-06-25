@@ -486,7 +486,7 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 	static char *function                                       = "libfdatetime_nsf_timedate_copy_to_utf8_string";
 	size_t string_index                                         = 0;
 	uint8_t byte_value                                          = 0;
-	uint8_t byte_shift                                          = 0;
+	int8_t byte_shift                                           = 0;
 	int result                                                  = 0;
 
 	if( nsf_timedate == NULL )
@@ -592,7 +592,7 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 			}
 			byte_shift -= 4;
 		}
-		while( byte_shift > 0 );
+		while( byte_shift >= 0 );
 
 		utf8_string[ string_index++ ] = (uint8_t) ' ';
 		utf8_string[ string_index++ ] = (uint8_t) '0';
@@ -614,7 +614,7 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 			}
 			byte_shift -= 4;
 		}
-		while( byte_shift > 0 );
+		while( byte_shift >= 0 );
 
 		utf8_string[ string_index++ ] = (uint8_t) ')';
 
@@ -641,7 +641,7 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 	static char *function                                       = "libfdatetime_nsf_timedate_copy_to_utf16_string";
 	size_t string_index                                         = 0;
 	uint8_t byte_value                                          = 0;
-	uint8_t byte_shift                                          = 0;
+	int8_t byte_shift                                           = 0;
 	int result                                                  = 0;
 
 	if( nsf_timedate == NULL )
@@ -747,7 +747,7 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 			}
 			byte_shift -= 4;
 		}
-		while( byte_shift > 0 );
+		while( byte_shift >= 0 );
 
 		utf16_string[ string_index++ ] = (uint16_t) ' ';
 		utf16_string[ string_index++ ] = (uint16_t) '0';
@@ -769,7 +769,7 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 			}
 			byte_shift -= 4;
 		}
-		while( byte_shift > 0 );
+		while( byte_shift >= 0 );
 
 		utf16_string[ string_index++ ] = (uint16_t) ')';
 
@@ -796,7 +796,7 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 	static char *function                                       = "libfdatetime_nsf_timedate_copy_to_utf32_string";
 	size_t string_index                                         = 0;
 	uint8_t byte_value                                          = 0;
-	uint8_t byte_shift                                          = 0;
+	int8_t byte_shift                                           = 0;
 	int result                                                  = 0;
 
 	if( nsf_timedate == NULL )
@@ -902,7 +902,7 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 			}
 			byte_shift -= 4;
 		}
-		while( byte_shift > 0 );
+		while( byte_shift >= 0 );
 
 		utf32_string[ string_index++ ] = (uint32_t) ' ';
 		utf32_string[ string_index++ ] = (uint32_t) '0';
@@ -924,7 +924,7 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 			}
 			byte_shift -= 4;
 		}
-		while( byte_shift > 0 );
+		while( byte_shift >= 0 );
 
 		utf32_string[ string_index++ ] = (uint32_t) ')';
 
