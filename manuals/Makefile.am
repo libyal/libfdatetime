@@ -1,7 +1,7 @@
-EXTRA_DIST = \
+man_MANS = \
 	libfdatetime.3
 
-man_MANS = \
+EXTRA_DIST = \
 	libfdatetime.3
 
 MAINTAINERCLEANFILES = \

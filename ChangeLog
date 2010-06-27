@@ -27,6 +27,10 @@ Deployment
 * add macosx file
 * add debian files
 
+20100627
+* updated common, liberror, libcstring
+* clean up
+
 20100625
 * fix in fallback print
 
