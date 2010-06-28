@@ -1,23 +1,18 @@
 TODO
 * add a more sophisticated day of the month check in date time values
-* have API functions return 0 if value is not a valid date and time
-* implement libfdatetime_date_time_values_copy_to_string_size
-* implement individual fat_date and fat_time support
-* implement libfatdatetime_fat_date_time_copy_to_string_size
-* implement libfiletime_filetime_copy_to_string_size
+* have API functions return 0 if value is not a valid date and time ?
 * implement support for duration string
 
 FAT date and time
-* add API functions
+* implement individual fat_date and fat_time support
 
 Filetime
-* implement libfdatetime_filetime_get_string_size
 
 HFS date/time
 * implement
 
-NFS timedate
-* implement
+NSF timedate
+* add API functions
 
 Unix timestamp
 * implement
@@ -26,6 +21,9 @@ Deployment
 * update manuals
 * add macosx file
 * add debian files
+
+20100628
+* added extern definitions
 
 20100627
 * updated common, liberror, libcstring

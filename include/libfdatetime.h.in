@@ -86,6 +86,86 @@ LIBFDATETIME_EXTERN int libfdatetime_error_backtrace_sprint(
  * FAT date and time functions
  * ------------------------------------------------------------------------- */
 
+/* Initialize a FAT date and time
+ * Make sure the value file is pointing to is set to NULL
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_initialize(
+                         libfdatetime_fat_date_time_t **fat_date_time,
+                         libfdatetime_error_t **error );
+
+/* Frees an exisisting FAT date and time
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_free(
+                         libfdatetime_fat_date_time_t **fat_date_time,
+                         libfdatetime_error_t **error );
+
+/* Converts a byte stream into a FAT date and time
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_copy_from_byte_stream(
+                         libfdatetime_fat_date_time_t *fat_date_time,
+                         uint8_t *byte_stream,
+                         size_t byte_stream_size,
+                         uint8_t byte_order,
+                         libfdatetime_error_t **error );
+
+/* Converts a 32-bit value into a FAT date and time
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_copy_from_uint32(
+                         libfdatetime_fat_date_time_t *fat_date_time,
+                         uint32_t value_32bit,
+                         libfdatetime_error_t **error );
+
+/* Deterimes the size of the string for the fat date time
+ * The string size includes the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_get_string_size(
+                         libfdatetime_fat_date_time_t *fat_date_time,
+                         size_t *string_size,
+                         uint8_t string_format_flags,
+                         int date_time_format,
+                         libfdatetime_error_t **error );
+
+/* Converts the FAT date and time into an UTF-8 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_copy_to_utf8_string(
+                         libfdatetime_fat_date_time_t *fat_date_time,
+                         uint8_t *utf8_string,
+                         size_t utf8_string_size,
+                         uint8_t string_format_flags,
+                         int date_time_format,
+                         libfdatetime_error_t **error );
+
+/* Converts the FAT date and time into an UTF-16 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_copy_to_utf16_string(
+                         libfdatetime_fat_date_time_t *fat_date_time,
+                         uint16_t *utf16_string,
+                         size_t utf16_string_size,
+                         uint8_t string_format_flags,
+                         int date_time_format,
+                         libfdatetime_error_t **error );
+
+/* Converts the FAT date and time into an UTF-16 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_copy_to_utf32_string(
+                         libfdatetime_fat_date_time_t *fat_date_time,
+                         uint32_t *utf32_string,
+                         size_t utf32_string_size,
+                         uint8_t string_format_flags,
+                         int date_time_format,
+                         libfdatetime_error_t **error );
+
 /* -------------------------------------------------------------------------
  * Filetime functions
  * ------------------------------------------------------------------------- */

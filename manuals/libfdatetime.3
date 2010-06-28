@@ -1,4 +1,4 @@
-.Dd June 27, 2010
+.Dd June 28, 2010
 .Dt libfdatetime 3
 .Os libfdatetime
 .Sh NAME
@@ -26,6 +26,22 @@ Error functions
 .Fn libfdatetime_error_backtrace_sprint "libfdatetime_error_t *error, char *string, size_t size"
 .Pp
 FAT date and time functions
+.Ft int
+.Fn libfdatetime_fat_date_time_initialize " libfdatetime_fat_date_time_t **fat_date_time, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_fat_date_time_free " libfdatetime_fat_date_time_t **fat_date_time, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_fat_date_time_copy_from_byte_stream " libfdatetime_fat_date_time_t *fat_date_time, uint8_t *byte_stream, size_t byte_stream_size, uint8_t byte_order, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_fat_date_time_copy_from_uint32 " libfdatetime_fat_date_time_t *fat_date_time, uint32_t value_32bit, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_fat_date_time_get_string_size " libfdatetime_fat_date_time_t *fat_date_time, size_t *string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_fat_date_time_copy_to_utf8_string " libfdatetime_fat_date_time_t *fat_date_time, uint8_t *utf8_string, size_t utf8_string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_fat_date_time_copy_to_utf16_string " libfdatetime_fat_date_time_t *fat_date_time, uint16_t *utf16_string, size_t utf16_string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_fat_date_time_copy_to_utf32_string " libfdatetime_fat_date_time_t *fat_date_time, uint32_t *utf32_string, size_t utf32_string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
 .Pp
 Filetime functions
 .Ft int
