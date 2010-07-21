@@ -22,6 +22,10 @@ Deployment
 * add macosx file
 * add debian files
 
+20100721
+* updated include/error.h, liberror
+* updated common
+
 20100713
 * updated include/error.h, liberror
 
