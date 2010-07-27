@@ -223,13 +223,13 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
 /* Converts a 64-bit value into an nsf timedate
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_nsf_timedate_copy_from_uint64(
+int libfdatetime_nsf_timedate_copy_from_64bit(
      libfdatetime_nsf_timedate_t *nsf_timedate,
      uint64_t value_64bit,
      liberror_error_t **error )
 {
 	libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate = NULL;
-	static char *function                                       = "libfdatetime_nsf_timedate_copy_from_uint64";
+	static char *function                                       = "libfdatetime_nsf_timedate_copy_from_64bit";
 
 	if( nsf_timedate == NULL )
 	{

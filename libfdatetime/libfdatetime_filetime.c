@@ -267,13 +267,13 @@ int libfdatetime_filetime_copy_from_byte_stream(
 /* Converts a 64-bit value into a filetime
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_filetime_copy_from_uint64(
+int libfdatetime_filetime_copy_from_64bit(
      libfdatetime_filetime_t *filetime,
      uint64_t value_64bit,
      liberror_error_t **error )
 {
 	libfdatetime_internal_filetime_t *internal_filetime = NULL;
-	static char *function                               = "libfdatetime_filetime_copy_from_uint64";
+	static char *function                               = "libfdatetime_filetime_copy_from_64bit";
 
 	if( filetime == NULL )
 	{

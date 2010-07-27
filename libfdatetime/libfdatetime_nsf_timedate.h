@@ -71,7 +71,7 @@ LIBFDATETIME_EXTERN int libfdatetime_nsf_timedate_copy_from_byte_stream(
                          uint8_t byte_order,
                          liberror_error_t **error );
 
-LIBFDATETIME_EXTERN int libfdatetime_nsf_timedate_copy_from_uint64(
+LIBFDATETIME_EXTERN int libfdatetime_nsf_timedate_copy_from_64bit(
                          libfdatetime_nsf_timedate_t *nsf_timedate,
                          uint64_t value_64bit,
                          liberror_error_t **error );
