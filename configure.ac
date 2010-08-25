@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
-  [20100727],
+  [20100825],
   [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(

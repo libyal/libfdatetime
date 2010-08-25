@@ -94,7 +94,7 @@ LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_initialize(
                          libfdatetime_fat_date_time_t **fat_date_time,
                          libfdatetime_error_t **error );
 
-/* Frees an exisisting FAT date and time
+/* Frees a FAT date and time
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN int libfdatetime_fat_date_time_free(
@@ -177,7 +177,7 @@ LIBFDATETIME_EXTERN int libfdatetime_filetime_initialize(
                          libfdatetime_filetime_t **filetime,
                          libfdatetime_error_t **error );
 
-/* Frees an exisisting filetime
+/* Frees a filetime
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN int libfdatetime_filetime_free(

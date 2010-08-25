@@ -90,7 +90,7 @@ int libfdatetime_filetime_initialize(
 	return( 1 );
 }
 
-/* Frees an exisisting filetime
+/* Frees a filetime
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_filetime_free(

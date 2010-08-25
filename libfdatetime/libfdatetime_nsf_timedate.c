@@ -31,7 +31,7 @@
 #include "libfdatetime_nsf_timedate.h"
 #include "libfdatetime_types.h"
 
-/* Initialize an nsf timedate
+/* Initialize a NSF timedate
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_nsf_timedate_initialize(
@@ -90,7 +90,7 @@ int libfdatetime_nsf_timedate_initialize(
 	return( 1 );
 }
 
-/* Frees an exisisting nsf_timedate
+/* Frees a NSF timedate
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_nsf_timedate_free(
@@ -122,7 +122,7 @@ int libfdatetime_nsf_timedate_free(
 	return( 1 );
 }
 
-/* Converts a byte stream into an nsf timedate
+/* Converts a byte stream into a NSF timedate
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_nsf_timedate_copy_from_byte_stream(
@@ -220,7 +220,7 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
 	return( 1 );
 }
 
-/* Converts a 64-bit value into an nsf timedate
+/* Converts a 64-bit value into a NSF timedate
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_nsf_timedate_copy_from_64bit(
@@ -250,7 +250,7 @@ int libfdatetime_nsf_timedate_copy_from_64bit(
 	return( 1 );
 }
 
-/* Converts an nsf timedate into date time values
+/* Converts a NSF timedate into date time values
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_nsf_timedate_copy_to_date_time_values(
@@ -388,7 +388,7 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 	return( 1 );
 }
 
-/* Deterimes the size of the string for the nsf_timedate
+/* Deterimes the size of the string for the NSF timedate
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -458,7 +458,7 @@ int libfdatetime_nsf_timedate_get_string_size(
 		return( -1 );
 	}
 	/* Make sure the string can hold the hexadecimal representation
-	 * of an nsf timedate
+	 * of a NSF timedate
 	 */
 	if( *string_size < 24 )
 	{
@@ -467,7 +467,7 @@ int libfdatetime_nsf_timedate_get_string_size(
 	return( 1 );
 }
 
-/* Converts the nsf_timedate into an UTF-8 string
+/* Converts the NSF timedate into an UTF-8 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -622,7 +622,7 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 	return( 1 );
 }
 
-/* Converts the nsf_timedate into an UTF-16 string
+/* Converts the NSF timedate into an UTF-16 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -777,7 +777,7 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 	return( 1 );
 }
 
-/* Converts the nsf_timedate into an UTF-32 string
+/* Converts the NSF timedate into an UTF-32 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */

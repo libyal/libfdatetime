@@ -22,6 +22,9 @@ Deployment
 * add macosx file
 * add debian files
 
+20100825
+* code cleanup
+
 20100727
 * updated include/error.h, liberror
 * changed copy_from_uint64 to copy_from_64bit

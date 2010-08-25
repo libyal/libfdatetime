@@ -91,7 +91,7 @@ int libfdatetime_fat_date_time_initialize(
 	return( 1 );
 }
 
-/* Frees an exisisting FAT date and time
+/* Frees a FAT date and time
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_fat_date_time_free(
