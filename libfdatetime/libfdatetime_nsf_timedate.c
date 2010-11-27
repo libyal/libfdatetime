@@ -127,7 +127,7 @@ int libfdatetime_nsf_timedate_free(
  */
 int libfdatetime_nsf_timedate_copy_from_byte_stream(
      libfdatetime_nsf_timedate_t *nsf_timedate,
-     uint8_t *byte_stream,
+     const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint8_t byte_order,
      liberror_error_t **error )

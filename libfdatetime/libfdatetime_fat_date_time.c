@@ -128,7 +128,7 @@ int libfdatetime_fat_date_time_free(
  */
 int libfdatetime_fat_date_time_copy_from_byte_stream(
      libfdatetime_fat_date_time_t *fat_date_time,
-     uint8_t *byte_stream,
+     const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint8_t byte_order,
      liberror_error_t **error )

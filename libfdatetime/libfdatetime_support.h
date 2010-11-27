@@ -33,8 +33,9 @@ extern "C" {
 
 #if !defined( HAVE_LOCAL_LIBFDATETIME )
 
-LIBFDATETIME_EXTERN const char *libfdatetime_get_version(
-                                 void );
+LIBFDATETIME_EXTERN \
+const char *libfdatetime_get_version(
+             void );
 
 #endif
 

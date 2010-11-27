@@ -39,26 +39,31 @@ extern "C" {
 
 #if !defined( HAVE_LOCAL_LIBFDATETIME )
 
-LIBFDATETIME_EXTERN void libfdatetime_error_free(
-                          libfdatetime_error_t **error );
+LIBFDATETIME_EXTERN \
+void libfdatetime_error_free(
+      libfdatetime_error_t **error );
 
-LIBFDATETIME_EXTERN int libfdatetime_error_fprint(
-                         libfdatetime_error_t *error,
-                         FILE *stream );
+LIBFDATETIME_EXTERN \
+int libfdatetime_error_fprint(
+     libfdatetime_error_t *error,
+     FILE *stream );
 
-LIBFDATETIME_EXTERN int libfdatetime_error_sprint(
-                         libfdatetime_error_t *error,
-                         char *string,
-                         size_t size );
+LIBFDATETIME_EXTERN \
+int libfdatetime_error_sprint(
+     libfdatetime_error_t *error,
+     char *string,
+     size_t size );
 
-LIBFDATETIME_EXTERN int libfdatetime_error_backtrace_fprint(
-                         libfdatetime_error_t *error,
-                         FILE *stream );
+LIBFDATETIME_EXTERN \
+int libfdatetime_error_backtrace_fprint(
+     libfdatetime_error_t *error,
+     FILE *stream );
 
-LIBFDATETIME_EXTERN int libfdatetime_error_backtrace_sprint(
-                         libfdatetime_error_t *error,
-                         char *string,
-                         size_t size );
+LIBFDATETIME_EXTERN \
+int libfdatetime_error_backtrace_sprint(
+     libfdatetime_error_t *error,
+     char *string,
+     size_t size );
 
 #endif
 

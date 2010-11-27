@@ -22,6 +22,12 @@ Deployment
 * add macosx file
 * add debian files
 
+20101127
+* added const to copy for byte stream functions
+* updated configure.ac
+* updated include/error.h, include/types.h
+* updated common, libcstring, liberror
+
 20100825
 * code cleanup
 

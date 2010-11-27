@@ -22,6 +22,8 @@
 #if !defined( _LIBFDATETIME_ERROR_H )
 #define _LIBFDATETIME_ERROR_H
 
+#include <libfdatetime/types.h>
+
 /* External error type definition hides internal structure
  */
 typedef intptr_t libfdatetime_error_t;
@@ -86,7 +88,7 @@ enum LIBFDATETIME_ARGUMENT_ERROR
 };
 
 /* TODO deprecated remove after a while */
-#define LIBFDATETIME_ARGUMENT_ERROR_VALUE_OUT_OF_RANGE		LIBFDATETIME_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS
+#define LIBFDATETIME_ARGUMENT_ERROR_VALUE_OUT_OF_RANGE	LIBFDATETIME_ARGUMENT_ERROR_VALUE_OUT_OF_BOUNDS
 
 /* The conversion error codes
  * to signify errors regarding conversions
@@ -121,7 +123,7 @@ enum LIBFDATETIME_COMPRESSION_ERROR
 };
 
 /* TODO deprecated remove after a while */
-#define LIBERROR_COMPRESSION_ERROR_UNCOMPRESS_FAILED		LIBERROR_COMPRESSION_ERROR_DECOMPRESS_FAILED
+#define LIBERROR_COMPRESSION_ERROR_UNCOMPRESS_FAILED	LIBERROR_COMPRESSION_ERROR_DECOMPRESS_FAILED
 
 /* The input/output error codes
  * to signify errors regarding input/output
@@ -284,13 +286,17 @@ enum LIBFDATETIME_RUNTIME_ERROR
 };
 
 /* TODO deprecated remove after a while */
-#define LIBFDATETIME_RUNTIME_ERROR_VALUE_OUT_OF_RANGE		LIBFDATETIME_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS
+#define LIBFDATETIME_RUNTIME_ERROR_VALUE_OUT_OF_RANGE	LIBFDATETIME_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS
 
 /* The output error codes
  */
 enum LIBFDATETIME_OUTPUT_ERROR
 {
-	LIBFDATETIME_OUTPUT_ERROR_GENERIC			= 0
+	LIBFDATETIME_OUTPUT_ERROR_GENERIC			= 0,
+
+	/* There is insuficient space to write the output
+	 */
+	LIBFDATETIME_OUTPUT_ERROR_INSUFFICIENT_SPACE		= 1
 };
 
 #endif
