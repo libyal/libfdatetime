@@ -55,8 +55,8 @@ int libfdatetime_fat_date_time_initialize(
 	}
 	if( *fat_date_time == NULL )
 	{
-		internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) memory_allocate(
-		                                                                   sizeof( libfdatetime_internal_fat_date_time_t ) );
+		internal_fat_date_time = memory_allocate_structure(
+		                          libfdatetime_internal_fat_date_time_t );
 
 		if( internal_fat_date_time == NULL )
 		{
@@ -67,7 +67,7 @@ int libfdatetime_fat_date_time_initialize(
 			 "%s: unable to create FAT date time.",
 			 function );
 
-			return( -1 );
+			goto on_error;
 		}
 		if( memory_set(
 		     internal_fat_date_time,
@@ -81,14 +81,19 @@ int libfdatetime_fat_date_time_initialize(
 			 "%s: unable to clear FAT date time.",
 			 function );
 
-			memory_free(
-			 internal_fat_date_time );
-
-			return( -1 );
+			goto on_error;
 		}
 		*fat_date_time = (libfdatetime_fat_date_time_t *) internal_fat_date_time;
 	}
 	return( 1 );
+
+on_error:
+	if( internal_fat_date_time != NULL )
+	{
+		memory_free(
+		 internal_fat_date_time );
+	}
+	return( -1 );
 }
 
 /* Frees a FAT date and time

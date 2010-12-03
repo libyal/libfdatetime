@@ -26,11 +26,11 @@
 
 #define LIBFDATETIME_VERSION				@VERSION@
 
-/* The libfdatetime version string
+/* The version string
  */
 #define LIBFDATETIME_VERSION_STRING			"@VERSION@"
 
-/* The endian definitions
+/* The byte order definitions
  */
 enum LIBFDATETIME_ENDIAN
 {

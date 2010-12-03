@@ -54,8 +54,8 @@ int libfdatetime_filetime_initialize(
 	}
 	if( *filetime == NULL )
 	{
-		internal_filetime = (libfdatetime_internal_filetime_t *) memory_allocate(
-		                                                          sizeof( libfdatetime_internal_filetime_t ) );
+		internal_filetime = memory_allocate_structure(
+		                     libfdatetime_internal_filetime_t );
 
 		if( internal_filetime == NULL )
 		{
@@ -66,7 +66,7 @@ int libfdatetime_filetime_initialize(
 			 "%s: unable to create filetime.",
 			 function );
 
-			return( -1 );
+			goto on_error;
 		}
 		if( memory_set(
 		     internal_filetime,
@@ -80,14 +80,19 @@ int libfdatetime_filetime_initialize(
 			 "%s: unable to clear filetime.",
 			 function );
 
-			memory_free(
-			 internal_filetime );
-
-			return( -1 );
+			goto on_error;
 		}
 		*filetime = (libfdatetime_filetime_t *) internal_filetime;
 	}
 	return( 1 );
+
+on_error:
+	if( internal_filetime != NULL )
+	{
+		memory_free(
+		 internal_filetime );
+	}
+	return( -1 );
 }
 
 /* Frees a filetime
@@ -302,11 +307,12 @@ int libfdatetime_filetime_copy_to_date_time_values(
      libfdatetime_date_time_values_t *date_time_values,
      liberror_error_t **error )
 {
-	static char *function  = "libfdatetime_filetime_copy_to_date_time_values";
-	uint64_t filetimestamp = 0;
-	uint32_t remainder     = 0;
-	uint16_t days_in_year  = 0;
-	uint8_t days_in_month  = 0;
+	static char *function    = "libfdatetime_filetime_copy_to_date_time_values";
+	uint64_t filetimestamp   = 0;
+	uint32_t remainder       = 0;
+	uint32_t days_in_century = 0;
+	uint16_t days_in_year    = 0;
+	uint8_t days_in_month    = 0;
 
 	if( internal_filetime == NULL )
 	{
@@ -363,13 +369,37 @@ int libfdatetime_filetime_copy_to_date_time_values(
 	 */
 	date_time_values->year = 1601;
 
+	if( filetimestamp >= 36159 )
+	{
+		date_time_values->year = 1700;
+
+		filetimestamp -= 36159;
+	}
+	while( filetimestamp > 0 )
+	{
+		if( ( date_time_values->year % 400 ) == 0 )
+		{
+			days_in_century = 36525;
+		}
+		else
+		{
+			days_in_century = 36524;
+		}
+		if( filetimestamp <= days_in_century )
+		{
+			break;
+		}
+		filetimestamp -= days_in_century;
+
+		date_time_values->year += 100;
+	}
 	while( filetimestamp > 0 )
 	{
 		/* Check for a leap year
 		 * The year is ( ( dividable by 4 ) and ( not dividable by 100 ) ) or ( dividable by 400 )
 		 */
 		if( ( ( ( date_time_values->year % 4 ) == 0 )
-		  && ( ( date_time_values->year % 100 ) != 0 ) )
+		  &&  ( ( date_time_values->year % 100 ) != 0 ) )
 		 || ( ( date_time_values->year % 400 ) == 0 ) )
 		{
 			days_in_year = 366;
@@ -384,7 +414,7 @@ int libfdatetime_filetime_copy_to_date_time_values(
 		}
 		filetimestamp -= days_in_year;
 
-		date_time_values->year++;
+		date_time_values->year += 1;
 	}
 	/* Determine the month correct the value to days within the month
 	 */
@@ -397,7 +427,7 @@ int libfdatetime_filetime_copy_to_date_time_values(
 		if( date_time_values->month == 2 )
 		{
 			if( ( ( ( date_time_values->year % 4 ) == 0 )
-			  && ( ( date_time_values->year % 100 ) != 0 ) )
+			  &&  ( ( date_time_values->year % 100 ) != 0 ) )
 			 || ( ( date_time_values->year % 400 ) == 0 ) )
 			{
 				days_in_month = 29;
@@ -448,7 +478,7 @@ int libfdatetime_filetime_copy_to_date_time_values(
 		}
 		filetimestamp -= days_in_month;
 
-		date_time_values->month++;
+		date_time_values->month += 1;
 	}
 	/* Determine the day
 	 */

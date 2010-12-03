@@ -54,8 +54,8 @@ int libfdatetime_nsf_timedate_initialize(
 	}
 	if( *nsf_timedate == NULL )
 	{
-		internal_nsf_timedate = (libfdatetime_internal_nsf_timedate_t *) memory_allocate(
-		                                                                  sizeof( libfdatetime_internal_nsf_timedate_t ) );
+		internal_nsf_timedate = memory_allocate_structure(
+		                         libfdatetime_internal_nsf_timedate_t );
 
 		if( internal_nsf_timedate == NULL )
 		{
@@ -66,7 +66,7 @@ int libfdatetime_nsf_timedate_initialize(
 			 "%s: unable to create nsf_timedate.",
 			 function );
 
-			return( -1 );
+			goto on_error;
 		}
 		if( memory_set(
 		     internal_nsf_timedate,
@@ -80,14 +80,19 @@ int libfdatetime_nsf_timedate_initialize(
 			 "%s: unable to clear nsf_timedate.",
 			 function );
 
-			memory_free(
-			 internal_nsf_timedate );
-
-			return( -1 );
+			goto on_error;
 		}
 		*nsf_timedate = (libfdatetime_nsf_timedate_t *) internal_nsf_timedate;
 	}
 	return( 1 );
+
+on_error:
+	if( internal_nsf_timedate != NULL )
+	{
+		memory_free(
+		 internal_nsf_timedate );
+	}
+	return( -1 );
 }
 
 /* Frees a NSF timedate

@@ -93,30 +93,30 @@ int libfdatetime_date_time_values_get_string_size(
 	 */
 	if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_CTIME )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
 		{
 			*string_size = 22;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
 			*string_size = 13;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 		{
 			*string_size = 9;
 		}
 	}
 	else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
 		{
 			*string_size = 20;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
 			*string_size = 11;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 		{
 			*string_size = 9;
 		}
@@ -201,7 +201,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 	}
 	/* Validate the date and time if necessary
 	 */
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 	{
 		if( date_time_values->year > 9999 )
 		{
@@ -219,7 +219,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 			return( 0 );
 		}
 	}
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
 		if( date_time_values->hours >= 24 )
 		{
@@ -277,7 +277,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 				month_string = "Dec";
 				break;
 		}
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
 		{
 			if( utf8_string_size < 22 )
 			{
@@ -329,7 +329,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 			utf8_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
 			if( utf8_string_size < 13 )
 			{
@@ -366,7 +366,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 			utf8_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 		{
 			if( utf8_string_size < 9 )
 			{
@@ -398,7 +398,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 	}
 	else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
 		{
 			if( utf8_string_size < 20 )
 			{
@@ -448,7 +448,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 			utf8_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
 			if( utf8_string_size < 11 )
 			{
@@ -483,7 +483,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 			utf8_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 		{
 			if( utf8_string_size < 9 )
 			{
@@ -593,7 +593,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 	}
 	/* Validate the date and time if necessary
 	 */
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 	{
 		if( date_time_values->year > 9999 )
 		{
@@ -611,7 +611,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 			return( 0 );
 		}
 	}
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
 		if( date_time_values->hours >= 24 )
 		{
@@ -669,7 +669,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 				month_string = "Dec";
 				break;
 		}
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
 		{
 			if( utf16_string_size < 22 )
 			{
@@ -721,7 +721,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 			utf16_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
 			if( utf16_string_size < 13 )
 			{
@@ -758,7 +758,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 			utf16_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 		{
 			if( utf16_string_size < 9 )
 			{
@@ -790,7 +790,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 	}
 	else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
 		{
 			if( utf16_string_size < 20 )
 			{
@@ -840,7 +840,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 			utf16_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
 			if( utf16_string_size < 11 )
 			{
@@ -875,7 +875,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 			utf16_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 		{
 			if( utf16_string_size < 9 )
 			{
@@ -985,7 +985,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 	}
 	/* Validate the date and time if necessary
 	 */
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 	{
 		if( date_time_values->year > 9999 )
 		{
@@ -1003,7 +1003,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 			return( 0 );
 		}
 	}
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
 		if( date_time_values->hours >= 24 )
 		{
@@ -1061,7 +1061,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 				month_string = "Dec";
 				break;
 		}
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
 		{
 			if( utf32_string_size < 22 )
 			{
@@ -1113,7 +1113,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 			utf32_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
 			if( utf32_string_size < 13 )
 			{
@@ -1150,7 +1150,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 			utf32_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 		{
 			if( utf32_string_size < 9 )
 			{
@@ -1182,7 +1182,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 	}
 	else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
 		{
 			if( utf32_string_size < 20 )
 			{
@@ -1232,7 +1232,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 			utf32_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) == LIBFDATETIME_STRING_FORMAT_FLAG_DATE )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
 			if( utf32_string_size < 11 )
 			{
@@ -1267,7 +1267,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 			utf32_string[ string_index++ ] = 0;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) == LIBFDATETIME_STRING_FORMAT_FLAG_TIME )
+		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 		{
 			if( utf32_string_size < 9 )
 			{

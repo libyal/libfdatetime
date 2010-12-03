@@ -38,11 +38,11 @@
 
 #define LIBFDATETIME_VERSION				@VERSION@
 
-/* The libfdatetime version string
+/* The version string
  */
 #define LIBFDATETIME_VERSION_STRING			"@VERSION@"
 
-/* The endian definitions
+/* The byte order definitions
  */
 #define LIBFDATETIME_ENDIAN_BIG				_BYTE_STREAM_ENDIAN_BIG
 #define LIBFDATETIME_ENDIAN_LITTLE			_BYTE_STREAM_ENDIAN_LITTLE

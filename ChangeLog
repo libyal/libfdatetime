@@ -22,6 +22,11 @@ Deployment
 * add macosx file
 * add debian files
 
+20101203
+* updated common, liberror
+* code clean up
+* libfdatetime_filetime_copy_to_date_time_values added century loop
+
 20101127
 * added const to copy for byte stream functions
 * updated configure.ac

@@ -10,13 +10,14 @@ SUBDIRS = \
 	borlandc \
 	msvscpp
 
-REDHAT_FILES = \
+SPEC_FILES = \
 	libfdatetime.spec \
 	libfdatetime.spec.in
 
 EXTRA_DIST = \
-        $(REDHAT_FILES) \
-	libfdatetime.pc.in
+	libfdatetime.pc.in \
+	README.mingw \
+        $(SPEC_FILES)
 
 MAINTAINERCLEANFILES = \
 	Makefile.in
