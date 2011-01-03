@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
- [20101203],
+ [20110103],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -39,6 +39,23 @@ AC_SUBST(LIBTOOL_DEPS)
 dnl Check for compiler language support
 AC_C_CONST
 AC_C_VOLATILE
+
+dnl Automatically enable winapi support for mingw
+AS_IF(
+ [test "x$ac_cv_libfdatetime_enable_winapi" = xauto-detect],
+ [ac_libfdatetime_target_string="$target";
+
+ AS_IF(
+  [test "x$ac_libfdatetime_target_string" = x],
+  [ac_libfdatetime_target_string="$build"])
+
+ AS_CASE(
+  [$ac_libfdatetime_target_string],
+  [*mingw*],[AC_MSG_NOTICE(
+             [Detected MinGW enabling WINAPI support for cross-compilation])
+            ac_cv_libfdatetime_enable_winapi=yes],
+  [*],[ac_cv_libfdatetime_enable_winapi=no])
+ ])
 
 dnl Check for headers
 dnl Headers included in libfdatetime/types.h

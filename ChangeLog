@@ -22,6 +22,11 @@ Deployment
 * add macosx file
 * add debian files
 
+20110103
+* updated configure
+* updated libcstring
+* 2011 update
+
 20101203
 * updated common, liberror
 * code clean up
