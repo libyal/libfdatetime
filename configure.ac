@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
- [20110103],
+ [20110703],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -281,6 +281,33 @@ AC_CHECK_FUNCS(
  [AC_MSG_FAILURE(
   [Missing function: realloc],
   [1]) ])
+
+dnl Check for environment functions in libcstring/libcstring_locale.c
+AC_CHECK_FUNCS(
+ [getenv],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: getenv],
+  [1]) ])
+
+dnl Check for localization functions in libcstring/libcstring_locale.c
+AS_IF(
+ [test "x$ac_cv_libfdatetime_enable_winapi" = xno],
+ [AC_CHECK_FUNCS(
+  [localeconv],
+  [],
+  [AC_MSG_FAILURE(
+   [Missing function: localeconv],
+   [1]) ]) ])
+
+AC_CHECK_FUNCS(
+ [setlocale],
+ [],
+ [AC_MSG_FAILURE(
+  [Missing function: setlocale],
+  [1]) ])
+
+LIBFDATETIME_CHECK_FUNC_LANGINFO_CODESET
 
 dnl Narrow character string functions used in libcstring/libcstring_narrow_string.h
 AC_CHECK_FUNCS(

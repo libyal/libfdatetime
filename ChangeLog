@@ -1,4 +1,6 @@
 TODO
+* add support for micro seconds
+  - check if NSF has micro seconds
 * add a more sophisticated day of the month check in date time values
 * have API functions return 0 if value is not a valid date and time ?
 * implement support for duration string
@@ -15,12 +17,19 @@ NSF timedate
 * add API functions
 
 Unix timestamp
-* implement
+* implement 32-bit and 64-bit versions
 
 Deployment
 * update manuals
 * add macosx file
 * add debian files
+
+20110703
+* updated configure.ac
+* changes for: warning: AC_LANG_CONFTEST: no AC_LANG_SOURCE call detected in body
+* updated common, libcstring
+* code clean up
+* worked on support for micro seconds
 
 20110103
 * updated configure

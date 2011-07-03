@@ -50,18 +50,22 @@ struct libfdatetime_date_time_values
 	 */
 	uint8_t day;
 
-	/* The hour in 24 hour format
-	 * so 13 represents 1 PM
+	/* The number of hours in 24 hour format
+	 * E.g. 13 represents 1 PM
 	 */
 	uint8_t hours;
 
-	/* The minutes
+	/* The number of minutes
 	 */
 	uint8_t minutes;
 
-	/* The seconds
+	/* The number of seconds
 	 */
 	uint8_t seconds;
+
+	/* The number of micro seconds
+	 */
+	uint32_t micro_seconds;
 };
 
 int libfdatetime_date_time_values_get_string_size(

@@ -89,36 +89,35 @@ int libfdatetime_date_time_values_get_string_size(
 
 		return( -1 );
 	}
-	/* Create the date and time string
+	*string_size = 1;
+
+	/* Determine the size of the date and time string
 	 */
 	if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_CTIME )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
-			*string_size = 22;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
-		{
-			*string_size = 13;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
-		{
-			*string_size = 9;
+			*string_size += 12;
 		}
 	}
 	else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
-			*string_size = 20;
+			*string_size += 10;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
+	}
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+	{
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
-			*string_size = 11;
+			*string_size += 1;
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+		*string_size += 8;
+
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
 		{
-			*string_size = 9;
+			*string_size += 7;
 		}
 	}
 	return( 1 );
@@ -136,10 +135,12 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
      int date_time_format,
      liberror_error_t **error )
 {
-	char *month_string    = NULL;
-	static char *function = "libfdatetime_date_time_values_copy_to_utf8_string";
-	size_t string_index   = 0;
-	uint16_t year_value   = 0;
+	char *month_string     = NULL;
+	static char *function  = "libfdatetime_date_time_values_copy_to_utf8_string";
+	size_t string_index    = 0;
+	uint32_t micro_seconds = 0;
+	uint16_t year_value    = 0;
+	uint8_t days_in_month  = 0;
 
 	if( date_time_values == NULL )
 	{
@@ -208,30 +209,66 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 			return( 0 );
 		}
 		if( ( date_time_values->month == 0 )
-		 || ( date_time_values->month >= 13 ) )
+		 || ( date_time_values->month > 12 ) )
 		{
 			return( 0 );
 		}
-		/* TODO add a more sophisticate day of the month check */
+		switch( date_time_values->month )
+		{
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				days_in_month = 31;
+				break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				days_in_month = 30;
+				break;
+			case 2:
+				if( ( ( ( date_time_values->year % 4 ) == 0 )
+				  &&  ( ( date_time_values->year % 100 ) != 0 ) )
+				 || ( ( date_time_values->year % 400 ) == 0 ) )
+				{
+					days_in_month = 29;
+				}
+				else
+				{
+					days_in_month = 28;
+				}
+				break;
+		}
 		if( ( date_time_values->day == 0 )
-		 || ( date_time_values->day >= 32 ) )
+		 || ( date_time_values->day > days_in_month ) )
 		{
 			return( 0 );
 		}
 	}
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
-		if( date_time_values->hours >= 24 )
+		if( date_time_values->hours > 23 )
 		{
 			return( 0 );
 		}
-		if( date_time_values->minutes >= 60 )
+		if( date_time_values->minutes > 59 )
 		{
 			return( 0 );
 		}
-		if( date_time_values->seconds >= 60 )
+		if( date_time_values->seconds > 59 )
 		{
 			return( 0 );
+		}
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
+		{
+			if( date_time_values->micro_seconds > 999999 )
+			{
+				return( 0 );
+			}
 		}
 	}
 	/* Create the date and time string
@@ -277,61 +314,9 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 				month_string = "Dec";
 				break;
 		}
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
-			if( utf8_string_size < 22 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-				 "%s: UTF-8 string is too small.",
-				 function );
-
-				return( -1 );
-			}
-			/* Format: mmm dd, yyyy HH:MM:SS */
-			utf8_string[ string_index++ ] = (uint8_t) month_string[ 0 ];
-			utf8_string[ string_index++ ] = (uint8_t) month_string[ 1 ];
-			utf8_string[ string_index++ ] = (uint8_t) month_string[ 2 ];
-
-			utf8_string[ string_index++ ] = (uint8_t) ' ';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->day / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->day % 10 );
-
-			utf8_string[ string_index++ ] = (uint8_t) ',';
-			utf8_string[ string_index++ ] = (uint8_t) ' ';
-
-			year_value                    = date_time_values->year;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 1000 );
-			year_value                   %= 1000;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 100 );
-			year_value                   %= 100;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 10 );
-			year_value                   %= 10;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) year_value;
-
-			utf8_string[ string_index++ ] = (uint8_t) ' ';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours % 10 );
-
-			utf8_string[ string_index++ ] = (uint8_t) ':';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes % 10 );
-
-			utf8_string[ string_index++ ] = (uint8_t) ':';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds % 10 );
-
-			utf8_string[ string_index++ ] = 0;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
-		{
-			if( utf8_string_size < 13 )
+			if( utf8_string_size < 12 )
 			{
 				liberror_error_set(
 				 error,
@@ -364,93 +349,30 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 			year_value                   %= 10;
 			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) year_value;
 
-			utf8_string[ string_index++ ] = 0;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
-		{
-			if( utf8_string_size < 9 )
+			utf8_string_size -= 12;
+
+			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-				 "%s: UTF-8 string is too small.",
-				 function );
+				if( utf8_string_size < 1 )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: UTF-8 string is too small.",
+					 function );
 
-				return( -1 );
+					return( -1 );
+				}
+				utf8_string[ string_index++ ] = (uint8_t) ' ';
 			}
-			/* Format: HH:MM:SS */
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours % 10 );
-
-			utf8_string[ string_index++ ] = (uint8_t) ':';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes % 10 );
-
-			utf8_string[ string_index++ ] = (uint8_t) ':';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds % 10 );
-
-			utf8_string[ string_index++ ] = 0;
 		}
 	}
 	else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
-			if( utf8_string_size < 20 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-				 "%s: UTF-8 string is too small.",
-				 function );
-
-				return( -1 );
-			}
-			/* Format: yyyy-mm-ddTHH:MM:SS */
-			year_value                    = date_time_values->year;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 1000 );
-			year_value                   %= 1000;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 100 );
-			year_value                   %= 100;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) ( year_value / 10 );
-			year_value                   %= 10;
-			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) year_value;
-
-			utf8_string[ string_index++ ] = (uint8_t) '-';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->month / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->month % 10 );
-
-			utf8_string[ string_index++ ] = (uint8_t) '-';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->day / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->day % 10 );
-
-			utf8_string[ string_index++ ] = (uint8_t) 'T';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours % 10 );
-
-			utf8_string[ string_index++ ] = (uint8_t) ':';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes % 10 );
-
-			utf8_string[ string_index++ ] = (uint8_t) ':';
-
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds % 10 );
-
-			utf8_string[ string_index++ ] = 0;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
-		{
-			if( utf8_string_size < 11 )
+			if( utf8_string_size < 10 )
 			{
 				liberror_error_set(
 				 error,
@@ -481,11 +403,57 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->day / 10 );
 			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->day % 10 );
 
-			utf8_string[ string_index++ ] = 0;
+			utf8_string_size -= 10;
+
+			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+			{
+				if( utf8_string_size < 1 )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: UTF-8 string is too small.",
+					 function );
+
+					return( -1 );
+				}
+				utf8_string[ string_index++ ] = (uint8_t) 'T';
+			}
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+	}
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+	{
+		if( utf8_string_size < 8 )
 		{
-			if( utf8_string_size < 9 )
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UTF-8 string is too small.",
+			 function );
+
+			return( -1 );
+		}
+		/* Format: HH:MM:SS */
+		utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours / 10 );
+		utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours % 10 );
+
+		utf8_string[ string_index++ ] = (uint8_t) ':';
+
+		utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes / 10 );
+		utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes % 10 );
+
+		utf8_string[ string_index++ ] = (uint8_t) ':';
+
+		utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds / 10 );
+		utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds % 10 );
+
+		utf8_string_size -= 8;
+
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
+		{
+			if( utf8_string_size < 7 )
 			{
 				liberror_error_set(
 				 error,
@@ -496,23 +464,46 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 				return( -1 );
 			}
-			/* Format: HH:MM:SS */
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->hours % 10 );
+			/* Format: .###### */
+			utf8_string[ string_index++ ] = (uint8_t) '.';
 
-			utf8_string[ string_index++ ] = (uint8_t) ':';
+			micro_seconds = date_time_values->micro_seconds;
 
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->minutes % 10 );
+			utf8_string[ string_index + 5 ] = (uint8_t) '0' + (uint8_t) ( micro_seconds % 10 );
+			micro_seconds                  /= 10;
 
-			utf8_string[ string_index++ ] = (uint8_t) ':';
+			utf8_string[ string_index + 4 ] = (uint8_t) '0' + (uint8_t) ( micro_seconds % 10 );
+			micro_seconds                  /= 10;
 
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds / 10 );
-			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds % 10 );
+			utf8_string[ string_index + 3 ] = (uint8_t) '0' + (uint8_t) ( micro_seconds % 10 );
+			micro_seconds                  /= 10;
 
-			utf8_string[ string_index++ ] = 0;
+			utf8_string[ string_index + 2 ] = (uint8_t) '0' + (uint8_t) ( micro_seconds % 10 );
+			micro_seconds                  /= 10;
+
+			utf8_string[ string_index + 1 ] = (uint8_t) '0' + (uint8_t) ( micro_seconds % 10 );
+			micro_seconds                  /= 10;
+
+			utf8_string[ string_index ] = (uint8_t) '0' + (uint8_t) ( micro_seconds % 10 );
+			micro_seconds              /= 10;
+
+			string_index     += 6;
+			utf8_string_size -= 7;
 		}
 	}
+	if( utf8_string_size < 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UTF-8 string is too small.",
+		 function );
+
+		return( -1 );
+	}
+	utf8_string[ string_index++ ] = 0;
+
 	return( 1 );
 }
 
@@ -528,10 +519,12 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
      int date_time_format,
      liberror_error_t **error )
 {
-	char *month_string    = NULL;
-	static char *function = "libfdatetime_date_time_values_copy_to_utf16_string";
-	size_t string_index   = 0;
-	uint16_t year_value   = 0;
+	char *month_string     = NULL;
+	static char *function  = "libfdatetime_date_time_values_copy_to_utf16_string";
+	size_t string_index    = 0;
+	uint32_t micro_seconds = 0;
+	uint16_t year_value    = 0;
+	uint8_t days_in_month  = 0;
 
 	if( date_time_values == NULL )
 	{
@@ -600,30 +593,66 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 			return( 0 );
 		}
 		if( ( date_time_values->month == 0 )
-		 || ( date_time_values->month >= 13 ) )
+		 || ( date_time_values->month > 12 ) )
 		{
 			return( 0 );
 		}
-		/* TODO add a more sophisticate day of the month check */
+		switch( date_time_values->month )
+		{
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				days_in_month = 31;
+				break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				days_in_month = 30;
+				break;
+			case 2:
+				if( ( ( ( date_time_values->year % 4 ) == 0 )
+				  &&  ( ( date_time_values->year % 100 ) != 0 ) )
+				 || ( ( date_time_values->year % 400 ) == 0 ) )
+				{
+					days_in_month = 29;
+				}
+				else
+				{
+					days_in_month = 28;
+				}
+				break;
+		}
 		if( ( date_time_values->day == 0 )
-		 || ( date_time_values->day >= 32 ) )
+		 || ( date_time_values->day > days_in_month ) )
 		{
 			return( 0 );
 		}
 	}
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
-		if( date_time_values->hours >= 24 )
+		if( date_time_values->hours > 23 )
 		{
 			return( 0 );
 		}
-		if( date_time_values->minutes >= 60 )
+		if( date_time_values->minutes > 59 )
 		{
 			return( 0 );
 		}
-		if( date_time_values->seconds >= 60 )
+		if( date_time_values->seconds > 59 )
 		{
 			return( 0 );
+		}
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
+		{
+			if( date_time_values->micro_seconds > 999999 )
+			{
+				return( 0 );
+			}
 		}
 	}
 	/* Create the date and time string
@@ -669,61 +698,9 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 				month_string = "Dec";
 				break;
 		}
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
-			if( utf16_string_size < 22 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-				 "%s: UTF-16 string is too small.",
-				 function );
-
-				return( -1 );
-			}
-			/* Format: mmm dd, yyyy HH:MM:SS */
-			utf16_string[ string_index++ ] = (uint16_t) month_string[ 0 ];
-			utf16_string[ string_index++ ] = (uint16_t) month_string[ 1 ];
-			utf16_string[ string_index++ ] = (uint16_t) month_string[ 2 ];
-
-			utf16_string[ string_index++ ] = (uint16_t) ' ';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->day / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->day % 10 );
-
-			utf16_string[ string_index++ ] = (uint16_t) ',';
-			utf16_string[ string_index++ ] = (uint16_t) ' ';
-
-			year_value                     = date_time_values->year;
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 1000 );
-			year_value                    %= 1000;
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 100 );
-			year_value                    %= 100;
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 10 );
-			year_value                    %= 10;
-			utf16_string[ string_index++ ] = (uint16_t) '0' + year_value;
-
-			utf16_string[ string_index++ ] = (uint16_t) ' ';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours % 10 );
-
-			utf16_string[ string_index++ ] = (uint16_t) ':';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes % 10 );
-
-			utf16_string[ string_index++ ] = (uint16_t) ':';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds % 10 );
-
-			utf16_string[ string_index++ ] = 0;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
-		{
-			if( utf16_string_size < 13 )
+			if( utf16_string_size < 12 )
 			{
 				liberror_error_set(
 				 error,
@@ -756,93 +733,30 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 			year_value                    %= 10;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + year_value;
 
-			utf16_string[ string_index++ ] = 0;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
-		{
-			if( utf16_string_size < 9 )
+			utf16_string_size -= 12;
+
+			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-				 "%s: UTF-16 string is too small.",
-				 function );
+				if( utf16_string_size < 1 )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: UTF-16 string is too small.",
+					 function );
 
-				return( -1 );
+					return( -1 );
+				}
+				utf16_string[ string_index++ ] = (uint16_t) ' ';
 			}
-			/* Format: HH:MM:SS */
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours % 10 );
-
-			utf16_string[ string_index++ ] = (uint16_t) ':';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes % 10 );
-
-			utf16_string[ string_index++ ] = (uint16_t) ':';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds % 10 );
-
-			utf16_string[ string_index++ ] = 0;
 		}
 	}
 	else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
-			if( utf16_string_size < 20 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-				 "%s: UTF-16 string is too small.",
-				 function );
-
-				return( -1 );
-			}
-			/* Format: yyyy-mm-ddTHH:MM:SS */
-			year_value                     = date_time_values->year;
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 1000 );
-			year_value                    %= 1000;
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 100 );
-			year_value                    %= 100;
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( year_value / 10 );
-			year_value                    %= 10;
-			utf16_string[ string_index++ ] = (uint16_t) '0' + year_value;
-
-			utf16_string[ string_index++ ] = (uint16_t) '-';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->month / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->month % 10 );
-
-			utf16_string[ string_index++ ] = (uint16_t) '-';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->day / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->day % 10 );
-
-			utf16_string[ string_index++ ] = (uint16_t) 'T';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours % 10 );
-
-			utf16_string[ string_index++ ] = (uint16_t) ':';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes % 10 );
-
-			utf16_string[ string_index++ ] = (uint16_t) ':';
-
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds % 10 );
-
-			utf16_string[ string_index++ ] = 0;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
-		{
-			if( utf16_string_size < 11 )
+			if( utf16_string_size < 10 )
 			{
 				liberror_error_set(
 				 error,
@@ -873,11 +787,55 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->day / 10 );
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->day % 10 );
 
-			utf16_string[ string_index++ ] = 0;
+			utf16_string_size -= 10;
+
+			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+			{
+				if( utf16_string_size < 1 )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: UTF-16 string is too small.",
+					 function );
+
+					return( -1 );
+				}
+				utf16_string[ string_index++ ] = (uint16_t) 'T';
+			}
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+	}
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+	{
+		if( utf16_string_size < 9 )
 		{
-			if( utf16_string_size < 9 )
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UTF-16 string is too small.",
+			 function );
+
+			return( -1 );
+		}
+		/* Format: HH:MM:SS */
+		utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours / 10 );
+		utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours % 10 );
+
+		utf16_string[ string_index++ ] = (uint16_t) ':';
+
+		utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes / 10 );
+		utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes % 10 );
+
+		utf16_string[ string_index++ ] = (uint16_t) ':';
+
+		utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds / 10 );
+		utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds % 10 );
+
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
+		{
+			if( utf16_string_size < 7 )
 			{
 				liberror_error_set(
 				 error,
@@ -888,23 +846,46 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 				return( -1 );
 			}
-			/* Format: HH:MM:SS */
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->hours % 10 );
+			/* Format: .###### */
+			utf16_string[ string_index++ ] = (uint16_t) '.';
 
-			utf16_string[ string_index++ ] = (uint16_t) ':';
+			micro_seconds = date_time_values->micro_seconds;
 
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->minutes % 10 );
+			utf16_string[ string_index + 5 ] = (uint16_t) '0' + (uint16_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
 
-			utf16_string[ string_index++ ] = (uint16_t) ':';
+			utf16_string[ string_index + 4 ] = (uint16_t) '0' + (uint16_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
 
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds / 10 );
-			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->seconds % 10 );
+			utf16_string[ string_index + 3 ] = (uint16_t) '0' + (uint16_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
 
-			utf16_string[ string_index++ ] = 0;
+			utf16_string[ string_index + 2 ] = (uint16_t) '0' + (uint16_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
+
+			utf16_string[ string_index + 1 ] = (uint16_t) '0' + (uint16_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
+
+			utf16_string[ string_index ] = (uint16_t) '0' + (uint16_t) ( micro_seconds % 10 );
+			micro_seconds               /= 10;
+
+			string_index      += 6;
+			utf16_string_size -= 7;
 		}
 	}
+	if( utf16_string_size < 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UTF-16 string is too small.",
+		 function );
+
+		return( -1 );
+	}
+	utf16_string[ string_index++ ] = 0;
+
 	return( 1 );
 }
 
@@ -920,10 +901,12 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
      int date_time_format,
      liberror_error_t **error )
 {
-	char *month_string    = NULL;
-	static char *function = "libfdatetime_date_time_values_copy_to_utf32_string";
-	size_t string_index   = 0;
-	uint16_t year_value   = 0;
+	char *month_string     = NULL;
+	static char *function  = "libfdatetime_date_time_values_copy_to_utf32_string";
+	size_t string_index    = 0;
+	uint32_t micro_seconds = 0;
+	uint16_t year_value    = 0;
+	uint8_t days_in_month  = 0;
 
 	if( date_time_values == NULL )
 	{
@@ -992,30 +975,69 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 			return( 0 );
 		}
 		if( ( date_time_values->month == 0 )
-		 || ( date_time_values->month >= 13 ) )
+		 || ( date_time_values->month > 12 ) )
 		{
 			return( 0 );
 		}
-		/* TODO add a more sophisticate day of the month check */
+		switch( date_time_values->month )
+		{
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				days_in_month = 31;
+				break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				days_in_month = 30;
+				break;
+			case 2:
+				if( ( ( ( date_time_values->year % 4 ) == 0 )
+				  &&  ( ( date_time_values->year % 100 ) != 0 ) )
+				 || ( ( date_time_values->year % 400 ) == 0 ) )
+				{
+					days_in_month = 29;
+				}
+				else
+				{
+					days_in_month = 28;
+				}
+				break;
+		}
 		if( ( date_time_values->day == 0 )
-		 || ( date_time_values->day >= 32 ) )
+		 || ( date_time_values->day > days_in_month ) )
+		{
+			return( 0 );
+		}
 		{
 			return( 0 );
 		}
 	}
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
-		if( date_time_values->hours >= 24 )
+		if( date_time_values->hours > 23 )
 		{
 			return( 0 );
 		}
-		if( date_time_values->minutes >= 60 )
+		if( date_time_values->minutes > 59 )
 		{
 			return( 0 );
 		}
-		if( date_time_values->seconds >= 60 )
+		if( date_time_values->seconds > 59 )
 		{
 			return( 0 );
+		}
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
+		{
+			if( date_time_values->micro_seconds > 999999 )
+			{
+				return( 0 );
+			}
 		}
 	}
 	/* Create the date and time string
@@ -1061,61 +1083,9 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 				month_string = "Dec";
 				break;
 		}
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
-			if( utf32_string_size < 22 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-				 "%s: UTF-32 string is too small.",
-				 function );
-
-				return( -1 );
-			}
-			/* Format: mmm dd, yyyy HH:MM:SS */
-			utf32_string[ string_index++ ] = (uint32_t) month_string[ 0 ];
-			utf32_string[ string_index++ ] = (uint32_t) month_string[ 1 ];
-			utf32_string[ string_index++ ] = (uint32_t) month_string[ 2 ];
-
-			utf32_string[ string_index++ ] = (uint32_t) ' ';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->day / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->day % 10 );
-
-			utf32_string[ string_index++ ] = (uint32_t) ',';
-			utf32_string[ string_index++ ] = (uint32_t) ' ';
-
-			year_value                     = date_time_values->year;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 1000 );
-			year_value                    %= 1000;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 100 );
-			year_value                    %= 100;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 10 );
-			year_value                    %= 10;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
-
-			utf32_string[ string_index++ ] = (uint32_t) ' ';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours % 10 );
-
-			utf32_string[ string_index++ ] = (uint32_t) ':';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes % 10 );
-
-			utf32_string[ string_index++ ] = (uint32_t) ':';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds % 10 );
-
-			utf32_string[ string_index++ ] = 0;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
-		{
-			if( utf32_string_size < 13 )
+			if( utf32_string_size < 12 )
 			{
 				liberror_error_set(
 				 error,
@@ -1148,93 +1118,30 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 			year_value                    %= 10;
 			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
 
-			utf32_string[ string_index++ ] = 0;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
-		{
-			if( utf32_string_size < 9 )
+			utf32_string_size -= 12;
+
+			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-				 "%s: UTF-32 string is too small.",
-				 function );
+				if( utf32_string_size < 1 )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: UTF-32 string is too small.",
+					 function );
 
-				return( -1 );
+					return( -1 );
+				}
+				utf32_string[ string_index++ ] = (uint32_t) ' ';
 			}
-			/* Format: HH:MM:SS */
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours % 10 );
-
-			utf32_string[ string_index++ ] = (uint32_t) ':';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes % 10 );
-
-			utf32_string[ string_index++ ] = (uint32_t) ':';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds % 10 );
-
-			utf32_string[ string_index++ ] = 0;
 		}
 	}
 	else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 	{
-		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) != 0 )
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
 		{
-			if( utf32_string_size < 20 )
-			{
-				liberror_error_set(
-				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-				 "%s: UTF-32 string is too small.",
-				 function );
-
-				return( -1 );
-			}
-			/* Format: yyyy-mm-ddTHH:MM:SS */
-			year_value                     = date_time_values->year;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 1000 );
-			year_value                    %= 1000;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 100 );
-			year_value                    %= 100;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 10 );
-			year_value                    %= 10;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
-
-			utf32_string[ string_index++ ] = (uint32_t) '-';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->month / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->month % 10 );
-
-			utf32_string[ string_index++ ] = (uint32_t) '-';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->day / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->day % 10 );
-
-			utf32_string[ string_index++ ] = (uint32_t) 'T';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours % 10 );
-
-			utf32_string[ string_index++ ] = (uint32_t) ':';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes % 10 );
-
-			utf32_string[ string_index++ ] = (uint32_t) ':';
-
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds % 10 );
-
-			utf32_string[ string_index++ ] = 0;
-		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
-		{
-			if( utf32_string_size < 11 )
+			if( utf32_string_size < 10 )
 			{
 				liberror_error_set(
 				 error,
@@ -1265,11 +1172,55 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->day / 10 );
 			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->day % 10 );
 
-			utf32_string[ string_index++ ] = 0;
+			utf32_string_size -= 10;
+
+			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+			{
+				if( utf32_string_size < 1 )
+				{
+					liberror_error_set(
+					 error,
+					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 "%s: UTF-32 string is too small.",
+					 function );
+
+					return( -1 );
+				}
+				utf32_string[ string_index++ ] = (uint32_t) 'T';
+			}
 		}
-		else if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+	}
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+	{
+		if( utf32_string_size < 9 )
 		{
-			if( utf32_string_size < 9 )
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: UTF-32 string is too small.",
+			 function );
+
+			return( -1 );
+		}
+		/* Format: HH:MM:SS */
+		utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours / 10 );
+		utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours % 10 );
+
+		utf32_string[ string_index++ ] = (uint32_t) ':';
+
+		utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes / 10 );
+		utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes % 10 );
+
+		utf32_string[ string_index++ ] = (uint32_t) ':';
+
+		utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds / 10 );
+		utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds % 10 );
+
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
+		{
+			if( utf32_string_size < 7 )
 			{
 				liberror_error_set(
 				 error,
@@ -1280,23 +1231,46 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 				return( -1 );
 			}
-			/* Format: HH:MM:SS */
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->hours % 10 );
+			/* Format: .###### */
+			utf32_string[ string_index++ ] = (uint32_t) '.';
 
-			utf32_string[ string_index++ ] = (uint32_t) ':';
+			micro_seconds = date_time_values->micro_seconds;
 
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->minutes % 10 );
+			utf32_string[ string_index + 5 ] = (uint32_t) '0' + (uint32_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
 
-			utf32_string[ string_index++ ] = (uint32_t) ':';
+			utf32_string[ string_index + 4 ] = (uint32_t) '0' + (uint32_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
 
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds / 10 );
-			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->seconds % 10 );
+			utf32_string[ string_index + 3 ] = (uint32_t) '0' + (uint32_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
 
-			utf32_string[ string_index++ ] = 0;
+			utf32_string[ string_index + 2 ] = (uint32_t) '0' + (uint32_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
+
+			utf32_string[ string_index + 1 ] = (uint32_t) '0' + (uint32_t) ( micro_seconds % 10 );
+			micro_seconds                   /= 10;
+
+			utf32_string[ string_index ] = (uint32_t) '0' + (uint32_t) ( micro_seconds % 10 );
+			micro_seconds               /= 10;
+
+			string_index      += 6;
+			utf32_string_size -= 7;
 		}
 	}
+	if( utf32_string_size < 1 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UTF-32 string is too small.",
+		 function );
+
+		return( -1 );
+	}
+	utf32_string[ string_index++ ] = 0;
+
 	return( 1 );
 }
 

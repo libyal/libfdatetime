@@ -309,7 +309,6 @@ int libfdatetime_filetime_copy_to_date_time_values(
 {
 	static char *function    = "libfdatetime_filetime_copy_to_date_time_values";
 	uint64_t filetimestamp   = 0;
-	uint32_t remainder       = 0;
 	uint32_t days_in_century = 0;
 	uint16_t days_in_year    = 0;
 	uint8_t days_in_month    = 0;
@@ -342,8 +341,8 @@ int libfdatetime_filetime_copy_to_date_time_values(
 
 	/* The timestamp is in units of 100 nano seconds correct the value to seconds
 	 */
-	remainder      = filetimestamp % 10000000;
-	filetimestamp /= 10000000;
+	date_time_values->micro_seconds = ( filetimestamp % 10000000 ) / 10;
+	filetimestamp                  /= 10000000;
 
 	/* There are 60 seconds in a minute correct the value to minutes
 	 */
