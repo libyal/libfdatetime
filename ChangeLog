@@ -24,6 +24,9 @@ Deployment
 * add macosx file
 * add debian files
 
+20110723
+* added gettext support
+
 20110703
 * updated configure.ac
 * changes for: warning: AC_LANG_CONFTEST: no AC_LANG_SOURCE call detected in body

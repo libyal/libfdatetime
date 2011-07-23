@@ -6,18 +6,27 @@ SUBDIRS = \
 	libcstring \
 	liberror \
 	libfdatetime \
+	po \
 	manuals \
 	borlandc \
 	msvscpp
+
+GETTEXT_FILES = \
+	config.rpath \
+	po/Makevars.in
+
+PKGCONFIG_FILES = \
+	libfdatetime.pc.in
 
 SPEC_FILES = \
 	libfdatetime.spec \
 	libfdatetime.spec.in
 
 EXTRA_DIST = \
-	libfdatetime.pc.in \
 	README.mingw \
-        $(SPEC_FILES)
+	$(GETTEXT_FILES) \
+	$(PKGCONFIG_FILES) \
+	$(SPEC_FILES)
 
 MAINTAINERCLEANFILES = \
 	Makefile.in
@@ -37,6 +46,7 @@ library:
 	(cd $(srcdir)/libcstring && $(MAKE) $(AM_MAKEFLAGS))
 	(cd $(srcdir)/liberror && $(MAKE) $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libfdatetime && $(MAKE) $(AM_MAKEFLAGS))
+	(cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS))
 
 distclean: clean
 	/bin/rm -f Makefile
@@ -54,4 +64,5 @@ splint:
 	(cd $(srcdir)/libcstring && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/liberror && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libfdatetime && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/po && $(MAKE) splint $(AM_MAKEFLAGS))
 
