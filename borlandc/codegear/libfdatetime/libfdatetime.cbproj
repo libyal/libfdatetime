@@ -42,52 +42,40 @@
 		<ItemGroup>
 			<LibFiles Include="..\Release\liberror.lib">
 				<IgnorePath>true</IgnorePath>
-				<BuildOrder>0</BuildOrder>
 			</LibFiles>
 			<None Include="..\..\..\libfdatetime\libfdatetime_types.h">
-				<BuildOrder>1</BuildOrder>
 			</None>
 			<CppCompile Include="..\..\..\libfdatetime\libfdatetime_date_time_values.c">
-				<BuildOrder>2</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\libfdatetime\libfdatetime_error.c">
-				<BuildOrder>3</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\libfdatetime\libfdatetime_fat_date_time.c">
-				<BuildOrder>4</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\libfdatetime\libfdatetime_filetime.c">
-				<BuildOrder>5</BuildOrder>
 			</CppCompile>
 			<CppCompile Include="..\..\..\libfdatetime\libfdatetime_nsf_timedate.c">
-				<BuildOrder>6</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="..\..\..\libfdatetime\libfdatetime_posix_time.c">
 			</CppCompile>
 			<CppCompile Include="..\..\..\libfdatetime\libfdatetime_support.c">
-				<BuildOrder>7</BuildOrder>
 			</CppCompile>
 			<None Include="..\..\..\libfdatetime\libfdatetime_date_time_values.h">
-				<BuildOrder>8</BuildOrder>
 			</None>
 			<None Include="..\..\..\libfdatetime\libfdatetime_definitions.h">
-				<BuildOrder>9</BuildOrder>
 			</None>
 			<None Include="..\..\..\libfdatetime\libfdatetime_error.h">
-				<BuildOrder>10</BuildOrder>
 			</None>
 			<None Include="..\..\..\libfdatetime\libfdatetime_extern.h">
-				<BuildOrder>11</BuildOrder>
 			</None>
 			<None Include="..\..\..\libfdatetime\libfdatetime_fat_date_time.h">
-				<BuildOrder>12</BuildOrder>
 			</None>
 			<None Include="..\..\..\libfdatetime\libfdatetime_filetime.h">
-				<BuildOrder>13</BuildOrder>
 			</None>
 			<None Include="..\..\..\libfdatetime\libfdatetime_nsf_timedate.h">
-				<BuildOrder>14</BuildOrder>
+			</None>
+			<None Include="..\..\..\libfdatetime\libfdatetime_posix_time.h">
 			</None>
 			<None Include="..\..\..\libfdatetime\libfdatetime_support.h">
-				<BuildOrder>15</BuildOrder>
 			</None>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

@@ -16,13 +16,22 @@ HFS date/time
 NSF timedate
 * add API functions
 
-Unix timestamp
-* implement 32-bit and 64-bit versions
+POSIX timestamp
+* implement 64-bit versions
 
 Deployment
 * update manuals
 * add macosx file
 * add debian files
+
+20111013
+* fix for posix time function
+* updated common
+
+20111007
+* updated configure.ac and m4 scripts
+* added POSIX time
+* updates msvscpp and codegear files
 
 20110723
 * added gettext support

@@ -35,6 +35,9 @@
 /* Define to 1 if you have the `fgets' function. */
 #undef HAVE_FGETS
 
+/* Define to 1 if you have the `fgetws' function. */
+#undef HAVE_FGETWS
+
 /* Define to 1 if you have the `fopen' function. */
 #undef HAVE_FOPEN
 
@@ -70,6 +73,9 @@
 
 /* Define to 1 if you have the <langinfo.h> header file. */
 #undef HAVE_LANGINFO_H
+
+/* Define to 1 if you have the <libintl.h> header file. */
+#undef HAVE_LIBINTL_H
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
@@ -167,11 +173,17 @@
 /* Define to 1 if you have the `strtoull' function. */
 #undef HAVE_STRTOULL
 
+/* Define to 1 if you have the `swprintf' function. */
+#undef HAVE_SWPRINTF
+
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #undef HAVE_SYS_STAT_H
 
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the `towlower' function. */
+#undef HAVE_TOWLOWER
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
@@ -185,8 +197,59 @@
 /* Define to 1 if you have the `vsnprintf' function. */
 #undef HAVE_VSNPRINTF
 
+/* Define to 1 if you have the <wchar.h> header file. */
+#undef HAVE_WCHAR_H
+
+/* Define to 1 if you have the `wcscasecmp' function. */
+#undef HAVE_WCSCASECMP
+
+/* Define to 1 if you have the `wcschr' function. */
+#undef HAVE_WCSCHR
+
+/* Define to 1 if you have the `wcslen' function. */
+#undef HAVE_WCSLEN
+
+/* Define to 1 if you have the `wcsncasecmp' function. */
+#undef HAVE_WCSNCASECMP
+
+/* Define to 1 if you have the `wcsncmp' function. */
+#undef HAVE_WCSNCMP
+
+/* Define to 1 if you have the `wcsncpy' function. */
+#undef HAVE_WCSNCPY
+
+/* Define to 1 if you have the `wcsrchr' function. */
+#undef HAVE_WCSRCHR
+
+/* Define to 1 if you have the `wcsstr' function. */
+#undef HAVE_WCSSTR
+
+/* Define to 1 if you have the `wcstoll' function. */
+#undef HAVE_WCSTOLL
+
+/* Define to 1 if you have the `wcstombs' function. */
+#undef HAVE_WCSTOMBS
+
+/* Define to 1 if you have the `wcstoull' function. */
+#undef HAVE_WCSTOULL
+
+/* Define to 1 if wide character type should be used. */
+#undef HAVE_WIDE_CHARACTER_TYPE
+
 /* Define to 1 if you have the <windows.h> header file. */
 #undef HAVE_WINDOWS_H
+
+/* Define to 1 if you have the `wmemchr' function. */
+#undef HAVE_WMEMCHR
+
+/* Define to 1 if you have the `wmemcmp' function. */
+#undef HAVE_WMEMCMP
+
+/* Define to 1 if you have the `wmemcpy' function. */
+#undef HAVE_WMEMCPY
+
+/* Define to 1 if you have the `wmemrchr' function. */
+#undef HAVE_WMEMRCHR
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
@@ -219,6 +282,9 @@
 /* The size of `size_t', as computed by sizeof. */
 #undef SIZEOF_SIZE_T
 
+/* The size of `wchar_t', as computed by sizeof. */
+#undef SIZEOF_WCHAR_T
+
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
@@ -233,6 +299,9 @@
 
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const
+
+/* Define to `int' if <sys/types.h> does not define. */
+#undef mode_t
 
 /* Define to `long int' if <sys/types.h> does not define. */
 #undef off_t

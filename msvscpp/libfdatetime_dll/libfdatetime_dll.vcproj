@@ -114,6 +114,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libfdatetime\libfdatetime_posix_time.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libfdatetime\libfdatetime_support.c"
 				>
 			</File>
@@ -149,6 +153,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libfdatetime\libfdatetime_nsf_timedate.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libfdatetime\libfdatetime_posix_time.h"
 				>
 			</File>
 			<File

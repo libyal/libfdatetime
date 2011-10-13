@@ -33,11 +33,23 @@
 
 /* The following type definitions hide internal data structures
  */
+#if defined( HAVE_DEBUG_OUTPUT ) && !defined( WINAPI )
+typedef struct libfdatetime_fat_date_time {}	libfdatetime_fat_date_time_t;
+typedef struct libfdatetime_fat_date {}		libfdatetime_fat_date_t;
+typedef struct libfdatetime_fat_time {}		libfdatetime_fat_time_t;
+typedef struct libfdatetime_filetime {}		libfdatetime_filetime_t;
+typedef struct libfdatetime_nsf_timedate {}	libfdatetime_nsf_timedate_t;
+typedef struct libfdatetime_posix_time {}	libfdatetime_posix_time_t;
+
+#else
 typedef intptr_t libfdatetime_fat_date_time_t;
 typedef intptr_t libfdatetime_fat_date_t;
 typedef intptr_t libfdatetime_fat_time_t;
 typedef intptr_t libfdatetime_filetime_t;
 typedef intptr_t libfdatetime_nsf_timedate_t;
+typedef intptr_t libfdatetime_posix_time_t;
+
+#endif
 
 #endif
 

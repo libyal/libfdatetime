@@ -178,6 +178,10 @@ typedef intptr_t libfdatetime_filetime_t;
  */
 typedef intptr_t libfdatetime_nsf_timedate_t;
 
+/* 32-bit POSIX time definition
+ */
+typedef intptr_t libfdatetime_posix_time_t;
+
 #ifdef __cplusplus
 }
 #endif
