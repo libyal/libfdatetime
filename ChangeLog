@@ -24,6 +24,9 @@ Deployment
 * add macosx file
 * add debian files
 
+20111031
+* updated libcstring
+
 20111013
 * fix for posix time function
 * updated common
