@@ -52,38 +52,47 @@ int libfdatetime_posix_time_initialize(
 
 		return( -1 );
 	}
-	if( *posix_time == NULL )
+	if( *posix_time != NULL )
 	{
-		internal_posix_time = memory_allocate_structure(
-		                       libfdatetime_internal_posix_time_t );
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
+		 "%s: invalid POSIX time value already set.",
+		 function );
 
-		if( internal_posix_time == NULL )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_MEMORY,
-			 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-			 "%s: unable to create POSIX time.",
-			 function );
-
-			goto on_error;
-		}
-		if( memory_set(
-		     internal_posix_time,
-		     0,
-		     sizeof( libfdatetime_internal_posix_time_t ) ) == NULL )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_MEMORY,
-			 LIBERROR_MEMORY_ERROR_SET_FAILED,
-			 "%s: unable to clear POSIX time.",
-			 function );
-
-			goto on_error;
-		}
-		*posix_time = (libfdatetime_posix_time_t *) internal_posix_time;
+		return( -1 );
 	}
+	internal_posix_time = memory_allocate_structure(
+	                       libfdatetime_internal_posix_time_t );
+
+	if( internal_posix_time == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create POSIX time.",
+		 function );
+
+		goto on_error;
+	}
+	if( memory_set(
+	     internal_posix_time,
+	     0,
+	     sizeof( libfdatetime_internal_posix_time_t ) ) == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_SET_FAILED,
+		 "%s: unable to clear POSIX time.",
+		 function );
+
+		goto on_error;
+	}
+	*posix_time = (libfdatetime_posix_time_t *) internal_posix_time;
+
 	return( 1 );
 
 on_error:

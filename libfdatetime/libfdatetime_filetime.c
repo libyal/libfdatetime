@@ -52,38 +52,47 @@ int libfdatetime_filetime_initialize(
 
 		return( -1 );
 	}
-	if( *filetime == NULL )
+	if( *filetime != NULL )
 	{
-		internal_filetime = memory_allocate_structure(
-		                     libfdatetime_internal_filetime_t );
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
+		 "%s: invalid filetime value already set.",
+		 function );
 
-		if( internal_filetime == NULL )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_MEMORY,
-			 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-			 "%s: unable to create filetime.",
-			 function );
-
-			goto on_error;
-		}
-		if( memory_set(
-		     internal_filetime,
-		     0,
-		     sizeof( libfdatetime_internal_filetime_t ) ) == NULL )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_MEMORY,
-			 LIBERROR_MEMORY_ERROR_SET_FAILED,
-			 "%s: unable to clear filetime.",
-			 function );
-
-			goto on_error;
-		}
-		*filetime = (libfdatetime_filetime_t *) internal_filetime;
+		return( -1 );
 	}
+	internal_filetime = memory_allocate_structure(
+	                     libfdatetime_internal_filetime_t );
+
+	if( internal_filetime == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create filetime.",
+		 function );
+
+		goto on_error;
+	}
+	if( memory_set(
+	     internal_filetime,
+	     0,
+	     sizeof( libfdatetime_internal_filetime_t ) ) == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_SET_FAILED,
+		 "%s: unable to clear filetime.",
+		 function );
+
+		goto on_error;
+	}
+	*filetime = (libfdatetime_filetime_t *) internal_filetime;
+
 	return( 1 );
 
 on_error:

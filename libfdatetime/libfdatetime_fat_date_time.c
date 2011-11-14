@@ -53,38 +53,47 @@ int libfdatetime_fat_date_time_initialize(
 
 		return( -1 );
 	}
-	if( *fat_date_time == NULL )
+	if( *fat_date_time != NULL )
 	{
-		internal_fat_date_time = memory_allocate_structure(
-		                          libfdatetime_internal_fat_date_time_t );
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
+		 "%s: invalid FAT date time value already set.",
+		 function );
 
-		if( internal_fat_date_time == NULL )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_MEMORY,
-			 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-			 "%s: unable to create FAT date time.",
-			 function );
-
-			goto on_error;
-		}
-		if( memory_set(
-		     internal_fat_date_time,
-		     0,
-		     sizeof( libfdatetime_internal_fat_date_time_t ) ) == NULL )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_MEMORY,
-			 LIBERROR_MEMORY_ERROR_SET_FAILED,
-			 "%s: unable to clear FAT date time.",
-			 function );
-
-			goto on_error;
-		}
-		*fat_date_time = (libfdatetime_fat_date_time_t *) internal_fat_date_time;
+		return( -1 );
 	}
+	internal_fat_date_time = memory_allocate_structure(
+	                          libfdatetime_internal_fat_date_time_t );
+
+	if( internal_fat_date_time == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create FAT date time.",
+		 function );
+
+		goto on_error;
+	}
+	if( memory_set(
+	     internal_fat_date_time,
+	     0,
+	     sizeof( libfdatetime_internal_fat_date_time_t ) ) == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_SET_FAILED,
+		 "%s: unable to clear FAT date time.",
+		 function );
+
+		goto on_error;
+	}
+	*fat_date_time = (libfdatetime_fat_date_time_t *) internal_fat_date_time;
+
 	return( 1 );
 
 on_error:

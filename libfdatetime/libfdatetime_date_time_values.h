@@ -68,6 +68,14 @@ struct libfdatetime_date_time_values
 	uint32_t micro_seconds;
 };
 
+int libfdatetime_date_time_values_initialize(
+     libfdatetime_date_time_values_t **date_time_values,
+     liberror_error_t **error );
+
+int libfdatetime_date_time_values_free(
+     libfdatetime_date_time_values_t **date_time_values,
+     liberror_error_t **error );
+
 int libfdatetime_date_time_values_get_string_size(
      libfdatetime_date_time_values_t *date_time_values,
      size_t *string_size,

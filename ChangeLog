@@ -24,6 +24,10 @@ Deployment
 * add macosx file
 * add debian files
 
+20111114
+* code clean
+* updated libcstring
+
 20111031
 * updated libcstring
 

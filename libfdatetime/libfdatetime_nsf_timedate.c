@@ -47,43 +47,52 @@ int libfdatetime_nsf_timedate_initialize(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid nsf_timedate.",
+		 "%s: invalid NSF timedate.",
 		 function );
 
 		return( -1 );
 	}
-	if( *nsf_timedate == NULL )
+	if( *nsf_timedate != NULL )
 	{
-		internal_nsf_timedate = memory_allocate_structure(
-		                         libfdatetime_internal_nsf_timedate_t );
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
+		 "%s: invalid NSF timedate value already set.",
+		 function );
 
-		if( internal_nsf_timedate == NULL )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_MEMORY,
-			 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
-			 "%s: unable to create nsf_timedate.",
-			 function );
-
-			goto on_error;
-		}
-		if( memory_set(
-		     internal_nsf_timedate,
-		     0,
-		     sizeof( libfdatetime_internal_nsf_timedate_t ) ) == NULL )
-		{
-			liberror_error_set(
-			 error,
-			 LIBERROR_ERROR_DOMAIN_MEMORY,
-			 LIBERROR_MEMORY_ERROR_SET_FAILED,
-			 "%s: unable to clear nsf_timedate.",
-			 function );
-
-			goto on_error;
-		}
-		*nsf_timedate = (libfdatetime_nsf_timedate_t *) internal_nsf_timedate;
+		return( -1 );
 	}
+	internal_nsf_timedate = memory_allocate_structure(
+	                         libfdatetime_internal_nsf_timedate_t );
+
+	if( internal_nsf_timedate == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create NSF timedate.",
+		 function );
+
+		goto on_error;
+	}
+	if( memory_set(
+	     internal_nsf_timedate,
+	     0,
+	     sizeof( libfdatetime_internal_nsf_timedate_t ) ) == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_SET_FAILED,
+		 "%s: unable to clear NSF timedate.",
+		 function );
+
+		goto on_error;
+	}
+	*nsf_timedate = (libfdatetime_nsf_timedate_t *) internal_nsf_timedate;
+
 	return( 1 );
 
 on_error:
@@ -111,7 +120,7 @@ int libfdatetime_nsf_timedate_free(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid nsf_timedate.",
+		 "%s: invalid NSF timedate.",
 		 function );
 
 		return( -1 );
@@ -146,7 +155,7 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid nsf_timedate.",
+		 "%s: invalid NSF timedate.",
 		 function );
 
 		return( -1 );
@@ -242,7 +251,7 @@ int libfdatetime_nsf_timedate_copy_from_64bit(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid nsf_timedate.",
+		 "%s: invalid NSF timedate.",
 		 function );
 
 		return( -1 );
@@ -279,7 +288,7 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid internal nsf_timedate.",
+		 "%s: invalid internal NSF timedate.",
 		 function );
 
 		return( -1 );
@@ -414,7 +423,7 @@ int libfdatetime_nsf_timedate_get_string_size(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid nsf_timedate.",
+		 "%s: invalid NSF timedate.",
 		 function );
 
 		return( -1 );
@@ -499,7 +508,7 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid nsf_timedate.",
+		 "%s: invalid NSF timedate.",
 		 function );
 
 		return( -1 );
@@ -654,7 +663,7 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid nsf_timedate.",
+		 "%s: invalid NSF timedate.",
 		 function );
 
 		return( -1 );
@@ -809,7 +818,7 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 		 error,
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid nsf_timedate.",
+		 "%s: invalid NSF timedate.",
 		 function );
 
 		return( -1 );

@@ -29,6 +29,108 @@
 #include "libfdatetime_date_time_values.h"
 #include "libfdatetime_types.h"
 
+/* Initialize date time values
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_date_time_values_initialize(
+     libfdatetime_date_time_values_t **date_time_values,
+     liberror_error_t **error )
+{
+	static char *function = "libfdatetime_date_time_values_initialize";
+
+	if( date_time_values == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid date time values.",
+		 function );
+
+		return( -1 );
+	}
+	if( *date_time_values != NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
+		 "%s: invalid date time values value already set.",
+		 function );
+
+		return( -1 );
+	}
+	*date_time_values = memory_allocate_structure(
+	                     libfdatetime_date_time_values_t );
+
+	if( *date_time_values == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 "%s: unable to create date time values.",
+		 function );
+
+		goto on_error;
+	}
+	if( memory_set(
+	     *date_time_values,
+	     0,
+	     sizeof( libfdatetime_date_time_values_t ) ) == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_MEMORY,
+		 LIBERROR_MEMORY_ERROR_SET_FAILED,
+		 "%s: unable to clear date time values.",
+		 function );
+
+		goto on_error;
+	}
+	return( 1 );
+
+on_error:
+	if( *date_time_values != NULL )
+	{
+		memory_free(
+		 *date_time_values );
+
+		*date_time_values = NULL;
+	}
+	return( -1 );
+}
+
+/* Frees date time values
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_date_time_values_free(
+     libfdatetime_date_time_values_t **date_time_values,
+     liberror_error_t **error )
+{
+	static char *function = "libfdatetime_date_time_values_free";
+
+	if( date_time_values == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid date time values.",
+		 function );
+
+		return( -1 );
+	}
+	if( *date_time_values != NULL )
+	{
+		memory_free(
+		 *date_time_values );
+
+		*date_time_values = NULL;
+	}
+	return( 1 );
+}
+
 /* Deterimes the size of the string for the date and time values
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
