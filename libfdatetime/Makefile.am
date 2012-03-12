@@ -1,6 +1,7 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
+	-I$(top_srcdir)/libcstring \
 	-I$(top_srcdir)/liberror \
 	@MEMWATCH_CPPFLAGS@
 
@@ -19,18 +20,22 @@ libfdatetime_la_SOURCES = \
 	libfdatetime_types.h
 
 libfdatetime_la_LIBADD = \
+	../libcstring/libcstring.la \
 	../liberror/liberror.la
 
 libfdatetime_la_LDFLAGS = -no-undefined -version-info 1:0:0
 
 EXTRA_DIST = \
-	libfdatetime_definitions.h.in
+	libfdatetime_definitions.h.in \
+	libfdatetime.rc \
+	libfdatetime.rc.in
 
 MAINTAINERCLEANFILES = \
 	Makefile.in
 
 distclean: clean
 	/bin/rm -f libfdatetime_definitions.h
+	/bin/rm -f libfdatetime.rc
 	/bin/rm -f Makefile
 
 splint:

@@ -2,7 +2,7 @@ AC_PREREQ( 2.59 )
 
 AC_INIT(
  [libfdatetime],
- [20120102],
+ [20120312],
  [jbmetz@users.sourceforge.net])
 
 AC_CONFIG_SRCDIR(
@@ -71,6 +71,11 @@ AM_CONDITIONAL(
 dnl Set additional compiler flags
 CFLAGS="$CFLAGS -Wall";
 
+dnl Set the date for dpkg files
+AC_SUBST(
+ [DATE],
+ [`date -R 2> /dev/null`])
+
 dnl Have configure make the Makefiles
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([include/Makefile])
@@ -90,6 +95,9 @@ AC_CONFIG_FILES([include/libfdatetime/types.h])
 AC_CONFIG_FILES([libfdatetime/libfdatetime_definitions.h])
 dnl Have configure make distribution specific files
 AC_CONFIG_FILES([common/types.h])
+AC_CONFIG_FILES([dpkg/changelog])
+AC_CONFIG_FILES([dpkg/copyright])
+AC_CONFIG_FILES([libfdatetime/libfdatetime.rc])
 AC_CONFIG_FILES([libfdatetime.pc])
 AC_CONFIG_FILES([libfdatetime.spec])
 dnl Have configure write its configuration

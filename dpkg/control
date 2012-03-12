@@ -1,0 +1,22 @@
+Source: libfdatetime
+Section: unknown
+Priority: extra
+Maintainer: Joachim Metz <jbmetz@users.sourceforge.net>
+Build-Depends: debhelper (>= 7), autotools-dev
+Standards-Version: 3.8.3
+Homepage: https://sourceforge.net/projects/libfdatetime/
+
+Package: libfdatetime
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Library to support various date and time formats that are used in file formats
+ libfdatetime is a library to support various date and time formats that are used in file formats.
+
+Package: libfdatetime-dev
+Section: libdevel
+Architecture: any
+Depends: libfdatetime (= ${Source-Version})
+Description: Header files and libraries for developing applications for libfdatetime
+ Header files and libraries for developing applications for libfdatetime.
+
