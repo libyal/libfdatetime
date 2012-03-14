@@ -7,6 +7,7 @@ SUBDIRS = \
 	liberror \
 	libfdatetime \
 	po \
+	tests \
 	manuals \
 	borlandc \
 	msvscpp

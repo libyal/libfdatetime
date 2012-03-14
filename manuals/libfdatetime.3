@@ -1,4 +1,4 @@
-.Dd January  2, 2012
+.Dd March 14, 2012
 .Dt libfdatetime 3
 .Os libfdatetime
 .Sh NAME
@@ -62,6 +62,24 @@ Filetime functions
 .Fn libfdatetime_filetime_copy_to_utf16_string "libfdatetime_filetime_t *filetime, uint16_t *utf16_string, size_t utf16_string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_filetime_copy_to_utf32_string "libfdatetime_filetime_t *filetime, uint32_t *utf32_string, size_t utf32_string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
+.Pp
+POSIX time functions
+.Ft int
+.Fn libfdatetime_posix_time_initialize "libfdatetime_posix_time_t **posix_time, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_posix_time_free "libfdatetime_posix_time_t **posix_time, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_posix_time_copy_from_byte_stream "libfdatetime_posix_time_t *posix_time, uint8_t *byte_stream, size_t byte_stream_size, uint8_t byte_order, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_posix_time_copy_from_64bit "libfdatetime_posix_time_t *posix_time, uint64_t value_64bit, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_posix_time_get_string_size "libfdatetime_posix_time_t *posix_time, size_t *string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_posix_time_copy_to_utf8_string "libfdatetime_posix_time_t *posix_time, uint8_t *utf8_string, size_t utf8_string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_posix_time_copy_to_utf16_string "libfdatetime_posix_time_t *posix_time, uint16_t *utf16_string, size_t utf16_string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_posix_time_copy_to_utf32_string "libfdatetime_posix_time_t *posix_time, uint32_t *utf32_string, size_t utf32_string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
 .Sh DESCRIPTION
 The
 .Fn libfdatetime_get_version
@@ -73,17 +91,6 @@ None
 .Sh FILES
 None
 .Sh NOTES
-libfdatetime allows to be compiled with wide character support.
-To compile libfdatetime with wide character support use
-.Ar ./configure --enable-wide-character-type=yes
-or pass the definition
-.Ar HAVE_WIDE_CHARACTER_TYPE
- to the compiler (i.e. in case of Microsoft Visual Studio (MSVS) C++).
-
-To have other code to determine if libfdatetime was compiled with wide character support it defines
-.Ar LIBPFF_WIDE_CHARACTER_TYPE
- in libfdatetime/features.h.
-
 .Sh BUGS
 Please report bugs of any kind to <jbmetz@users.sourceforge.net> or on the project website:
 http://libfdata.sourceforge.net/

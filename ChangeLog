@@ -1,4 +1,10 @@
 TODO
+* add NSF functions to API
+* add tests
+  - FILETIME: test to string format flags, test for add function ?
+  - FAT date/time: fix and test to string format flags
+  - NSF
+  - POSIX
 * add support for micro seconds
   - check if NSF has micro seconds
 * add a more sophisticated day of the month check in date time values
@@ -6,23 +12,23 @@ TODO
 * implement support for duration string
 
 FAT date and time
-* implement individual fat_date and fat_time support
-
-Filetime
+* implement individual fat_date and fat_time support ?
 
 HFS date/time
 * implement
-
-NSF timedate
-* add API functions
 
 POSIX timestamp
 * implement 64-bit versions
 
 Deployment
-* update manuals
+* update man page
 * add macosx file
-* add debian files
+
+20120314
+* Worked on adding tests
+* addded POSIX functions to API
+* updated man page
+* updated README files
 
 20120312
 * updated dependencies
@@ -158,7 +164,5 @@ Deployment
 * added filetime addition function
 
 20090906
-* Created intial version based on previous local libfdatetime
-  and libbfio
-* removed libuna
+* Created stand-alone version of version used in libpff
 

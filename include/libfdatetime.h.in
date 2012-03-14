@@ -25,7 +25,6 @@
 #include <libfdatetime/definitions.h>
 #include <libfdatetime/error.h>
 #include <libfdatetime/extern.h>
-#include <libfdatetime/features.h>
 #include <libfdatetime/types.h>
 
 #include <stdio.h>
@@ -279,6 +278,100 @@ int libfdatetime_filetime_copy_to_utf16_string(
 LIBFDATETIME_EXTERN \
 int libfdatetime_filetime_copy_to_utf32_string(
      libfdatetime_filetime_t *filetime,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     uint8_t string_format_flags,
+     int date_time_format,
+     libfdatetime_error_t **error );
+
+/* -------------------------------------------------------------------------
+ * POSIX timestamp functions
+ * ------------------------------------------------------------------------- */
+
+/* Initialize a POSIX time
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_initialize(
+     libfdatetime_posix_time_t **posix_time,
+     libfdatetime_error_t **error );
+
+/* Frees a POSIX time
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_free(
+     libfdatetime_posix_time_t **posix_time,
+     libfdatetime_error_t **error );
+
+/* Converts a byte stream into a POSIX time
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_from_byte_stream(
+     libfdatetime_posix_time_t *posix_time,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     uint8_t byte_order,
+     libfdatetime_error_t **error );
+
+/* Converts a 32-bit value into a POSIX time
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_from_32bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint32_t value_32bit,
+     libfdatetime_error_t **error );
+
+/* Deterimes the size of the string for the POSIX time
+ * The string size includes the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_get_string_size(
+     libfdatetime_posix_time_t *posix_time,
+     size_t *string_size,
+     uint8_t string_format_flags,
+     int date_time_format,
+     libfdatetime_error_t **error );
+
+/* Converts the POSIX time into a string
+ * The strings is encoded in UTF-8
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_to_utf8_string(
+     libfdatetime_posix_time_t *posix_time,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     uint8_t string_format_flags,
+     int date_time_format,
+     libfdatetime_error_t **error );
+
+/* Converts the POSIX time into a string
+ * The strings is encoded in UTF-16
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_to_utf16_string(
+     libfdatetime_posix_time_t *posix_time,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     uint8_t string_format_flags,
+     int date_time_format,
+     libfdatetime_error_t **error );
+
+/* Converts the POSIX time into a string
+ * The strings is encoded in UTF-32
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_to_utf32_string(
+     libfdatetime_posix_time_t *posix_time,
      uint32_t *utf32_string,
      size_t utf32_string_size,
      uint8_t string_format_flags,
