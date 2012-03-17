@@ -36,13 +36,19 @@ extern "C" {
 
 typedef struct libfdatetime_internal_posix_time libfdatetime_internal_posix_time_t;
 
-/* Contains a 32-bit value representing the number of seconds since January 1, 1970 (UTC)
+/* Contains a value representing the number of seconds since January 1, 1970 (UTC)
+ * Normally this value is a 32-bit signed integer where negative numbers predate
+ * the epoch, but different variations exists
  */
 struct libfdatetime_internal_posix_time
 {
-	/* The seconds part
+	/* The timestamp
 	 */
-	uint32_t seconds;
+	uint64_t timestamp;
+
+	/* The value type
+	 */
+	uint8_t value_type;
 };
 
 LIBFDATETIME_EXTERN \
@@ -61,12 +67,21 @@ int libfdatetime_posix_time_copy_from_byte_stream(
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint8_t byte_order,
+     uint8_t value_type,
      liberror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_posix_time_copy_from_32bit(
      libfdatetime_posix_time_t *posix_time,
      uint32_t value_32bit,
+     uint8_t value_type,
+     liberror_error_t **error );
+
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_from_64bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint64_t value_64bit,
+     uint8_t value_type,
      liberror_error_t **error );
 
 int libfdatetime_posix_time_copy_to_date_time_values(

@@ -313,6 +313,7 @@ int libfdatetime_posix_time_copy_from_byte_stream(
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint8_t byte_order,
+     uint8_t value_type,
      libfdatetime_error_t **error );
 
 /* Converts a 32-bit value into a POSIX time
@@ -322,6 +323,17 @@ LIBFDATETIME_EXTERN \
 int libfdatetime_posix_time_copy_from_32bit(
      libfdatetime_posix_time_t *posix_time,
      uint32_t value_32bit,
+     uint8_t value_type,
+     libfdatetime_error_t **error );
+
+/* Converts a 64-bit value into a POSIX time
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_from_64bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint64_t value_64bit,
+     uint8_t value_type,
      libfdatetime_error_t **error );
 
 /* Deterimes the size of the string for the POSIX time

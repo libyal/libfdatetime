@@ -144,10 +144,13 @@ int libfdatetime_posix_time_copy_from_byte_stream(
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint8_t byte_order,
+     uint8_t value_type,
      liberror_error_t **error )
 {
 	libfdatetime_internal_posix_time_t *internal_posix_time = NULL;
 	static char *function                                   = "libfdatetime_posix_time_copy_from_byte_stream";
+	uint64_t value_64bit                                    = 0;
+	uint8_t is_signed                                       = 0;
 
 	if( posix_time == NULL )
 	{
@@ -169,17 +172,6 @@ int libfdatetime_posix_time_copy_from_byte_stream(
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
-		 function );
-
-		return( -1 );
-	}
-	if( byte_stream_size < 4 )
-	{
-		liberror_error_set(
-		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-		 "%s: byte stream too small.",
 		 function );
 
 		return( -1 );
@@ -207,18 +199,109 @@ int libfdatetime_posix_time_copy_from_byte_stream(
 
 		return( -1 );
 	}
-	if( byte_order == LIBFDATETIME_ENDIAN_LITTLE )
+	if( ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED ) )
 	{
-		byte_stream_copy_to_uint32_little_endian(
-		 byte_stream,
-		 internal_posix_time->seconds );
+		if( byte_stream_size < 4 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: byte stream too small.",
+			 function );
+
+			return( -1 );
+		}
+		if( byte_order == LIBFDATETIME_ENDIAN_LITTLE )
+		{
+			byte_stream_copy_to_uint32_little_endian(
+			 byte_stream,
+			 value_64bit );
+		}
+		else if( byte_order == LIBFDATETIME_ENDIAN_BIG )
+		{
+			byte_stream_copy_to_uint32_big_endian(
+			 byte_stream,
+			 value_64bit );
+		}
+		if( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+		{
+			is_signed = (uint8_t) ( value_64bit >> 31 );
+		}
+		if( ( is_signed != 0 )
+		 && ( ( value_64bit & 0x7fffffffUL ) == 0 ) )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported timestamp.",
+			 function );
+
+			return( -1 );
+		}
 	}
-	else if( byte_order == LIBFDATETIME_ENDIAN_BIG )
+	else if( ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	      || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
+	      || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	      || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
 	{
-		byte_stream_copy_to_uint32_big_endian(
-		 byte_stream,
-		 internal_posix_time->seconds );
+		if( byte_stream_size < 8 )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 "%s: byte stream too small.",
+			 function );
+
+			return( -1 );
+		}
+		if( byte_order == LIBFDATETIME_ENDIAN_LITTLE )
+		{
+			byte_stream_copy_to_uint64_little_endian(
+			 byte_stream,
+			 value_64bit );
+		}
+		else if( byte_order == LIBFDATETIME_ENDIAN_BIG )
+		{
+			byte_stream_copy_to_uint64_big_endian(
+			 byte_stream,
+			 value_64bit );
+		}
+		if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+		 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED ) )
+		{
+			is_signed = (uint8_t) ( value_64bit >> 63 );
+		}
+		if( ( is_signed != 0 )
+		 && ( ( value_64bit & 0x7fffffffffffffffULL ) == 0 ) )
+		{
+			liberror_error_set(
+			 error,
+			 LIBERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported timestamp.",
+			 function );
+
+			return( -1 );
+		}
 	}
+	else
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported value type.",
+		 function );
+
+		return( -1 );
+	}
+	internal_posix_time->timestamp  = value_64bit;
+	internal_posix_time->value_type = value_type;
+
 	return( 1 );
 }
 
@@ -228,10 +311,12 @@ int libfdatetime_posix_time_copy_from_byte_stream(
 int libfdatetime_posix_time_copy_from_32bit(
      libfdatetime_posix_time_t *posix_time,
      uint32_t value_32bit,
+     uint8_t value_type,
      liberror_error_t **error )
 {
 	libfdatetime_internal_posix_time_t *internal_posix_time = NULL;
 	static char *function                                   = "libfdatetime_posix_time_copy_from_32bit";
+	uint8_t is_signed                                       = 0;
 
 	if( posix_time == NULL )
 	{
@@ -246,7 +331,99 @@ int libfdatetime_posix_time_copy_from_32bit(
 	}
 	internal_posix_time = (libfdatetime_internal_posix_time_t *) posix_time;
 
-	internal_posix_time->seconds = value_32bit;
+	if( ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported value type.",
+		 function );
+
+		return( -1 );
+	}
+	if( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	{
+		is_signed = (uint8_t) ( value_32bit >> 31 );
+	}
+	if( ( is_signed != 0 )
+	 && ( ( value_32bit & 0x7fffffffUL ) == 0 ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported timestamp.",
+		 function );
+
+		return( -1 );
+	}
+	internal_posix_time->timestamp  = (uint64_t) value_32bit;
+	internal_posix_time->value_type = value_type;
+
+	return( 1 );
+}
+
+/* Converts a 64-bit value into a POSIX time
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_posix_time_copy_from_64bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint64_t value_64bit,
+     uint8_t value_type,
+     liberror_error_t **error )
+{
+	libfdatetime_internal_posix_time_t *internal_posix_time = NULL;
+	static char *function                                   = "libfdatetime_posix_time_copy_from_64bit";
+	uint8_t is_signed                                       = 0;
+
+	if( posix_time == NULL )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid POSIX time.",
+		 function );
+
+		return( -1 );
+	}
+	internal_posix_time = (libfdatetime_internal_posix_time_t *) posix_time;
+
+	if( ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
+	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported value type.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED ) )
+	{
+		is_signed = (uint8_t) ( value_64bit >> 63 );
+	}
+	if( ( is_signed != 0 )
+	 && ( ( value_64bit & 0x7fffffffffffffffULL ) == 0 ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported timestamp.",
+		 function );
+
+		return( -1 );
+	}
+	internal_posix_time->timestamp  = value_64bit;
+	internal_posix_time->value_type = value_type;
 
 	return( 1 );
 }
@@ -260,9 +437,10 @@ int libfdatetime_posix_time_copy_to_date_time_values(
      liberror_error_t **error )
 {
 	static char *function    = "libfdatetime_posix_time_copy_to_date_time_values";
-	uint32_t posix_timestamp = 0;
+	uint64_t posix_timestamp = 0;
 	uint16_t days_in_year    = 0;
 	uint8_t days_in_month    = 0;
+	uint8_t is_signed        = 0;
 
 	if( internal_posix_time == NULL )
 	{
@@ -271,6 +449,22 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid internal POSIX time.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid internal POSIX time - unsupported value type.",
 		 function );
 
 		return( -1 );
@@ -286,24 +480,84 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 
 		return( -1 );
 	}
-	posix_timestamp = internal_posix_time->seconds;
+	posix_timestamp = internal_posix_time->timestamp;
 
+	if( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	{
+		is_signed = (uint8_t) ( posix_timestamp >> 31 );
+
+		posix_timestamp &= 0x7fffffffUL;
+	}
+	else if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED ) )
+	{
+		is_signed = (uint8_t) ( posix_timestamp >> 63 );
+
+		posix_timestamp &= 0x7fffffffffffffffULL;
+	}
+	if( posix_timestamp == 0 )
+	{
+		liberror_error_set(
+		 error,
+		 LIBERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: unsupported timestamp.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	{
+		/* The timestamp is in units of micro seconds correct the value to seconds
+		 */
+		if( is_signed == 0 )
+		{
+			date_time_values->micro_seconds = posix_timestamp % 1000000;
+		}
+		else
+		{
+			date_time_values->micro_seconds = 1000000 - ( posix_timestamp % 1000000 );
+		}
+		posix_timestamp /= 1000000;
+	}
 	/* There are 60 seconds in a minute correct the value to minutes
 	 */
-	date_time_values->seconds = posix_timestamp % 60;
-	posix_timestamp          /= 60;
+	if( is_signed == 0 )
+	{
+		date_time_values->seconds = posix_timestamp % 60;
+	}
+	else
+	{
+		date_time_values->seconds = 60 - ( posix_timestamp % 60 );
+	}
+	posix_timestamp /= 60;
 
 	/* There are 60 minutes in an hour correct the value to hours
 	 */
-	date_time_values->minutes = posix_timestamp % 60;
-	posix_timestamp          /= 60;
+	if( is_signed == 0 )
+	{
+		date_time_values->minutes = posix_timestamp % 60;
+	}
+	else
+	{
+		date_time_values->minutes = 60 - ( posix_timestamp % 60 );
+	}
+	posix_timestamp /= 60;
 
 	/* There are 24 hours in a day correct the value to days
 	 */
-	date_time_values->hours = posix_timestamp % 24;
-	posix_timestamp        /= 24;
+	if( is_signed == 0 )
+	{
+		date_time_values->hours = posix_timestamp % 24;
+	}
+	else
+	{
+		date_time_values->hours = 24 - ( posix_timestamp % 24 );
+	}
+	posix_timestamp /= 24;
 
-	/* Add 1 day to compensate that Jan 1 1601 is represented as 0
+	/* Add 1 day to compensate that Jan 1 1970 is represented as 0
 	 */
 	posix_timestamp += 1;
 
@@ -312,11 +566,14 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 	 */
 	date_time_values->year = 1970;
 
-	if( posix_timestamp >= 10957 )
+	if( is_signed == 0 )
 	{
-		date_time_values->year = 2000;
+		if( posix_timestamp >= 10957 )
+		{
+			date_time_values->year = 2000;
 
-		posix_timestamp -= 10957;
+			posix_timestamp -= 10957;
+		}
 	}
 	while( posix_timestamp > 0 )
 	{
@@ -339,12 +596,25 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		}
 		posix_timestamp -= days_in_year;
 
-		date_time_values->year += 1;
+		if( is_signed == 0 )
+		{
+			date_time_values->year += 1;
+		}
+		else
+		{
+			date_time_values->year -= 1;
+		}
 	}
 	/* Determine the month correct the value to days within the month
 	 */
-	date_time_values->month = 1;
-
+	if( is_signed == 0 )
+	{
+		date_time_values->month = 1;
+	}
+	else
+	{
+		date_time_values->month = 12;
+	}
 	while( posix_timestamp > 0 )
 	{
 		/* February (2)
@@ -403,12 +673,25 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		}
 		posix_timestamp -= days_in_month;
 
-		date_time_values->month += 1;
+		if( is_signed == 0 )
+		{
+			date_time_values->month += 1;
+		}
+		else
+		{
+			date_time_values->month -= 1;
+		}
 	}
 	/* Determine the day
 	 */
-	date_time_values->day = (uint8_t) posix_timestamp;
-
+	if( is_signed == 0 )
+	{
+		date_time_values->day = (uint8_t) posix_timestamp;
+	}
+	else
+	{
+		date_time_values->day = (uint8_t) ( days_in_month - posix_timestamp );
+	}
 	return( 1 );
 }
 
@@ -603,7 +886,7 @@ int libfdatetime_posix_time_copy_to_utf8_string(
 
 		do
 		{
-			byte_value = ( internal_posix_time->seconds >> byte_shift ) & 0x0f;
+			byte_value = ( internal_posix_time->timestamp >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -736,7 +1019,7 @@ int libfdatetime_posix_time_copy_to_utf16_string(
 
 		do
 		{
-			byte_value = ( internal_posix_time->seconds >> byte_shift ) & 0x0f;
+			byte_value = ( internal_posix_time->timestamp >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -869,7 +1152,7 @@ int libfdatetime_posix_time_copy_to_utf32_string(
 
 		do
 		{
-			byte_value = ( internal_posix_time->seconds >> byte_shift ) & 0x0f;
+			byte_value = ( internal_posix_time->timestamp >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{

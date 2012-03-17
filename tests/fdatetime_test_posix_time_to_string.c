@@ -1,5 +1,5 @@
 /*
- * Date and time library FAT date time to string testing program
+ * Date and time library POSIX time to string testing program
  *
  * Copyright (c) 2009-2012, Joachim Metz <jbmetz@users.sourceforge.net>
  *
@@ -32,13 +32,13 @@
 
 #include "fdatetime_test_libfdatetime.h"
 
-/* Tests copying a FAT date time to a string
+/* Tests copying a POSIX time to a string
  * Returns 1 if successful, 0 if not or -1 on error
  */
 int fdatetime_test_identifier_to_string(
-     libfdatetime_fat_date_time_t *fat_date_time,
-     libcstring_system_character_t *fat_date_time_string,
-     size_t fat_date_time_string_size,
+     libfdatetime_posix_time_t *posix_time,
+     libcstring_system_character_t *posix_time_string,
+     size_t posix_time_string_size,
      int expected_result )
 {
 	libfdatetime_error_t *error = NULL;
@@ -46,23 +46,23 @@ int fdatetime_test_identifier_to_string(
 
         fprintf(
          stdout,
-         "Testing copying FAT date time to string: 0x%08" PRIjx " of size: %" PRIzd "\t",
-         (intptr_t) fat_date_time_string,
-         fat_date_time_string_size );
+         "Testing copying POSIX time to string: 0x%08" PRIjx " of size: %" PRIzd "\t",
+         (intptr_t) posix_time_string,
+         posix_time_string_size );
 
 #if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
-	result = libfdatetime_fat_date_time_copy_to_utf16_string(
-		  fat_date_time,
-		  (uint16_t *) fat_date_time_string,
-		  fat_date_time_string_size,
+	result = libfdatetime_posix_time_copy_to_utf16_string(
+		  posix_time,
+		  (uint16_t *) posix_time_string,
+		  posix_time_string_size,
 	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          LIBFDATETIME_DATE_TIME_FORMAT_CTIME,
 		  &error );
 #else
-	result = libfdatetime_fat_date_time_copy_to_utf8_string(
-		  fat_date_time,
-		  (uint8_t *) fat_date_time_string,
-		  fat_date_time_string_size,
+	result = libfdatetime_posix_time_copy_to_utf8_string(
+		  posix_time,
+		  (uint8_t *) posix_time_string,
+		  posix_time_string_size,
 	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          LIBFDATETIME_DATE_TIME_FORMAT_CTIME,
 		  &error );
@@ -87,8 +87,8 @@ int fdatetime_test_identifier_to_string(
 	{
 		fprintf(
 		 stdout,
-		 "FAT date time\t: %" PRIs_LIBCSTRING_SYSTEM "\n",
-		 fat_date_time_string );
+		 "POSIX time\t: %" PRIs_LIBCSTRING_SYSTEM "\n",
+		 posix_time_string );
 	}
 	if( result == expected_result )
 	{
@@ -109,12 +109,12 @@ int wmain( int argc, wchar_t * const argv[] )
 int main( int argc, char * const argv[] )
 #endif
 {
-        libcstring_system_character_t fat_date_time_string[ 32 ];
+        libcstring_system_character_t posix_time_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = { 0x7f, 0x9c, 0x64, 0x4f };
 
-	libfdatetime_fat_date_time_t *fat_date_time = NULL;
-	libfdatetime_error_t *error                 = NULL;
+	libfdatetime_posix_time_t *posix_time = NULL;
+	libfdatetime_error_t *error           = NULL;
 
 	if( argc != 1 )
 	{
@@ -124,26 +124,27 @@ int main( int argc, char * const argv[] )
 
 		return( EXIT_FAILURE );
 	}
-	if( libfdatetime_fat_date_time_initialize(
-	     &fat_date_time,
+	if( libfdatetime_posix_time_initialize(
+	     &posix_time,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to create FAT date time.\n" );
+		 "Unable to create POSIX time.\n" );
 
 		goto on_error;
 	}
-	if( libfdatetime_fat_date_time_copy_from_byte_stream(
-	     fat_date_time,
+	if( libfdatetime_posix_time_copy_from_byte_stream(
+	     posix_time,
 	     byte_stream,
 	     4,
 	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy byte stream to FAT date time.\n" );
+		 "Unable to copy byte stream to POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -151,14 +152,14 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_to_string(
-	     fat_date_time,
+	     posix_time,
 	     NULL,
 	     32,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy FAT date time to string.\n" );
+		 "Unable to copy POSIX time to string.\n" );
 
 		goto on_error;
 	}
@@ -166,14 +167,14 @@ int main( int argc, char * const argv[] )
 	 * Expected result: 1
 	 */
 	if( fdatetime_test_identifier_to_string(
-	     fat_date_time,
-	     fat_date_time_string,
+	     posix_time,
+	     posix_time_string,
 	     32,
 	     1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy FAT date time to string.\n" );
+		 "Unable to copy POSIX time to string.\n" );
 
 		goto on_error;
 	}
@@ -181,14 +182,14 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_to_string(
-	     fat_date_time,
-	     fat_date_time_string,
+	     posix_time,
+	     posix_time_string,
 	     0,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy FAT date time to string.\n" );
+		 "Unable to copy POSIX time to string.\n" );
 
 		goto on_error;
 	}
@@ -196,24 +197,24 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_to_string(
-	     fat_date_time,
-	     fat_date_time_string,
+	     posix_time,
+	     posix_time_string,
 	     10,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy FAT date time to string.\n" );
+		 "Unable to copy POSIX time to string.\n" );
 
 		goto on_error;
 	}
-	if( libfdatetime_fat_date_time_free(
-	     &fat_date_time,
+	if( libfdatetime_posix_time_free(
+	     &posix_time,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to free FAT date time.\n" );
+		 "Unable to free POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -228,10 +229,10 @@ on_error:
 		libfdatetime_error_free(
 		 &error );
 	}
-	if( fat_date_time != NULL )
+	if( posix_time != NULL )
 	{
-		libfdatetime_fat_date_time_free(
-		 &fat_date_time,
+		libfdatetime_posix_time_free(
+		 &posix_time,
 		 NULL );
 	}
 	return( EXIT_FAILURE );

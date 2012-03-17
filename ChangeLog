@@ -1,4 +1,5 @@
 TODO
+* formatting add duration
 * add NSF functions to API
 * add tests
   - FILETIME: test to string format flags, test for add function ?
@@ -17,12 +18,14 @@ FAT date and time
 HFS date/time
 * implement
 
-POSIX timestamp
-* implement 64-bit versions
-
 Deployment
 * update man page
 * add macosx file
+
+20120317
+* Worked on adding tests
+* fix for missing formatting flag support
+* added support for 64-bit versions of POSIX time
 
 20120314
 * Worked on adding tests

@@ -142,7 +142,8 @@ int libfdatetime_date_time_values_get_string_size(
      int date_time_format,
      liberror_error_t **error )
 {
-	static char *function = "libfdatetime_date_time_values_get_string_size";
+	static char *function   = "libfdatetime_date_time_values_get_string_size";
+	uint8_t supported_flags = 0;
 
 	if( date_time_values == NULL )
 	{
@@ -166,7 +167,12 @@ int libfdatetime_date_time_values_get_string_size(
 
 		return( -1 );
 	}
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == 0 )
+	supported_flags = LIBFDATETIME_STRING_FORMAT_FLAG_DATE
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_DURATION;
+
+	if( ( string_format_flags & supported_flags ) == 0 )
 	{
 		liberror_error_set(
 		 error,
@@ -237,12 +243,13 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
      int date_time_format,
      liberror_error_t **error )
 {
-	char *month_string     = NULL;
-	static char *function  = "libfdatetime_date_time_values_copy_to_utf8_string";
-	size_t string_index    = 0;
-	uint32_t micro_seconds = 0;
-	uint16_t year_value    = 0;
-	uint8_t days_in_month  = 0;
+	char *month_string      = NULL;
+	static char *function   = "libfdatetime_date_time_values_copy_to_utf8_string";
+	size_t string_index     = 0;
+	uint32_t micro_seconds  = 0;
+	uint16_t year_value     = 0;
+	uint8_t days_in_month   = 0;
+	uint8_t supported_flags = 0;
 
 	if( date_time_values == NULL )
 	{
@@ -277,7 +284,12 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 		return( -1 );
 	}
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == 0 )
+	supported_flags = LIBFDATETIME_STRING_FORMAT_FLAG_DATE
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_DURATION;
+
+	if( ( string_format_flags & supported_flags ) == 0 )
 	{
 		liberror_error_set(
 		 error,
@@ -621,12 +633,13 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
      int date_time_format,
      liberror_error_t **error )
 {
-	char *month_string     = NULL;
-	static char *function  = "libfdatetime_date_time_values_copy_to_utf16_string";
-	size_t string_index    = 0;
-	uint32_t micro_seconds = 0;
-	uint16_t year_value    = 0;
-	uint8_t days_in_month  = 0;
+	char *month_string      = NULL;
+	static char *function   = "libfdatetime_date_time_values_copy_to_utf16_string";
+	size_t string_index     = 0;
+	uint32_t micro_seconds  = 0;
+	uint16_t year_value     = 0;
+	uint8_t days_in_month   = 0;
+	uint8_t supported_flags = 0;
 
 	if( date_time_values == NULL )
 	{
@@ -661,7 +674,12 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 		return( -1 );
 	}
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == 0 )
+	supported_flags = LIBFDATETIME_STRING_FORMAT_FLAG_DATE
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_DURATION;
+
+	if( ( string_format_flags & supported_flags ) == 0 )
 	{
 		liberror_error_set(
 		 error,
@@ -1003,12 +1021,13 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
      int date_time_format,
      liberror_error_t **error )
 {
-	char *month_string     = NULL;
-	static char *function  = "libfdatetime_date_time_values_copy_to_utf32_string";
-	size_t string_index    = 0;
-	uint32_t micro_seconds = 0;
-	uint16_t year_value    = 0;
-	uint8_t days_in_month  = 0;
+	char *month_string      = NULL;
+	static char *function   = "libfdatetime_date_time_values_copy_to_utf32_string";
+	size_t string_index     = 0;
+	uint32_t micro_seconds  = 0;
+	uint16_t year_value     = 0;
+	uint8_t days_in_month   = 0;
+	uint8_t supported_flags = 0;
 
 	if( date_time_values == NULL )
 	{
@@ -1043,7 +1062,12 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 		return( -1 );
 	}
-	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME ) == 0 )
+	supported_flags = LIBFDATETIME_STRING_FORMAT_FLAG_DATE
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_DURATION;
+
+	if( ( string_format_flags & supported_flags ) == 0 )
 	{
 		liberror_error_set(
 		 error,

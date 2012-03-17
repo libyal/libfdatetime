@@ -1,5 +1,5 @@
 /*
- * Date and time library FAT date time copy from testing program
+ * Date and time library POSIX time copy from testing program
  *
  * Copyright (c) 2009-2012, Joachim Metz <jbmetz@users.sourceforge.net>
  *
@@ -32,14 +32,15 @@
 
 #include "fdatetime_test_libfdatetime.h"
 
-/* Tests copying a FAT date time from a byte stream
+/* Tests copying a POSIX time from a byte stream
  * Returns 1 if successful, 0 if not or -1 on error
  */
 int fdatetime_test_identifier_copy_from_byte_stream(
-     libfdatetime_fat_date_time_t *fat_date_time,
+     libfdatetime_posix_time_t *posix_time,
      uint8_t *byte_stream,
      size_t byte_stream_size,
      uint8_t byte_order,
+     uint8_t value_type,
      int expected_result )
 {
 	libfdatetime_error_t *error   = NULL;
@@ -56,16 +57,17 @@ int fdatetime_test_identifier_copy_from_byte_stream(
 	}
         fprintf(
          stdout,
-         "Testing copying FAT date time from byte stream: 0x%08" PRIjx " of size: %" PRIzd " and byte order: %s\t",
+         "Testing copying POSIX time from byte stream: 0x%08" PRIjx " of size: %" PRIzd " and byte order: %s\t",
          (intptr_t) byte_stream,
          byte_stream_size,
          byte_order_string );
 
-	result = libfdatetime_fat_date_time_copy_from_byte_stream(
-	          fat_date_time,
+	result = libfdatetime_posix_time_copy_from_byte_stream(
+	          posix_time,
 	          byte_stream,
 	          byte_stream_size,
 	          byte_order,
+	          value_type,
 	          &error );
 
 	if( result == expected_result )
@@ -114,10 +116,12 @@ int wmain( int argc, wchar_t * const argv[] )
 int main( int argc, char * const argv[] )
 #endif
 {
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream1[ 4 ] = { 0x7f, 0x9c, 0x64, 0x4f };
+	uint8_t byte_stream2[ 4 ] = { 0x00, 0x00, 0x00, 0x80 };
+	uint8_t byte_stream3[ 4 ] = { 0x80, 0x51, 0x01, 0x80 };
 
-	libfdatetime_fat_date_time_t *fat_date_time = NULL;
-	libfdatetime_error_t *error                 = NULL;
+	libfdatetime_posix_time_t *posix_time = NULL;
+	libfdatetime_error_t *error           = NULL;
 
 	if( argc != 1 )
 	{
@@ -127,13 +131,13 @@ int main( int argc, char * const argv[] )
 
 		return( EXIT_FAILURE );
 	}
-	if( libfdatetime_fat_date_time_initialize(
-	     &fat_date_time,
+	if( libfdatetime_posix_time_initialize(
+	     &posix_time,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to create FAT date time.\n" );
+		 "Unable to create POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -141,15 +145,16 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_copy_from_byte_stream(
-	     fat_date_time,
+	     posix_time,
 	     NULL,
 	     4,
 	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy byte stream to FAT date time.\n" );
+		 "Unable to copy byte stream to POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -157,15 +162,16 @@ int main( int argc, char * const argv[] )
 	 * Expected result: 1
 	 */
 	if( fdatetime_test_identifier_copy_from_byte_stream(
-	     fat_date_time,
-	     byte_stream,
+	     posix_time,
+	     byte_stream1,
 	     4,
 	     LIBFDATETIME_ENDIAN_BIG,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
 	     1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy byte stream to FAT date time.\n" );
+		 "Unable to copy byte stream to POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -173,15 +179,16 @@ int main( int argc, char * const argv[] )
 	 * Expected result: 1
 	 */
 	if( fdatetime_test_identifier_copy_from_byte_stream(
-	     fat_date_time,
-	     byte_stream,
+	     posix_time,
+	     byte_stream1,
 	     4,
 	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
 	     1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy byte stream to FAT date time.\n" );
+		 "Unable to copy byte stream to POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -189,15 +196,16 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_copy_from_byte_stream(
-	     fat_date_time,
-	     byte_stream,
+	     posix_time,
+	     byte_stream1,
 	     4,
 	     (uint8_t) 'X',
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy byte stream to FAT date time.\n" );
+		 "Unable to copy byte stream to POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -205,15 +213,16 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_copy_from_byte_stream(
-	     fat_date_time,
-	     byte_stream,
+	     posix_time,
+	     byte_stream1,
 	     2,
 	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy byte stream to FAT date time.\n" );
+		 "Unable to copy byte stream to POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -221,15 +230,16 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_copy_from_byte_stream(
-	     fat_date_time,
-	     byte_stream,
+	     posix_time,
+	     byte_stream1,
 	     0,
 	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy byte stream to FAT date time.\n" );
+		 "Unable to copy byte stream to POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -237,25 +247,62 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_copy_from_byte_stream(
-	     fat_date_time,
-	     byte_stream,
+	     posix_time,
+	     byte_stream1,
 	     (size_t) -1,
 	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy byte stream to FAT date time.\n" );
+		 "Unable to copy byte stream to POSIX time.\n" );
 
 		goto on_error;
 	}
-	if( libfdatetime_fat_date_time_free(
-	     &fat_date_time,
+	/* Case 7: byte stream is a buffer, byte stream size is 4 and byte order is little-endian
+	 * The buffer contains a non-valid timestamp value of -0
+	 * Expected result: -1
+	 */
+	if( fdatetime_test_identifier_copy_from_byte_stream(
+	     posix_time,
+	     byte_stream2,
+	     4,
+	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
+	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy byte stream to POSIX time.\n" );
+
+		goto on_error;
+	}
+	/* Case 8: byte stream is a buffer, byte stream size is 4 and byte order is little-endian
+	 * The buffer contains a negative timestamp value
+	 * Expected result: 1
+	 */
+	if( fdatetime_test_identifier_copy_from_byte_stream(
+	     posix_time,
+	     byte_stream3,
+	     4,
+	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
+	     1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy byte stream to POSIX time.\n" );
+
+		goto on_error;
+	}
+	if( libfdatetime_posix_time_free(
+	     &posix_time,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to free FAT date time.\n" );
+		 "Unable to free POSIX time.\n" );
 
 		goto on_error;
 	}
@@ -270,10 +317,10 @@ on_error:
 		libfdatetime_error_free(
 		 &error );
 	}
-	if( fat_date_time != NULL )
+	if( posix_time != NULL )
 	{
-		libfdatetime_fat_date_time_free(
-		 &fat_date_time,
+		libfdatetime_posix_time_free(
+		 &posix_time,
 		 NULL );
 	}
 	return( EXIT_FAILURE );

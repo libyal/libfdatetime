@@ -1,4 +1,4 @@
-.Dd March 14, 2012
+.Dd March 17, 2012
 .Dt libfdatetime 3
 .Os libfdatetime
 .Sh NAME
@@ -69,9 +69,11 @@ POSIX time functions
 .Ft int
 .Fn libfdatetime_posix_time_free "libfdatetime_posix_time_t **posix_time, libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_from_byte_stream "libfdatetime_posix_time_t *posix_time, uint8_t *byte_stream, size_t byte_stream_size, uint8_t byte_order, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_from_byte_stream "libfdatetime_posix_time_t *posix_time, uint8_t *byte_stream, size_t byte_stream_size, uint8_t byte_order, uint8_t value_type, libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_from_64bit "libfdatetime_posix_time_t *posix_time, uint64_t value_64bit, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_from_32bit "libfdatetime_posix_time_t *posix_time, uint32_t value_32bit, uint8_t value_type, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_posix_time_copy_from_64bit "libfdatetime_posix_time_t *posix_time, uint64_t value_64bit, uint8_t value_type, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_posix_time_get_string_size "libfdatetime_posix_time_t *posix_time, size_t *string_size, uint8_t string_format_flags, int date_time_format, libfdatetime_error_t **error"
 .Ft int

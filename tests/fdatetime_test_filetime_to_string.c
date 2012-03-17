@@ -42,7 +42,7 @@ int fdatetime_test_identifier_to_string(
      int expected_result )
 {
 	libfdatetime_error_t *error = NULL;
-	int result              = 0;
+	int result                  = 0;
 
         fprintf(
          stdout,
@@ -192,13 +192,13 @@ int main( int argc, char * const argv[] )
 
 		goto on_error;
 	}
-	/* Case 4: string is a buffer, string size is 18
+	/* Case 4: string is a buffer, string size is 10
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_to_string(
 	     filetime,
 	     filetime_string,
-	     18,
+	     10,
 	     -1 ) != 1 )
 	{
 		fprintf(
