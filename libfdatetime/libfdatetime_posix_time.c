@@ -225,10 +225,8 @@ int libfdatetime_posix_time_copy_from_byte_stream(
 			 byte_stream,
 			 value_64bit );
 		}
-		if( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
-		{
-			is_signed = (uint8_t) ( value_64bit >> 31 );
-		}
+		is_signed = (uint8_t) ( value_64bit >> 31 );
+
 		if( ( is_signed != 0 )
 		 && ( ( value_64bit & 0x7fffffffUL ) == 0 ) )
 		{
@@ -270,11 +268,8 @@ int libfdatetime_posix_time_copy_from_byte_stream(
 			 byte_stream,
 			 value_64bit );
 		}
-		if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
-		 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED ) )
-		{
-			is_signed = (uint8_t) ( value_64bit >> 63 );
-		}
+		is_signed = (uint8_t) ( value_64bit >> 63 );
+
 		if( ( is_signed != 0 )
 		 && ( ( value_64bit & 0x7fffffffffffffffULL ) == 0 ) )
 		{
@@ -343,10 +338,8 @@ int libfdatetime_posix_time_copy_from_32bit(
 
 		return( -1 );
 	}
-	if( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
-	{
-		is_signed = (uint8_t) ( value_32bit >> 31 );
-	}
+	is_signed = (uint8_t) ( value_32bit >> 31 );
+
 	if( ( is_signed != 0 )
 	 && ( ( value_32bit & 0x7fffffffUL ) == 0 ) )
 	{
@@ -405,11 +398,8 @@ int libfdatetime_posix_time_copy_from_64bit(
 
 		return( -1 );
 	}
-	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
-	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED ) )
-	{
-		is_signed = (uint8_t) ( value_64bit >> 63 );
-	}
+	is_signed = (uint8_t) ( value_64bit >> 63 );
+
 	if( ( is_signed != 0 )
 	 && ( ( value_64bit & 0x7fffffffffffffffULL ) == 0 ) )
 	{
@@ -482,14 +472,17 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 	}
 	posix_timestamp = internal_posix_time->timestamp;
 
-	if( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED ) )
 	{
 		is_signed = (uint8_t) ( posix_timestamp >> 31 );
 
 		posix_timestamp &= 0x7fffffffUL;
 	}
 	else if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
-	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED ) )
+	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
+	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
 	{
 		is_signed = (uint8_t) ( posix_timestamp >> 63 );
 
@@ -523,57 +516,59 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 	}
 	/* There are 60 seconds in a minute correct the value to minutes
 	 */
-	if( is_signed == 0 )
-	{
-		date_time_values->seconds = posix_timestamp % 60;
-	}
-	else
-	{
-		date_time_values->seconds = 60 - ( posix_timestamp % 60 );
-	}
-	posix_timestamp /= 60;
+	date_time_values->seconds = posix_timestamp % 60;
+	posix_timestamp          /= 60;
 
+	if( ( is_signed != 0 )
+	 && ( date_time_values->seconds > 0 ) )
+	{
+		date_time_values->seconds = 60 - date_time_values->seconds;
+	}
 	/* There are 60 minutes in an hour correct the value to hours
 	 */
-	if( is_signed == 0 )
-	{
-		date_time_values->minutes = posix_timestamp % 60;
-	}
-	else
-	{
-		date_time_values->minutes = 60 - ( posix_timestamp % 60 );
-	}
-	posix_timestamp /= 60;
+	date_time_values->minutes = posix_timestamp % 60;
+	posix_timestamp          /= 60;
 
+	if( ( is_signed != 0 )
+	 && ( date_time_values->minutes > 0 ) )
+	{
+		date_time_values->minutes = 60 - date_time_values->minutes;
+	}
 	/* There are 24 hours in a day correct the value to days
 	 */
-	if( is_signed == 0 )
-	{
-		date_time_values->hours = posix_timestamp % 24;
-	}
-	else
-	{
-		date_time_values->hours = 24 - ( posix_timestamp % 24 );
-	}
-	posix_timestamp /= 24;
+	date_time_values->hours = posix_timestamp % 24;
+	posix_timestamp        /= 24;
 
-	/* Add 1 day to compensate that Jan 1 1970 is represented as 0
-	 */
-	posix_timestamp += 1;
-
+	if( ( is_signed != 0 )
+	 && ( date_time_values->hours > 0 ) )
+	{
+		date_time_values->hours = 24 - date_time_values->hours;
+	}
 	/* Determine the number of years starting at '1 Jan 1970 00:00:00'
 	 * correct the value to days within the year
 	 */
-	date_time_values->year = 1970;
-
 	if( is_signed == 0 )
 	{
+		/* Add 1 day to compensate that Jan 1 1970 is represented as 0
+		 */
+		posix_timestamp += 1;
+
+		date_time_values->year = 1970;
+
 		if( posix_timestamp >= 10957 )
 		{
 			date_time_values->year = 2000;
 
 			posix_timestamp -= 10957;
 		}
+	}
+	else
+	{
+		/* Remove 1 day to compensate that Jan 1 1970 is represented as 0
+		 */
+		posix_timestamp -= 1;
+
+		date_time_values->year = 1969;
 	}
 	while( posix_timestamp > 0 )
 	{
@@ -605,6 +600,7 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 			date_time_values->year -= 1;
 		}
 	}
+
 	/* Determine the month correct the value to days within the month
 	 */
 	if( is_signed == 0 )
@@ -615,7 +611,7 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 	{
 		date_time_values->month = 12;
 	}
-	while( posix_timestamp > 0 )
+	do
 	{
 		/* February (2)
 		 */
@@ -641,7 +637,7 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		{
 			days_in_month = 30;
 		}
-		/* Januari (1), March (3), May (5), July (7), August (8), October (10), December (12)
+		/* January (1), March (3), May (5), July (7), August (8), October (10), December (12)
 		 */
 		else if( ( date_time_values->month == 1 )
 		      || ( date_time_values->month == 3 )
@@ -682,15 +678,15 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 			date_time_values->month -= 1;
 		}
 	}
+	while( posix_timestamp > 0 );
+
+	date_time_values->day = (uint8_t) posix_timestamp;
+
 	/* Determine the day
 	 */
-	if( is_signed == 0 )
+	if( is_signed != 0 )
 	{
-		date_time_values->day = (uint8_t) posix_timestamp;
-	}
-	else
-	{
-		date_time_values->day = (uint8_t) ( days_in_month - posix_timestamp );
+		date_time_values->day = days_in_month - date_time_values->day;
 	}
 	return( 1 );
 }

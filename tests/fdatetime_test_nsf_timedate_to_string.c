@@ -1,5 +1,5 @@
 /*
- * Date and time library filetime to string testing program
+ * Date and time library NSF timedate to string testing program
  *
  * Copyright (c) 2009-2012, Joachim Metz <jbmetz@users.sourceforge.net>
  *
@@ -32,13 +32,13 @@
 
 #include "fdatetime_test_libfdatetime.h"
 
-/* Tests copying a filetime to a string
+/* Tests copying a NSF timedate to a string
  * Returns 1 if successful, 0 if not or -1 on error
  */
 int fdatetime_test_identifier_to_string(
-     libfdatetime_filetime_t *filetime,
-     libcstring_system_character_t *filetime_string,
-     size_t filetime_string_size,
+     libfdatetime_nsf_timedate_t *nsf_timedate,
+     libcstring_system_character_t *nsf_timedate_string,
+     size_t nsf_timedate_string_size,
      int expected_result )
 {
 	libfdatetime_error_t *error = NULL;
@@ -46,23 +46,23 @@ int fdatetime_test_identifier_to_string(
 
         fprintf(
          stdout,
-         "Testing copying filetime to string: 0x%08" PRIjx " of size: %" PRIzd "\t",
-         (intptr_t) filetime_string,
-         filetime_string_size );
+         "Testing copying NSF timedate to string: 0x%08" PRIjx " of size: %" PRIzd "\t",
+         (intptr_t) nsf_timedate_string,
+         nsf_timedate_string_size );
 
 #if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
-	result = libfdatetime_filetime_copy_to_utf16_string(
-		  filetime,
-		  (uint16_t *) filetime_string,
-		  filetime_string_size,
+	result = libfdatetime_nsf_timedate_copy_to_utf16_string(
+		  nsf_timedate,
+		  (uint16_t *) nsf_timedate_string,
+		  nsf_timedate_string_size,
 	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MICRO_SECONDS,
 	          LIBFDATETIME_DATE_TIME_FORMAT_CTIME,
 		  &error );
 #else
-	result = libfdatetime_filetime_copy_to_utf8_string(
-		  filetime,
-		  (uint8_t *) filetime_string,
-		  filetime_string_size,
+	result = libfdatetime_nsf_timedate_copy_to_utf8_string(
+		  nsf_timedate,
+		  (uint8_t *) nsf_timedate_string,
+		  nsf_timedate_string_size,
 	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MICRO_SECONDS,
 	          LIBFDATETIME_DATE_TIME_FORMAT_CTIME,
 		  &error );
@@ -87,8 +87,8 @@ int fdatetime_test_identifier_to_string(
 	{
 		fprintf(
 		 stdout,
-		 "Filetime\t: %" PRIs_LIBCSTRING_SYSTEM "\n",
-		 filetime_string );
+		 "NSF timedate\t: %" PRIs_LIBCSTRING_SYSTEM "\n",
+		 nsf_timedate_string );
 	}
 	if( result == -1 )
 	{
@@ -120,12 +120,12 @@ int wmain( int argc, wchar_t * const argv[] )
 int main( int argc, char * const argv[] )
 #endif
 {
-        libcstring_system_character_t filetime_string[ 32 ];
+        libcstring_system_character_t nsf_timedate_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0xce, 0x17, 0x0a, 0x3d, 0x62, 0x3a, 0xcb, 0x01 };
+	uint8_t byte_stream[ 8 ] = { 0xf6, 0x32, 0x3b, 0x00, 0xb4, 0x72, 0x25, 0xc1 };
 
-	libfdatetime_filetime_t *filetime = NULL;
-	libfdatetime_error_t *error       = NULL;
+	libfdatetime_nsf_timedate_t *nsf_timedate = NULL;
+	libfdatetime_error_t *error               = NULL;
 
 	if( argc != 1 )
 	{
@@ -135,18 +135,18 @@ int main( int argc, char * const argv[] )
 
 		return( EXIT_FAILURE );
 	}
-	if( libfdatetime_filetime_initialize(
-	     &filetime,
+	if( libfdatetime_nsf_timedate_initialize(
+	     &nsf_timedate,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to create filetime.\n" );
+		 "Unable to create NSF timedate.\n" );
 
 		goto on_error;
 	}
-	if( libfdatetime_filetime_copy_from_byte_stream(
-	     filetime,
+	if( libfdatetime_nsf_timedate_copy_from_byte_stream(
+	     nsf_timedate,
 	     byte_stream,
 	     8,
 	     LIBFDATETIME_ENDIAN_LITTLE,
@@ -154,7 +154,7 @@ int main( int argc, char * const argv[] )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy byte stream to filetime.\n" );
+		 "Unable to copy byte stream to NSF timedate.\n" );
 
 		goto on_error;
 	}
@@ -162,14 +162,14 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_to_string(
-	     filetime,
+	     nsf_timedate,
 	     NULL,
 	     32,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy filetime to string.\n" );
+		 "Unable to copy NSF timedate to string.\n" );
 
 		goto on_error;
 	}
@@ -177,14 +177,14 @@ int main( int argc, char * const argv[] )
 	 * Expected result: 1
 	 */
 	if( fdatetime_test_identifier_to_string(
-	     filetime,
-	     filetime_string,
+	     nsf_timedate,
+	     nsf_timedate_string,
 	     32,
 	     1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy filetime to string.\n" );
+		 "Unable to copy NSF timedate to string.\n" );
 
 		goto on_error;
 	}
@@ -192,14 +192,14 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_to_string(
-	     filetime,
-	     filetime_string,
+	     nsf_timedate,
+	     nsf_timedate_string,
 	     0,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy filetime to string.\n" );
+		 "Unable to copy NSF timedate to string.\n" );
 
 		goto on_error;
 	}
@@ -207,24 +207,24 @@ int main( int argc, char * const argv[] )
 	 * Expected result: -1
 	 */
 	if( fdatetime_test_identifier_to_string(
-	     filetime,
-	     filetime_string,
+	     nsf_timedate,
+	     nsf_timedate_string,
 	     10,
 	     -1 ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to copy filetime to string.\n" );
+		 "Unable to copy NSF timedate to string.\n" );
 
 		goto on_error;
 	}
-	if( libfdatetime_filetime_free(
-	     &filetime,
+	if( libfdatetime_nsf_timedate_free(
+	     &nsf_timedate,
 	     &error ) != 1 )
 	{
 		fprintf(
 		 stderr,
-		 "Unable to free filetime.\n" );
+		 "Unable to free NSF timedate.\n" );
 
 		goto on_error;
 	}
@@ -239,10 +239,10 @@ on_error:
 		libfdatetime_error_free(
 		 &error );
 	}
-	if( filetime != NULL )
+	if( nsf_timedate != NULL )
 	{
-		libfdatetime_filetime_free(
-		 &filetime,
+		libfdatetime_nsf_timedate_free(
+		 &nsf_timedate,
 		 NULL );
 	}
 	return( EXIT_FAILURE );

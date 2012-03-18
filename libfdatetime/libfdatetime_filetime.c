@@ -454,7 +454,7 @@ int libfdatetime_filetime_copy_to_date_time_values(
 		{
 			days_in_month = 30;
 		}
-		/* Januari (1), March (3), May (5), July (7), August (8), October (10), December (12)
+		/* January (1), March (3), May (5), July (7), August (8), October (10), December (12)
 		 */
 		else if( ( date_time_values->month == 1 )
 		      || ( date_time_values->month == 3 )

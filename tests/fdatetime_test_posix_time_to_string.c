@@ -90,6 +90,17 @@ int fdatetime_test_identifier_to_string(
 		 "POSIX time\t: %" PRIs_LIBCSTRING_SYSTEM "\n",
 		 posix_time_string );
 	}
+	if( result == -1 )
+	{
+		if( expected_result != -1 )
+		{
+			libfdatetime_error_backtrace_fprint(
+			 error,
+			 stderr );
+		}
+		libfdatetime_error_free(
+		 &error );
+	}
 	if( result == expected_result )
 	{
 		result = 1;
@@ -111,7 +122,8 @@ int main( int argc, char * const argv[] )
 {
         libcstring_system_character_t posix_time_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x7f, 0x9c, 0x64, 0x4f };
+	uint8_t byte_stream1[ 4 ] = { 0x7f, 0x9c, 0x64, 0x4f };
+	uint8_t byte_stream2[ 4 ] = { 0x80, 0x51, 0x01, 0x80 };
 
 	libfdatetime_posix_time_t *posix_time = NULL;
 	libfdatetime_error_t *error           = NULL;
@@ -136,7 +148,7 @@ int main( int argc, char * const argv[] )
 	}
 	if( libfdatetime_posix_time_copy_from_byte_stream(
 	     posix_time,
-	     byte_stream,
+	     byte_stream1,
 	     4,
 	     LIBFDATETIME_ENDIAN_LITTLE,
 	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
@@ -201,6 +213,35 @@ int main( int argc, char * const argv[] )
 	     posix_time_string,
 	     10,
 	     -1 ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy POSIX time to string.\n" );
+
+		goto on_error;
+	}
+	if( libfdatetime_posix_time_copy_from_byte_stream(
+	     posix_time,
+	     byte_stream2,
+	     4,
+	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED,
+	     &error ) != 1 )
+	{
+		fprintf(
+		 stderr,
+		 "Unable to copy byte stream to POSIX time.\n" );
+
+		goto on_error;
+	}
+	/* Case 5: string is a buffer, string size is 32
+	 * Expected result: 1
+	 */
+	if( fdatetime_test_identifier_to_string(
+	     posix_time,
+	     posix_time_string,
+	     32,
+	     1 ) != 1 )
 	{
 		fprintf(
 		 stderr,

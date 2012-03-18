@@ -90,6 +90,17 @@ int fdatetime_test_identifier_to_string(
 		 "FAT date time\t: %" PRIs_LIBCSTRING_SYSTEM "\n",
 		 fat_date_time_string );
 	}
+	if( result == -1 )
+	{
+		if( expected_result != -1 )
+		{
+			libfdatetime_error_backtrace_fprint(
+			 error,
+			 stderr );
+		}
+		libfdatetime_error_free(
+		 &error );
+	}
 	if( result == expected_result )
 	{
 		result = 1;

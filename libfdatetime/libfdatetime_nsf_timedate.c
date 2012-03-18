@@ -379,9 +379,13 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 	date_time_values->day = (uint8_t) ( nsf_julian_day + 1 );
 
 	/* Retrieve the number of seconds from the lower part of the NFS timedate
-	 * which contains the number of 100th of seconds
 	 */ 
-	nsf_time = internal_nsf_timedate->lower / 100;
+	nsf_time = internal_nsf_timedate->lower;
+
+	/* The timestamp is in units of 10 milli seconds correct the value to seconds
+	 */
+	date_time_values->micro_seconds = ( nsf_time % 100 ) * 10000;
+	nsf_time                       /= 100;
 
 	/* There are 60 seconds in a minute correct the value to minutes
 	 */

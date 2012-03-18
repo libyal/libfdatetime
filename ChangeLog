@@ -1,16 +1,14 @@
 TODO
-* formatting add duration
-* add NSF functions to API
+* msvscpp add VSDebug
+* filetime check for -0 ?
+* implement support for duration string
 * add tests
   - FILETIME: test to string format flags, test for add function ?
   - FAT date/time: fix and test to string format flags
   - NSF
   - POSIX
-* add support for micro seconds
-  - check if NSF has micro seconds
 * add a more sophisticated day of the month check in date time values
 * have API functions return 0 if value is not a valid date and time ?
-* implement support for duration string
 
 FAT date and time
 * implement individual fat_date and fat_time support ?
@@ -19,8 +17,12 @@ HFS date/time
 * implement
 
 Deployment
-* update man page
 * add macosx file
+
+20120318
+* Worked on adding tests
+* added NSF functions to API
+* added microseconds support to NSF
 
 20120317
 * Worked on adding tests
