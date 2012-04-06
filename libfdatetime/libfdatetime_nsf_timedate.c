@@ -24,10 +24,9 @@
 #include <memory.h>
 #include <types.h>
 
-#include <liberror.h>
-
 #include "libfdatetime_definitions.h"
 #include "libfdatetime_date_time_values.h"
+#include "libfdatetime_libcerror.h"
 #include "libfdatetime_nsf_timedate.h"
 #include "libfdatetime_types.h"
 
@@ -36,17 +35,17 @@
  */
 int libfdatetime_nsf_timedate_initialize(
      libfdatetime_nsf_timedate_t **nsf_timedate,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate = NULL;
 	static char *function                                       = "libfdatetime_nsf_timedate_initialize";
 
 	if( nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid NSF timedate.",
 		 function );
 
@@ -54,10 +53,10 @@ int libfdatetime_nsf_timedate_initialize(
 	}
 	if( *nsf_timedate != NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
 		 "%s: invalid NSF timedate value already set.",
 		 function );
 
@@ -68,10 +67,10 @@ int libfdatetime_nsf_timedate_initialize(
 
 	if( internal_nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
 		 "%s: unable to create NSF timedate.",
 		 function );
 
@@ -82,10 +81,10 @@ int libfdatetime_nsf_timedate_initialize(
 	     0,
 	     sizeof( libfdatetime_internal_nsf_timedate_t ) ) == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
 		 "%s: unable to clear NSF timedate.",
 		 function );
 
@@ -109,17 +108,17 @@ on_error:
  */
 int libfdatetime_nsf_timedate_free(
      libfdatetime_nsf_timedate_t **nsf_timedate,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate = NULL;
 	static char *function                                       = "libfdatetime_nsf_timedate_free";
 
 	if( nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid NSF timedate.",
 		 function );
 
@@ -144,17 +143,17 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint8_t byte_order,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate = NULL;
 	static char *function                                       = "libfdatetime_nsf_timedate_copy_from_byte_stream";
 
 	if( nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid NSF timedate.",
 		 function );
 
@@ -164,10 +163,10 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
 
 	if( byte_stream == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid byte stream.",
 		 function );
 
@@ -175,10 +174,10 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
 	}
 	if( byte_stream_size < 8 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: byte stream too small.",
 		 function );
 
@@ -186,10 +185,10 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
 	}
 	if( byte_stream_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: byte stream size exceeds maximum.",
 		 function );
 
@@ -198,10 +197,10 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
 	if( ( byte_order != LIBFDATETIME_ENDIAN_BIG )
 	 && ( byte_order != LIBFDATETIME_ENDIAN_LITTLE ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported byte order.",
 		 function );
 
@@ -240,17 +239,17 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
 int libfdatetime_nsf_timedate_copy_from_64bit(
      libfdatetime_nsf_timedate_t *nsf_timedate,
      uint64_t value_64bit,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate = NULL;
 	static char *function                                       = "libfdatetime_nsf_timedate_copy_from_64bit";
 
 	if( nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid NSF timedate.",
 		 function );
 
@@ -270,7 +269,7 @@ int libfdatetime_nsf_timedate_copy_from_64bit(
 int libfdatetime_nsf_timedate_copy_to_date_time_values(
      libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate,
      libfdatetime_date_time_values_t *date_time_values,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function          = "libfdatetime_nsf_timedate_copy_to_date_time_values";
 	uint32_t nsf_julian_day        = 0;
@@ -284,10 +283,10 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 
 	if( internal_nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid internal NSF timedate.",
 		 function );
 
@@ -295,10 +294,10 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 	}
 	if( date_time_values == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid date time values.",
 		 function );
 
@@ -415,7 +414,7 @@ int libfdatetime_nsf_timedate_get_string_size(
      size_t *string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
 
@@ -423,10 +422,10 @@ int libfdatetime_nsf_timedate_get_string_size(
 
 	if( nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid NSF timedate.",
 		 function );
 
@@ -434,10 +433,10 @@ int libfdatetime_nsf_timedate_get_string_size(
 	}
 	if( string_size == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid string size.",
 		 function );
 
@@ -448,10 +447,10 @@ int libfdatetime_nsf_timedate_get_string_size(
 	     &date_time_values,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
 
@@ -466,10 +465,10 @@ int libfdatetime_nsf_timedate_get_string_size(
 	     date_time_format,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_GET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
 		 "%s: unable to get string size.",
 		 function );
 
@@ -495,7 +494,7 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
      size_t utf8_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
 
@@ -508,10 +507,10 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 
 	if( nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid NSF timedate.",
 		 function );
 
@@ -524,10 +523,10 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 	     &date_time_values,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
 
@@ -545,10 +544,10 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 
 	if( result == -1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set string.",
 		 function );
 
@@ -558,10 +557,10 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 	{
 		if( utf8_string == NULL )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 			 "%s: invalid UTF-8 string.",
 			 function );
 
@@ -569,10 +568,10 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 		}
 		if( utf8_string_size > (size_t) SSIZE_MAX )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 			 "%s: invalid UTF-8 string size value exceeds maximum.",
 			 function );
 
@@ -580,10 +579,10 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
 		}
 		if( utf8_string_size < 24 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-8 string is too small.",
 			 function );
 
@@ -650,7 +649,7 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
      size_t utf16_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
 
@@ -663,10 +662,10 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 
 	if( nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid NSF timedate.",
 		 function );
 
@@ -679,10 +678,10 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 	     &date_time_values,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
 
@@ -700,10 +699,10 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 
 	if( result == -1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set string.",
 		 function );
 
@@ -713,10 +712,10 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 	{
 		if( utf16_string == NULL )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 			 "%s: invalid UTF-16 string.",
 			 function );
 
@@ -724,10 +723,10 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 		}
 		if( utf16_string_size > (size_t) SSIZE_MAX )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 			 "%s: invalid UTF-16 string size value exceeds maximum.",
 			 function );
 
@@ -735,10 +734,10 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
 		}
 		if( utf16_string_size < 24 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-16 string is too small.",
 			 function );
 
@@ -805,7 +804,7 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
      size_t utf32_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
 
@@ -818,10 +817,10 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 
 	if( nsf_timedate == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid NSF timedate.",
 		 function );
 
@@ -834,10 +833,10 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 	     &date_time_values,
 	     error ) != 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
 
@@ -855,10 +854,10 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 
 	if( result == -1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set string.",
 		 function );
 
@@ -868,10 +867,10 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 	{
 		if( utf32_string == NULL )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 			 "%s: invalid UTF-32 string.",
 			 function );
 
@@ -879,10 +878,10 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 		}
 		if( utf32_string_size > (size_t) SSIZE_MAX )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 			 "%s: invalid UTF-32 string size value exceeds maximum.",
 			 function );
 
@@ -890,10 +889,10 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
 		}
 		if( utf32_string_size < 24 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-32 string is too small.",
 			 function );
 

@@ -23,10 +23,9 @@
 #include <memory.h>
 #include <types.h>
 
-#include <liberror.h>
-
 #include "libfdatetime_definitions.h"
 #include "libfdatetime_date_time_values.h"
+#include "libfdatetime_libcerror.h"
 #include "libfdatetime_types.h"
 
 /* Initialize date time values
@@ -34,16 +33,16 @@
  */
 int libfdatetime_date_time_values_initialize(
      libfdatetime_date_time_values_t **date_time_values,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "libfdatetime_date_time_values_initialize";
 
 	if( date_time_values == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid date time values.",
 		 function );
 
@@ -51,10 +50,10 @@ int libfdatetime_date_time_values_initialize(
 	}
 	if( *date_time_values != NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
 		 "%s: invalid date time values value already set.",
 		 function );
 
@@ -65,10 +64,10 @@ int libfdatetime_date_time_values_initialize(
 
 	if( *date_time_values == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_INSUFFICIENT,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
 		 "%s: unable to create date time values.",
 		 function );
 
@@ -79,10 +78,10 @@ int libfdatetime_date_time_values_initialize(
 	     0,
 	     sizeof( libfdatetime_date_time_values_t ) ) == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_MEMORY,
-		 LIBERROR_MEMORY_ERROR_SET_FAILED,
+		 LIBCERROR_ERROR_DOMAIN_MEMORY,
+		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
 		 "%s: unable to clear date time values.",
 		 function );
 
@@ -106,16 +105,16 @@ on_error:
  */
 int libfdatetime_date_time_values_free(
      libfdatetime_date_time_values_t **date_time_values,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function = "libfdatetime_date_time_values_free";
 
 	if( date_time_values == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid date time values.",
 		 function );
 
@@ -140,17 +139,17 @@ int libfdatetime_date_time_values_get_string_size(
      size_t *string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	static char *function   = "libfdatetime_date_time_values_get_string_size";
 	uint8_t supported_flags = 0;
 
 	if( date_time_values == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid date time values.",
 		 function );
 
@@ -158,10 +157,10 @@ int libfdatetime_date_time_values_get_string_size(
 	}
 	if( string_size == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid string size.",
 		 function );
 
@@ -174,10 +173,10 @@ int libfdatetime_date_time_values_get_string_size(
 
 	if( ( string_format_flags & supported_flags ) == 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported string format flags: 0x02%" PRIx8 ".",
 		 function,
 		 string_format_flags );
@@ -187,10 +186,10 @@ int libfdatetime_date_time_values_get_string_size(
 	if( ( date_time_format != LIBFDATETIME_DATE_TIME_FORMAT_CTIME )
 	 && ( date_time_format != LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported date and time format: %d.",
 		 function,
 		 date_time_format );
@@ -241,7 +240,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
      size_t utf8_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	char *month_string      = NULL;
 	static char *function   = "libfdatetime_date_time_values_copy_to_utf8_string";
@@ -253,10 +252,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 	if( date_time_values == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid date time values.",
 		 function );
 
@@ -264,10 +263,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 	}
 	if( utf8_string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-8 string.",
 		 function );
 
@@ -275,10 +274,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 	}
 	if( utf8_string_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-8 string size value exceeds maximum.",
 		 function );
 
@@ -291,10 +290,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 	if( ( string_format_flags & supported_flags ) == 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported string format flags: 0x02%" PRIx8 ".",
 		 function,
 		 string_format_flags );
@@ -304,10 +303,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 	if( ( date_time_format != LIBFDATETIME_DATE_TIME_FORMAT_CTIME )
 	 && ( date_time_format != LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported date and time format: %d.",
 		 function,
 		 date_time_format );
@@ -432,10 +431,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 		{
 			if( utf8_string_size < 12 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 				 "%s: UTF-8 string is too small.",
 				 function );
 
@@ -469,10 +468,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 			{
 				if( utf8_string_size < 1 )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 					 "%s: UTF-8 string is too small.",
 					 function );
 
@@ -488,10 +487,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 		{
 			if( utf8_string_size < 10 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 				 "%s: UTF-8 string is too small.",
 				 function );
 
@@ -523,10 +522,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 			{
 				if( utf8_string_size < 1 )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 					 "%s: UTF-8 string is too small.",
 					 function );
 
@@ -540,10 +539,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 	{
 		if( utf8_string_size < 8 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-8 string is too small.",
 			 function );
 
@@ -569,10 +568,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 		{
 			if( utf8_string_size < 7 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 				 "%s: UTF-8 string is too small.",
 				 function );
 
@@ -607,10 +606,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 	}
 	if( utf8_string_size < 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: UTF-8 string is too small.",
 		 function );
 
@@ -631,7 +630,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
      size_t utf16_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	char *month_string      = NULL;
 	static char *function   = "libfdatetime_date_time_values_copy_to_utf16_string";
@@ -643,10 +642,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 	if( date_time_values == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid date time values.",
 		 function );
 
@@ -654,10 +653,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 	}
 	if( utf16_string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-16 string.",
 		 function );
 
@@ -665,10 +664,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 	}
 	if( utf16_string_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-16 string size value exceeds maximum.",
 		 function );
 
@@ -681,10 +680,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 	if( ( string_format_flags & supported_flags ) == 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported string format flags: 0x02%" PRIx8 ".",
 		 function,
 		 string_format_flags );
@@ -694,10 +693,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 	if( ( date_time_format != LIBFDATETIME_DATE_TIME_FORMAT_CTIME )
 	 && ( date_time_format != LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported date and time format: %d.",
 		 function,
 		 date_time_format );
@@ -822,10 +821,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 		{
 			if( utf16_string_size < 12 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 				 "%s: UTF-16 string is too small.",
 				 function );
 
@@ -859,10 +858,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 			{
 				if( utf16_string_size < 1 )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 					 "%s: UTF-16 string is too small.",
 					 function );
 
@@ -878,10 +877,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 		{
 			if( utf16_string_size < 10 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 				 "%s: UTF-16 string is too small.",
 				 function );
 
@@ -913,10 +912,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 			{
 				if( utf16_string_size < 1 )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 					 "%s: UTF-16 string is too small.",
 					 function );
 
@@ -930,10 +929,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 	{
 		if( utf16_string_size < 9 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-16 string is too small.",
 			 function );
 
@@ -957,10 +956,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 		{
 			if( utf16_string_size < 7 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 				 "%s: UTF-16 string is too small.",
 				 function );
 
@@ -995,10 +994,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 	}
 	if( utf16_string_size < 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: UTF-16 string is too small.",
 		 function );
 
@@ -1019,7 +1018,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
      size_t utf32_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error )
+     libcerror_error_t **error )
 {
 	char *month_string      = NULL;
 	static char *function   = "libfdatetime_date_time_values_copy_to_utf32_string";
@@ -1031,10 +1030,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 	if( date_time_values == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid date time values.",
 		 function );
 
@@ -1042,10 +1041,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 	}
 	if( utf32_string == NULL )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid UTF-32 string.",
 		 function );
 
@@ -1053,10 +1052,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 	}
 	if( utf32_string_size > (size_t) SSIZE_MAX )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
 		 "%s: invalid UTF-32 string size value exceeds maximum.",
 		 function );
 
@@ -1069,10 +1068,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 	if( ( string_format_flags & supported_flags ) == 0 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported string format flags: 0x02%" PRIx8 ".",
 		 function,
 		 string_format_flags );
@@ -1082,10 +1081,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 	if( ( date_time_format != LIBFDATETIME_DATE_TIME_FORMAT_CTIME )
 	 && ( date_time_format != LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 ) )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
 		 "%s: unsupported date and time format: %d.",
 		 function,
 		 date_time_format );
@@ -1213,10 +1212,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 		{
 			if( utf32_string_size < 12 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 				 "%s: UTF-32 string is too small.",
 				 function );
 
@@ -1250,10 +1249,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 			{
 				if( utf32_string_size < 1 )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 					 "%s: UTF-32 string is too small.",
 					 function );
 
@@ -1269,10 +1268,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 		{
 			if( utf32_string_size < 10 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 				 "%s: UTF-32 string is too small.",
 				 function );
 
@@ -1304,10 +1303,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 			{
 				if( utf32_string_size < 1 )
 				{
-					liberror_error_set(
+					libcerror_error_set(
 					 error,
-					 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-					 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+					 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+					 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 					 "%s: UTF-32 string is too small.",
 					 function );
 
@@ -1321,10 +1320,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 	{
 		if( utf32_string_size < 9 )
 		{
-			liberror_error_set(
+			libcerror_error_set(
 			 error,
-			 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 			 "%s: UTF-32 string is too small.",
 			 function );
 
@@ -1348,10 +1347,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 		{
 			if( utf32_string_size < 7 )
 			{
-				liberror_error_set(
+				libcerror_error_set(
 				 error,
-				 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-				 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 				 "%s: UTF-32 string is too small.",
 				 function );
 
@@ -1386,10 +1385,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 	}
 	if( utf32_string_size < 1 )
 	{
-		liberror_error_set(
+		libcerror_error_set(
 		 error,
-		 LIBERROR_ERROR_DOMAIN_ARGUMENTS,
-		 LIBERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
 		 "%s: UTF-32 string is too small.",
 		 function );
 

@@ -22,14 +22,14 @@
 #include <common.h>
 #include <types.h>
 
-#include <libcstring.h>
-
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
 #include <stdlib.h>
 #endif
 
 #include <stdio.h>
 
+#include "fdatetime_test_libcerror.h"
+#include "fdatetime_test_libcstring.h"
 #include "fdatetime_test_libfdatetime.h"
 
 /* Tests copying a NSF timedate from a byte stream
@@ -42,7 +42,7 @@ int fdatetime_test_identifier_copy_from_byte_stream(
      uint8_t byte_order,
      int expected_result )
 {
-	libfdatetime_error_t *error   = NULL;
+	libcerror_error_t *error      = NULL;
 	const char *byte_order_string = "unknown";
 	int result                    = 0;
 
@@ -88,11 +88,11 @@ int fdatetime_test_identifier_copy_from_byte_stream(
 	{
 		if( expected_result != -1 )
 		{
-			libfdatetime_error_backtrace_fprint(
+			libcerror_error_backtrace_fprint(
 			 error,
 			 stderr );
 		}
-		libfdatetime_error_free(
+		libcerror_error_free(
 		 &error );
 	}
 	if( result == expected_result )
@@ -116,8 +116,8 @@ int main( int argc, char * const argv[] )
 {
 	uint8_t byte_stream[ 8 ] = { 0xf6, 0x32, 0x3b, 0x00, 0xb4, 0x72, 0x25, 0xc1 };
 
+	libcerror_error_t *error                  = NULL;
 	libfdatetime_nsf_timedate_t *nsf_timedate = NULL;
-	libfdatetime_error_t *error           = NULL;
 
 	if( argc != 1 )
 	{
@@ -264,10 +264,10 @@ int main( int argc, char * const argv[] )
 on_error:
 	if( error != NULL )
 	{
-		libfdatetime_error_backtrace_fprint(
+		libcerror_error_backtrace_fprint(
 		 error,
 		 stderr );
-		libfdatetime_error_free(
+		libcerror_error_free(
 		 &error );
 	}
 	if( nsf_timedate != NULL )

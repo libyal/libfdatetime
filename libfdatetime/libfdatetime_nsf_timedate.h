@@ -25,9 +25,8 @@
 #include <common.h>
 #include <types.h>
 
-#include <liberror.h>
-
 #include "libfdatetime_extern.h"
+#include "libfdatetime_libcerror.h"
 #include "libfdatetime_types.h"
 
 #if defined( __cplusplus )
@@ -59,12 +58,12 @@ struct libfdatetime_internal_nsf_timedate
 LIBFDATETIME_EXTERN \
 int libfdatetime_nsf_timedate_initialize(
      libfdatetime_nsf_timedate_t **nsf_timedate,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_nsf_timedate_free(
      libfdatetime_nsf_timedate_t **nsf_timedate,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_nsf_timedate_copy_from_byte_stream(
@@ -72,18 +71,18 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint8_t byte_order,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_nsf_timedate_copy_from_64bit(
      libfdatetime_nsf_timedate_t *nsf_timedate,
      uint64_t value_64bit,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int libfdatetime_nsf_timedate_copy_to_date_time_values(
      libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate,
      libfdatetime_date_time_values_t *date_time_values,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_nsf_timedate_get_string_size(
@@ -91,7 +90,7 @@ int libfdatetime_nsf_timedate_get_string_size(
      size_t *string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_nsf_timedate_copy_to_utf8_string(
@@ -100,7 +99,7 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
      size_t utf8_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_nsf_timedate_copy_to_utf16_string(
@@ -109,7 +108,7 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
      size_t utf16_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_nsf_timedate_copy_to_utf32_string(
@@ -118,7 +117,7 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
      size_t utf32_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 #if defined( __cplusplus )
 }

@@ -25,9 +25,8 @@
 #include <common.h>
 #include <types.h>
 
-#include <liberror.h>
-
 #include "libfdatetime_extern.h"
+#include "libfdatetime_libcerror.h"
 #include "libfdatetime_types.h"
 
 #if defined( __cplusplus )
@@ -54,12 +53,12 @@ struct libfdatetime_internal_fat_date_time
 LIBFDATETIME_EXTERN \
 int libfdatetime_fat_date_time_initialize(
      libfdatetime_fat_date_time_t **fat_date_time,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_fat_date_time_free(
      libfdatetime_fat_date_time_t **fat_date_time,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_fat_date_time_copy_from_byte_stream(
@@ -67,18 +66,18 @@ int libfdatetime_fat_date_time_copy_from_byte_stream(
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      uint8_t byte_order,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_fat_date_time_copy_from_uint32(
      libfdatetime_fat_date_time_t *fat_date_time,
      uint32_t value_32bit,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 int libfdatetime_fat_dat_time_copy_to_date_time_values(
      libfdatetime_internal_fat_date_time_t *internal_fat_date_time,
      libfdatetime_date_time_values_t *date_time_values,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_fat_date_time_get_string_size(
@@ -86,7 +85,7 @@ int libfdatetime_fat_date_time_get_string_size(
      size_t *string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_fat_date_time_copy_to_utf8_string(
@@ -95,7 +94,7 @@ int libfdatetime_fat_date_time_copy_to_utf8_string(
      size_t utf8_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_fat_date_time_copy_to_utf16_string(
@@ -104,7 +103,7 @@ int libfdatetime_fat_date_time_copy_to_utf16_string(
      size_t utf16_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
 int libfdatetime_fat_date_time_copy_to_utf32_string(
@@ -113,7 +112,7 @@ int libfdatetime_fat_date_time_copy_to_utf32_string(
      size_t utf32_string_size,
      uint8_t string_format_flags,
      int date_time_format,
-     liberror_error_t **error );
+     libcerror_error_t **error );
 
 #if defined( __cplusplus )
 }

@@ -1,6 +1,6 @@
 EXTRA_DIST = \
+	libcerror/libcerror.vcproj \
 	libcstring/libcstring.vcproj \
-	liberror/liberror.vcproj \
 	libfdatetime_dll/libfdatetime_dll.vcproj \
 	libfdatetime.sln
 

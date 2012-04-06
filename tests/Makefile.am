@@ -1,7 +1,8 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
-	-I$(top_srcdir)/libcstring \
+	@LIBCSTRING_CPPFLAGS@ \
+	@LIBCERROR_CPPFLAGS@ \
 	@MEMWATCH_CPPFLAGS@
 
 TESTS = \
@@ -38,74 +39,98 @@ check_PROGRAMS = \
 	fdatetime_test_posix_time_to_string
 
 fdatetime_test_fat_date_time_copy_from_SOURCES = \
+	fdatetime_test_libcerror.h \
+	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
 	fdatetime_test_fat_date_time_copy_from.c
 
 fdatetime_test_fat_date_time_copy_from_LDADD = \
-	../libcstring/libcstring.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
 	../libfdatetime/libfdatetime.la \
         @MEMWATCH_LIBADD@
 
 fdatetime_test_fat_date_time_to_string_SOURCES = \
+	fdatetime_test_libcerror.h \
+	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
 	fdatetime_test_fat_date_time_to_string.c
 
 fdatetime_test_fat_date_time_to_string_LDADD = \
-	../libcstring/libcstring.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
 	../libfdatetime/libfdatetime.la \
         @MEMWATCH_LIBADD@
 
 fdatetime_test_filetime_copy_from_SOURCES = \
+	fdatetime_test_libcerror.h \
+	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
 	fdatetime_test_filetime_copy_from.c
 
 fdatetime_test_filetime_copy_from_LDADD = \
-	../libcstring/libcstring.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
 	../libfdatetime/libfdatetime.la \
         @MEMWATCH_LIBADD@
 
 fdatetime_test_filetime_to_string_SOURCES = \
+	fdatetime_test_libcerror.h \
+	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
 	fdatetime_test_filetime_to_string.c
 
 fdatetime_test_filetime_to_string_LDADD = \
-	../libcstring/libcstring.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
 	../libfdatetime/libfdatetime.la \
         @MEMWATCH_LIBADD@
 
 fdatetime_test_nsf_timedate_copy_from_SOURCES = \
+	fdatetime_test_libcerror.h \
+	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
 	fdatetime_test_nsf_timedate_copy_from.c
 
 fdatetime_test_nsf_timedate_copy_from_LDADD = \
-	../libcstring/libcstring.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
 	../libfdatetime/libfdatetime.la \
         @MEMWATCH_LIBADD@
 
 fdatetime_test_nsf_timedate_to_string_SOURCES = \
+	fdatetime_test_libcerror.h \
+	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
 	fdatetime_test_nsf_timedate_to_string.c
 
 fdatetime_test_nsf_timedate_to_string_LDADD = \
-	../libcstring/libcstring.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
 	../libfdatetime/libfdatetime.la \
         @MEMWATCH_LIBADD@
 
 fdatetime_test_posix_time_copy_from_SOURCES = \
+	fdatetime_test_libcerror.h \
+	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
 	fdatetime_test_posix_time_copy_from.c
 
 fdatetime_test_posix_time_copy_from_LDADD = \
-	../libcstring/libcstring.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
 	../libfdatetime/libfdatetime.la \
         @MEMWATCH_LIBADD@
 
 fdatetime_test_posix_time_to_string_SOURCES = \
+	fdatetime_test_libcerror.h \
+	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
 	fdatetime_test_posix_time_to_string.c
 
 fdatetime_test_posix_time_to_string_LDADD = \
-	../libcstring/libcstring.la \
+	@LIBCSTRING_LIBADD@ \
+	@LIBCERROR_LIBADD@ \
 	../libfdatetime/libfdatetime.la \
         @MEMWATCH_LIBADD@
 

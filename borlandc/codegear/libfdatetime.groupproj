@@ -6,11 +6,11 @@
 			<Projects Include="libcstring\libcstring.cbproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="liberror\liberror.cbproj">
+			<Projects Include="libcerror\libcerror.cbproj">
 				<Dependencies>libcstring\libcstring.cbproj</Dependencies>
 			</Projects>
 			<Projects Include="libfdatetime\libfdatetime.cbproj">
-				<Dependencies>liberror\liberror.cbproj</Dependencies>
+				<Dependencies>libcstring\libcstring.cbproj;libcerror\libcerror.cbproj</Dependencies>
 			</Projects>
 		</ItemGroup>
 		<ProjectExtensions>
@@ -29,32 +29,32 @@
 		<Target Name="libcstring:Make">
 			<MSBuild Targets="Make" Projects="libcstring\libcstring.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring" Name="liberror">
-			<MSBuild Projects="liberror\liberror.cbproj"/>
+		<Target DependsOnTargets="libcstring" Name="libcerror">
+			<MSBuild Projects="libcerror\libcerror.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Clean" Name="liberror:Clean">
-			<MSBuild Targets="Clean" Projects="liberror\liberror.cbproj"/>
+		<Target DependsOnTargets="libcstring:Clean" Name="libcerror:Clean">
+			<MSBuild Targets="Clean" Projects="libcerror\libcerror.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="libcstring:Make" Name="liberror:Make">
-			<MSBuild Targets="Make" Projects="liberror\liberror.cbproj"/>
+		<Target DependsOnTargets="libcstring:Make" Name="libcerror:Make">
+			<MSBuild Targets="Make" Projects="libcerror\libcerror.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror" Name="libfdatetime">
+		<Target DependsOnTargets="libcstring;libcerror" Name="libfdatetime">
 			<MSBuild Projects="libfdatetime\libfdatetime.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Clean" Name="libfdatetime:Clean">
+		<Target DependsOnTargets="libcstring:Clean;libcerror:Clean" Name="libfdatetime:Clean">
 			<MSBuild Targets="Clean" Projects="libfdatetime\libfdatetime.cbproj"/>
 		</Target>
-		<Target DependsOnTargets="liberror:Make" Name="libfdatetime:Make">
+		<Target DependsOnTargets="libcstring:Make;libcerror:Make" Name="libfdatetime:Make">
 			<MSBuild Targets="Make" Projects="libfdatetime\libfdatetime.cbproj"/>
 		</Target>
 		<Target Name="Build">
-			<CallTarget Targets="libcstring;liberror;libfdatetime"/>
+			<CallTarget Targets="libcstring;libcerror;libfdatetime"/>
 		</Target>
 		<Target Name="Clean">
-			<CallTarget Targets="libcstring:Clean;liberror:Clean;libfdatetime:Clean"/>
+			<CallTarget Targets="libcstring:Clean;libcerror:Clean;libfdatetime:Clean"/>
 		</Target>
 		<Target Name="Make">
-			<CallTarget Targets="libcstring:Make;liberror:Make;libfdatetime:Make"/>
+			<CallTarget Targets="libcstring:Make;libcerror:Make;libfdatetime:Make"/>
 		</Target>
 		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 	</Project>

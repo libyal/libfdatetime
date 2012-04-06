@@ -4,7 +4,7 @@ SUBDIRS = \
 	include \
 	common \
 	libcstring \
-	liberror \
+	libcerror \
 	libfdatetime \
 	po \
 	tests \
@@ -60,7 +60,7 @@ lib: library
 library:
 	(cd $(srcdir)/common && $(MAKE) $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libcstring && $(MAKE) $(AM_MAKEFLAGS))
-	(cd $(srcdir)/liberror && $(MAKE) $(AM_MAKEFLAGS))
+	(cd $(srcdir)/libcerror && $(MAKE) $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libfdatetime && $(MAKE) $(AM_MAKEFLAGS))
 	(cd $(srcdir)/po && $(MAKE) $(AM_MAKEFLAGS))
 
@@ -78,7 +78,7 @@ distclean: clean
 
 splint:
 	(cd $(srcdir)/libcstring && $(MAKE) splint $(AM_MAKEFLAGS))
-	(cd $(srcdir)/liberror && $(MAKE) splint $(AM_MAKEFLAGS))
+	(cd $(srcdir)/libcerror && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/libfdatetime && $(MAKE) splint $(AM_MAKEFLAGS))
 	(cd $(srcdir)/po && $(MAKE) splint $(AM_MAKEFLAGS))
 

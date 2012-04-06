@@ -1,6 +1,6 @@
 CODEGEAR_FILES = \
+	codegear/libcerror/libcerror.cbproj \
 	codegear/libcstring/libcstring.cbproj \
-	codegear/liberror/liberror.cbproj \
 	codegear/libfdatetime/libfdatetime.cbproj \
 	codegear/libfdatetime.groupproj
 

@@ -1,5 +1,4 @@
 TODO
-* msvscpp add VSDebug
 * filetime check for -0 ?
 * implement support for duration string
 * add tests
@@ -18,6 +17,10 @@ HFS date/time
 
 Deployment
 * add macosx file
+
+20120406
+* updated dependencies
+* updated msvscpp and borland files
 
 20120318
 * Worked on adding tests
