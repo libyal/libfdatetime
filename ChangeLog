@@ -1,4 +1,9 @@
 TODO
+* add string with index functions
+  - date time values (done)
+  - filetime (done)
+  - add functions
+  - update manual
 * filetime check for -0 ?
 * implement support for duration string
 * add tests
@@ -17,6 +22,9 @@ HFS date/time
 
 Deployment
 * add macosx file
+
+20120415
+* worked on string with index functions
 
 20120408
 * updated dependencies

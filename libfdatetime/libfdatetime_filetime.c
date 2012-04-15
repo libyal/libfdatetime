@@ -539,8 +539,8 @@ int libfdatetime_filetime_get_string_size(
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set date time values.",
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy filetime to date time values.",
 		 function );
 
 		return( -1 );
@@ -585,10 +585,47 @@ int libfdatetime_filetime_copy_to_utf8_string(
      int date_time_format,
      libcerror_error_t **error )
 {
+	static char *function    = "libfdatetime_filetime_copy_to_utf8_string";
+	size_t utf8_string_index = 0;
+
+	if( libfdatetime_filetime_copy_to_utf8_string_with_index(
+	     filetime,
+	     utf8_string,
+	     utf8_string_size,
+	     &utf8_string_index,
+	     string_format_flags,
+	     date_time_format,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy filetime to UTF-8 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Converts the filetime into an UTF-8 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_filetime_copy_to_utf8_string_with_index(
+     libfdatetime_filetime_t *filetime,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     uint8_t string_format_flags,
+     int date_time_format,
+     libcerror_error_t **error )
+{
 	libfdatetime_date_time_values_t date_time_values;
 
 	libfdatetime_internal_filetime_t *internal_filetime = NULL;
-	static char *function                               = "libfdatetime_filetime_copy_to_utf8_string";
+	static char *function                               = "libfdatetime_filetime_copy_to_utf8_string_with_index";
 	size_t string_index                                 = 0;
 	uint8_t byte_value                                  = 0;
 	int8_t byte_shift                                   = 0;
@@ -615,18 +652,19 @@ int libfdatetime_filetime_copy_to_utf8_string(
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set date time values.",
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy filetime to date time values.",
 		 function );
 
 		return( -1 );
 	}
 	/* Create the date and time string
 	 */
-	result = libfdatetime_date_time_values_copy_to_utf8_string(
+	result = libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 	          &date_time_values,
 	          utf8_string,
 	          utf8_string_size,
+	          utf8_string_index,
 	          string_format_flags,
 	          date_time_format,
 	          error );
@@ -666,7 +704,18 @@ int libfdatetime_filetime_copy_to_utf8_string(
 
 			return( -1 );
 		}
-		if( utf8_string_size < 24 )
+		if( utf8_string_index == NULL )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-8 string index.",
+			 function );
+
+			return( -1 );
+		}
+		if( ( *utf8_string_index + 24 ) > utf8_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -677,6 +726,8 @@ int libfdatetime_filetime_copy_to_utf8_string(
 
 			return( -1 );
 		}
+		string_index = *utf8_string_index;
+
 		utf8_string[ string_index++ ] = (uint8_t) '(';
 		utf8_string[ string_index++ ] = (uint8_t) '0';
 		utf8_string[ string_index++ ] = (uint8_t) 'x';
@@ -724,6 +775,8 @@ int libfdatetime_filetime_copy_to_utf8_string(
 		utf8_string[ string_index++ ] = (uint8_t) ')';
 
 		utf8_string[ string_index++ ] = 0;
+
+		*utf8_string_index = string_index;
 	}
 	return( 1 );
 }
@@ -740,10 +793,47 @@ int libfdatetime_filetime_copy_to_utf16_string(
      int date_time_format,
      libcerror_error_t **error )
 {
+	static char *function     = "libfdatetime_filetime_copy_to_utf16_string";
+	size_t utf16_string_index = 0;
+
+	if( libfdatetime_filetime_copy_to_utf16_string_with_index(
+	     filetime,
+	     utf16_string,
+	     utf16_string_size,
+	     &utf16_string_index,
+	     string_format_flags,
+	     date_time_format,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy filetime to UTF-16 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Converts the filetime into an UTF-16 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_filetime_copy_to_utf16_string_with_index(
+     libfdatetime_filetime_t *filetime,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     uint8_t string_format_flags,
+     int date_time_format,
+     libcerror_error_t **error )
+{
 	libfdatetime_date_time_values_t date_time_values;
 
 	libfdatetime_internal_filetime_t *internal_filetime = NULL;
-	static char *function                               = "libfdatetime_filetime_copy_to_utf16_string";
+	static char *function                               = "libfdatetime_filetime_copy_to_utf16_string_with_index";
 	size_t string_index                                 = 0;
 	uint8_t byte_value                                  = 0;
 	int8_t byte_shift                                   = 0;
@@ -770,18 +860,19 @@ int libfdatetime_filetime_copy_to_utf16_string(
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set date time values.",
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy filetime to date time values.",
 		 function );
 
 		return( -1 );
 	}
 	/* Create the date and time string
 	 */
-	result = libfdatetime_date_time_values_copy_to_utf16_string(
+	result = libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 	          &date_time_values,
 	          utf16_string,
 	          utf16_string_size,
+	          utf16_string_index,
 	          string_format_flags,
 	          date_time_format,
 	          error );
@@ -821,7 +912,18 @@ int libfdatetime_filetime_copy_to_utf16_string(
 
 			return( -1 );
 		}
-		if( utf16_string_size < 24 )
+		if( utf16_string_index == NULL )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-16 string index.",
+			 function );
+
+			return( -1 );
+		}
+		if( ( *utf16_string_index + 24 ) > utf16_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -832,6 +934,8 @@ int libfdatetime_filetime_copy_to_utf16_string(
 
 			return( -1 );
 		}
+		string_index = *utf16_string_index;
+
 		utf16_string[ string_index++ ] = (uint16_t) '(';
 		utf16_string[ string_index++ ] = (uint16_t) '0';
 		utf16_string[ string_index++ ] = (uint16_t) 'x';
@@ -879,6 +983,8 @@ int libfdatetime_filetime_copy_to_utf16_string(
 		utf16_string[ string_index++ ] = (uint16_t) ')';
 
 		utf16_string[ string_index++ ] = 0;
+
+		*utf16_string_index = string_index;
 	}
 	return( 1 );
 }
@@ -895,10 +1001,47 @@ int libfdatetime_filetime_copy_to_utf32_string(
      int date_time_format,
      libcerror_error_t **error )
 {
+	static char *function     = "libfdatetime_filetime_copy_to_utf32_string";
+	size_t utf32_string_index = 0;
+
+	if( libfdatetime_filetime_copy_to_utf32_string_with_index(
+	     filetime,
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     string_format_flags,
+	     date_time_format,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy filetime to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Converts the filetime into an UTF-32 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_filetime_copy_to_utf32_string_with_index(
+     libfdatetime_filetime_t *filetime,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     uint8_t string_format_flags,
+     int date_time_format,
+     libcerror_error_t **error )
+{
 	libfdatetime_date_time_values_t date_time_values;
 
 	libfdatetime_internal_filetime_t *internal_filetime = NULL;
-	static char *function                               = "libfdatetime_filetime_copy_to_utf32_string";
+	static char *function                               = "libfdatetime_filetime_copy_to_utf32_string_with_index";
 	size_t string_index                                 = 0;
 	uint8_t byte_value                                  = 0;
 	int8_t byte_shift                                   = 0;
@@ -925,18 +1068,19 @@ int libfdatetime_filetime_copy_to_utf32_string(
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set date time values.",
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy filetime to date time values.",
 		 function );
 
 		return( -1 );
 	}
 	/* Create the date and time string
 	 */
-	result = libfdatetime_date_time_values_copy_to_utf32_string(
+	result = libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 	          &date_time_values,
 	          utf32_string,
 	          utf32_string_size,
+	          utf32_string_index,
 	          string_format_flags,
 	          date_time_format,
 	          error );
@@ -976,7 +1120,18 @@ int libfdatetime_filetime_copy_to_utf32_string(
 
 			return( -1 );
 		}
-		if( utf32_string_size < 24 )
+		if( utf32_string_index == NULL )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-32 string index.",
+			 function );
+
+			return( -1 );
+		}
+		if( ( *utf32_string_index + 24 ) > utf32_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -987,6 +1142,8 @@ int libfdatetime_filetime_copy_to_utf32_string(
 
 			return( -1 );
 		}
+		string_index = *utf32_string_index;
+
 		utf32_string[ string_index++ ] = (uint32_t) '(';
 		utf32_string[ string_index++ ] = (uint32_t) '0';
 		utf32_string[ string_index++ ] = (uint32_t) 'x';
@@ -1034,6 +1191,8 @@ int libfdatetime_filetime_copy_to_utf32_string(
 		utf32_string[ string_index++ ] = (uint32_t) ')';
 
 		utf32_string[ string_index++ ] = 0;
+
+		*utf32_string_index = string_index;
 	}
 	return( 1 );
 }

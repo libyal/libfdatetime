@@ -82,26 +82,29 @@ int libfdatetime_date_time_values_get_string_size(
      int date_time_format,
      libcerror_error_t **error );
 
-int libfdatetime_date_time_values_copy_to_utf8_string(
+int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
      libfdatetime_date_time_values_t *date_time_values,
      uint8_t *utf8_string,
      size_t utf8_string_size,
+     size_t *utf8_string_index,
      uint8_t string_format_flags,
      int date_time_format,
      libcerror_error_t **error );
 
-int libfdatetime_date_time_values_copy_to_utf16_string(
+int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
      libfdatetime_date_time_values_t *date_time_values,
      uint16_t *utf16_string,
      size_t utf16_string_size,
+     size_t *utf16_string_index,
      uint8_t string_format_flags,
      int date_time_format,
      libcerror_error_t **error );
 
-int libfdatetime_date_time_values_copy_to_utf32_string(
+int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
      libfdatetime_date_time_values_t *date_time_values,
      uint32_t *utf32_string,
      size_t utf32_string_size,
+     size_t *utf32_string_index,
      uint8_t string_format_flags,
      int date_time_format,
      libcerror_error_t **error );

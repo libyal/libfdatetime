@@ -426,6 +426,9 @@ int libfdatetime_fat_date_time_copy_to_utf8_string(
 	int8_t byte_shift                                             = 0;
 	int result                                                    = 0;
 
+/* TODO refactor */
+	size_t utf8_string_index = 0;
+
 	if( fat_date_time == NULL )
 	{
 		libcerror_error_set(
@@ -455,10 +458,11 @@ int libfdatetime_fat_date_time_copy_to_utf8_string(
 	}
 	/* Create the date and time string
 	 */
-	result = libfdatetime_date_time_values_copy_to_utf8_string(
+	result = libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 	          &date_time_values,
 	          utf8_string,
 	          utf8_string_size,
+	          &utf8_string_index,
 	          string_format_flags,
 	          date_time_format,
 	          error );
@@ -581,6 +585,9 @@ int libfdatetime_fat_date_time_copy_to_utf16_string(
 	int8_t byte_shift                                             = 0;
 	int result                                                    = 0;
 
+/* TODO refactor */
+	size_t utf16_string_index = 0;
+
 	if( fat_date_time == NULL )
 	{
 		libcerror_error_set(
@@ -610,10 +617,11 @@ int libfdatetime_fat_date_time_copy_to_utf16_string(
 	}
 	/* Create the date and time string
 	 */
-	result = libfdatetime_date_time_values_copy_to_utf16_string(
+	result = libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 	          &date_time_values,
 	          utf16_string,
 	          utf16_string_size,
+	          &utf16_string_index,
 	          string_format_flags,
 	          date_time_format,
 	          error );
@@ -736,6 +744,9 @@ int libfdatetime_fat_date_time_copy_to_utf32_string(
 	int8_t byte_shift                                             = 0;
 	int result                                                    = 0;
 
+/* TODO refactor */
+	size_t utf32_string_index = 0;
+
 	if( fat_date_time == NULL )
 	{
 		libcerror_error_set(
@@ -765,10 +776,11 @@ int libfdatetime_fat_date_time_copy_to_utf32_string(
 	}
 	/* Create the date and time string
 	 */
-	result = libfdatetime_date_time_values_copy_to_utf32_string(
+	result = libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 	          &date_time_values,
 	          utf32_string,
 	          utf32_string_size,
+	          &utf32_string_index,
 	          string_format_flags,
 	          date_time_format,
 	          error );

@@ -234,16 +234,17 @@ int libfdatetime_date_time_values_get_string_size(
  * The string size should include the end of string character
  * Returns 1 if successful, 0 if the date and time values are not a valid or -1 on error
  */
-int libfdatetime_date_time_values_copy_to_utf8_string(
+int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
      libfdatetime_date_time_values_t *date_time_values,
      uint8_t *utf8_string,
      size_t utf8_string_size,
+     size_t *utf8_string_index,
      uint8_t string_format_flags,
      int date_time_format,
      libcerror_error_t **error )
 {
 	char *month_string      = NULL;
-	static char *function   = "libfdatetime_date_time_values_copy_to_utf8_string";
+	static char *function   = "libfdatetime_date_time_values_copy_to_utf8_string_with_index";
 	size_t string_index     = 0;
 	uint32_t micro_seconds  = 0;
 	uint16_t year_value     = 0;
@@ -283,6 +284,17 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 		return( -1 );
 	}
+	if( utf8_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-8 string index.",
+		 function );
+
+		return( -1 );
+	}
 	supported_flags = LIBFDATETIME_STRING_FORMAT_FLAG_DATE
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
@@ -313,6 +325,8 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 
 		return( -1 );
 	}
+	string_index = *utf8_string_index;
+
 	/* Validate the date and time if necessary
 	 */
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
@@ -617,6 +631,8 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
 	}
 	utf8_string[ string_index++ ] = 0;
 
+	*utf8_string_index = string_index;
+
 	return( 1 );
 }
 
@@ -624,16 +640,17 @@ int libfdatetime_date_time_values_copy_to_utf8_string(
  * The string size should include the end of string character
  * Returns 1 if successful, 0 if the date and time values are not a valid or -1 on error
  */
-int libfdatetime_date_time_values_copy_to_utf16_string(
+int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
      libfdatetime_date_time_values_t *date_time_values,
      uint16_t *utf16_string,
      size_t utf16_string_size,
+     size_t *utf16_string_index,
      uint8_t string_format_flags,
      int date_time_format,
      libcerror_error_t **error )
 {
 	char *month_string      = NULL;
-	static char *function   = "libfdatetime_date_time_values_copy_to_utf16_string";
+	static char *function   = "libfdatetime_date_time_values_copy_to_utf16_string_with_index";
 	size_t string_index     = 0;
 	uint32_t micro_seconds  = 0;
 	uint16_t year_value     = 0;
@@ -673,6 +690,17 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 		return( -1 );
 	}
+	if( utf16_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-16 string index.",
+		 function );
+
+		return( -1 );
+	}
 	supported_flags = LIBFDATETIME_STRING_FORMAT_FLAG_DATE
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
@@ -703,6 +731,8 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 
 		return( -1 );
 	}
+	string_index = *utf16_string_index;
+
 	/* Validate the date and time if necessary
 	 */
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
@@ -1005,6 +1035,8 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
 	}
 	utf16_string[ string_index++ ] = 0;
 
+	*utf16_string_index = string_index;
+
 	return( 1 );
 }
 
@@ -1012,16 +1044,17 @@ int libfdatetime_date_time_values_copy_to_utf16_string(
  * The string size should include the end of string character
  * Returns 1 if successful, 0 if the date and time values are not a valid or -1 on error
  */
-int libfdatetime_date_time_values_copy_to_utf32_string(
+int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
      libfdatetime_date_time_values_t *date_time_values,
      uint32_t *utf32_string,
      size_t utf32_string_size,
+     size_t *utf32_string_index,
      uint8_t string_format_flags,
      int date_time_format,
      libcerror_error_t **error )
 {
 	char *month_string      = NULL;
-	static char *function   = "libfdatetime_date_time_values_copy_to_utf32_string";
+	static char *function   = "libfdatetime_date_time_values_copy_to_utf32_string_with_index";
 	size_t string_index     = 0;
 	uint32_t micro_seconds  = 0;
 	uint16_t year_value     = 0;
@@ -1061,6 +1094,17 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 		return( -1 );
 	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
+		 function );
+
+		return( -1 );
+	}
 	supported_flags = LIBFDATETIME_STRING_FORMAT_FLAG_DATE
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
@@ -1091,6 +1135,8 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 
 		return( -1 );
 	}
+	string_index = *utf32_string_index;
+
 	/* Validate the date and time if necessary
 	 */
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
@@ -1395,6 +1441,8 @@ int libfdatetime_date_time_values_copy_to_utf32_string(
 		return( -1 );
 	}
 	utf32_string[ string_index++ ] = 0;
+
+	*utf32_string_index = string_index;
 
 	return( 1 );
 }
