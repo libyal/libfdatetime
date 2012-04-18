@@ -192,7 +192,7 @@ int libfdatetime_date_time_values_get_string_size(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported string format flags: 0x08%" PRIx32 ".",
+		 "%s: unsupported string format flags: 0x%08" PRIx32 ".",
 		 function,
 		 string_format_flags );
 
@@ -349,7 +349,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported string format flags: 0x08%" PRIx32 ".",
+		 "%s: unsupported string format flags: 0x%08" PRIx32 ".",
 		 function,
 		 string_format_flags );
 
@@ -490,7 +490,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 					month_string = "Dec";
 					break;
 			}
-			if( utf8_string_size < 12 )
+			if( ( string_index + 12 ) > utf8_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -523,11 +523,9 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			year_value                   %= 10;
 			utf8_string[ string_index++ ] = (uint8_t) '0' + (uint8_t) year_value;
 
-			utf8_string_size -= 12;
-
 			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
-				if( utf8_string_size < 1 )
+				if( ( string_index + 1 ) > utf8_string_size )
 				{
 					libcerror_error_set(
 					 error,
@@ -543,7 +541,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 		}
 		else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 		{
-			if( utf8_string_size < 10 )
+			if( ( string_index + 10 ) > utf8_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -574,11 +572,9 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->day / 10 );
 			utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->day % 10 );
 
-			utf8_string_size -= 10;
-
 			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
-				if( utf8_string_size < 1 )
+				if( ( string_index + 1 ) > utf8_string_size )
 				{
 					libcerror_error_set(
 					 error,
@@ -595,7 +591,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 	}
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
-		if( utf8_string_size < 8 )
+		if( ( string_index + 8 ) > utf8_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -620,13 +616,11 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 		utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds / 10 );
 		utf8_string[ string_index++ ] = (uint8_t) '0' + ( date_time_values->seconds % 10 );
 
-		utf8_string_size -= 8;
-
 		if( ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MILLI_SECONDS ) != 0 )
 		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
 		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 ) )
 		{
-			if( utf8_string_size < 4 )
+			if( ( string_index + 4 ) > utf8_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -651,13 +645,12 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			utf8_string[ string_index ] = (uint8_t) '0' + (uint8_t) ( milli_seconds % 10 );
 			milli_seconds             /= 10;
 
-			string_index     += 3;
-			utf8_string_size -= 4;
+			string_index += 3;
 		}
 		if( ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
 		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 ) )
 		{
-			if( utf8_string_size < 3 )
+			if( ( string_index + 3 ) > utf8_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -680,12 +673,11 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			utf8_string[ string_index ] = (uint8_t) '0' + (uint8_t) ( micro_seconds % 10 );
 			micro_seconds              /= 10;
 
-			string_index     += 3;
-			utf8_string_size -= 3;
+			string_index += 3;
 		}
 		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 )
 		{
-			if( utf8_string_size < 3 )
+			if( ( string_index + 3 ) > utf8_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -708,11 +700,10 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			utf8_string[ string_index ] = (uint8_t) '0' + (uint8_t) ( nano_seconds % 10 );
 			nano_seconds               /= 10;
 
-			string_index     += 3;
-			utf8_string_size -= 3;
+			string_index += 3;
 		}
 	}
-	if( utf8_string_size < 1 )
+	if( ( string_index + 1 ) > utf8_string_size )
 	{
 		libcerror_error_set(
 		 error,
@@ -823,7 +814,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported string format flags: 0x08%" PRIx32 ".",
+		 "%s: unsupported string format flags: 0x%08" PRIx32 ".",
 		 function,
 		 string_format_flags );
 
@@ -964,7 +955,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 					month_string = "Dec";
 					break;
 			}
-			if( utf16_string_size < 12 )
+			if( ( string_index + 12 ) > utf16_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -997,11 +988,9 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 			year_value                    %= 10;
 			utf16_string[ string_index++ ] = (uint16_t) '0' + year_value;
 
-			utf16_string_size -= 12;
-
 			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
-				if( utf16_string_size < 1 )
+				if( ( string_index + 1 ) > utf16_string_size )
 				{
 					libcerror_error_set(
 					 error,
@@ -1017,7 +1006,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 		}
 		else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 		{
-			if( utf16_string_size < 10 )
+			if( ( string_index + 10 ) > utf16_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -1048,11 +1037,9 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->day / 10 );
 			utf16_string[ string_index++ ] = (uint16_t) '0' + ( date_time_values->day % 10 );
 
-			utf16_string_size -= 10;
-
 			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
-				if( utf16_string_size < 1 )
+				if( ( string_index + 1 ) > utf16_string_size )
 				{
 					libcerror_error_set(
 					 error,
@@ -1069,7 +1056,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 	}
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
-		if( utf16_string_size < 9 )
+		if( ( string_index + 8 ) > utf16_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -1098,7 +1085,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
 		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 ) )
 		{
-			if( utf16_string_size < 4 )
+			if( ( string_index + 4 ) > utf16_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -1123,13 +1110,12 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 			utf16_string[ string_index ] = (uint16_t) '0' + (uint16_t) ( milli_seconds % 10 );
 			milli_seconds               /= 10;
 
-			string_index      += 3;
-			utf16_string_size -= 4;
+			string_index += 3;
 		}
 		if( ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
 		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 ) )
 		{
-			if( utf16_string_size < 3 )
+			if( ( string_index + 3 ) > utf16_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -1152,12 +1138,11 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 			utf16_string[ string_index ] = (uint16_t) '0' + (uint16_t) ( micro_seconds % 10 );
 			micro_seconds               /= 10;
 
-			string_index      += 3;
-			utf16_string_size -= 3;
+			string_index += 3;
 		}
 		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 )
 		{
-			if( utf16_string_size < 3 )
+			if( ( string_index + 3 ) > utf16_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -1180,11 +1165,10 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 			utf16_string[ string_index ] = (uint16_t) '0' + (uint16_t) ( nano_seconds % 10 );
 			nano_seconds                /= 10;
 
-			string_index      += 3;
-			utf16_string_size -= 3;
+			string_index += 3;
 		}
 	}
-	if( utf16_string_size < 1 )
+	if( ( string_index + 1 ) > utf16_string_size )
 	{
 		libcerror_error_set(
 		 error,
@@ -1295,7 +1279,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported string format flags: 0x08%" PRIx32 ".",
+		 "%s: unsupported string format flags: 0x%08" PRIx32 ".",
 		 function,
 		 string_format_flags );
 
@@ -1439,7 +1423,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 					month_string = "Dec";
 					break;
 			}
-			if( utf32_string_size < 12 )
+			if( ( string_index + 12 ) > utf32_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -1472,11 +1456,9 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			year_value                    %= 10;
 			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
 
-			utf32_string_size -= 12;
-
 			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
-				if( utf32_string_size < 1 )
+				if( ( string_index + 1 ) > utf32_string_size )
 				{
 					libcerror_error_set(
 					 error,
@@ -1492,7 +1474,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 		}
 		else if( date_time_format == LIBFDATETIME_DATE_TIME_FORMAT_ISO8601 )
 		{
-			if( utf32_string_size < 10 )
+			if( ( string_index + 10 ) > utf32_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -1523,11 +1505,9 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->day / 10 );
 			utf32_string[ string_index++ ] = (uint32_t) '0' + ( date_time_values->day % 10 );
 
-			utf32_string_size -= 10;
-
 			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
-				if( utf32_string_size < 1 )
+				if( ( string_index + 1 ) > utf32_string_size )
 				{
 					libcerror_error_set(
 					 error,
@@ -1544,7 +1524,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 	}
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
-		if( utf32_string_size < 9 )
+		if( ( string_index + 8 ) > utf32_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -1573,7 +1553,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
 		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 ) )
 		{
-			if( utf32_string_size < 4 )
+			if( ( string_index + 4 ) > utf32_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -1598,13 +1578,12 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			utf32_string[ string_index ] = (uint32_t) '0' + (uint32_t) ( milli_seconds % 10 );
 			milli_seconds              /= 10;
 
-			string_index      += 3;
-			utf32_string_size -= 4;
+			string_index += 3;
 		}
 		if( ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
 		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 ) )
 		{
-			if( utf32_string_size < 3 )
+			if( ( string_index + 3 ) > utf32_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -1627,12 +1606,11 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			utf32_string[ string_index ] = (uint32_t) '0' + (uint32_t) ( micro_seconds % 10 );
 			micro_seconds               /= 10;
 
-			string_index      += 3;
-			utf32_string_size -= 3;
+			string_index += 3;
 		}
 		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 )
 		{
-			if( utf32_string_size < 3 )
+			if( ( string_index + 3 ) > utf32_string_size )
 			{
 				libcerror_error_set(
 				 error,
@@ -1655,11 +1633,10 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			utf32_string[ string_index ] = (uint32_t) '0' + (uint32_t) ( nano_seconds % 10 );
 			nano_seconds                /= 10;
 
-			string_index      += 3;
-			utf32_string_size -= 3;
+			string_index += 3;
 		}
 	}
-	if( utf32_string_size < 1 )
+	if( ( string_index + 1 ) > utf32_string_size )
 	{
 		libcerror_error_set(
 		 error,

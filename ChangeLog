@@ -22,6 +22,9 @@ HFS date/time
 Deployment
 * add macosx file
 
+20120418
+* fixes for with index functions
+
 20120417
 * worked on string with index functions
 * worked on milli and nano seconds support
