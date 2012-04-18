@@ -505,13 +505,27 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		 */
 		if( is_signed == 0 )
 		{
-			date_time_values->micro_seconds = posix_timestamp % 1000000;
+			date_time_values->micro_seconds = posix_timestamp % 1000;
+
+			date_time_values->micro_seconds = posix_timestamp % 1000;
 		}
 		else
 		{
-			date_time_values->micro_seconds = 1000000 - ( posix_timestamp % 1000000 );
+			date_time_values->micro_seconds = 1000 - ( posix_timestamp % 1000 );
 		}
-		posix_timestamp /= 1000000;
+		posix_timestamp /= 1000;
+
+		if( is_signed == 0 )
+		{
+			date_time_values->milli_seconds = posix_timestamp % 1000;
+
+			date_time_values->milli_seconds = posix_timestamp % 1000;
+		}
+		else
+		{
+			date_time_values->milli_seconds = 1000 - ( posix_timestamp % 1000 );
+		}
+		posix_timestamp /= 1000;
 	}
 	/* There are 60 seconds in a minute correct the value to minutes
 	 */
@@ -697,8 +711,8 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 int libfdatetime_posix_time_get_string_size(
      libfdatetime_posix_time_t *posix_time,
      size_t *string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
@@ -746,8 +760,8 @@ int libfdatetime_posix_time_get_string_size(
 	if( libfdatetime_date_time_values_get_string_size(
 	     &date_time_values,
 	     string_size,
-	     string_format_flags,
 	     date_time_format,
+	     string_format_flags,
 	     error ) != 1 )
 	{
 		libcerror_error_set(
@@ -777,21 +791,55 @@ int libfdatetime_posix_time_copy_to_utf8_string(
      libfdatetime_posix_time_t *posix_time,
      uint8_t *utf8_string,
      size_t utf8_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
+     libcerror_error_t **error )
+{
+	static char *function    = "libfdatetime_posix_time_copy_to_utf8_string";
+	size_t utf8_string_index = 0;
+
+	if( libfdatetime_posix_time_copy_to_utf8_string_with_index(
+	     posix_time,
+	     utf8_string,
+	     utf8_string_size,
+	     &utf8_string_index,
+	     date_time_format,
+	     string_format_flags,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy POSIX time to UTF-8 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Converts the POSIX time into an UTF-8 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_posix_time_copy_to_utf8_string_with_index(
+     libfdatetime_posix_time_t *posix_time,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
 
 	libfdatetime_internal_posix_time_t *internal_posix_time = NULL;
-	static char *function                                   = "libfdatetime_posix_time_copy_to_utf8_string";
+	static char *function                                   = "libfdatetime_posix_time_copy_to_utf8_string_with_index";
 	size_t string_index                                     = 0;
 	uint8_t byte_value                                      = 0;
 	int8_t byte_shift                                       = 0;
 	int result                                              = 0;
-
-/* TODO refactor */
-	size_t utf8_string_index = 0;
 
 	if( posix_time == NULL )
 	{
@@ -826,9 +874,9 @@ int libfdatetime_posix_time_copy_to_utf8_string(
 	          &date_time_values,
 	          utf8_string,
 	          utf8_string_size,
-	          &utf8_string_index,
-	          string_format_flags,
+	          utf8_string_index,
 	          date_time_format,
+	          string_format_flags,
 	          error );
 
 	if( result == -1 )
@@ -866,7 +914,18 @@ int libfdatetime_posix_time_copy_to_utf8_string(
 
 			return( -1 );
 		}
-		if( utf8_string_size < 13 )
+		if( utf8_string_index == NULL )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-8 string index.",
+			 function );
+
+			return( -1 );
+		}
+		if( ( *utf8_string_index + 13 ) > utf8_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -877,6 +936,8 @@ int libfdatetime_posix_time_copy_to_utf8_string(
 
 			return( -1 );
 		}
+		string_index = *utf8_string_index;
+
 		utf8_string[ string_index++ ] = (uint8_t) '(';
 		utf8_string[ string_index++ ] = (uint8_t) '0';
 		utf8_string[ string_index++ ] = (uint8_t) 'x';
@@ -902,6 +963,8 @@ int libfdatetime_posix_time_copy_to_utf8_string(
 		utf8_string[ string_index++ ] = (uint8_t) ')';
 
 		utf8_string[ string_index++ ] = 0;
+
+		*utf8_string_index = string_index;
 	}
 	return( 1 );
 }
@@ -914,21 +977,55 @@ int libfdatetime_posix_time_copy_to_utf16_string(
      libfdatetime_posix_time_t *posix_time,
      uint16_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
+     libcerror_error_t **error )
+{
+	static char *function     = "libfdatetime_posix_time_copy_to_utf16_string";
+	size_t utf16_string_index = 0;
+
+	if( libfdatetime_posix_time_copy_to_utf16_string_with_index(
+	     posix_time,
+	     utf16_string,
+	     utf16_string_size,
+	     &utf16_string_index,
+	     date_time_format,
+	     string_format_flags,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy POSIX time to UTF-16 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Converts the POSIX time into an UTF-16 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_posix_time_copy_to_utf16_string_with_index(
+     libfdatetime_posix_time_t *posix_time,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
 
 	libfdatetime_internal_posix_time_t *internal_posix_time = NULL;
-	static char *function                                   = "libfdatetime_posix_time_copy_to_utf16_string";
+	static char *function                                   = "libfdatetime_posix_time_copy_to_utf16_string_with_index";
 	size_t string_index                                     = 0;
 	uint8_t byte_value                                      = 0;
 	int8_t byte_shift                                       = 0;
 	int result                                              = 0;
-
-/* TODO refactor */
-	size_t utf16_string_index = 0;
 
 	if( posix_time == NULL )
 	{
@@ -963,9 +1060,9 @@ int libfdatetime_posix_time_copy_to_utf16_string(
 	          &date_time_values,
 	          utf16_string,
 	          utf16_string_size,
-	          &utf16_string_index,
-	          string_format_flags,
+	          utf16_string_index,
 	          date_time_format,
+	          string_format_flags,
 	          error );
 
 	if( result == -1 )
@@ -1003,7 +1100,18 @@ int libfdatetime_posix_time_copy_to_utf16_string(
 
 			return( -1 );
 		}
-		if( utf16_string_size < 13 )
+		if( utf16_string_index == NULL )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-16 string index.",
+			 function );
+
+			return( -1 );
+		}
+		if( ( *utf16_string_index + 13 ) > utf16_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -1014,6 +1122,8 @@ int libfdatetime_posix_time_copy_to_utf16_string(
 
 			return( -1 );
 		}
+		string_index = *utf16_string_index;
+
 		utf16_string[ string_index++ ] = (uint16_t) '(';
 		utf16_string[ string_index++ ] = (uint16_t) '0';
 		utf16_string[ string_index++ ] = (uint16_t) 'x';
@@ -1039,6 +1149,8 @@ int libfdatetime_posix_time_copy_to_utf16_string(
 		utf16_string[ string_index++ ] = (uint16_t) ')';
 
 		utf16_string[ string_index++ ] = 0;
+
+		*utf16_string_index = string_index;
 	}
 	return( 1 );
 }
@@ -1051,21 +1163,55 @@ int libfdatetime_posix_time_copy_to_utf32_string(
      libfdatetime_posix_time_t *posix_time,
      uint32_t *utf32_string,
      size_t utf32_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
+     libcerror_error_t **error )
+{
+	static char *function     = "libfdatetime_posix_time_copy_to_utf32_string";
+	size_t utf32_string_index = 0;
+
+	if( libfdatetime_posix_time_copy_to_utf32_string_with_index(
+	     posix_time,
+	     utf32_string,
+	     utf32_string_size,
+	     &utf32_string_index,
+	     date_time_format,
+	     string_format_flags,
+	     error ) != 1 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy POSIX time to UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	return( 1 );
+}
+
+/* Converts the POSIX time into an UTF-32 string
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_posix_time_copy_to_utf32_string_with_index(
+     libfdatetime_posix_time_t *posix_time,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
 
 	libfdatetime_internal_posix_time_t *internal_posix_time = NULL;
-	static char *function                                   = "libfdatetime_posix_time_copy_to_utf32_string";
+	static char *function                                   = "libfdatetime_posix_time_copy_to_utf32_string_with_index";
 	size_t string_index                                     = 0;
 	uint8_t byte_value                                      = 0;
 	int8_t byte_shift                                       = 0;
 	int result                                              = 0;
-
-/* TODO refactor */
-	size_t utf32_string_index = 0;
 
 	if( posix_time == NULL )
 	{
@@ -1100,9 +1246,9 @@ int libfdatetime_posix_time_copy_to_utf32_string(
 	          &date_time_values,
 	          utf32_string,
 	          utf32_string_size,
-	          &utf32_string_index,
-	          string_format_flags,
+	          utf32_string_index,
 	          date_time_format,
+	          string_format_flags,
 	          error );
 
 	if( result == -1 )
@@ -1140,7 +1286,18 @@ int libfdatetime_posix_time_copy_to_utf32_string(
 
 			return( -1 );
 		}
-		if( utf32_string_size < 13 )
+		if( utf32_string_index == NULL )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+			 "%s: invalid UTF-32 string index.",
+			 function );
+
+			return( -1 );
+		}
+		if( ( *utf32_string_index + 13 ) > utf32_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -1151,6 +1308,8 @@ int libfdatetime_posix_time_copy_to_utf32_string(
 
 			return( -1 );
 		}
+		string_index = *utf32_string_index;
+
 		utf32_string[ string_index++ ] = (uint32_t) '(';
 		utf32_string[ string_index++ ] = (uint32_t) '0';
 		utf32_string[ string_index++ ] = (uint32_t) 'x';
@@ -1176,6 +1335,8 @@ int libfdatetime_posix_time_copy_to_utf32_string(
 		utf32_string[ string_index++ ] = (uint32_t) ')';
 
 		utf32_string[ string_index++ ] = 0;
+
+		*utf32_string_index = string_index;
 	}
 	return( 1 );
 }

@@ -62,9 +62,17 @@ struct libfdatetime_date_time_values
 	 */
 	uint8_t seconds;
 
+	/* The number of milli seconds
+	 */
+	uint16_t milli_seconds;
+
 	/* The number of micro seconds
 	 */
-	uint32_t micro_seconds;
+	uint16_t micro_seconds;
+
+	/* The number of nano seconds
+	 */
+	uint16_t nano_seconds;
 };
 
 int libfdatetime_date_time_values_initialize(
@@ -78,8 +86,8 @@ int libfdatetime_date_time_values_free(
 int libfdatetime_date_time_values_get_string_size(
      libfdatetime_date_time_values_t *date_time_values,
      size_t *string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
@@ -87,8 +95,8 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
      uint8_t *utf8_string,
      size_t utf8_string_size,
      size_t *utf8_string_index,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
@@ -96,8 +104,8 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
      uint16_t *utf16_string,
      size_t utf16_string_size,
      size_t *utf16_string_index,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
@@ -105,8 +113,8 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
      uint32_t *utf32_string,
      size_t utf32_string_size,
      size_t *utf32_string_index,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 #if defined( __cplusplus )

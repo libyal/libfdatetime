@@ -88,8 +88,8 @@ LIBFDATETIME_EXTERN \
 int libfdatetime_filetime_get_string_size(
      libfdatetime_filetime_t *filetime,
      size_t *string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -97,8 +97,8 @@ int libfdatetime_filetime_copy_to_utf8_string(
      libfdatetime_filetime_t *filetime,
      uint8_t *utf8_string,
      size_t utf8_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -107,8 +107,8 @@ int libfdatetime_filetime_copy_to_utf8_string_with_index(
      uint8_t *utf8_string,
      size_t utf8_string_size,
      size_t *utf8_string_index,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -116,8 +116,8 @@ int libfdatetime_filetime_copy_to_utf16_string(
      libfdatetime_filetime_t *filetime,
      uint16_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -126,8 +126,8 @@ int libfdatetime_filetime_copy_to_utf16_string_with_index(
      uint16_t *utf16_string,
      size_t utf16_string_size,
      size_t *utf16_string_index,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -135,8 +135,8 @@ int libfdatetime_filetime_copy_to_utf32_string(
      libfdatetime_filetime_t *filetime,
      uint32_t *utf32_string,
      size_t utf32_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -145,8 +145,8 @@ int libfdatetime_filetime_copy_to_utf32_string_with_index(
      uint32_t *utf32_string,
      size_t utf32_string_size,
      size_t *utf32_string_index,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 #if defined( __cplusplus )

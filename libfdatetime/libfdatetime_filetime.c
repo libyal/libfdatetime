@@ -349,8 +349,14 @@ int libfdatetime_filetime_copy_to_date_time_values(
 
 	/* The timestamp is in units of 100 nano seconds correct the value to seconds
 	 */
-	date_time_values->micro_seconds = ( filetimestamp % 10000000 ) / 10;
-	filetimestamp                  /= 10000000;
+	date_time_values->nano_seconds = ( filetimestamp % 10 ) * 100;
+	filetimestamp                 /= 10;
+
+	date_time_values->micro_seconds = filetimestamp % 1000;
+	filetimestamp                  /= 1000;
+
+	date_time_values->milli_seconds = filetimestamp % 1000;
+	filetimestamp                  /= 1000;
 
 	/* There are 60 seconds in a minute correct the value to minutes
 	 */
@@ -501,8 +507,8 @@ int libfdatetime_filetime_copy_to_date_time_values(
 int libfdatetime_filetime_get_string_size(
      libfdatetime_filetime_t *filetime,
      size_t *string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
@@ -550,8 +556,8 @@ int libfdatetime_filetime_get_string_size(
 	if( libfdatetime_date_time_values_get_string_size(
 	     &date_time_values,
 	     string_size,
-	     string_format_flags,
 	     date_time_format,
+	     string_format_flags,
 	     error ) != 1 )
 	{
 		libcerror_error_set(
@@ -581,8 +587,8 @@ int libfdatetime_filetime_copy_to_utf8_string(
      libfdatetime_filetime_t *filetime,
      uint8_t *utf8_string,
      size_t utf8_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	static char *function    = "libfdatetime_filetime_copy_to_utf8_string";
@@ -593,8 +599,8 @@ int libfdatetime_filetime_copy_to_utf8_string(
 	     utf8_string,
 	     utf8_string_size,
 	     &utf8_string_index,
-	     string_format_flags,
 	     date_time_format,
+	     string_format_flags,
 	     error ) != 1 )
 	{
 		libcerror_error_set(
@@ -618,8 +624,8 @@ int libfdatetime_filetime_copy_to_utf8_string_with_index(
      uint8_t *utf8_string,
      size_t utf8_string_size,
      size_t *utf8_string_index,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
@@ -665,8 +671,8 @@ int libfdatetime_filetime_copy_to_utf8_string_with_index(
 	          utf8_string,
 	          utf8_string_size,
 	          utf8_string_index,
-	          string_format_flags,
 	          date_time_format,
+	          string_format_flags,
 	          error );
 
 	if( result == -1 )
@@ -789,8 +795,8 @@ int libfdatetime_filetime_copy_to_utf16_string(
      libfdatetime_filetime_t *filetime,
      uint16_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	static char *function     = "libfdatetime_filetime_copy_to_utf16_string";
@@ -801,8 +807,8 @@ int libfdatetime_filetime_copy_to_utf16_string(
 	     utf16_string,
 	     utf16_string_size,
 	     &utf16_string_index,
-	     string_format_flags,
 	     date_time_format,
+	     string_format_flags,
 	     error ) != 1 )
 	{
 		libcerror_error_set(
@@ -826,8 +832,8 @@ int libfdatetime_filetime_copy_to_utf16_string_with_index(
      uint16_t *utf16_string,
      size_t utf16_string_size,
      size_t *utf16_string_index,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
@@ -873,8 +879,8 @@ int libfdatetime_filetime_copy_to_utf16_string_with_index(
 	          utf16_string,
 	          utf16_string_size,
 	          utf16_string_index,
-	          string_format_flags,
 	          date_time_format,
+	          string_format_flags,
 	          error );
 
 	if( result == -1 )
@@ -997,8 +1003,8 @@ int libfdatetime_filetime_copy_to_utf32_string(
      libfdatetime_filetime_t *filetime,
      uint32_t *utf32_string,
      size_t utf32_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	static char *function     = "libfdatetime_filetime_copy_to_utf32_string";
@@ -1009,8 +1015,8 @@ int libfdatetime_filetime_copy_to_utf32_string(
 	     utf32_string,
 	     utf32_string_size,
 	     &utf32_string_index,
-	     string_format_flags,
 	     date_time_format,
+	     string_format_flags,
 	     error ) != 1 )
 	{
 		libcerror_error_set(
@@ -1034,8 +1040,8 @@ int libfdatetime_filetime_copy_to_utf32_string_with_index(
      uint32_t *utf32_string,
      size_t utf32_string_size,
      size_t *utf32_string_index,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
@@ -1081,8 +1087,8 @@ int libfdatetime_filetime_copy_to_utf32_string_with_index(
 	          utf32_string,
 	          utf32_string_size,
 	          utf32_string_index,
-	          string_format_flags,
 	          date_time_format,
+	          string_format_flags,
 	          error );
 
 	if( result == -1 )

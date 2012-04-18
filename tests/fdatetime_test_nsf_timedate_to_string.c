@@ -55,16 +55,16 @@ int fdatetime_test_identifier_to_string(
 		  nsf_timedate,
 		  (uint16_t *) nsf_timedate_string,
 		  nsf_timedate_string_size,
-	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MICRO_SECONDS,
 	          LIBFDATETIME_DATE_TIME_FORMAT_CTIME,
+	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MICRO_SECONDS,
 		  &error );
 #else
 	result = libfdatetime_nsf_timedate_copy_to_utf8_string(
 		  nsf_timedate,
 		  (uint8_t *) nsf_timedate_string,
 		  nsf_timedate_string_size,
-	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MICRO_SECONDS,
 	          LIBFDATETIME_DATE_TIME_FORMAT_CTIME,
+	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MICRO_SECONDS,
 		  &error );
 #endif
 	if( result == expected_result )

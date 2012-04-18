@@ -88,8 +88,8 @@ LIBFDATETIME_EXTERN \
 int libfdatetime_nsf_timedate_get_string_size(
      libfdatetime_nsf_timedate_t *nsf_timedate,
      size_t *string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -97,8 +97,18 @@ int libfdatetime_nsf_timedate_copy_to_utf8_string(
      libfdatetime_nsf_timedate_t *nsf_timedate,
      uint8_t *utf8_string,
      size_t utf8_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
+     libcerror_error_t **error );
+
+LIBFDATETIME_EXTERN \
+int libfdatetime_nsf_timedate_copy_to_utf8_string_with_index(
+     libfdatetime_nsf_timedate_t *nsf_timedate,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -106,8 +116,18 @@ int libfdatetime_nsf_timedate_copy_to_utf16_string(
      libfdatetime_nsf_timedate_t *nsf_timedate,
      uint16_t *utf16_string,
      size_t utf16_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
+     libcerror_error_t **error );
+
+LIBFDATETIME_EXTERN \
+int libfdatetime_nsf_timedate_copy_to_utf16_string_with_index(
+     libfdatetime_nsf_timedate_t *nsf_timedate,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -115,8 +135,18 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string(
      libfdatetime_nsf_timedate_t *nsf_timedate,
      uint32_t *utf32_string,
      size_t utf32_string_size,
-     uint8_t string_format_flags,
      int date_time_format,
+     uint32_t string_format_flags,
+     libcerror_error_t **error );
+
+LIBFDATETIME_EXTERN \
+int libfdatetime_nsf_timedate_copy_to_utf32_string_with_index(
+     libfdatetime_nsf_timedate_t *nsf_timedate,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     int date_time_format,
+     uint32_t string_format_flags,
      libcerror_error_t **error );
 
 #if defined( __cplusplus )
