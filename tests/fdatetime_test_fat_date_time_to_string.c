@@ -55,16 +55,14 @@ int fdatetime_test_identifier_to_string(
 		  fat_date_time,
 		  (uint16_t *) fat_date_time_string,
 		  fat_date_time_string_size,
-	          LIBFDATETIME_DATE_TIME_FORMAT_CTIME,
-	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 		  &error );
 #else
 	result = libfdatetime_fat_date_time_copy_to_utf8_string(
 		  fat_date_time,
 		  (uint8_t *) fat_date_time_string,
 		  fat_date_time_string_size,
-	          LIBFDATETIME_DATE_TIME_FORMAT_CTIME,
-	          LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 		  &error );
 #endif
 	if( result == expected_result )

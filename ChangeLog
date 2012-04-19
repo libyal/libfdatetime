@@ -1,4 +1,6 @@
 TODO
+* change function comment for UTF size and copy functions
+  see libfvalue
 * formatting support
   - add support for duration
 * filetime check for -0 ?

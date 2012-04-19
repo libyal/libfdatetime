@@ -711,7 +711,6 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 int libfdatetime_posix_time_get_string_size(
      libfdatetime_posix_time_t *posix_time,
      size_t *string_size,
-     int date_time_format,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
@@ -760,7 +759,6 @@ int libfdatetime_posix_time_get_string_size(
 	if( libfdatetime_date_time_values_get_string_size(
 	     &date_time_values,
 	     string_size,
-	     date_time_format,
 	     string_format_flags,
 	     error ) != 1 )
 	{
@@ -791,7 +789,6 @@ int libfdatetime_posix_time_copy_to_utf8_string(
      libfdatetime_posix_time_t *posix_time,
      uint8_t *utf8_string,
      size_t utf8_string_size,
-     int date_time_format,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
@@ -803,7 +800,6 @@ int libfdatetime_posix_time_copy_to_utf8_string(
 	     utf8_string,
 	     utf8_string_size,
 	     &utf8_string_index,
-	     date_time_format,
 	     string_format_flags,
 	     error ) != 1 )
 	{
@@ -828,7 +824,6 @@ int libfdatetime_posix_time_copy_to_utf8_string_with_index(
      uint8_t *utf8_string,
      size_t utf8_string_size,
      size_t *utf8_string_index,
-     int date_time_format,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
@@ -875,7 +870,6 @@ int libfdatetime_posix_time_copy_to_utf8_string_with_index(
 	          utf8_string,
 	          utf8_string_size,
 	          utf8_string_index,
-	          date_time_format,
 	          string_format_flags,
 	          error );
 
@@ -977,7 +971,6 @@ int libfdatetime_posix_time_copy_to_utf16_string(
      libfdatetime_posix_time_t *posix_time,
      uint16_t *utf16_string,
      size_t utf16_string_size,
-     int date_time_format,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
@@ -989,7 +982,6 @@ int libfdatetime_posix_time_copy_to_utf16_string(
 	     utf16_string,
 	     utf16_string_size,
 	     &utf16_string_index,
-	     date_time_format,
 	     string_format_flags,
 	     error ) != 1 )
 	{
@@ -1014,7 +1006,6 @@ int libfdatetime_posix_time_copy_to_utf16_string_with_index(
      uint16_t *utf16_string,
      size_t utf16_string_size,
      size_t *utf16_string_index,
-     int date_time_format,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
@@ -1061,7 +1052,6 @@ int libfdatetime_posix_time_copy_to_utf16_string_with_index(
 	          utf16_string,
 	          utf16_string_size,
 	          utf16_string_index,
-	          date_time_format,
 	          string_format_flags,
 	          error );
 
@@ -1163,7 +1153,6 @@ int libfdatetime_posix_time_copy_to_utf32_string(
      libfdatetime_posix_time_t *posix_time,
      uint32_t *utf32_string,
      size_t utf32_string_size,
-     int date_time_format,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
@@ -1175,7 +1164,6 @@ int libfdatetime_posix_time_copy_to_utf32_string(
 	     utf32_string,
 	     utf32_string_size,
 	     &utf32_string_index,
-	     date_time_format,
 	     string_format_flags,
 	     error ) != 1 )
 	{
@@ -1200,7 +1188,6 @@ int libfdatetime_posix_time_copy_to_utf32_string_with_index(
      uint32_t *utf32_string,
      size_t utf32_string_size,
      size_t *utf32_string_index,
-     int date_time_format,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
@@ -1247,7 +1234,6 @@ int libfdatetime_posix_time_copy_to_utf32_string_with_index(
 	          utf32_string,
 	          utf32_string_size,
 	          utf32_string_index,
-	          date_time_format,
 	          string_format_flags,
 	          error );
 
