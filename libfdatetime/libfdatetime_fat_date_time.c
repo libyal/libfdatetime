@@ -143,7 +143,7 @@ int libfdatetime_fat_date_time_copy_from_byte_stream(
      libfdatetime_fat_date_time_t *fat_date_time,
      const uint8_t *byte_stream,
      size_t byte_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;

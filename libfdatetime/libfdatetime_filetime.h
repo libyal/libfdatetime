@@ -70,7 +70,7 @@ int libfdatetime_filetime_copy_from_byte_stream(
      libfdatetime_filetime_t *filetime,
      const uint8_t *byte_stream,
      size_t byte_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \

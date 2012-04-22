@@ -65,7 +65,7 @@ int libfdatetime_posix_time_copy_from_byte_stream(
      libfdatetime_posix_time_t *posix_time,
      const uint8_t *byte_stream,
      size_t byte_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      uint8_t value_type,
      libcerror_error_t **error );
 

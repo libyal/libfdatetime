@@ -142,7 +142,7 @@ int libfdatetime_nsf_timedate_copy_from_byte_stream(
      libfdatetime_nsf_timedate_t *nsf_timedate,
      const uint8_t *byte_stream,
      size_t byte_stream_size,
-     uint8_t byte_order,
+     int byte_order,
      libcerror_error_t **error )
 {
 	libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate = NULL;
