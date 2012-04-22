@@ -627,6 +627,129 @@ int libfdatetime_posix_time_copy_to_utf32_string_with_index(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
+/* -------------------------------------------------------------------------
+ * Systemtime functions
+ * ------------------------------------------------------------------------- */
+
+/* Initialize a systemtime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_initialize(
+     libfdatetime_systemtime_t **systemtime,
+     libfdatetime_error_t **error );
+
+/* Frees a systemtime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_free(
+     libfdatetime_systemtime_t **systemtime,
+     libfdatetime_error_t **error );
+
+/* Converts a byte stream into a systemtime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_copy_from_byte_stream(
+     libfdatetime_systemtime_t *systemtime,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     int byte_order,
+     libfdatetime_error_t **error );
+
+/* Deterimes the size of the string for the systemtime
+ * The string size includes the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_get_string_size(
+     libfdatetime_systemtime_t *systemtime,
+     size_t *string_size,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the systemtime into a string
+ * The strings is encoded in UTF-8
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_copy_to_utf8_string(
+     libfdatetime_systemtime_t *systemtime,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the systemtime into a string
+ * The strings is encoded in UTF-8
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_copy_to_utf8_string_with_index(
+     libfdatetime_systemtime_t *systemtime,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the systemtime into a string
+ * The strings is encoded in UTF-16
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_copy_to_utf16_string(
+     libfdatetime_systemtime_t *systemtime,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the systemtime into a string
+ * The strings is encoded in UTF-16
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_copy_to_utf16_string_with_index(
+     libfdatetime_systemtime_t *systemtime,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the systemtime into a string
+ * The strings is encoded in UTF-32
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_copy_to_utf32_string(
+     libfdatetime_systemtime_t *systemtime,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the systemtime into a string
+ * The strings is encoded in UTF-32
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_systemtime_copy_to_utf32_string_with_index(
+     libfdatetime_systemtime_t *systemtime,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
 #if defined( __cplusplus )
 }
 #endif

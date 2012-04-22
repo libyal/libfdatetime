@@ -1,4 +1,5 @@
 TODO
+* tests for systemtime
 * change function comment for UTF size and copy functions
   see libfvalue
 * formatting support
@@ -26,6 +27,7 @@ Deployment
 
 20120422
 * changed byte order to int
+* added systemtime support
 
 20120418
 * fixes for with index functions

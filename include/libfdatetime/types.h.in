@@ -194,6 +194,10 @@ typedef intptr_t libfdatetime_nsf_timedate_t;
  */
 typedef intptr_t libfdatetime_posix_time_t;
 
+/* 128-bit systemtime definition
+ */
+typedef intptr_t libfdatetime_systemtime_t;
+
 #ifdef __cplusplus
 }
 #endif

@@ -20,6 +20,7 @@ libfdatetime_la_SOURCES = \
 	libfdatetime_nsf_timedate.c libfdatetime_nsf_timedate.h \
 	libfdatetime_posix_time.c libfdatetime_posix_time.h \
 	libfdatetime_support.c libfdatetime_support.h \
+	libfdatetime_systemtime.c libfdatetime_systemtime.h \
 	libfdatetime_types.h \
 	libfdatetime_unused.h
 
