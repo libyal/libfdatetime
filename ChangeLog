@@ -25,6 +25,9 @@ HFS date/time
 Deployment
 * add macosx file
 
+20120426
+* fixes for pkg-config detection of libraries
+
 20120422
 * changed byte order to int
 * added systemtime support
