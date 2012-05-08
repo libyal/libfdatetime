@@ -415,7 +415,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 
 		return( -1 );
 	}
-	date_time_values->month = (uint16_t) internal_systemtime->month;
+	date_time_values->month = (uint8_t) internal_systemtime->month;
 
 	if( internal_systemtime->day_of_week > 6 )
 	{

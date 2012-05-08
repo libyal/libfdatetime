@@ -25,6 +25,9 @@ HFS date/time
 Deployment
 * add macosx file
 
+20120507
+* updated dependencies
+
 20120426
 * fixes for pkg-config detection of libraries
 
