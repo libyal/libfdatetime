@@ -186,6 +186,10 @@ typedef intptr_t libfdatetime_fat_time_t;
  */
 typedef intptr_t libfdatetime_filetime_t;
 
+/* 64-bit floatingtime definition
+ */
+typedef intptr_t libfdatetime_floatingtime_t;
+
 /* 64-bit NSF timedate definition
  */
 typedef intptr_t libfdatetime_nsf_timedate_t;

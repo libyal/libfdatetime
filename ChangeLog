@@ -1,5 +1,8 @@
 TODO
+* update project site and email address
+* complete floating time
 * tests for systemtime
+* tests for floatingtime
 * change function comment for UTF size and copy functions
   see libfvalue
 * formatting support
@@ -24,6 +27,9 @@ HFS date/time
 
 Deployment
 * add macosx file
+
+20120521
+* added floatingtime
 
 20120507
 * updated dependencies

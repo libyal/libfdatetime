@@ -1,5 +1,5 @@
 /*
- * FAT date and time functions
+ * Floatingtime functions
  *
  * Copyright (c) 2009-2012, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -26,141 +26,140 @@
 
 #include "libfdatetime_definitions.h"
 #include "libfdatetime_date_time_values.h"
-#include "libfdatetime_fat_date_time.h"
+#include "libfdatetime_floatingtime.h"
 #include "libfdatetime_libcerror.h"
 #include "libfdatetime_types.h"
 
-/* Initialize a FAT date and time
- * Make sure the value file is pointing to is set to NULL
+/* Initialize a floatingtime
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_initialize(
-     libfdatetime_fat_date_time_t **fat_date_time,
+int libfdatetime_floatingtime_initialize(
+     libfdatetime_floatingtime_t **floatingtime,
      libcerror_error_t **error )
 {
-	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
-	static char *function                                         = "libfdatetime_fat_date_time_initialize";
+	libfdatetime_internal_floatingtime_t *internal_floatingtime = NULL;
+	static char *function                                       = "libfdatetime_floatingtime_initialize";
 
-	if( fat_date_time == NULL )
+	if( floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid FAT date time.",
+		 "%s: invalid floatingtime.",
 		 function );
 
 		return( -1 );
 	}
-	if( *fat_date_time != NULL )
+	if( *floatingtime != NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
-		 "%s: invalid FAT date time value already set.",
+		 "%s: invalid floatingtime value already set.",
 		 function );
 
 		return( -1 );
 	}
-	internal_fat_date_time = memory_allocate_structure(
-	                          libfdatetime_internal_fat_date_time_t );
+	internal_floatingtime = memory_allocate_structure(
+	                         libfdatetime_internal_floatingtime_t );
 
-	if( internal_fat_date_time == NULL )
+	if( internal_floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_MEMORY,
 		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create FAT date time.",
+		 "%s: unable to create floatingtime.",
 		 function );
 
 		goto on_error;
 	}
 	if( memory_set(
-	     internal_fat_date_time,
+	     internal_floatingtime,
 	     0,
-	     sizeof( libfdatetime_internal_fat_date_time_t ) ) == NULL )
+	     sizeof( libfdatetime_internal_floatingtime_t ) ) == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_MEMORY,
 		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
-		 "%s: unable to clear FAT date time.",
+		 "%s: unable to clear floatingtime.",
 		 function );
 
 		goto on_error;
 	}
-	*fat_date_time = (libfdatetime_fat_date_time_t *) internal_fat_date_time;
+	*floatingtime = (libfdatetime_floatingtime_t *) internal_floatingtime;
 
 	return( 1 );
 
 on_error:
-	if( internal_fat_date_time != NULL )
+	if( internal_floatingtime != NULL )
 	{
 		memory_free(
-		 internal_fat_date_time );
+		 internal_floatingtime );
 	}
 	return( -1 );
 }
 
-/* Frees a FAT date and time
+/* Frees a floatingtime
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_free(
-     libfdatetime_fat_date_time_t **fat_date_time,
+int libfdatetime_floatingtime_free(
+     libfdatetime_floatingtime_t **floatingtime,
      libcerror_error_t **error )
 {
-	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
-	static char *function                                         = "libfdatetime_fat_date_time_free";
+	libfdatetime_internal_floatingtime_t *internal_floatingtime = NULL;
+	static char *function                                       = "libfdatetime_floatingtime_free";
 
-	if( fat_date_time == NULL )
+	if( floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid FAT date time.",
+		 "%s: invalid floatingtime.",
 		 function );
 
 		return( -1 );
 	}
-	if( *fat_date_time != NULL )
+	if( *floatingtime != NULL )
 	{
-		internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) *fat_date_time;
-		*fat_date_time         = NULL;
+		internal_floatingtime = (libfdatetime_internal_floatingtime_t *) *floatingtime;
+		*floatingtime         = NULL;
 
 		memory_free(
-		 internal_fat_date_time );
+		 internal_floatingtime );
 	}
 	return( 1 );
 }
 
-/* Converts a byte stream into a FAT date and time
+/* Converts a byte stream into a floatingtime
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_from_byte_stream(
-     libfdatetime_fat_date_time_t *fat_date_time,
+int libfdatetime_floatingtime_copy_from_byte_stream(
+     libfdatetime_floatingtime_t *floatingtime,
      const uint8_t *byte_stream,
      size_t byte_stream_size,
      int byte_order,
      libcerror_error_t **error )
 {
-	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
-	static char *function                                         = "libfdatetime_fat_date_time_copy_from_byte_stream";
+	libfdatetime_internal_floatingtime_t *internal_floatingtime = NULL;
+	static char *function                                       = "libfdatetime_floatingtime_copy_from_byte_stream";
 
-	if( fat_date_time == NULL )
+	if( floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid FAT date time.",
+		 "%s: invalid floatingtime.",
 		 function );
 
 		return( -1 );
 	}
-	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
+	internal_floatingtime = (libfdatetime_internal_floatingtime_t *) floatingtime;
 
 	if( byte_stream == NULL )
 	{
@@ -173,7 +172,7 @@ int libfdatetime_fat_date_time_copy_from_byte_stream(
 
 		return( -1 );
 	}
-	if( byte_stream_size < 4 )
+	if( byte_stream_size < 8 )
 	{
 		libcerror_error_set(
 		 error,
@@ -209,78 +208,82 @@ int libfdatetime_fat_date_time_copy_from_byte_stream(
 	}
 	if( byte_order == LIBFDATETIME_ENDIAN_LITTLE )
 	{
-		byte_stream_copy_to_uint16_little_endian(
+		byte_stream_copy_to_uint32_little_endian(
 		 byte_stream,
-		 internal_fat_date_time->date );
+		 internal_floatingtime->lower );
 
-		byte_stream += 2;
+		byte_stream += 4;
 
-		byte_stream_copy_to_uint16_little_endian(
-		byte_stream,
-		internal_fat_date_time->time );
+		byte_stream_copy_to_uint32_little_endian(
+		 byte_stream,
+		 internal_floatingtime->upper );
 	}
 	else if( byte_order == LIBFDATETIME_ENDIAN_BIG )
 	{
-		byte_stream_copy_to_uint16_big_endian(
+		byte_stream_copy_to_uint32_big_endian(
 		 byte_stream,
-		 internal_fat_date_time->date );
+		 internal_floatingtime->upper );
 
-		byte_stream += 2;
+		byte_stream += 4;
 
-		byte_stream_copy_to_uint16_big_endian(
-		byte_stream,
-		internal_fat_date_time->time );
+		byte_stream_copy_to_uint32_big_endian(
+		 byte_stream,
+		 internal_floatingtime->lower );
 	}
 	return( 1 );
 }
 
-/* Converts a 32-bit value into a FAT date and time
+/* Converts a 64-bit value into a floatingtime
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_from_uint32(
-     libfdatetime_fat_date_time_t *fat_date_time,
-     uint32_t value_32bit,
+int libfdatetime_floatingtime_copy_from_64bit(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint64_t value_64bit,
      libcerror_error_t **error )
 {
-	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
-	static char *function                                         = "libfdatetime_fat_date_time_copy_from_uint32";
+	libfdatetime_internal_floatingtime_t *internal_floatingtime = NULL;
+	static char *function                                       = "libfdatetime_floatingtime_copy_from_64bit";
 
-	if( fat_date_time == NULL )
+	if( floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid FAT date time.",
+		 "%s: invalid floatingtime.",
 		 function );
 
 		return( -1 );
 	}
-	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
+	internal_floatingtime = (libfdatetime_internal_floatingtime_t *) floatingtime;
 
-	internal_fat_date_time->time = value_32bit & 0x0ffffL;
-	internal_fat_date_time->date = value_32bit >> 16;
+	internal_floatingtime->upper = value_64bit >> 32;
+	internal_floatingtime->lower = value_64bit & 0x0ffffffffLL;
 
 	return( 1 );
 }
 
-/* Converts a FAT date and time into date time values
+/* Converts a floatingtime into date time values
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_to_date_time_values(
-     libfdatetime_internal_fat_date_time_t *internal_fat_date_time,
+int libfdatetime_floatingtime_copy_to_date_time_values(
+     libfdatetime_internal_floatingtime_t *internal_floatingtime,
      libfdatetime_date_time_values_t *date_time_values,
      libcerror_error_t **error )
 {
-	static char *function = "libfdatetime_fat_date_time_copy_to_date_time_values";
+	static char *function      = "libfdatetime_floatingtime_copy_to_date_time_values";
+	uint64_t floatingtimestamp = 0;
+	uint32_t days_in_century   = 0;
+	uint16_t days_in_year      = 0;
+	uint8_t days_in_month      = 0;
 
-	if( internal_fat_date_time == NULL )
+	if( internal_floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid internal fat date time.",
+		 "%s: invalid internal floatingtime.",
 		 function );
 
 		return( -1 );
@@ -296,57 +299,184 @@ int libfdatetime_fat_date_time_copy_to_date_time_values(
 
 		return( -1 );
 	}
-	/* The year value is stored in bits 9 - 15 of the date (7 bits)
-	 * A year value of 0 represents 1980
+	/* Combine the lower and upper floatingtime parts into a single floatingtime timestamp
 	 */
-	date_time_values->year = (uint16_t) ( 1980 + ( ( internal_fat_date_time->date >> 9 ) & 0x7f ) );
+	floatingtimestamp = ( (uint64_t) ( internal_floatingtime->upper ) << 32 ) + internal_floatingtime->lower;
 
-	/* The month value is stored in bits 5 - 8 of the date (4 bits)
-	 * A month value of 1 represents January
+	/* The timestamp is in units of 100 nano seconds correct the value to seconds
 	 */
-	date_time_values->month = (uint8_t) ( ( internal_fat_date_time->date >> 5 ) & 0x0f );
+	date_time_values->nano_seconds = ( floatingtimestamp % 10 ) * 100;
+	floatingtimestamp                 /= 10;
 
-	/* The day value is stored in bits 0 - 4 of the date (5 bits)
-	 */
-	date_time_values->day = (uint8_t) ( internal_fat_date_time->date & 0x1f );
+	date_time_values->micro_seconds = floatingtimestamp % 1000;
+	floatingtimestamp                  /= 1000;
 
-	/* The hours value is stored in bits 11 - 15 of the time (5 bits)
-	 */
-	date_time_values->hours = (uint8_t) ( ( internal_fat_date_time->time >> 11 ) & 0x1f );
+	date_time_values->milli_seconds = floatingtimestamp % 1000;
+	floatingtimestamp                  /= 1000;
 
-	/* The minutes value is stored in bits 5 - 10 of the time (6 bits)
+	/* There are 60 seconds in a minute correct the value to minutes
 	 */
-	date_time_values->minutes = (uint8_t) ( ( internal_fat_date_time->time >> 5 ) & 0x3f );
+	date_time_values->seconds = floatingtimestamp % 60;
+	floatingtimestamp            /= 60;
 
-	/* The seconds value is stored in bits 0 - 4 of the time (5 bits)
-	 * The seconds are stored as 2 second intervals
+	/* There are 60 minutes in an hour correct the value to hours
 	 */
-	date_time_values->seconds = (uint8_t) ( internal_fat_date_time->time & 0x1f ) * 2;
+	date_time_values->minutes = floatingtimestamp % 60;
+	floatingtimestamp            /= 60;
+
+	/* There are 24 hours in a day correct the value to days
+	 */
+	date_time_values->hours = floatingtimestamp % 24;
+	floatingtimestamp          /= 24;
+
+	/* Add 1 day to compensate that Jan 1 1601 is represented as 0
+	 */
+	floatingtimestamp += 1;
+
+	/* Determine the number of years starting at '1 Jan 1601 00:00:00'
+	 * correct the value to days within the year
+	 */
+	date_time_values->year = 1601;
+
+	if( floatingtimestamp >= 36159 )
+	{
+		date_time_values->year = 1700;
+
+		floatingtimestamp -= 36159;
+	}
+	while( floatingtimestamp > 0 )
+	{
+		if( ( date_time_values->year % 400 ) == 0 )
+		{
+			days_in_century = 36525;
+		}
+		else
+		{
+			days_in_century = 36524;
+		}
+		if( floatingtimestamp <= days_in_century )
+		{
+			break;
+		}
+		floatingtimestamp -= days_in_century;
+
+		date_time_values->year += 100;
+	}
+	while( floatingtimestamp > 0 )
+	{
+		/* Check for a leap year
+		 * The year is ( ( dividable by 4 ) and ( not dividable by 100 ) ) or ( dividable by 400 )
+		 */
+		if( ( ( ( date_time_values->year % 4 ) == 0 )
+		  &&  ( ( date_time_values->year % 100 ) != 0 ) )
+		 || ( ( date_time_values->year % 400 ) == 0 ) )
+		{
+			days_in_year = 366;
+		}
+		else
+		{
+			days_in_year = 365;
+		}
+		if( floatingtimestamp <= days_in_year )
+		{
+			break;
+		}
+		floatingtimestamp -= days_in_year;
+
+		date_time_values->year += 1;
+	}
+	/* Determine the month correct the value to days within the month
+	 */
+	date_time_values->month = 1;
+
+	while( floatingtimestamp > 0 )
+	{
+		/* February (2)
+		 */
+		if( date_time_values->month == 2 )
+		{
+			if( ( ( ( date_time_values->year % 4 ) == 0 )
+			  &&  ( ( date_time_values->year % 100 ) != 0 ) )
+			 || ( ( date_time_values->year % 400 ) == 0 ) )
+			{
+				days_in_month = 29;
+			}
+			else
+			{
+				days_in_month = 28;
+			}
+		}
+		/* April (4), June (6), September (9), November (11)
+		 */
+		else if( ( date_time_values->month == 4 )
+		      || ( date_time_values->month == 6 )
+		      || ( date_time_values->month == 9 )
+		      || ( date_time_values->month == 11 ) )
+		{
+			days_in_month = 30;
+		}
+		/* January (1), March (3), May (5), July (7), August (8), October (10), December (12)
+		 */
+		else if( ( date_time_values->month == 1 )
+		      || ( date_time_values->month == 3 )
+		      || ( date_time_values->month == 5 )
+		      || ( date_time_values->month == 7 )
+		      || ( date_time_values->month == 8 )
+		      || ( date_time_values->month == 10 )
+		      || ( date_time_values->month == 12 ) )
+		{
+			days_in_month = 31;
+		}
+		/* This should never happen, but just in case
+		 */
+		else
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+			 "%s: unsupported month: %d.",
+			 function,
+			 date_time_values->month );
+
+			return( -1 );
+		}
+		if( floatingtimestamp <= days_in_month )
+		{
+			break;
+		}
+		floatingtimestamp -= days_in_month;
+
+		date_time_values->month += 1;
+	}
+	/* Determine the day
+	 */
+	date_time_values->day = (uint8_t) floatingtimestamp;
 
 	return( 1 );
 }
 
-/* Deterimes the size of the string for the fat date time
+/* Deterimes the size of the string for the floatingtime
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_get_string_size(
-     libfdatetime_fat_date_time_t *fat_date_time,
+int libfdatetime_floatingtime_get_string_size(
+     libfdatetime_floatingtime_t *floatingtime,
      size_t *string_size,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
 	libfdatetime_date_time_values_t date_time_values;
 
-	static char *function = "libfdatetime_fat_date_time_get_string_size";
+	static char *function = "libfdatetime_floatingtime_get_string_size";
 
-	if( fat_date_time == NULL )
+	if( floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid fat date time.",
+		 "%s: invalid floatingtime.",
 		 function );
 
 		return( -1 );
@@ -362,16 +492,16 @@ int libfdatetime_fat_date_time_get_string_size(
 
 		return( -1 );
 	}
-	if( libfdatetime_fat_date_time_copy_to_date_time_values(
-	     (libfdatetime_internal_fat_date_time_t *) fat_date_time,
+	if( libfdatetime_floatingtime_copy_to_date_time_values(
+	     (libfdatetime_internal_floatingtime_t *) floatingtime,
 	     &date_time_values,
 	     error ) != 1 )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set date time values.",
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy floatingtime to date time values.",
 		 function );
 
 		return( -1 );
@@ -394,31 +524,31 @@ int libfdatetime_fat_date_time_get_string_size(
 		return( -1 );
 	}
 	/* Make sure the string can hold the hexadecimal representation
-	 * of a fat date time
+	 * of a floatingtime
 	 */
-	if( *string_size < 18 )
+	if( *string_size < 24 )
 	{
-		*string_size = 18;
+		*string_size = 24;
 	}
 	return( 1 );
 }
 
-/* Converts the FAT date and time into an UTF-8 string
+/* Converts the floatingtime into an UTF-8 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_to_utf8_string(
-     libfdatetime_fat_date_time_t *fat_date_time,
+int libfdatetime_floatingtime_copy_to_utf8_string(
+     libfdatetime_floatingtime_t *floatingtime,
      uint8_t *utf8_string,
      size_t utf8_string_size,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
-	static char *function    = "libfdatetime_fat_date_time_copy_to_utf8_string";
+	static char *function    = "libfdatetime_floatingtime_copy_to_utf8_string";
 	size_t utf8_string_index = 0;
 
-	if( libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
-	     fat_date_time,
+	if( libfdatetime_floatingtime_copy_to_utf8_string_with_index(
+	     floatingtime,
 	     utf8_string,
 	     utf8_string_size,
 	     &utf8_string_index,
@@ -429,7 +559,7 @@ int libfdatetime_fat_date_time_copy_to_utf8_string(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
-		 "%s: unable to copy FAT date time to UTF-8 string.",
+		 "%s: unable to copy floatingtime to UTF-8 string.",
 		 function );
 
 		return( -1 );
@@ -437,12 +567,12 @@ int libfdatetime_fat_date_time_copy_to_utf8_string(
 	return( 1 );
 }
 
-/* Converts the FAT date and time into an UTF-8 string
+/* Converts the floatingtime into an UTF-8 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
-     libfdatetime_fat_date_time_t *fat_date_time,
+int libfdatetime_floatingtime_copy_to_utf8_string_with_index(
+     libfdatetime_floatingtime_t *floatingtime,
      uint8_t *utf8_string,
      size_t utf8_string_size,
      size_t *utf8_string_index,
@@ -451,36 +581,36 @@ int libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
 {
 	libfdatetime_date_time_values_t date_time_values;
 
-	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
-	static char *function                                         = "libfdatetime_fat_date_time_copy_to_utf8_string_with_index";
-	size_t string_index                                           = 0;
-	uint8_t byte_value                                            = 0;
-	int8_t byte_shift                                             = 0;
-	int result                                                    = 0;
+	libfdatetime_internal_floatingtime_t *internal_floatingtime = NULL;
+	static char *function                                       = "libfdatetime_floatingtime_copy_to_utf8_string_with_index";
+	size_t string_index                                         = 0;
+	uint8_t byte_value                                          = 0;
+	int8_t byte_shift                                           = 0;
+	int result                                                  = 0;
 
-	if( fat_date_time == NULL )
+	if( floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid FAT date time.",
+		 "%s: invalid floatingtime.",
 		 function );
 
 		return( -1 );
 	}
-	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
+	internal_floatingtime = (libfdatetime_internal_floatingtime_t *) floatingtime;
 
-	if( libfdatetime_fat_date_time_copy_to_date_time_values(
-	     internal_fat_date_time,
+	if( libfdatetime_floatingtime_copy_to_date_time_values(
+	     internal_floatingtime,
 	     &date_time_values,
 	     error ) != 1 )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set date time values.",
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy floatingtime to date time values.",
 		 function );
 
 		return( -1 );
@@ -501,7 +631,7 @@ int libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set UTF-8 string.",
+		 "%s: unable to set string.",
 		 function );
 
 		return( -1 );
@@ -541,7 +671,7 @@ int libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
 
 			return( -1 );
 		}
-		if( ( *utf8_string_index + 16 ) > utf8_string_size )
+		if( ( *utf8_string_index + 24 ) > utf8_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -558,11 +688,11 @@ int libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
 		utf8_string[ string_index++ ] = (uint8_t) '0';
 		utf8_string[ string_index++ ] = (uint8_t) 'x';
 
-		byte_shift = 12;
+		byte_shift = 28;
 
 		do
 		{
-			byte_value = ( internal_fat_date_time->date >> byte_shift ) & 0x0f;
+			byte_value = ( internal_floatingtime->upper >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -580,11 +710,11 @@ int libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
 		utf8_string[ string_index++ ] = (uint8_t) '0';
 		utf8_string[ string_index++ ] = (uint8_t) 'x';
 
-		byte_shift = 12;
+		byte_shift = 28;
 
 		do
 		{
-			byte_value = ( internal_fat_date_time->time >> byte_shift ) & 0x0f;
+			byte_value = ( internal_floatingtime->lower >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -607,22 +737,22 @@ int libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
 	return( 1 );
 }
 
-/* Converts the FAT date and time into an UTF-16 string
+/* Converts the floatingtime into an UTF-16 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_to_utf16_string(
-     libfdatetime_fat_date_time_t *fat_date_time,
+int libfdatetime_floatingtime_copy_to_utf16_string(
+     libfdatetime_floatingtime_t *floatingtime,
      uint16_t *utf16_string,
      size_t utf16_string_size,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
-	static char *function     = "libfdatetime_fat_date_time_copy_to_utf16_string";
+	static char *function     = "libfdatetime_floatingtime_copy_to_utf16_string";
 	size_t utf16_string_index = 0;
 
-	if( libfdatetime_fat_date_time_copy_to_utf16_string_with_index(
-	     fat_date_time,
+	if( libfdatetime_floatingtime_copy_to_utf16_string_with_index(
+	     floatingtime,
 	     utf16_string,
 	     utf16_string_size,
 	     &utf16_string_index,
@@ -633,7 +763,7 @@ int libfdatetime_fat_date_time_copy_to_utf16_string(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
-		 "%s: unable to copy FAT date time to UTF-16 string.",
+		 "%s: unable to copy floatingtime to UTF-16 string.",
 		 function );
 
 		return( -1 );
@@ -641,12 +771,12 @@ int libfdatetime_fat_date_time_copy_to_utf16_string(
 	return( 1 );
 }
 
-/* Converts the FAT date and time into an UTF-16 string
+/* Converts the floatingtime into an UTF-16 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_to_utf16_string_with_index(
-     libfdatetime_fat_date_time_t *fat_date_time,
+int libfdatetime_floatingtime_copy_to_utf16_string_with_index(
+     libfdatetime_floatingtime_t *floatingtime,
      uint16_t *utf16_string,
      size_t utf16_string_size,
      size_t *utf16_string_index,
@@ -655,36 +785,36 @@ int libfdatetime_fat_date_time_copy_to_utf16_string_with_index(
 {
 	libfdatetime_date_time_values_t date_time_values;
 
-	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
-	static char *function                                         = "libfdatetime_fat_date_time_copy_to_utf16_string_with_index";
-	size_t string_index                                           = 0;
-	uint8_t byte_value                                            = 0;
-	int8_t byte_shift                                             = 0;
-	int result                                                    = 0;
+	libfdatetime_internal_floatingtime_t *internal_floatingtime = NULL;
+	static char *function                                       = "libfdatetime_floatingtime_copy_to_utf16_string_with_index";
+	size_t string_index                                         = 0;
+	uint8_t byte_value                                          = 0;
+	int8_t byte_shift                                           = 0;
+	int result                                                  = 0;
 
-	if( fat_date_time == NULL )
+	if( floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid FAT date time.",
+		 "%s: invalid floatingtime.",
 		 function );
 
 		return( -1 );
 	}
-	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
+	internal_floatingtime = (libfdatetime_internal_floatingtime_t *) floatingtime;
 
-	if( libfdatetime_fat_date_time_copy_to_date_time_values(
-	     internal_fat_date_time,
+	if( libfdatetime_floatingtime_copy_to_date_time_values(
+	     internal_floatingtime,
 	     &date_time_values,
 	     error ) != 1 )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set date time values.",
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy floatingtime to date time values.",
 		 function );
 
 		return( -1 );
@@ -705,7 +835,7 @@ int libfdatetime_fat_date_time_copy_to_utf16_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set UTF-16 string.",
+		 "%s: unable to set string.",
 		 function );
 
 		return( -1 );
@@ -745,7 +875,7 @@ int libfdatetime_fat_date_time_copy_to_utf16_string_with_index(
 
 			return( -1 );
 		}
-		if( ( *utf16_string_index + 16 ) > utf16_string_size )
+		if( ( *utf16_string_index + 24 ) > utf16_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -762,11 +892,11 @@ int libfdatetime_fat_date_time_copy_to_utf16_string_with_index(
 		utf16_string[ string_index++ ] = (uint16_t) '0';
 		utf16_string[ string_index++ ] = (uint16_t) 'x';
 
-		byte_shift = 12;
+		byte_shift = 28;
 
 		do
 		{
-			byte_value = ( internal_fat_date_time->date >> byte_shift ) & 0x0f;
+			byte_value = ( internal_floatingtime->upper >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -784,11 +914,11 @@ int libfdatetime_fat_date_time_copy_to_utf16_string_with_index(
 		utf16_string[ string_index++ ] = (uint16_t) '0';
 		utf16_string[ string_index++ ] = (uint16_t) 'x';
 
-		byte_shift = 12;
+		byte_shift = 28;
 
 		do
 		{
-			byte_value = ( internal_fat_date_time->time >> byte_shift ) & 0x0f;
+			byte_value = ( internal_floatingtime->lower >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -811,22 +941,22 @@ int libfdatetime_fat_date_time_copy_to_utf16_string_with_index(
 	return( 1 );
 }
 
-/* Converts the FAT date and time into an UTF-32 string
+/* Converts the floatingtime into an UTF-32 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_to_utf32_string(
-     libfdatetime_fat_date_time_t *fat_date_time,
+int libfdatetime_floatingtime_copy_to_utf32_string(
+     libfdatetime_floatingtime_t *floatingtime,
      uint32_t *utf32_string,
      size_t utf32_string_size,
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
-	static char *function     = "libfdatetime_fat_date_time_copy_to_utf32_string";
+	static char *function     = "libfdatetime_floatingtime_copy_to_utf32_string";
 	size_t utf32_string_index = 0;
 
-	if( libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
-	     fat_date_time,
+	if( libfdatetime_floatingtime_copy_to_utf32_string_with_index(
+	     floatingtime,
 	     utf32_string,
 	     utf32_string_size,
 	     &utf32_string_index,
@@ -837,7 +967,7 @@ int libfdatetime_fat_date_time_copy_to_utf32_string(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
-		 "%s: unable to copy FAT date time to UTF-32 string.",
+		 "%s: unable to copy floatingtime to UTF-32 string.",
 		 function );
 
 		return( -1 );
@@ -845,12 +975,12 @@ int libfdatetime_fat_date_time_copy_to_utf32_string(
 	return( 1 );
 }
 
-/* Converts the FAT date and time into an UTF-32 string
+/* Converts the floatingtime into an UTF-32 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
-     libfdatetime_fat_date_time_t *fat_date_time,
+int libfdatetime_floatingtime_copy_to_utf32_string_with_index(
+     libfdatetime_floatingtime_t *floatingtime,
      uint32_t *utf32_string,
      size_t utf32_string_size,
      size_t *utf32_string_index,
@@ -859,36 +989,36 @@ int libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
 {
 	libfdatetime_date_time_values_t date_time_values;
 
-	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
-	static char *function                                         = "libfdatetime_fat_date_time_copy_to_utf32_string_with_index";
-	size_t string_index                                           = 0;
-	uint8_t byte_value                                            = 0;
-	int8_t byte_shift                                             = 0;
-	int result                                                    = 0;
+	libfdatetime_internal_floatingtime_t *internal_floatingtime = NULL;
+	static char *function                                       = "libfdatetime_floatingtime_copy_to_utf32_string_with_index";
+	size_t string_index                                         = 0;
+	uint8_t byte_value                                          = 0;
+	int8_t byte_shift                                           = 0;
+	int result                                                  = 0;
 
-	if( fat_date_time == NULL )
+	if( floatingtime == NULL )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid FAT date time.",
+		 "%s: invalid floatingtime.",
 		 function );
 
 		return( -1 );
 	}
-	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
+	internal_floatingtime = (libfdatetime_internal_floatingtime_t *) floatingtime;
 
-	if( libfdatetime_fat_date_time_copy_to_date_time_values(
-	     internal_fat_date_time,
+	if( libfdatetime_floatingtime_copy_to_date_time_values(
+	     internal_floatingtime,
 	     &date_time_values,
 	     error ) != 1 )
 	{
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set date time values.",
+		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
+		 "%s: unable to copy floatingtime to date time values.",
 		 function );
 
 		return( -1 );
@@ -909,7 +1039,7 @@ int libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set UTF-32 string.",
+		 "%s: unable to set string.",
 		 function );
 
 		return( -1 );
@@ -949,7 +1079,7 @@ int libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
 
 			return( -1 );
 		}
-		if( ( *utf32_string_index + 32 ) > utf32_string_size )
+		if( ( *utf32_string_index + 24 ) > utf32_string_size )
 		{
 			libcerror_error_set(
 			 error,
@@ -966,11 +1096,11 @@ int libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
 		utf32_string[ string_index++ ] = (uint32_t) '0';
 		utf32_string[ string_index++ ] = (uint32_t) 'x';
 
-		byte_shift = 12;
+		byte_shift = 28;
 
 		do
 		{
-			byte_value = ( internal_fat_date_time->date >> byte_shift ) & 0x0f;
+			byte_value = ( internal_floatingtime->upper >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -988,11 +1118,11 @@ int libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
 		utf32_string[ string_index++ ] = (uint32_t) '0';
 		utf32_string[ string_index++ ] = (uint32_t) 'x';
 
-		byte_shift = 12;
+		byte_shift = 28;
 
 		do
 		{
-			byte_value = ( internal_fat_date_time->time >> byte_shift ) & 0x0f;
+			byte_value = ( internal_floatingtime->lower >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
