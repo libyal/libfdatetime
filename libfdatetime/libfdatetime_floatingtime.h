@@ -23,6 +23,7 @@
 #define _LIBFDATETIME_INTERNAL_FLOATINGTIME_H
 
 #include <common.h>
+#include <byte_stream.h>
 #include <types.h>
 
 #include "libfdatetime_extern.h"
@@ -40,13 +41,9 @@ typedef struct libfdatetime_internal_floatingtime libfdatetime_internal_floating
  */
 struct libfdatetime_internal_floatingtime
 {
-	/* The lower floatingtime part
+	/* The floatingtime floating point
 	 */
-	uint64_t lower;
-
-	/* The upper floatingtime part
-	 */
-	uint32_t upper;
+	byte_stream_float64_t timestamp;
 };
 
 LIBFDATETIME_EXTERN \

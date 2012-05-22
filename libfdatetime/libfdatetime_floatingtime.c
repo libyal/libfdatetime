@@ -208,27 +208,15 @@ int libfdatetime_floatingtime_copy_from_byte_stream(
 	}
 	if( byte_order == LIBFDATETIME_ENDIAN_LITTLE )
 	{
-		byte_stream_copy_to_uint32_little_endian(
+		byte_stream_copy_to_uint64_little_endian(
 		 byte_stream,
-		 internal_floatingtime->lower );
-
-		byte_stream += 4;
-
-		byte_stream_copy_to_uint32_little_endian(
-		 byte_stream,
-		 internal_floatingtime->upper );
+		 internal_floatingtime->timestamp.integer );
 	}
 	else if( byte_order == LIBFDATETIME_ENDIAN_BIG )
 	{
-		byte_stream_copy_to_uint32_big_endian(
+		byte_stream_copy_to_uint64_big_endian(
 		 byte_stream,
-		 internal_floatingtime->upper );
-
-		byte_stream += 4;
-
-		byte_stream_copy_to_uint32_big_endian(
-		 byte_stream,
-		 internal_floatingtime->lower );
+		 internal_floatingtime->timestamp.integer );
 	}
 	return( 1 );
 }
@@ -257,8 +245,7 @@ int libfdatetime_floatingtime_copy_from_64bit(
 	}
 	internal_floatingtime = (libfdatetime_internal_floatingtime_t *) floatingtime;
 
-	internal_floatingtime->upper = value_64bit >> 32;
-	internal_floatingtime->lower = value_64bit & 0x0ffffffffLL;
+	internal_floatingtime->timestamp.integer = value_64bit;
 
 	return( 1 );
 }
@@ -271,11 +258,11 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
      libfdatetime_date_time_values_t *date_time_values,
      libcerror_error_t **error )
 {
-	static char *function      = "libfdatetime_floatingtime_copy_to_date_time_values";
-	uint64_t floatingtimestamp = 0;
-	uint32_t days_in_century   = 0;
-	uint16_t days_in_year      = 0;
-	uint8_t days_in_month      = 0;
+	static char *function    = "libfdatetime_floatingtime_copy_to_date_time_values";
+	double floatingtimestamp = 0;
+	uint32_t days_in_century = 0;
+	uint16_t days_in_year    = 0;
+	uint8_t days_in_month    = 0;
 
 	if( internal_floatingtime == NULL )
 	{
@@ -299,50 +286,18 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 
 		return( -1 );
 	}
-	/* Combine the lower and upper floatingtime parts into a single floatingtime timestamp
-	 */
-	floatingtimestamp = ( (uint64_t) ( internal_floatingtime->upper ) << 32 ) + internal_floatingtime->lower;
+	floatingtimestamp = internal_floatingtime->timestamp.floating_point;
 
-	/* The timestamp is in units of 100 nano seconds correct the value to seconds
-	 */
-	date_time_values->nano_seconds = ( floatingtimestamp % 10 ) * 100;
-	floatingtimestamp                 /= 10;
-
-	date_time_values->micro_seconds = floatingtimestamp % 1000;
-	floatingtimestamp                  /= 1000;
-
-	date_time_values->milli_seconds = floatingtimestamp % 1000;
-	floatingtimestamp                  /= 1000;
-
-	/* There are 60 seconds in a minute correct the value to minutes
-	 */
-	date_time_values->seconds = floatingtimestamp % 60;
-	floatingtimestamp            /= 60;
-
-	/* There are 60 minutes in an hour correct the value to hours
-	 */
-	date_time_values->minutes = floatingtimestamp % 60;
-	floatingtimestamp            /= 60;
-
-	/* There are 24 hours in a day correct the value to days
-	 */
-	date_time_values->hours = floatingtimestamp % 24;
-	floatingtimestamp          /= 24;
-
-	/* Add 1 day to compensate that Jan 1 1601 is represented as 0
-	 */
-	floatingtimestamp += 1;
-
-	/* Determine the number of years starting at '1 Jan 1601 00:00:00'
+	/* Determine the number of years starting at '30 Dec 1899 00:00:00'
 	 * correct the value to days within the year
 	 */
-	date_time_values->year = 1601;
+	date_time_values->year = 1899;
 
-	if( floatingtimestamp >= 36159 )
+	if( floatingtimestamp >= 2 )
 	{
-		date_time_values->year = 1700;
+		date_time_values->year = 1900;
 
-		floatingtimestamp -= 36159;
+		floatingtimestamp -= 2;
 	}
 	while( floatingtimestamp > 0 )
 	{
@@ -453,6 +408,8 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 	 */
 	date_time_values->day = (uint8_t) floatingtimestamp;
 
+/* TODO determine fractional part */
+
 	return( 1 );
 }
 
@@ -526,9 +483,9 @@ int libfdatetime_floatingtime_get_string_size(
 	/* Make sure the string can hold the hexadecimal representation
 	 * of a floatingtime
 	 */
-	if( *string_size < 24 )
+	if( *string_size < 21 )
 	{
-		*string_size = 24;
+		*string_size = 21;
 	}
 	return( 1 );
 }
@@ -688,33 +645,11 @@ int libfdatetime_floatingtime_copy_to_utf8_string_with_index(
 		utf8_string[ string_index++ ] = (uint8_t) '0';
 		utf8_string[ string_index++ ] = (uint8_t) 'x';
 
-		byte_shift = 28;
+		byte_shift = 60;
 
 		do
 		{
-			byte_value = ( internal_floatingtime->upper >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
-			}
-			else
-			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf8_string[ string_index++ ] = (uint8_t) ' ';
-		utf8_string[ string_index++ ] = (uint8_t) '0';
-		utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-		byte_shift = 28;
-
-		do
-		{
-			byte_value = ( internal_floatingtime->lower >> byte_shift ) & 0x0f;
+			byte_value = ( internal_floatingtime->timestamp.integer >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -892,33 +827,11 @@ int libfdatetime_floatingtime_copy_to_utf16_string_with_index(
 		utf16_string[ string_index++ ] = (uint16_t) '0';
 		utf16_string[ string_index++ ] = (uint16_t) 'x';
 
-		byte_shift = 28;
+		byte_shift = 60;
 
 		do
 		{
-			byte_value = ( internal_floatingtime->upper >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
-			}
-			else
-			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf16_string[ string_index++ ] = (uint16_t) ' ';
-		utf16_string[ string_index++ ] = (uint16_t) '0';
-		utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-		byte_shift = 28;
-
-		do
-		{
-			byte_value = ( internal_floatingtime->lower >> byte_shift ) & 0x0f;
+			byte_value = ( internal_floatingtime->timestamp.integer >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -1096,11 +1009,11 @@ int libfdatetime_floatingtime_copy_to_utf32_string_with_index(
 		utf32_string[ string_index++ ] = (uint32_t) '0';
 		utf32_string[ string_index++ ] = (uint32_t) 'x';
 
-		byte_shift = 28;
+		byte_shift = 60;
 
 		do
 		{
-			byte_value = ( internal_floatingtime->upper >> byte_shift ) & 0x0f;
+			byte_value = ( internal_floatingtime->timestamp.integer >> byte_shift ) & 0x0f;
 
 			if( byte_value <= 9 )
 			{
@@ -1117,24 +1030,6 @@ int libfdatetime_floatingtime_copy_to_utf32_string_with_index(
 		utf32_string[ string_index++ ] = (uint32_t) ' ';
 		utf32_string[ string_index++ ] = (uint32_t) '0';
 		utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-		byte_shift = 28;
-
-		do
-		{
-			byte_value = ( internal_floatingtime->lower >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
-			}
-			else
-			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
 
 		utf32_string[ string_index++ ] = (uint32_t) ')';
 
