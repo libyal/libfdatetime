@@ -31,7 +31,7 @@
 #include "libfdatetime_types.h"
 
 /* Initialize a FAT date and time
- * Make sure the value file is pointing to is set to NULL
+ * Make sure the value fat_date_time is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_fat_date_time_initialize(
@@ -322,6 +322,10 @@ int libfdatetime_fat_date_time_copy_to_date_time_values(
 	 * The seconds are stored as 2 second intervals
 	 */
 	date_time_values->seconds = (uint8_t) ( internal_fat_date_time->time & 0x1f ) * 2;
+
+        date_time_values->milli_seconds = 0;
+        date_time_values->micro_seconds = 0;
+        date_time_values->nano_seconds  = 0;
 
 	return( 1 );
 }

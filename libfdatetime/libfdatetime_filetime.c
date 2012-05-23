@@ -31,6 +31,7 @@
 #include "libfdatetime_types.h"
 
 /* Initialize a filetime
+ * Make sure the value filetime is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_filetime_initialize(

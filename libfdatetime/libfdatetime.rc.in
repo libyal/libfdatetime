@@ -28,7 +28,7 @@ BEGIN
       VALUE "OriginalFilename",		"libfdatetime.dll\0"
       VALUE "ProductName",		"libfdatetime\0"
       VALUE "ProductVersion",		"@VERSION@" "\0"
-      VALUE "Comments",			"For more information visit http://libfdata.sourceforge.net\0"
+      VALUE "Comments",			"For more information visit http://code.google.com/p/libflibs/\0"
     END
   END
   BLOCK "VarFileInfo"

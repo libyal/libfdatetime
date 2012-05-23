@@ -31,6 +31,7 @@
 #include "libfdatetime_types.h"
 
 /* Initialize a POSIX time
+ * Make sure the value posix_time is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_posix_time_initialize(
@@ -498,6 +499,8 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 
 		return( -1 );
 	}
+        date_time_values->nano_seconds = 0;
+
 	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
 	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
 	{
@@ -526,6 +529,11 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 			date_time_values->milli_seconds = 1000 - ( posix_timestamp % 1000 );
 		}
 		posix_timestamp /= 1000;
+	}
+	else
+	{
+	        date_time_values->micro_seconds = 0;
+	        date_time_values->milli_seconds = 0;
 	}
 	/* There are 60 seconds in a minute correct the value to minutes
 	 */

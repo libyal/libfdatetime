@@ -31,6 +31,7 @@
 #include "libfdatetime_types.h"
 
 /* Initialize a floatingtime
+ * Make sure the value floatingtime is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_floatingtime_initialize(
@@ -407,8 +408,43 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 	/* Determine the day
 	 */
 	date_time_values->day = (uint8_t) floatingtimestamp;
+	floatingtimestamp    -= date_time_values->day;
 
-/* TODO determine fractional part */
+	/* There are 24 hours in a day correct the value to hours
+	 */
+	floatingtimestamp      *= 24;
+	date_time_values->hours = (uint8_t) floatingtimestamp;
+	floatingtimestamp    -= date_time_values->hours;
+
+	/* There are 60 minutes in an hour correct the value to minutes
+	 */
+	floatingtimestamp        *= 60;
+	date_time_values->minutes = (uint8_t) floatingtimestamp;
+	floatingtimestamp        -= date_time_values->minutes;
+
+	/* There are 60 seconds in a minute correct the value to seconds
+	 */
+	floatingtimestamp        *= 60;
+	date_time_values->seconds = (uint8_t) floatingtimestamp;
+	floatingtimestamp        -= date_time_values->seconds;
+
+	/* There are 1000 milli seconds in a seconds correct the value to milli seconds
+	 */
+	floatingtimestamp              *= 1000;
+	date_time_values->milli_seconds = (uint8_t) floatingtimestamp;
+	floatingtimestamp              -= date_time_values->milli_seconds;
+
+	/* There are 1000 micro seconds in a seconds correct the value to micro seconds
+	 */
+	floatingtimestamp              *= 1000;
+	date_time_values->micro_seconds = (uint8_t) floatingtimestamp;
+	floatingtimestamp              -= date_time_values->micro_seconds;
+
+	/* There are 1000 nano seconds in a seconds correct the value to nano seconds
+	 */
+	floatingtimestamp             *= 1000;
+	date_time_values->nano_seconds = (uint8_t) floatingtimestamp;
+	floatingtimestamp             -= date_time_values->nano_seconds;
 
 	return( 1 );
 }

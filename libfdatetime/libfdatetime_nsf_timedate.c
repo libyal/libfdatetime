@@ -31,6 +31,7 @@
 #include "libfdatetime_types.h"
 
 /* Initialize a NSF timedate
+ * Make sure the value nsf_timedate is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_nsf_timedate_initialize(
@@ -383,6 +384,8 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 
 	/* The timestamp is in units of 10 milli seconds correct the value to seconds
 	 */
+        date_time_values->nano_seconds  = 0;
+        date_time_values->micro_seconds = 0;
 	date_time_values->milli_seconds = ( nsf_time % 100 ) * 10;
 	nsf_time                       /= 100;
 
@@ -400,7 +403,7 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 	 */
 	date_time_values->hours = (uint8_t) nsf_time;
 
-	/* TODO day light savings and timezone */
+/* TODO day light savings and timezone */
 
 	return( 1 );
 }

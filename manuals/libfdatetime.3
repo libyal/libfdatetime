@@ -1,4 +1,4 @@
-.Dd April 22, 2012
+.Dd May 22, 2012
 .Dt libfdatetime 3
 .Os libfdatetime
 .Sh NAME
@@ -74,6 +74,30 @@ Filetime functions
 .Fn libfdatetime_filetime_copy_to_utf32_string "libfdatetime_filetime_t *filetime, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_filetime_copy_to_utf32_string_with_index "libfdatetime_filetime_t *filetime, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Pp
+Floatingtime functions
+.Ft int
+.Fn libfdatetime_floatingtime_initialize "libfdatetime_floatingtime_t **floatingtime, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_free "libfdatetime_floatingtime_t **floatingtime, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_copy_from_byte_stream "libfdatetime_floatingtime_t *floatingtime, uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_copy_from_64bit "libfdatetime_floatingtime_t *floatingtime, uint64_t value_64bit, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_get_string_size "libfdatetime_floatingtime_t *floatingtime, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_copy_to_utf8_string "libfdatetime_floatingtime_t *floatingtime, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_copy_to_utf8_string_with_index "libfdatetime_floatingtime_t *floatingtime, uint8_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_copy_to_utf16_string "libfdatetime_floatingtime_t *floatingtime, uint16_t *utf16_string, size_t utf16_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_copy_to_utf16_string_with_index "libfdatetime_floatingtime_t *floatingtime, uint16_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_copy_to_utf32_string "libfdatetime_floatingtime_t *floatingtime, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_copy_to_utf32_string_with_index "libfdatetime_floatingtime_t *floatingtime, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
 .pp
 NSF timedate functions
 .Ft int
@@ -159,7 +183,7 @@ None
 .Sh NOTES
 .Sh BUGS
 Please report bugs of any kind to <joachim.metz@gmail.com> or on the project website:
-http://libfdata.sourceforge.net/
+http://code.google.com/p/libflibs/
 .Sh AUTHOR
 These man pages were written by Joachim Metz.
 .Sh COPYRIGHT

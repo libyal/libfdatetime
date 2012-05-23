@@ -94,7 +94,7 @@ int libfdatetime_error_backtrace_sprint(
  * ------------------------------------------------------------------------- */
 
 /* Initialize a FAT date and time
- * Make sure the value file is pointing to is set to NULL
+ * Make sure the value fat_date_time is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -221,6 +221,7 @@ int libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
  * ------------------------------------------------------------------------- */
 
 /* Initialize a filetime
+ * Make sure the value filetime is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -358,10 +359,144 @@ int libfdatetime_filetime_copy_to_utf32_string_with_index(
      libfdatetime_error_t **error );
 
 /* -------------------------------------------------------------------------
+ * Floatingtime functions
+ * ------------------------------------------------------------------------- */
+
+/* Initialize a floatingtime
+ * Make sure the value floatingtime is pointing to is set to NULL
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_initialize(
+     libfdatetime_floatingtime_t **floatingtime,
+     libfdatetime_error_t **error );
+
+/* Frees a floatingtime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_free(
+     libfdatetime_floatingtime_t **floatingtime,
+     libfdatetime_error_t **error );
+
+/* Converts a byte stream into a floatingtime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_copy_from_byte_stream(
+     libfdatetime_floatingtime_t *floatingtime,
+     const uint8_t *byte_stream,
+     size_t byte_stream_size,
+     int byte_order,
+     libfdatetime_error_t **error );
+
+/* Converts a 64-bit value into a floatingtime
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_copy_from_64bit(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint64_t value_64bit,
+     libfdatetime_error_t **error );
+
+/* Deterimes the size of the string for the floatingtime
+ * The string size includes the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_get_string_size(
+     libfdatetime_floatingtime_t *floatingtime,
+     size_t *string_size,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the floatingtime into a string
+ * The strings is encoded in UTF-8
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_copy_to_utf8_string(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the floatingtime into a string
+ * The strings is encoded in UTF-8
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_copy_to_utf8_string_with_index(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the floatingtime into a string
+ * The strings is encoded in UTF-16
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_copy_to_utf16_string(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the floatingtime into a string
+ * The strings is encoded in UTF-16
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_copy_to_utf16_string_with_index(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the floatingtime into a string
+ * The strings is encoded in UTF-32
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_copy_to_utf32_string(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* Converts the floatingtime into a string
+ * The strings is encoded in UTF-32
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_copy_to_utf32_string_with_index(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     uint32_t string_format_flags,
+     libfdatetime_error_t **error );
+
+/* -------------------------------------------------------------------------
  * NSF timedate functions
  * ------------------------------------------------------------------------- */
 
 /* Initialize a NSF timedate
+ * Make sure the value nsf_timedate is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -488,6 +623,7 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string_with_index(
  * ------------------------------------------------------------------------- */
 
 /* Initialize a POSIX time
+ * Make sure the value posix_time is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -632,6 +768,7 @@ int libfdatetime_posix_time_copy_to_utf32_string_with_index(
  * ------------------------------------------------------------------------- */
 
 /* Initialize a systemtime
+ * Make sure the value systemtime is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \

@@ -1,18 +1,12 @@
 TODO
-* update project site and email address
-* complete floating time
-* tests for systemtime
-* tests for floatingtime
 * change function comment for UTF size and copy functions
   see libfvalue
 * formatting support
   - add support for duration
 * filetime check for -0 ?
 * add tests
-  - FAT date/time: fix and test to string format flags
-  - FILETIME: test to string format flags, test for add function ?
-  - NSF
-  - POSIX
+  - test to string format flags
+  - test filetime add function
 * add a more sophisticated day of the month check in date time values
 * have API functions return 0 if value is not a valid date and time ?
 
@@ -30,6 +24,8 @@ Deployment
 
 20120522
 * worked on floatingtime
+* updated project site and email address
+* added set to zero of unused date and time values
 
 20120521
 * added floatingtime

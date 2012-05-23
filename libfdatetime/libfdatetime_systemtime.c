@@ -31,6 +31,7 @@
 #include "libfdatetime_types.h"
 
 /* Initialize a systemtime
+ * Make sure the value systemtime is pointing to is set to NULL
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_systemtime_initialize(
@@ -349,6 +350,8 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 
 		return( -1 );
 	}
+	date_time_values->nano_seconds  = 0;
+	date_time_values->micro_seconds = 0;
 	date_time_values->milli_seconds = internal_systemtime->milli_seconds;
 
 	if( internal_systemtime->seconds > 59 )
