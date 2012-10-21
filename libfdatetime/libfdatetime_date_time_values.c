@@ -172,7 +172,8 @@ int libfdatetime_date_time_values_get_string_size(
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_DURATION
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MILLI_SECONDS
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
-	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS;
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIMEZONE_INDICATOR;
 
 	if( ( string_format_flags & supported_flags ) == 0 )
 	{
@@ -256,6 +257,21 @@ int libfdatetime_date_time_values_get_string_size(
 			*string_size += 3;
 		}
 	}
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIMEZONE_INDICATOR ) != 0 )
+	{
+		/* Example: UTC
+		 */
+		if( string_format_type == LIBFDATETIME_STRING_FORMAT_TYPE_CTIME )
+		{
+			*string_size += 4;
+		}
+		/* Example: Z
+		 */
+		else if( string_format_type == LIBFDATETIME_STRING_FORMAT_TYPE_ISO8601 )
+		{
+			*string_size += 1;
+		}
+	}
 	return( 1 );
 }
 
@@ -332,7 +348,8 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_DURATION
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MILLI_SECONDS
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
-	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS;
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIMEZONE_INDICATOR;
 
 	if( ( string_format_flags & supported_flags ) == 0 )
 	{
@@ -709,6 +726,42 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			string_index += 3;
 		}
 	}
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIMEZONE_INDICATOR ) != 0 )
+	{
+		if( string_format_type == LIBFDATETIME_STRING_FORMAT_TYPE_CTIME )
+		{
+			if( ( string_index + 4 ) > utf8_string_size )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 "%s: UTF-8 string is too small.",
+				 function );
+
+				return( -1 );
+			}
+			utf8_string[ string_index++ ] = (uint8_t) ' ';
+			utf8_string[ string_index++ ] = (uint8_t) 'U';
+			utf8_string[ string_index++ ] = (uint8_t) 'T';
+			utf8_string[ string_index++ ] = (uint8_t) 'C';
+		}
+		else if( string_format_type == LIBFDATETIME_STRING_FORMAT_TYPE_ISO8601 )
+		{
+			if( ( string_index + 1 ) > utf8_string_size )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 "%s: UTF-8 string is too small.",
+				 function );
+
+				return( -1 );
+			}
+			utf8_string[ string_index++ ] = (uint8_t) 'Z';
+		}
+	}
 	if( ( string_index + 1 ) > utf8_string_size )
 	{
 		libcerror_error_set(
@@ -800,7 +853,8 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_DURATION
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MILLI_SECONDS
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
-	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS;
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIMEZONE_INDICATOR;
 
 	if( ( string_format_flags & supported_flags ) == 0 )
 	{
@@ -1177,6 +1231,42 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 			string_index += 3;
 		}
 	}
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIMEZONE_INDICATOR ) != 0 )
+	{
+		if( string_format_type == LIBFDATETIME_STRING_FORMAT_TYPE_CTIME )
+		{
+			if( ( string_index + 4 ) > utf16_string_size )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 "%s: UTF-16 string is too small.",
+				 function );
+
+				return( -1 );
+			}
+			utf16_string[ string_index++ ] = (uint16_t) ' ';
+			utf16_string[ string_index++ ] = (uint16_t) 'U';
+			utf16_string[ string_index++ ] = (uint16_t) 'T';
+			utf16_string[ string_index++ ] = (uint16_t) 'C';
+		}
+		else if( string_format_type == LIBFDATETIME_STRING_FORMAT_TYPE_ISO8601 )
+		{
+			if( ( string_index + 1 ) > utf16_string_size )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 "%s: UTF-16 string is too small.",
+				 function );
+
+				return( -1 );
+			}
+			utf16_string[ string_index++ ] = (uint16_t) 'Z';
+		}
+	}
 	if( ( string_index + 1 ) > utf16_string_size )
 	{
 		libcerror_error_set(
@@ -1268,7 +1358,8 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_DURATION
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MILLI_SECONDS
 	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS
-	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS;
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS
+	                | LIBFDATETIME_STRING_FORMAT_FLAG_TIMEZONE_INDICATOR;
 
 	if( ( string_format_flags & supported_flags ) == 0 )
 	{
@@ -1646,6 +1737,42 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			nano_seconds                /= 10;
 
 			string_index += 3;
+		}
+	}
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIMEZONE_INDICATOR ) != 0 )
+	{
+		if( string_format_type == LIBFDATETIME_STRING_FORMAT_TYPE_CTIME )
+		{
+			if( ( string_index + 4 ) > utf32_string_size )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 "%s: UTF-32 string is too small.",
+				 function );
+
+				return( -1 );
+			}
+			utf32_string[ string_index++ ] = (uint32_t) ' ';
+			utf32_string[ string_index++ ] = (uint32_t) 'U';
+			utf32_string[ string_index++ ] = (uint32_t) 'T';
+			utf32_string[ string_index++ ] = (uint32_t) 'C';
+		}
+		else if( string_format_type == LIBFDATETIME_STRING_FORMAT_TYPE_ISO8601 )
+		{
+			if( ( string_index + 1 ) > utf32_string_size )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+				 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+				 "%s: UTF-32 string is too small.",
+				 function );
+
+				return( -1 );
+			}
+			utf32_string[ string_index++ ] = (uint32_t) 'Z';
 		}
 	}
 	if( ( string_index + 1 ) > utf32_string_size )
