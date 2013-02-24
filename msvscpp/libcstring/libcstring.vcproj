@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\include;..\..\common"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;HAVE_LOCAL_LIBCSTRING"
-				SmallerTypeCheck="true"
+				SmallerTypeCheck="false"
 				RuntimeLibrary="2"
 				WarningLevel="4"
 				WarnAsError="false"
@@ -155,10 +155,6 @@
 			>
 			<File
 				RelativePath="..\..\libcstring\libcstring_support.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\libcstring\libcstring_system_string.c"
 				>
 			</File>
 			<File

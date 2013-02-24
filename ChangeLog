@@ -22,6 +22,11 @@ HFS date/time
 Deployment
 * add macosx file
 
+20130224
+* updated dependencies
+* 2013 update
+* removed codegear files
+
 20121021
 * added timezone indicator format flag
 

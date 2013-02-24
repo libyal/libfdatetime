@@ -1,7 +1,7 @@
 /*
  * Date and time values functions
  *
- * Copyright (c) 2009-2012, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (c) 2009-2013, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -140,9 +140,9 @@ int libfdatetime_date_time_values_get_string_size(
      uint32_t string_format_flags,
      libcerror_error_t **error )
 {
-	static char *function        = "libfdatetime_date_time_values_get_string_size";
-	 uint32_t string_format_type = 0;
-	uint32_t supported_flags     = 0;
+	static char *function       = "libfdatetime_date_time_values_get_string_size";
+	uint32_t string_format_type = 0;
+	uint32_t supported_flags    = 0;
 
 	if( date_time_values == NULL )
 	{
@@ -666,7 +666,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			milli_seconds                  /= 10;
 
 			utf8_string[ string_index ] = (uint8_t) '0' + (uint8_t) ( milli_seconds % 10 );
-			milli_seconds             /= 10;
+			milli_seconds              /= 10;
 
 			string_index += 3;
 		}
@@ -1679,7 +1679,7 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			milli_seconds                   /= 10;
 
 			utf32_string[ string_index ] = (uint32_t) '0' + (uint32_t) ( milli_seconds % 10 );
-			milli_seconds              /= 10;
+			milli_seconds               /= 10;
 
 			string_index += 3;
 		}

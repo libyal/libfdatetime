@@ -1,7 +1,7 @@
 /*
  * FAT date and time functions
  *
- * Copyright (c) 2009-2012, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (c) 2009-2013, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -216,8 +216,8 @@ int libfdatetime_fat_date_time_copy_from_byte_stream(
 		byte_stream += 2;
 
 		byte_stream_copy_to_uint16_little_endian(
-		 byte_stream,
-		 internal_fat_date_time->time );
+		byte_stream,
+		internal_fat_date_time->time );
 	}
 	else if( byte_order == LIBFDATETIME_ENDIAN_BIG )
 	{
@@ -228,8 +228,8 @@ int libfdatetime_fat_date_time_copy_from_byte_stream(
 		byte_stream += 2;
 
 		byte_stream_copy_to_uint16_big_endian(
-		 byte_stream,
-		 internal_fat_date_time->time );
+		byte_stream,
+		internal_fat_date_time->time );
 	}
 	return( 1 );
 }

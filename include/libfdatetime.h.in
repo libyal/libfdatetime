@@ -1,7 +1,7 @@
 /*
  * Library to support file format date and time values
  *
- * Copyright (c) 2009-2012, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (c) 2009-2013, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -25,6 +25,7 @@
 #include <libfdatetime/definitions.h>
 #include <libfdatetime/error.h>
 #include <libfdatetime/extern.h>
+#include <libfdatetime/features.h>
 #include <libfdatetime/types.h>
 
 #include <stdio.h>
