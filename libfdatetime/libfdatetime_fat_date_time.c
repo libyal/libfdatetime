@@ -237,13 +237,13 @@ int libfdatetime_fat_date_time_copy_from_byte_stream(
 /* Converts a 32-bit value into a FAT date and time
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_fat_date_time_copy_from_uint32(
+int libfdatetime_fat_date_time_copy_from_32bit(
      libfdatetime_fat_date_time_t *fat_date_time,
      uint32_t value_32bit,
      libcerror_error_t **error )
 {
 	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
-	static char *function                                         = "libfdatetime_fat_date_time_copy_from_uint32";
+	static char *function                                         = "libfdatetime_fat_date_time_copy_from_32bit";
 
 	if( fat_date_time == NULL )
 	{
@@ -258,8 +258,8 @@ int libfdatetime_fat_date_time_copy_from_uint32(
 	}
 	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
 
-	internal_fat_date_time->time = value_32bit & 0x0ffffL;
-	internal_fat_date_time->date = value_32bit >> 16;
+	internal_fat_date_time->date = (uint16_t) ( value_32bit & 0x0ffffL );
+	internal_fat_date_time->time = (uint16_t) ( value_32bit >> 16 );
 
 	return( 1 );
 }

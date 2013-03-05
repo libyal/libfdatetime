@@ -69,7 +69,7 @@ int libfdatetime_fat_date_time_copy_from_byte_stream(
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
-int libfdatetime_fat_date_time_copy_from_uint32(
+int libfdatetime_fat_date_time_copy_from_32bit(
      libfdatetime_fat_date_time_t *fat_date_time,
      uint32_t value_32bit,
      libcerror_error_t **error );
