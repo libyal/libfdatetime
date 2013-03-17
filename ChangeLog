@@ -20,7 +20,10 @@ HFS date/time
 * implement
 
 Deployment
-* add macosx file
+* add macosx files
+
+20130317
+* added .gitignore
 
 20130305
 * changes in FAT date time

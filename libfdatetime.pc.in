@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libfdatetime
+Description: Library to support various date and time formats that are used in file formats
+Version: @VERSION@
+Libs: -L${libdir} -lfdatetime
+Libs.private: @ax_libcerror_libs_private@ @ax_libcstring_libs_private@
+Cflags: -I${includedir}
+
