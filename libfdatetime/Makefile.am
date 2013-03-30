@@ -44,6 +44,6 @@ distclean: clean
 	/bin/rm -f Makefile
 
 splint:
-	@echo "Running splint on libfdatetime ..." 
-	-splint -preproc -redef $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(libfdatetime_la_SOURCES) 
+	@echo "Running splint on libfdatetime ..."
+	-splint -preproc -redef $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(libfdatetime_la_SOURCES)
 

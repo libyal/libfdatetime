@@ -9,12 +9,12 @@
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this software.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -379,7 +379,7 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 	date_time_values->day = (uint8_t) ( nsf_julian_day + 1 );
 
 	/* Retrieve the number of seconds from the lower part of the NFS timedate
-	 */ 
+	 */
 	nsf_time = internal_nsf_timedate->lower;
 
 	/* The timestamp is in units of 10 milli seconds correct the value to seconds
