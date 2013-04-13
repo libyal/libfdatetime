@@ -30,8 +30,8 @@
 #include "libfdatetime_systemtime.h"
 #include "libfdatetime_types.h"
 
-/* Initialize a systemtime
- * Make sure the value systemtime is pointing to is set to NULL
+/* Creates a systemtime
+ * Make sure the value systemtime is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_systemtime_initialize(
@@ -510,6 +510,7 @@ int libfdatetime_systemtime_get_string_size(
 	libfdatetime_date_time_values_t date_time_values;
 
 	static char *function = "libfdatetime_systemtime_get_string_size";
+	int result            = 0;
 
 	if( systemtime == NULL )
 	{
@@ -547,13 +548,13 @@ int libfdatetime_systemtime_get_string_size(
 
 		return( -1 );
 	}
-	/* Create the date and time string
-	 */
-	if( libfdatetime_date_time_values_get_string_size(
-	     &date_time_values,
-	     string_size,
-	     string_format_flags,
-	     error ) != 1 )
+	result = libfdatetime_date_time_values_get_string_size(
+	          &date_time_values,
+	          string_size,
+	          string_format_flags,
+	          error );
+
+	if( result == -1 )
 	{
 		libcerror_error_set(
 		 error,
@@ -564,11 +565,10 @@ int libfdatetime_systemtime_get_string_size(
 
 		return( -1 );
 	}
-	/* Make sure the string can hold the hexadecimal representation
-	 * of a systemtime
-	 */
-	if( *string_size < 57 )
+	else if( result == 0 )
 	{
+		/* Make sure the string can hold the hexadecimal representation of the systemtime
+		 */
 		*string_size = 57;
 	}
 	return( 1 );

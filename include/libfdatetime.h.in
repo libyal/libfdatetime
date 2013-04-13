@@ -48,7 +48,7 @@ const char *libfdatetime_get_version(
  * Error functions
  * ------------------------------------------------------------------------- */
 
-/* Frees the error including elements
+/* Frees an error
  */
 LIBFDATETIME_EXTERN \
 void libfdatetime_error_free(
@@ -94,8 +94,8 @@ int libfdatetime_error_backtrace_sprint(
  * FAT date and time functions
  * ------------------------------------------------------------------------- */
 
-/* Initialize a FAT date and time
- * Make sure the value fat_date_time is pointing to is set to NULL
+/* Creates a FAT date and time
+ * Make sure the value fat_date_time is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -221,8 +221,8 @@ int libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
  * Filetime functions
  * ------------------------------------------------------------------------- */
 
-/* Initialize a filetime
- * Make sure the value filetime is pointing to is set to NULL
+/* Creates a filetime
+ * Make sure the value filetime is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -363,8 +363,8 @@ int libfdatetime_filetime_copy_to_utf32_string_with_index(
  * Floatingtime functions
  * ------------------------------------------------------------------------- */
 
-/* Initialize a floatingtime
- * Make sure the value floatingtime is pointing to is set to NULL
+/* Creates a floatingtime
+ * Make sure the value floatingtime is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -496,8 +496,8 @@ int libfdatetime_floatingtime_copy_to_utf32_string_with_index(
  * NSF timedate functions
  * ------------------------------------------------------------------------- */
 
-/* Initialize a NSF timedate
- * Make sure the value nsf_timedate is pointing to is set to NULL
+/* Creates a NSF timedate
+ * Make sure the value nsf_timedate is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -623,8 +623,8 @@ int libfdatetime_nsf_timedate_copy_to_utf32_string_with_index(
  * POSIX timestamp functions
  * ------------------------------------------------------------------------- */
 
-/* Initialize a POSIX time
- * Make sure the value posix_time is pointing to is set to NULL
+/* Creates a POSIX time
+ * Make sure the value posix_time is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -768,8 +768,8 @@ int libfdatetime_posix_time_copy_to_utf32_string_with_index(
  * Systemtime functions
  * ------------------------------------------------------------------------- */
 
-/* Initialize a systemtime
- * Make sure the value systemtime is pointing to is set to NULL
+/* Creates a systemtime
+ * Make sure the value systemtime is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \

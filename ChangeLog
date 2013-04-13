@@ -24,6 +24,8 @@ Deployment
 
 20130413
 * updated dependencies
+* textual changes
+* maximum string size is now only returned for invalid date time values
 
 20130317
 * added .gitignore

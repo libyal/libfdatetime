@@ -28,7 +28,8 @@
 #include "libfdatetime_libcerror.h"
 #include "libfdatetime_types.h"
 
-/* Initialize date time values
+/* Creates date time values
+ * Make sure the value date_time_values is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_date_time_values_initialize(
@@ -132,7 +133,7 @@ int libfdatetime_date_time_values_free(
 
 /* Deterimes the size of the string for the date and time values
  * The string size includes the end of string character
- * Returns 1 if successful or -1 on error
+ * Returns 1 if successful, 0 if the date and time values are not valid or -1 on error
  */
 int libfdatetime_date_time_values_get_string_size(
      libfdatetime_date_time_values_t *date_time_values,
@@ -143,6 +144,7 @@ int libfdatetime_date_time_values_get_string_size(
 	static char *function       = "libfdatetime_date_time_values_get_string_size";
 	uint32_t string_format_type = 0;
 	uint32_t supported_flags    = 0;
+	uint8_t days_in_month       = 0;
 
 	if( date_time_values == NULL )
 	{
@@ -201,6 +203,94 @@ int libfdatetime_date_time_values_get_string_size(
 		 string_format_type );
 
 		return( -1 );
+	}
+	/* Validate the date and time if necessary
+	 */
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_DATE ) != 0 )
+	{
+		if( date_time_values->year > 9999 )
+		{
+			return( 0 );
+		}
+		if( ( date_time_values->month == 0 )
+		 || ( date_time_values->month > 12 ) )
+		{
+			return( 0 );
+		}
+		switch( date_time_values->month )
+		{
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				days_in_month = 31;
+				break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				days_in_month = 30;
+				break;
+			case 2:
+				if( ( ( ( date_time_values->year % 4 ) == 0 )
+				  &&  ( ( date_time_values->year % 100 ) != 0 ) )
+				 || ( ( date_time_values->year % 400 ) == 0 ) )
+				{
+					days_in_month = 29;
+				}
+				else
+				{
+					days_in_month = 28;
+				}
+				break;
+		}
+		if( ( date_time_values->day == 0 )
+		 || ( date_time_values->day > days_in_month ) )
+		{
+			return( 0 );
+		}
+	}
+	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
+	{
+		if( date_time_values->hours > 23 )
+		{
+			return( 0 );
+		}
+		if( date_time_values->minutes > 59 )
+		{
+			return( 0 );
+		}
+		if( date_time_values->seconds > 59 )
+		{
+			return( 0 );
+		}
+		if( ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MILLI_SECONDS ) != 0 )
+		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
+		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 ) )
+		{
+			if( date_time_values->milli_seconds > 999 )
+			{
+				return( 0 );
+			}
+		}
+		if( ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS ) != 0 )
+		 || ( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 ) )
+		{
+			if( date_time_values->micro_seconds > 999 )
+			{
+				return( 0 );
+			}
+		}
+		if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS ) != 0 )
+		{
+			if( date_time_values->nano_seconds > 999 )
+			{
+				return( 0 );
+			}
+		}
 	}
 	/* End of string character
 	 */
@@ -277,7 +367,7 @@ int libfdatetime_date_time_values_get_string_size(
 
 /* Converts the date and time values into an UTF-8 string
  * The string size should include the end of string character
- * Returns 1 if successful, 0 if the date and time values are not a valid or -1 on error
+ * Returns 1 if successful, 0 if the date and time values are not valid or -1 on error
  */
 int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
      libfdatetime_date_time_values_t *date_time_values,
@@ -782,7 +872,7 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 
 /* Converts the date and time values into an UTF-16 string
  * The string size should include the end of string character
- * Returns 1 if successful, 0 if the date and time values are not a valid or -1 on error
+ * Returns 1 if successful, 0 if the date and time values are not valid or -1 on error
  */
 int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
      libfdatetime_date_time_values_t *date_time_values,
@@ -1287,7 +1377,7 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 
 /* Converts the date and time values into an UTF-32 string
  * The string size should include the end of string character
- * Returns 1 if successful, 0 if the date and time values are not a valid or -1 on error
+ * Returns 1 if successful, 0 if the date and time values are not valid or -1 on error
  */
 int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
      libfdatetime_date_time_values_t *date_time_values,
