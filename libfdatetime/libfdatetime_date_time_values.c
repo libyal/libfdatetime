@@ -614,6 +614,17 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 
 				return( -1 );
 			}
+			if( month_string == NULL )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
+				 "%s: missing month string.",
+				 function );
+
+				return( -1 );
+			}
 			/* Format: mmm dd, yyyy */
 			utf8_string[ string_index++ ] = (uint8_t) month_string[ 0 ];
 			utf8_string[ string_index++ ] = (uint8_t) month_string[ 1 ];
@@ -756,7 +767,6 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			milli_seconds                  /= 10;
 
 			utf8_string[ string_index ] = (uint8_t) '0' + (uint8_t) ( milli_seconds % 10 );
-			milli_seconds              /= 10;
 
 			string_index += 3;
 		}
@@ -784,7 +794,6 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			micro_seconds                  /= 10;
 
 			utf8_string[ string_index ] = (uint8_t) '0' + (uint8_t) ( micro_seconds % 10 );
-			micro_seconds              /= 10;
 
 			string_index += 3;
 		}
@@ -811,7 +820,6 @@ int libfdatetime_date_time_values_copy_to_utf8_string_with_index(
 			nano_seconds                   /= 10;
 
 			utf8_string[ string_index ] = (uint8_t) '0' + (uint8_t) ( nano_seconds % 10 );
-			nano_seconds               /= 10;
 
 			string_index += 3;
 		}
@@ -1119,6 +1127,17 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 
 				return( -1 );
 			}
+			if( month_string == NULL )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
+				 "%s: missing month string.",
+				 function );
+
+				return( -1 );
+			}
 			/* Format: mmm dd, yyyy */
 			utf16_string[ string_index++ ] = (uint16_t) month_string[ 0 ];
 			utf16_string[ string_index++ ] = (uint16_t) month_string[ 1 ];
@@ -1261,7 +1280,6 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 			milli_seconds                   /= 10;
 
 			utf16_string[ string_index ] = (uint16_t) '0' + (uint16_t) ( milli_seconds % 10 );
-			milli_seconds               /= 10;
 
 			string_index += 3;
 		}
@@ -1289,7 +1307,6 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 			micro_seconds                   /= 10;
 
 			utf16_string[ string_index ] = (uint16_t) '0' + (uint16_t) ( micro_seconds % 10 );
-			micro_seconds               /= 10;
 
 			string_index += 3;
 		}
@@ -1316,7 +1333,6 @@ int libfdatetime_date_time_values_copy_to_utf16_string_with_index(
 			nano_seconds                    /= 10;
 
 			utf16_string[ string_index ] = (uint16_t) '0' + (uint16_t) ( nano_seconds % 10 );
-			nano_seconds                /= 10;
 
 			string_index += 3;
 		}
@@ -1627,6 +1643,17 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 
 				return( -1 );
 			}
+			if( month_string == NULL )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_VALUE_MISSING,
+				 "%s: missing month string.",
+				 function );
+
+				return( -1 );
+			}
 			/* Format: mmm dd, yyyy */
 			utf32_string[ string_index++ ] = (uint32_t) month_string[ 0 ];
 			utf32_string[ string_index++ ] = (uint32_t) month_string[ 1 ];
@@ -1769,7 +1796,6 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			milli_seconds                   /= 10;
 
 			utf32_string[ string_index ] = (uint32_t) '0' + (uint32_t) ( milli_seconds % 10 );
-			milli_seconds               /= 10;
 
 			string_index += 3;
 		}
@@ -1797,7 +1823,6 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			micro_seconds                   /= 10;
 
 			utf32_string[ string_index ] = (uint32_t) '0' + (uint32_t) ( micro_seconds % 10 );
-			micro_seconds               /= 10;
 
 			string_index += 3;
 		}
@@ -1824,7 +1849,6 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			nano_seconds                    /= 10;
 
 			utf32_string[ string_index ] = (uint32_t) '0' + (uint32_t) ( nano_seconds % 10 );
-			nano_seconds                /= 10;
 
 			string_index += 3;
 		}

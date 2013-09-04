@@ -444,7 +444,6 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 	 */
 	floatingtimestamp             *= 1000;
 	date_time_values->nano_seconds = (uint8_t) floatingtimestamp;
-	floatingtimestamp             -= date_time_values->nano_seconds;
 
 	return( 1 );
 }
