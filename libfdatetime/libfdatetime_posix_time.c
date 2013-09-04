@@ -509,8 +509,6 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		if( is_signed == 0 )
 		{
 			date_time_values->micro_seconds = posix_timestamp % 1000;
-
-			date_time_values->micro_seconds = posix_timestamp % 1000;
 		}
 		else
 		{
@@ -520,8 +518,6 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 
 		if( is_signed == 0 )
 		{
-			date_time_values->milli_seconds = posix_timestamp % 1000;
-
 			date_time_values->milli_seconds = posix_timestamp % 1000;
 		}
 		else
