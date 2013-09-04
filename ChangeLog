@@ -22,6 +22,10 @@ HFS date/time
 Deployment
 * add macosx files
 
+20130904
+* code clean up
+* worked on tests
+
 20130413
 * updated dependencies
 * textual changes

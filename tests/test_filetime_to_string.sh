@@ -26,11 +26,16 @@ EXIT_IGNORE=77;
 
 test_filetime_to_string()
 { 
+	rm -rf tmp;
+	mkdir tmp;
+
 	echo "Testing filetime to string function";
 
-	./${FDATETIME_TEST_FILETIME_TO_STRING};
+	${TEST_RUNNER} ./${FDATETIME_TEST_FILETIME_TO_STRING};
 
 	RESULT=$?;
+
+	rm -rf tmp;
 
 	echo "";
 
@@ -47,6 +52,20 @@ fi
 if ! test -x ${FDATETIME_TEST_FILETIME_TO_STRING};
 then
 	echo "Missing executable: ${FDATETIME_TEST_FILETIME_TO_STRING}";
+
+	exit ${EXIT_FAILURE};
+fi
+
+TEST_RUNNER="tests/test_runner.sh";
+
+if ! test -x ${TEST_RUNNER};
+then
+	TEST_RUNNER="./test_runner.sh";
+fi
+
+if ! test -x ${TEST_RUNNER};
+then
+	echo "Missing test runner: ${TEST_RUNNER}";
 
 	exit ${EXIT_FAILURE};
 fi

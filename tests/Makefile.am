@@ -29,6 +29,7 @@ check_SCRIPTS = \
 	test_nsf_timedate_to_string.sh \
 	test_posix_time_copy_from.sh \
 	test_posix_time_to_string.sh \
+	test_runner.sh \
 	test_systemtime_copy_from.sh \
 	test_systemtime_to_string.sh
 
