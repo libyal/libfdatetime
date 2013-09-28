@@ -358,6 +358,71 @@ int libfdatetime_posix_time_copy_from_32bit(
 	return( 1 );
 }
 
+/* Converts a POSIX time into a 32-bit value
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_posix_time_copy_to_32bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint32_t *value_32bit,
+     uint8_t *value_type,
+     libcerror_error_t **error )
+{
+	libfdatetime_internal_posix_time_t *internal_posix_time = NULL;
+	static char *function                                   = "libfdatetime_posix_time_copy_to_32bit";
+
+	if( posix_time == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid POSIX time.",
+		 function );
+
+		return( -1 );
+	}
+	internal_posix_time = (libfdatetime_internal_posix_time_t *) posix_time;
+
+	if( ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid POSIX time - unsupported value type.",
+		 function );
+
+		return( -1 );
+	}
+	if( value_32bit == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid 32-bit value.",
+		 function );
+
+		return( -1 );
+	}
+	if( value_type == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid value type.",
+		 function );
+
+		return( -1 );
+	}
+	*value_32bit = (uint32_t) internal_posix_time->timestamp;
+	*value_type  = internal_posix_time->value_type;
+
+	return( 1 );
+}
+
 /* Converts a 64-bit value into a POSIX time
  * Returns 1 if successful or -1 on error
  */
@@ -414,6 +479,73 @@ int libfdatetime_posix_time_copy_from_64bit(
 	}
 	internal_posix_time->timestamp  = value_64bit;
 	internal_posix_time->value_type = value_type;
+
+	return( 1 );
+}
+
+/* Converts a POSIX time into a 64-bit value
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_posix_time_copy_to_64bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint64_t *value_64bit,
+     uint8_t *value_type,
+     libcerror_error_t **error )
+{
+	libfdatetime_internal_posix_time_t *internal_posix_time = NULL;
+	static char *function                                   = "libfdatetime_posix_time_copy_to_64bit";
+
+	if( posix_time == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid POSIX time.",
+		 function );
+
+		return( -1 );
+	}
+	internal_posix_time = (libfdatetime_internal_posix_time_t *) posix_time;
+
+	if( ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid POSIX time - unsupported value type.",
+		 function );
+
+		return( -1 );
+	}
+	if( value_64bit == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid 64-bit value.",
+		 function );
+
+		return( -1 );
+	}
+	if( value_type == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid value type.",
+		 function );
+
+		return( -1 );
+	}
+	*value_64bit = internal_posix_time->timestamp;
+	*value_type  = internal_posix_time->value_type;
 
 	return( 1 );
 }

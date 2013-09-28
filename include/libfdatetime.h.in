@@ -131,6 +131,15 @@ int libfdatetime_fat_date_time_copy_from_32bit(
      uint32_t value_32bit,
      libfdatetime_error_t **error );
 
+/* Converts a FAT date and time into a 32-bit value
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_fat_date_time_copy_to_32bit(
+     libfdatetime_fat_date_time_t *fat_date_time,
+     uint32_t *value_32bit,
+     libfdatetime_error_t **error );
+
 /* Deterimes the size of the string for the fat date time
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
@@ -267,6 +276,15 @@ int libfdatetime_filetime_copy_from_64bit(
      uint64_t value_64bit,
      libfdatetime_error_t **error );
 
+/* Converts a filetime into a 64-bit value
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_filetime_copy_to_64bit(
+     libfdatetime_filetime_t *filetime,
+     uint64_t *value_64bit,
+     libfdatetime_error_t **error );
+
 /* Deterimes the size of the string for the filetime
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
@@ -398,6 +416,15 @@ LIBFDATETIME_EXTERN \
 int libfdatetime_floatingtime_copy_from_64bit(
      libfdatetime_floatingtime_t *floatingtime,
      uint64_t value_64bit,
+     libfdatetime_error_t **error );
+
+/* Converts a floatingtime into a 64-bit value
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_floatingtime_copy_to_64bit(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint64_t *value_64bit,
      libfdatetime_error_t **error );
 
 /* Deterimes the size of the string for the floatingtime
@@ -533,6 +560,15 @@ int libfdatetime_nsf_timedate_copy_from_64bit(
      uint64_t value_64bit,
      libfdatetime_error_t **error );
 
+/* Converts a NSF timedate into a 64-bit value
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_nsf_timedate_copy_to_64bit(
+     libfdatetime_nsf_timedate_t *nsf_timedate,
+     uint64_t *value_64bit,
+     libfdatetime_error_t **error );
+
 /* Deterimes the size of the string for the NSF timedate
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
@@ -662,6 +698,16 @@ int libfdatetime_posix_time_copy_from_32bit(
      uint8_t value_type,
      libfdatetime_error_t **error );
 
+/* Converts a POSIX time into a 32-bit value
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_to_32bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint32_t *value_32bit,
+     uint8_t *value_type,
+     libfdatetime_error_t **error );
+
 /* Converts a 64-bit value into a POSIX time
  * Returns 1 if successful or -1 on error
  */
@@ -670,6 +716,16 @@ int libfdatetime_posix_time_copy_from_64bit(
      libfdatetime_posix_time_t *posix_time,
      uint64_t value_64bit,
      uint8_t value_type,
+     libfdatetime_error_t **error );
+
+/* Converts a POSIX time into a 64-bit value
+ * Returns 1 if successful or -1 on error
+ */
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_to_64bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint64_t *value_64bit,
+     uint8_t *value_type,
      libfdatetime_error_t **error );
 
 /* Deterimes the size of the string for the POSIX time

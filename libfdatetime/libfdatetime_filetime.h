@@ -79,6 +79,12 @@ int libfdatetime_filetime_copy_from_64bit(
      uint64_t value_64bit,
      libcerror_error_t **error );
 
+LIBFDATETIME_EXTERN \
+int libfdatetime_filetime_copy_to_64bit(
+     libfdatetime_filetime_t *filetime,
+     uint64_t *value_64bit,
+     libcerror_error_t **error );
+
 int libfdatetime_filetime_copy_to_date_time_values(
      libfdatetime_internal_filetime_t *internal_filetime,
      libfdatetime_date_time_values_t *date_time_values,

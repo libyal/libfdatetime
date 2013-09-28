@@ -251,6 +251,46 @@ int libfdatetime_floatingtime_copy_from_64bit(
 	return( 1 );
 }
 
+/* Converts a floatingtime into a 64-bit value
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_floatingtime_copy_to_64bit(
+     libfdatetime_floatingtime_t *floatingtime,
+     uint64_t *value_64bit,
+     libcerror_error_t **error )
+{
+	libfdatetime_internal_floatingtime_t *internal_floatingtime = NULL;
+	static char *function                                       = "libfdatetime_floatingtime_copy_from_64bit";
+
+	if( floatingtime == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid floatingtime.",
+		 function );
+
+		return( -1 );
+	}
+	internal_floatingtime = (libfdatetime_internal_floatingtime_t *) floatingtime;
+
+	if( value_64bit == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid 64-bit value.",
+		 function );
+
+		return( -1 );
+	}
+	*value_64bit = internal_floatingtime->timestamp.integer;
+
+	return( 1 );
+}
+
 /* Converts a floatingtime into date time values
  * Returns 1 if successful or -1 on error
  */

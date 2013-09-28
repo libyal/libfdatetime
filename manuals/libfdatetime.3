@@ -1,4 +1,4 @@
-.Dd February 24, 2013
+.Dd September 28, 2013
 .Dt libfdatetime 3
 .Os libfdatetime
 .Sh NAME
@@ -33,7 +33,9 @@ FAT date and time functions
 .Ft int
 .Fn libfdatetime_fat_date_time_copy_from_byte_stream "libfdatetime_fat_date_time_t *fat_date_time, uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_from_uint32 "libfdatetime_fat_date_time_t *fat_date_time, uint32_t value_32bit, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_from_32bit "libfdatetime_fat_date_time_t *fat_date_time, uint32_t value_32bit, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_fat_date_time_copy_to_32bit "libfdatetime_fat_date_time_t *fat_date_time, uint32_t *value_32bit, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_fat_date_time_get_string_size "libfdatetime_fat_date_time_t *fat_date_time, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
 .Ft int
@@ -61,6 +63,8 @@ Filetime functions
 .Ft int
 .Fn libfdatetime_filetime_copy_from_64bit "libfdatetime_filetime_t *filetime, uint64_t value_64bit, libfdatetime_error_t **error"
 .Ft int
+.Fn libfdatetime_filetime_copy_to_64bit "libfdatetime_filetime_t *filetime, uint64_t *value_64bit, libfdatetime_error_t **error"
+.Ft int
 .Fn libfdatetime_filetime_get_string_size "libfdatetime_filetime_t *filetime, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_filetime_copy_to_utf8_string "libfdatetime_filetime_t *filetime, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
@@ -84,6 +88,8 @@ Floatingtime functions
 .Fn libfdatetime_floatingtime_copy_from_byte_stream "libfdatetime_floatingtime_t *floatingtime, uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_floatingtime_copy_from_64bit "libfdatetime_floatingtime_t *floatingtime, uint64_t value_64bit, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_floatingtime_copy_to_64bit "libfdatetime_floatingtime_t *floatingtime, uint64_t *value_64bit, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_floatingtime_get_string_size "libfdatetime_floatingtime_t *floatingtime, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
 .Ft int
@@ -109,6 +115,8 @@ NSF timedate functions
 .Ft int
 .Fn libfdatetime_nsf_timedate_copy_from_64bit "libfdatetime_nsf_timedate_t *nsf_timedate, uint64_t value_64bit, libfdatetime_error_t **error"
 .Ft int
+.Fn libfdatetime_nsf_timedate_copy_to_64bit "libfdatetime_nsf_timedate_t *nsf_timedate, uint64_t *value_64bit, libfdatetime_error_t **error"
+.Ft int
 .Fn libfdatetime_nsf_timedate_get_string_size "libfdatetime_nsf_timedate_t *nsf_timedate, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_nsf_timedate_copy_to_utf8_string "libfdatetime_nsf_timedate_t *nsf_timedate, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
@@ -133,7 +141,11 @@ POSIX time functions
 .Ft int
 .Fn libfdatetime_posix_time_copy_from_32bit "libfdatetime_posix_time_t *posix_time, uint32_t value_32bit, uint8_t value_type, libfdatetime_error_t **error"
 .Ft int
+.Fn libfdatetime_posix_time_copy_to_32bit "libfdatetime_posix_time_t *posix_time, uint32_t *value_32bit, uint8_t *value_type, libfdatetime_error_t **error"
+.Ft int
 .Fn libfdatetime_posix_time_copy_from_64bit "libfdatetime_posix_time_t *posix_time, uint64_t value_64bit, uint8_t value_type, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_posix_time_copy_to_64bit "libfdatetime_posix_time_t *posix_time, uint64_t *value_64bit, uint8_t *value_type, libfdatetime_error_t **error"
 .Ft int
 .Fn libfdatetime_posix_time_get_string_size "libfdatetime_posix_time_t *posix_time, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
 .Ft int

@@ -308,6 +308,48 @@ int libfdatetime_filetime_copy_from_64bit(
 	return( 1 );
 }
 
+/* Converts a filetime into a 64-bit value
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_filetime_copy_to_64bit(
+     libfdatetime_filetime_t *filetime,
+     uint64_t *value_64bit,
+     libcerror_error_t **error )
+{
+	libfdatetime_internal_filetime_t *internal_filetime = NULL;
+	static char *function                               = "libfdatetime_filetime_copy_to_64bit";
+
+	if( filetime == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid filetime.",
+		 function );
+
+		return( -1 );
+	}
+	internal_filetime = (libfdatetime_internal_filetime_t *) filetime;
+
+	if( value_64bit == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid 64-bit value.",
+		 function );
+
+		return( -1 );
+	}
+	*value_64bit   = internal_filetime->upper;
+	*value_64bit <<= 32;
+	*value_64bit  |= internal_filetime->lower;
+
+	return( 1 );
+}
+
 /* Converts a filetime into date time values
  * Returns 1 if successful or -1 on error
  */

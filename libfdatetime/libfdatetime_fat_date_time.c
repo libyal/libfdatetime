@@ -264,6 +264,48 @@ int libfdatetime_fat_date_time_copy_from_32bit(
 	return( 1 );
 }
 
+/* Converts a FAT date and time into a 32-bit value
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_fat_date_time_copy_to_32bit(
+     libfdatetime_fat_date_time_t *fat_date_time,
+     uint32_t *value_32bit,
+     libcerror_error_t **error )
+{
+	libfdatetime_internal_fat_date_time_t *internal_fat_date_time = NULL;
+	static char *function                                         = "libfdatetime_fat_date_time_copy_to_32bit";
+
+	if( fat_date_time == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid FAT date time.",
+		 function );
+
+		return( -1 );
+	}
+	internal_fat_date_time = (libfdatetime_internal_fat_date_time_t *) fat_date_time;
+
+	if( value_32bit == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid 32-bit value.",
+		 function );
+
+		return( -1 );
+	}
+	*value_32bit   = internal_fat_date_time->time;
+	*value_32bit <<= 16;
+	*value_32bit  |= internal_fat_date_time->date;
+
+	return( 1 );
+}
+
 /* Converts a FAT date and time into date time values
  * Returns 1 if successful or -1 on error
  */

@@ -79,6 +79,12 @@ int libfdatetime_nsf_timedate_copy_from_64bit(
      uint64_t value_64bit,
      libcerror_error_t **error );
 
+LIBFDATETIME_EXTERN \
+int libfdatetime_nsf_timedate_copy_to_64bit(
+     libfdatetime_nsf_timedate_t *nsf_timedate,
+     uint64_t *value_64bit,
+     libcerror_error_t **error );
+
 int libfdatetime_nsf_timedate_copy_to_date_time_values(
      libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate,
      libfdatetime_date_time_values_t *date_time_values,

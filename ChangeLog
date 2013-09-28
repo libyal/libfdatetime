@@ -1,4 +1,6 @@
 TODO
+* add functions similar to:
+  - libfvalue_integer_copy_from_integer and libfvalue_integer_copy_to_integer
 * change function comment for UTF size and copy functions
   see libfvalue
 * formatting support
@@ -7,6 +9,7 @@ TODO
 * add tests
   - test to string format flags
   - test filetime add function
+  - test copy to int functions
 * add a more sophisticated day of the month check in date time values
 * have API functions return 0 if value is not a valid date and time ?
 
@@ -21,6 +24,10 @@ HFS date/time
 
 Deployment
 * add macosx files
+
+20130928
+* updated dependencies
+* added copy to int functions
 
 20130904
 * code clean up

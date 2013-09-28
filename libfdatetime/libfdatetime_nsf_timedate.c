@@ -264,6 +264,48 @@ int libfdatetime_nsf_timedate_copy_from_64bit(
 	return( 1 );
 }
 
+/* Converts a NSF timedate into a 64-bit value
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_nsf_timedate_copy_to_64bit(
+     libfdatetime_nsf_timedate_t *nsf_timedate,
+     uint64_t *value_64bit,
+     libcerror_error_t **error )
+{
+	libfdatetime_internal_nsf_timedate_t *internal_nsf_timedate = NULL;
+	static char *function                                       = "libfdatetime_nsf_timedate_copy_to_64bit";
+
+	if( nsf_timedate == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid NSF timedate.",
+		 function );
+
+		return( -1 );
+	}
+	internal_nsf_timedate = (libfdatetime_internal_nsf_timedate_t *) nsf_timedate;
+
+	if( value_64bit == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid 64-bit value.",
+		 function );
+
+		return( -1 );
+	}
+	*value_64bit   = internal_nsf_timedate->upper;
+	*value_64bit <<= 32;
+	*value_64bit  |= internal_nsf_timedate->lower;
+
+	return( 1 );
+}
+
 /* Converts a NSF timedate into date time values
  * Returns 1 if successful or -1 on error
  */

@@ -74,6 +74,12 @@ int libfdatetime_fat_date_time_copy_from_32bit(
      uint32_t value_32bit,
      libcerror_error_t **error );
 
+LIBFDATETIME_EXTERN \
+int libfdatetime_fat_date_time_copy_to_32bit(
+     libfdatetime_fat_date_time_t *fat_date_time,
+     uint32_t *value_32bit,
+     libcerror_error_t **error );
+
 int libfdatetime_fat_dat_time_copy_to_date_time_values(
      libfdatetime_internal_fat_date_time_t *internal_fat_date_time,
      libfdatetime_date_time_values_t *date_time_values,

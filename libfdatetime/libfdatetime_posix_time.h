@@ -77,10 +77,24 @@ int libfdatetime_posix_time_copy_from_32bit(
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_to_32bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint32_t *value_32bit,
+     uint8_t *value_type,
+     libcerror_error_t **error );
+
+LIBFDATETIME_EXTERN \
 int libfdatetime_posix_time_copy_from_64bit(
      libfdatetime_posix_time_t *posix_time,
      uint64_t value_64bit,
      uint8_t value_type,
+     libcerror_error_t **error );
+
+LIBFDATETIME_EXTERN \
+int libfdatetime_posix_time_copy_to_64bit(
+     libfdatetime_posix_time_t *posix_time,
+     uint64_t *value_64bit,
+     uint8_t *value_type,
      libcerror_error_t **error );
 
 int libfdatetime_posix_time_copy_to_date_time_values(
