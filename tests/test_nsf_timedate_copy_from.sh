@@ -2,7 +2,7 @@
 #
 # Date and time library NSF timedate copy from testing script
 #
-# Copyright (c) 2009-2013, Joachim Metz <joachim.metz@gmail.com>
+# Copyright (c) 2009-2014, Joachim Metz <joachim.metz@gmail.com>
 #
 # Refer to AUTHORS for acknowledgements.
 #

@@ -1,7 +1,7 @@
 /*
  * Library to support various date and time formats that are used in file formats
  *
- * Copyright (c) 2009-2013, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (c) 2009-2014, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
