@@ -322,7 +322,7 @@ int libfdatetime_fat_date_time_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid internal FAT date time.",
+		 "%s: invalid FAT date time.",
 		 function );
 
 		return( -1 );

@@ -370,7 +370,7 @@ int libfdatetime_filetime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid internal filetime.",
+		 "%s: invalid filetime.",
 		 function );
 
 		return( -1 );

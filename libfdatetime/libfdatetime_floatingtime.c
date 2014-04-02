@@ -311,7 +311,7 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid internal floatingtime.",
+		 "%s: invalid floatingtime.",
 		 function );
 
 		return( -1 );

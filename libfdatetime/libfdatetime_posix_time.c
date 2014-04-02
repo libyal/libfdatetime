@@ -570,7 +570,7 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid internal POSIX time.",
+		 "%s: invalid POSIX time.",
 		 function );
 
 		return( -1 );
@@ -586,7 +586,7 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
-		 "%s: invalid internal POSIX time - unsupported value type.",
+		 "%s: invalid POSIX time - unsupported value type.",
 		 function );
 
 		return( -1 );

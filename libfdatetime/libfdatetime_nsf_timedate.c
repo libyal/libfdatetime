@@ -330,7 +330,7 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid internal NSF timedate.",
+		 "%s: invalid NSF timedate.",
 		 function );
 
 		return( -1 );

@@ -323,7 +323,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid internal systemtime.",
+		 "%s: invalid systemtime.",
 		 function );
 
 		return( -1 );
