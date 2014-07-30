@@ -1,7 +1,19 @@
 MSVSCPP_FILES = \
+	fdatetime_test_fat_date_time_copy_from/fdatetime_test_fat_date_time_copy_from.vcproj \
+	fdatetime_test_fat_date_time_to_string/fdatetime_test_fat_date_time_to_string.vcproj \
+	fdatetime_test_filetime_copy_from/fdatetime_test_filetime_copy_from.vcproj \
+	fdatetime_test_filetime_to_string/fdatetime_test_filetime_to_string.vcproj \
+	fdatetime_test_floatingtime_copy_from/fdatetime_test_floatingtime_copy_from.vcproj \
+	fdatetime_test_floatingtime_to_string/fdatetime_test_floatingtime_to_string.vcproj \
+	fdatetime_test_nsf_timedate_copy_from/fdatetime_test_nsf_timedate_copy_from.vcproj \
+	fdatetime_test_nsf_timedate_to_string/fdatetime_test_nsf_timedate_to_string.vcproj \
+	fdatetime_test_posix_time_copy_from/fdatetime_test_posix_time_copy_from.vcproj \
+	fdatetime_test_posix_time_to_string/fdatetime_test_posix_time_to_string.vcproj \
+	fdatetime_test_systemtime_copy_from/fdatetime_test_systemtime_copy_from.vcproj \
+	fdatetime_test_systemtime_to_string/fdatetime_test_systemtime_to_string.vcproj \
 	libcerror/libcerror.vcproj \
 	libcstring/libcstring.vcproj \
-	libfdatetime_dll/libfdatetime_dll.vcproj \
+	libfdatetime/libfdatetime.vcproj \
 	libfdatetime.sln
 
 SCRIPT_FILES = \
