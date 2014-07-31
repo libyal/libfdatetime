@@ -10,8 +10,16 @@ Package: libfdatetime
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: libfdatetime-dbg
 Description: Library to support various date and time formats that are used in file formats
  libfdatetime is a library to support various date and time formats that are used in file formats.
+
+Package: libfdatetime-dbg
+Architecture: any
+Section: debug
+Depends: libfdatetime (= ${Source-Version}), ${misc:Depends}
+Description: Debugging symbols for libfdatetime
+ Debugging symbols for libfdatetime.
 
 Package: libfdatetime-dev
 Section: libdevel

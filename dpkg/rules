@@ -7,65 +7,84 @@
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
-
 %:
 	dh  $@
 
-install_libfdatetime:
-	# Set up libfdatetime package directories and files
-	mkdir -p debian/libfdatetime/usr/lib
-	install -p -m755 debian/tmp/usr/lib/lib*.so.*.*.* debian/libfdatetime/usr/lib
+.PHONY: override_dh_auto_configure
+override_dh_auto_configure:
+	dh_auto_configure -- CFLAGS="-g"
 
-install_libfdatetime_dev:
-	# Set up libfdatetime-dev package directories and files
-	mkdir -p debian/libfdatetime-dev/usr/include
-	mkdir -p debian/libfdatetime-dev/usr/include/libfdatetime
-	mkdir -p debian/libfdatetime-dev/usr/lib
-	mkdir -p debian/libfdatetime-dev/usr/lib/pkgconfig
-	mkdir -p debian/libfdatetime-dev/usr/share/man/man3
-	install -p -m755 debian/tmp/usr/include/*.h debian/libfdatetime-dev/usr/include
-	install -p -m755 debian/tmp/usr/include/libfdatetime/*.h debian/libfdatetime-dev/usr/include/libfdatetime
-	install -p -m755 debian/tmp/usr/lib/*.la debian/libfdatetime-dev/usr/lib
-	install -p -m755 debian/tmp/usr/lib/lib*.a debian/libfdatetime-dev/usr/lib
-	install -p -m755 debian/tmp/usr/lib/lib*.so debian/libfdatetime-dev/usr/lib
-	install -p -m755 debian/tmp/usr/lib/pkgconfig/* debian/libfdatetime-dev/usr/lib/pkgconfig
-	install -p -m755 debian/tmp/usr/share/man/man3/* debian/libfdatetime-dev/usr/share/man/man3
-
+.PHONY: override_dh_auto_test
 override_dh_auto_test:
 
-override_dh_installinit: install_libfdatetime install_libfdatetime_dev
+.PHONY: override_dh_install
+override_dh_install:
+	# Create the libfdatetime package.
+	dh_install "debian/tmp/usr/lib/lib*.so.*.*.*" -p libfdatetime
+	# Create the libfdatetime-dev package.
+	dh_install "debian/tmp/usr/include/*.h" -p libfdatetime-dev
+	dh_install "debian/tmp/usr/include/lib*/*.h" -p libfdatetime-dev
+	dh_install "debian/tmp/usr/lib/*.a" -p libfdatetime-dev
+	dh_install "debian/tmp/usr/lib/*.la" -p libfdatetime-dev
+	dh_install "debian/tmp/usr/lib/*.so" -p libfdatetime-dev
+	dh_install "debian/tmp/usr/lib/pkgconfig/*" -p libfdatetime-dev
+	dh_install "debian/tmp/usr/share/man/man3/*" -p libfdatetime-dev
+	# The libfdatetime-dbg package is created by dh_strip.
+	dh_install
 
+.PHONY: override_dh_installmenu
 override_dh_installmenu:
 
+.PHONY: override_dh_installmime
 override_dh_installmime:
 
+.PHONY: override_dh_installmodules
 override_dh_installmodules:
 
+.PHONY: override_dh_installlogcheck
 override_dh_installlogcheck:
 
+.PHONY: override_dh_installlogrotate
 override_dh_installlogrotate:
 
+.PHONY: override_dh_installpam
 override_dh_installpam:
 
+.PHONY: override_dh_installppp
 override_dh_installppp:
 
+.PHONY: override_dh_installudev
 override_dh_installudev:
 
+.PHONY: override_dh_installwm
 override_dh_installwm:
 
+.PHONY: override_dh_installxfonts
 override_dh_installxfonts:
 
+.PHONY: override_dh_gconf
 override_dh_gconf:
 
+.PHONY: override_dh_icons
 override_dh_icons:
 
+.PHONY: override_dh_perl
 override_dh_perl:
 
+.PHONY: override_dh_pysupport
 override_dh_pysupport:
 
+.PHONY: override_dh_strip
+override_dh_strip:
+ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
+	dh_strip -plibfdatetime --dbg-package=libfdatetime-dbg
+endif
+
+.PHONY: override_dh_shlibdeps
 override_dh_shlibdeps:
 	dh_shlibdeps -Llibfdatetime -l${PWD}/debian/tmp/usr/lib
 
+.PHONY: override_dh_makeshlibs
 override_dh_makeshlibs:
 	dh_makeshlibs -Xlibfdatetime-dev
 
