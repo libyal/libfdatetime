@@ -22,6 +22,9 @@ FAT date and time
 HFS date/time
 * implement
 
+20141018
+* changes for deployment
+
 20141014
 * added tar-ustar to configure.ac to fix make dist of long filenames
 
