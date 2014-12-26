@@ -259,7 +259,7 @@ int libfdatetime_nsf_timedate_copy_from_64bit(
 	internal_nsf_timedate = (libfdatetime_internal_nsf_timedate_t *) nsf_timedate;
 
 	internal_nsf_timedate->upper = value_64bit >> 32;
-	internal_nsf_timedate->lower = value_64bit & 0x0ffffffffULL;
+	internal_nsf_timedate->lower = value_64bit & 0xffffffffUL;
 
 	return( 1 );
 }

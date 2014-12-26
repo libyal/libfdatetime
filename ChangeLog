@@ -22,6 +22,9 @@ FAT date and time
 HFS date/time
 * implement
 
+20141226
+* changes for Borland C compiler
+
 20141018
 * changes for deployment
 

@@ -303,7 +303,7 @@ int libfdatetime_filetime_copy_from_64bit(
 	internal_filetime = (libfdatetime_internal_filetime_t *) filetime;
 
 	internal_filetime->upper = value_64bit >> 32;
-	internal_filetime->lower = value_64bit & 0x0ffffffffLL;
+	internal_filetime->lower = value_64bit & 0xffffffffUL;
 
 	return( 1 );
 }

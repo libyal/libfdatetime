@@ -270,8 +270,13 @@ int libfdatetime_posix_time_copy_from_byte_stream(
 		}
 		is_signed = (uint8_t) ( value_64bit >> 63 );
 
+#if defined( __BORLANDC__ )
+		if( ( is_signed != 0 )
+		 && ( ( value_64bit & 0x7fffffffffffffffUL ) == 0 ) )
+#else
 		if( ( is_signed != 0 )
 		 && ( ( value_64bit & 0x7fffffffffffffffULL ) == 0 ) )
+#endif
 		{
 			libcerror_error_set(
 			 error,
@@ -465,8 +470,13 @@ int libfdatetime_posix_time_copy_from_64bit(
 	}
 	is_signed = (uint8_t) ( value_64bit >> 63 );
 
+#if defined( __BORLANDC__ )
+	if( ( is_signed != 0 )
+	 && ( ( value_64bit & 0x7fffffffffffffffUL ) == 0 ) )
+#else
 	if( ( is_signed != 0 )
 	 && ( ( value_64bit & 0x7fffffffffffffffULL ) == 0 ) )
+#endif
 	{
 		libcerror_error_set(
 		 error,
@@ -618,7 +628,11 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 	{
 		is_signed = (uint8_t) ( posix_timestamp >> 63 );
 
+#if defined( __BORLANDC__ )
+		posix_timestamp &= 0x7fffffffffffffffUL;
+#else
 		posix_timestamp &= 0x7fffffffffffffffULL;
+#endif
 	}
 	if( posix_timestamp == 0 )
 	{
