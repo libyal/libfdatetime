@@ -2,7 +2,7 @@
 #
 # Date and time library floatingtime to string testing script
 #
-# Copyright (c) 2009-2014, Joachim Metz <joachim.metz@gmail.com>
+# Copyright (C) 2009-2015, Joachim Metz <joachim.metz@gmail.com>
 #
 # Refer to AUTHORS for acknowledgements.
 #
