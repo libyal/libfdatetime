@@ -634,7 +634,8 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		posix_timestamp &= 0x7fffffffffffffffULL;
 #endif
 	}
-	if( posix_timestamp == 0 )
+	if( ( is_signed != 0 )
+	 && ( posix_timestamp == 0 ) )
 	{
 		libcerror_error_set(
 		 error,
