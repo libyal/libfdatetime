@@ -1,6 +1,6 @@
 # Files to ignore by git
 #
-# Version: 20141227
+# Version: 20150725
 
 # Generic auto-generated build files
 *~
@@ -33,6 +33,7 @@ stamp-h[1-9]
 /ABOUT-NLS
 /aclocal.m4
 /autom4te.cache/
+/build
 /compile
 /config.guess
 /config.log
@@ -41,6 +42,7 @@ stamp-h[1-9]
 /config.sub
 /configure
 /depcomp
+/dist
 /install-sh
 /libtool
 /ltmain.sh
@@ -122,7 +124,7 @@ stamp-h[1-9]
 /tests/fdatetime_test_posix_time_to_string
 /tests/fdatetime_test_systemtime_copy_from
 /tests/fdatetime_test_systemtime_to_string
-/tests/tmp
+/tests/tmp*
 
 # Local library dependencies specific files
 /libcerror
