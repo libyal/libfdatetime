@@ -22,6 +22,9 @@ FAT date and time
 HFS date/time
 * implement
 
+20160106
+* 2016 update
+
 20150507
 * fix in POSIX timestamp for missing sign check
 
