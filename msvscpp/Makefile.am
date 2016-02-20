@@ -5,6 +5,8 @@ MSVSCPP_FILES = \
 	fdatetime_test_filetime_to_string/fdatetime_test_filetime_to_string.vcproj \
 	fdatetime_test_floatingtime_copy_from/fdatetime_test_floatingtime_copy_from.vcproj \
 	fdatetime_test_floatingtime_to_string/fdatetime_test_floatingtime_to_string.vcproj \
+	fdatetime_test_hfs_time_copy_from/fdatetime_test_hfs_time_copy_from.vcproj \
+	fdatetime_test_hfs_time_to_string/fdatetime_test_hfs_time_to_string.vcproj \
 	fdatetime_test_nsf_timedate_copy_from/fdatetime_test_nsf_timedate_copy_from.vcproj \
 	fdatetime_test_nsf_timedate_to_string/fdatetime_test_nsf_timedate_to_string.vcproj \
 	fdatetime_test_posix_time_copy_from/fdatetime_test_posix_time_copy_from.vcproj \

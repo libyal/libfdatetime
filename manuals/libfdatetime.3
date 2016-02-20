@@ -1,4 +1,4 @@
-.Dd February 20, 2015
+.Dd February 20, 2016
 .Dt libfdatetime 3
 .Os libfdatetime
 .Sh NAME
@@ -51,7 +51,7 @@ FAT date and time functions
 .Ft int
 .Fn libfdatetime_fat_date_time_copy_to_utf32_string_with_index "libfdatetime_fat_date_time_t *fat_date_time, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
 .Pp
-Filetime functions
+FILETIME functions
 .Ft int
 .Fn libfdatetime_filetime_initialize "libfdatetime_filetime_t **filetime, libfdatetime_error_t **error"
 .Ft int
@@ -105,6 +105,32 @@ Floatingtime functions
 .Ft int
 .Fn libfdatetime_floatingtime_copy_to_utf32_string_with_index "libfdatetime_floatingtime_t *floatingtime, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
 .Pp
+HFS time functions
+.Ft int
+.Fn libfdatetime_hfs_time_initialize "libfdatetime_hfs_time_t **hfs_time, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_free "libfdatetime_hfs_time_t **hfs_time, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_copy_from_byte_stream "libfdatetime_hfs_time_t *hfs_time, const uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_copy_from_32bit "libfdatetime_hfs_time_t *hfs_time, uint32_t value_32bit, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_copy_to_32bit "libfdatetime_hfs_time_t *hfs_time, uint32_t *value_32bit, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_get_string_size "libfdatetime_hfs_time_t *hfs_time, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_copy_to_utf8_string "libfdatetime_hfs_time_t *hfs_time, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_copy_to_utf8_string_with_index "libfdatetime_hfs_time_t *hfs_time, uint8_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_copy_to_utf16_string "libfdatetime_hfs_time_t *hfs_time, uint16_t *utf16_string, size_t utf16_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_copy_to_utf16_string_with_index "libfdatetime_hfs_time_t *hfs_time, uint16_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_copy_to_utf32_string "libfdatetime_hfs_time_t *hfs_time, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Ft int
+.Fn libfdatetime_hfs_time_copy_to_utf32_string_with_index "libfdatetime_hfs_time_t *hfs_time, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Pp
 NSF timedate functions
 .Ft int
 .Fn libfdatetime_nsf_timedate_initialize "libfdatetime_nsf_timedate_t **nsf_timedate, libfdatetime_error_t **error"
@@ -131,7 +157,7 @@ NSF timedate functions
 .Ft int
 .Fn libfdatetime_nsf_timedate_copy_to_utf32_string_with_index "libfdatetime_nsf_timedate_t *nsf_timedate, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
 .Pp
-POSIX timestamp functions
+POSIX time functions
 .Ft int
 .Fn libfdatetime_posix_time_initialize "libfdatetime_posix_time_t **posix_time, libfdatetime_error_t **error"
 .Ft int
