@@ -338,17 +338,17 @@ int libfdatetime_hfs_time_copy_to_date_time_values(
 	/* There are 60 seconds in a minute correct the value to minutes
 	 */
 	date_time_values->seconds = hfs_timestamp % 60;
-	hfs_timestamp          /= 60;
+	hfs_timestamp            /= 60;
 
 	/* There are 60 minutes in an hour correct the value to hours
 	 */
 	date_time_values->minutes = hfs_timestamp % 60;
-	hfs_timestamp          /= 60;
+	hfs_timestamp            /= 60;
 
 	/* There are 24 hours in a day correct the value to days
 	 */
 	date_time_values->hours = hfs_timestamp % 24;
-	hfs_timestamp        /= 24;
+	hfs_timestamp          /= 24;
 
 	/* Determine the number of years starting at 'Jan 1, 1904 00:00:00'
 	 * correct the value to days within the year
