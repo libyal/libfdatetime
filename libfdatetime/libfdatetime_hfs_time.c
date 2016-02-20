@@ -359,11 +359,11 @@ int libfdatetime_hfs_time_copy_to_date_time_values(
 
 	date_time_values->year = 1904;
 
-	if( hfs_timestamp >= 10957 )
+	if( hfs_timestamp >= 35064 )
 	{
 		date_time_values->year = 2000;
 
-		hfs_timestamp -= 10957;
+		hfs_timestamp -= 35064;
 	}
 	while( hfs_timestamp > 0 )
 	{

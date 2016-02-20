@@ -147,7 +147,7 @@ int main( int argc, char * const argv[] )
 	     hfs_time,
 	     byte_stream,
 	     4,
-	     LIBFDATETIME_ENDIAN_LITTLE,
+	     LIBFDATETIME_ENDIAN_BIG,
 	     &error ) != 1 )
 	{
 		fprintf(
