@@ -5,6 +5,7 @@ Supported date and time types:
 * FAT date and time
 * FILETIME
 * Floatingtime
+* HFS time
 * NSF timedate
 * POSIX time
 * Systemtime
