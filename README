@@ -1,10 +1,21 @@
 libfdatetime is a library for date and time data types.
 
+Supported date and time types:
+
+* FAT date and time
+* FILETIME
+* Floatingtime
+* NSF timedate
+* POSIX time
+* Systemtime
+
 Project information:
+
 * Status: alpha
 * Licence: LGPLv3+
 
 For more information see:
+
 * Project documentation: https://github.com/libyal/libfdatetime/wiki/Home
 * How to build from source: https://github.com/libyal/libfdatetime/wiki/Building
 

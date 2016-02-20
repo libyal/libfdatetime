@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\libfdatetime\libfdatetime_hfs_time.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\libfdatetime\libfdatetime_nsf_timedate.c"
 				>
 			</File>
@@ -241,6 +245,10 @@
 			</File>
 			<File
 				RelativePath="..\..\libfdatetime\libfdatetime_floatingtime.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\libfdatetime\libfdatetime_hfs_time.h"
 				>
 			</File>
 			<File

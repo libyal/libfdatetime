@@ -708,12 +708,12 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 	{
 		date_time_values->hours = 24 - date_time_values->hours;
 	}
-	/* Determine the number of years starting at '1 Jan 1970 00:00:00'
+	/* Determine the number of years starting at 'Jan 1, 1970 00:00:00'
 	 * correct the value to days within the year
 	 */
 	if( is_signed == 0 )
 	{
-		/* Add 1 day to compensate that Jan 1 1970 is represented as 0
+		/* Add 1 day to compensate that Jan 1, 1970 is represented as 0
 		 */
 		posix_timestamp += 1;
 
@@ -728,7 +728,7 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 	}
 	else
 	{
-		/* Remove 1 day to compensate that Jan 1 1970 is represented as 0
+		/* Remove 1 day to compensate that Jan 1, 1970 is represented as 0
 		 */
 		posix_timestamp -= 1;
 
@@ -844,10 +844,10 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 	}
 	while( posix_timestamp > 0 );
 
-	date_time_values->day = (uint8_t) posix_timestamp;
-
 	/* Determine the day
 	 */
+	date_time_values->day = (uint8_t) posix_timestamp;
+
 	if( is_signed != 0 )
 	{
 		date_time_values->day = days_in_month - date_time_values->day;

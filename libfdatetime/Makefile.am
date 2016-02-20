@@ -15,6 +15,7 @@ libfdatetime_la_SOURCES = \
 	libfdatetime_fat_date_time.c libfdatetime_fat_date_time.h \
 	libfdatetime_filetime.c libfdatetime_filetime.h \
 	libfdatetime_floatingtime.c libfdatetime_floatingtime.h \
+	libfdatetime_hfs_time.c libfdatetime_hfs_time.h \
 	libfdatetime_libcerror.h \
 	libfdatetime_libcstring.h \
 	libfdatetime_nsf_timedate.c libfdatetime_nsf_timedate.h \

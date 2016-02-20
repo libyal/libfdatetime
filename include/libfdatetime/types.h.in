@@ -222,11 +222,15 @@ typedef intptr_t libfdatetime_filetime_t;
  */
 typedef intptr_t libfdatetime_floatingtime_t;
 
+/* 32-bit HFS time definition
+ */
+typedef intptr_t libfdatetime_hfs_time_t;
+
 /* 64-bit NSF timedate definition
  */
 typedef intptr_t libfdatetime_nsf_timedate_t;
 
-/* 32-bit POSIX time definition
+/* 32-bit or 64-bit POSIX time definition
  */
 typedef intptr_t libfdatetime_posix_time_t;
 
