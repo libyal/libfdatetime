@@ -53,9 +53,9 @@ typedef intptr_t libfdatetime_nsf_timedate_t;
 typedef intptr_t libfdatetime_posix_time_t;
 typedef intptr_t libfdatetime_systemtime_t;
 
-#endif
+#endif /* defined( HAVE_DEBUG_OUTPUT ) && !defined( WINAPI ) */
 
-#endif
+#endif /* defined( HAVE_LOCAL_LIBFDATETIME ) */
 
-#endif
+#endif /* !defined( _LIBFDATETIME_INTERNAL_TYPES_H ) */
 

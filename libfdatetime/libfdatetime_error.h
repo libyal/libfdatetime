@@ -23,9 +23,8 @@
 #define _LIBFDATETIME_INTERNAL_ERROR_H
 
 #include <common.h>
+#include <file_stream.h>
 #include <types.h>
-
-#include <stdio.h>
 
 #if !defined( HAVE_LOCAL_LIBFDATETIME )
 #include <libfdatetime/error.h>
@@ -65,11 +64,11 @@ int libfdatetime_error_backtrace_sprint(
      char *string,
      size_t size );
 
-#endif
+#endif /* !defined( HAVE_LOCAL_LIBFDATETIME ) */
 
 #if defined( __cplusplus )
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_INTERNAL_ERROR_H ) */
 
