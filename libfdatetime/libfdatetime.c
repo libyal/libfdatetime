@@ -1,5 +1,5 @@
 /*
- * Library to support various date and time formats that are used in file formats
+ * Library to support various file format date and time formats
  *
  * Copyright (C) 2009-2016, Joachim Metz <joachim.metz@gmail.com>
  *

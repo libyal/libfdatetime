@@ -1,12 +1,12 @@
 include_HEADERS = \
-        libfdatetime.h
+	libfdatetime.h
 
 pkginclude_HEADERS = \
-        libfdatetime/definitions.h \
-        libfdatetime/error.h \
-        libfdatetime/extern.h \
-        libfdatetime/features.h \
-        libfdatetime/types.h
+	libfdatetime/definitions.h \
+	libfdatetime/error.h \
+	libfdatetime/extern.h \
+	libfdatetime/features.h \
+	libfdatetime/types.h
 
 EXTRA_DIST = \
 	libfdatetime.h.in \
