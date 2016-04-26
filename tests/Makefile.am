@@ -6,37 +6,11 @@ AM_CPPFLAGS = \
 	@LIBFDATETIME_DLL_IMPORT@
 
 TESTS = \
-	test_fat_date_time_copy_from.sh \
-	test_fat_date_time_to_string.sh \
-	test_filetime_copy_from.sh \
-	test_filetime_to_string.sh \
-	test_floatingtime_copy_from.sh \
-	test_floatingtime_to_string.sh \
-	test_hfs_time_copy_from.sh \
-	test_hfs_time_to_string.sh \
-	test_nsf_timedate_copy_from.sh \
-	test_nsf_timedate_to_string.sh \
-	test_posix_time_copy_from.sh \
-	test_posix_time_to_string.sh \
-	test_systemtime_copy_from.sh \
-	test_systemtime_to_string.sh
+	test_api_functions.sh
 
 check_SCRIPTS = \
-	test_fat_date_time_copy_from.sh \
-	test_fat_date_time_to_string.sh \
-	test_filetime_copy_from.sh \
-	test_filetime_to_string.sh \
-	test_floatingtime_copy_from.sh \
-	test_floatingtime_to_string.sh \
-	test_hfs_time_copy_from.sh \
-	test_hfs_time_to_string.sh \
-	test_nsf_timedate_copy_from.sh \
-	test_nsf_timedate_to_string.sh \
-	test_posix_time_copy_from.sh \
-	test_posix_time_to_string.sh \
-	test_runner.sh \
-	test_systemtime_copy_from.sh \
-	test_systemtime_to_string.sh
+	test_api_functions.sh \
+	test_runner.sh
 
 EXTRA_DIST = \
 	$(check_SCRIPTS)
@@ -48,6 +22,7 @@ check_PROGRAMS = \
 	fdatetime_test_filetime_to_string \
 	fdatetime_test_floatingtime_copy_from \
 	fdatetime_test_floatingtime_to_string \
+	fdatetime_test_get_version \
 	fdatetime_test_hfs_time_copy_from \
 	fdatetime_test_hfs_time_to_string \
 	fdatetime_test_nsf_timedate_copy_from \
@@ -121,6 +96,16 @@ fdatetime_test_floatingtime_to_string_SOURCES = \
 fdatetime_test_floatingtime_to_string_LDADD = \
 	../libfdatetime/libfdatetime.la \
 	@LIBCERROR_LIBADD@ \
+	@LIBCSTRING_LIBADD@
+
+fdatetime_test_get_version_SOURCES = \
+	fdatetime_test_get_version.c \
+	fdatetime_test_libcstring.h \
+	fdatetime_test_libfdatetime.h \
+	fdatetime_test_unused.h
+
+fdatetime_test_get_version_LDADD = \
+	../libfdatetime/libfdatetime.la \
 	@LIBCSTRING_LIBADD@
 
 fdatetime_test_hfs_time_copy_from_SOURCES = \

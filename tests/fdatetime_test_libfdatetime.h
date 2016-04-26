@@ -1,5 +1,5 @@
 /*
- * The libfdatetime header wrapper
+ * The internal libfdatetime header
  *
  * Copyright (C) 2009-2016, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -24,14 +24,14 @@
 
 #include <common.h>
 
-/* If libtool DLL support is enabled set LIBFDATETIME_DLL_IMPORT
- * before including libfdatetime.h
+/* If Cygwin libtool DLL support is enabled and do not want to create static
+ * executables set LIBFDATETIME_DLL_IMPORT before including libfdatetime.h
  */
-#if defined( _WIN32 ) && defined( DLL_IMPORT )
+#if defined( _WIN32 ) && defined( DLL_EXPORT ) && !defined( HAVE_STATIC_EXECUTABLES )
 #define LIBFDATETIME_DLL_IMPORT
 #endif
 
 #include <libfdatetime.h>
 
-#endif
+#endif /* !defined( _FDATETIME_TEST_LIBFDATETIME_H ) */
 
