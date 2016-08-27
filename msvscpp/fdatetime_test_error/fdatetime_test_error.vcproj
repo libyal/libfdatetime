@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="fdatetime_test_fat_date_time_copy_from"
-	ProjectGUID="{D1D4638E-CA62-460A-A8DD-ED60DF9D669B}"
-	RootNamespace="fdatetime_test_fat_date_time_copy_from"
+	Name="fdatetime_test_error"
+	ProjectGUID="{F82A42FC-6728-4BCE-A1B7-D2D1D88E3566}"
+	RootNamespace="fdatetime_test_error"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\fdatetime_test_fat_date_time_copy_from.c"
+				RelativePath="..\..\tests\fdatetime_test_error.c"
 				>
 			</File>
 		</Filter>
@@ -186,15 +186,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\tests\fdatetime_test_libcerror.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\tests\fdatetime_test_libcstring.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\tests\fdatetime_test_libfdatetime.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\fdatetime_test_macros.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\fdatetime_test_unused.h"
 				>
 			</File>
 		</Filter>

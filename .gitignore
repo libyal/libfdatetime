@@ -119,8 +119,8 @@ stamp-h[1-9]
 /include/libfdatetime/types.h
 /libfdatetime/libfdatetime.rc
 /libfdatetime/libfdatetime_definitions.h
-/tests/fdatetime_test_fat_date_time_copy_from
-/tests/fdatetime_test_fat_date_time_to_string
+/tests/fdatetime_test_error
+/tests/fdatetime_test_fat_date_time
 /tests/fdatetime_test_filetime_copy_from
 /tests/fdatetime_test_filetime_to_string
 /tests/fdatetime_test_floatingtime_copy_from

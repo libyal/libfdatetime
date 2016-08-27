@@ -6,18 +6,20 @@ AM_CPPFLAGS = \
 	@LIBFDATETIME_DLL_IMPORT@
 
 TESTS = \
-	test_api_functions.sh
+	test_api_functions.sh \
+	test_api_types.sh 
 
 check_SCRIPTS = \
 	test_api_functions.sh \
+	test_api_types.sh \
 	test_runner.sh
 
 EXTRA_DIST = \
 	$(check_SCRIPTS)
 
 check_PROGRAMS = \
-	fdatetime_test_fat_date_time_copy_from \
-	fdatetime_test_fat_date_time_to_string \
+	fdatetime_test_error \
+	fdatetime_test_fat_date_time \
 	fdatetime_test_filetime_copy_from \
 	fdatetime_test_filetime_to_string \
 	fdatetime_test_floatingtime_copy_from \
@@ -32,26 +34,27 @@ check_PROGRAMS = \
 	fdatetime_test_systemtime_copy_from \
 	fdatetime_test_systemtime_to_string
 
-fdatetime_test_fat_date_time_copy_from_SOURCES = \
-	fdatetime_test_libcerror.h \
+fdatetime_test_error_SOURCES = \
+	fdatetime_test_error.c \
 	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
-	fdatetime_test_fat_date_time_copy_from.c
+	fdatetime_test_macros.h \
+	fdatetime_test_unused.h
 
-fdatetime_test_fat_date_time_copy_from_LDADD = \
+fdatetime_test_error_LDADD = \
 	../libfdatetime/libfdatetime.la \
-	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@
 
-fdatetime_test_fat_date_time_to_string_SOURCES = \
-	fdatetime_test_libcerror.h \
+fdatetime_test_fat_date_time_SOURCES = \
+	fdatetime_test_fat_date_time.c \
 	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
-	fdatetime_test_fat_date_time_to_string.c
+	fdatetime_test_macros.h \
+	fdatetime_test_memory.c fdatetime_test_memory.h \
+	fdatetime_test_unused.h
 
-fdatetime_test_fat_date_time_to_string_LDADD = \
+fdatetime_test_fat_date_time_LDADD = \
 	../libfdatetime/libfdatetime.la \
-	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@
 
 fdatetime_test_filetime_copy_from_SOURCES = \
@@ -102,6 +105,7 @@ fdatetime_test_get_version_SOURCES = \
 	fdatetime_test_get_version.c \
 	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
+	fdatetime_test_macros.h \
 	fdatetime_test_unused.h
 
 fdatetime_test_get_version_LDADD = \

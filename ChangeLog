@@ -19,6 +19,9 @@ Date time values:
 FAT date and time
 * implement individual fat_date and fat_time support ?
 
+20160827
+* worked on tests
+
 20160220
 * Worked on HFS time support
 
