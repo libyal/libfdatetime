@@ -1544,9 +1544,6 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 		{
 			return( 0 );
 		}
-		{
-			return( 0 );
-		}
 	}
 	if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 	{
@@ -1668,13 +1665,13 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			utf32_string[ string_index++ ] = (uint32_t) ' ';
 
 			year_value                     = date_time_values->year;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 1000 );
+			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 1000 );
 			year_value                    %= 1000;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 100 );
+			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 100 );
 			year_value                    %= 100;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 10 );
+			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 10 );
 			year_value                    %= 10;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + year_value;
 
 			if( ( string_format_flags & LIBFDATETIME_STRING_FORMAT_FLAG_TIME ) != 0 )
 			{
@@ -1707,13 +1704,13 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 			}
 			/* Format: yyyy-mm-dd */
 			year_value                     = date_time_values->year;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 1000 );
+			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 1000 );
 			year_value                    %= 1000;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 100 );
+			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 100 );
 			year_value                    %= 100;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) ( year_value / 10 );
+			utf32_string[ string_index++ ] = (uint32_t) '0' + ( year_value / 10 );
 			year_value                    %= 10;
-			utf32_string[ string_index++ ] = (uint32_t) '0' + (uint32_t) year_value;
+			utf32_string[ string_index++ ] = (uint32_t) '0' + year_value;
 
 			utf32_string[ string_index++ ] = (uint32_t) '-';
 

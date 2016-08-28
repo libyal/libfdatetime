@@ -11,7 +11,7 @@ TEST_PREFIX=`dirname ${PWD}`;
 TEST_PREFIX=`basename ${TEST_PREFIX} | sed 's/^lib\([^-]*\).*$/\1/'`;
 
 TEST_PROFILE="lib${TEST_PREFIX}";
-TEST_FUNCTIONS="get_version error nsf_timedate_copy_from nsf_timedate_to_string posix_time_copy_from posix_time_to_string systemtime_copy_from systemtime_to_string";
+TEST_FUNCTIONS="get_version error nsf_timedate_copy_from nsf_timedate_to_string systemtime_copy_from systemtime_to_string";
 TEST_FUNCTIONS_WITH_INPUT="";
 OPTION_SETS="";
 
