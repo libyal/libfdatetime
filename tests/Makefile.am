@@ -55,6 +55,7 @@ fdatetime_test_fat_date_time_SOURCES = \
 
 fdatetime_test_fat_date_time_LDADD = \
 	../libfdatetime/libfdatetime.la \
+	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@
 
 fdatetime_test_filetime_copy_from_SOURCES = \
