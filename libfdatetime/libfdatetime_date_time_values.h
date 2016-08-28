@@ -117,5 +117,5 @@ int libfdatetime_date_time_values_copy_to_utf32_string_with_index(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_DATE_TIME_VALUES_H ) */
 

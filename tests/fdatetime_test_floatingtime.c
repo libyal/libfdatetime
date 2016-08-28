@@ -415,7 +415,7 @@ int fdatetime_test_floatingtime_copy_from_64bit(
 {
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
-	uint32_t value_64bit                      = 0xa8d03d0c;
+	uint64_t value_64bit                      = 0x40e1d5e800000000;
 	int result                                = 0;
 
 	/* Initialize test

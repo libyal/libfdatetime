@@ -725,39 +725,6 @@ int libfdatetime_filetime_copy_to_utf8_string_with_index(
 	}
 	else if( result == 0 )
 	{
-		if( utf8_string == NULL )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-8 string.",
-			 function );
-
-			return( -1 );
-		}
-		if( utf8_string_size > (size_t) SSIZE_MAX )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-			 "%s: invalid UTF-8 string size value exceeds maximum.",
-			 function );
-
-			return( -1 );
-		}
-		if( utf8_string_index == NULL )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-8 string index.",
-			 function );
-
-			return( -1 );
-		}
 		if( ( *utf8_string_index + 24 ) > utf8_string_size )
 		{
 			libcerror_error_set(
@@ -929,39 +896,6 @@ int libfdatetime_filetime_copy_to_utf16_string_with_index(
 	}
 	else if( result == 0 )
 	{
-		if( utf16_string == NULL )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-16 string.",
-			 function );
-
-			return( -1 );
-		}
-		if( utf16_string_size > (size_t) SSIZE_MAX )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-			 "%s: invalid UTF-16 string size value exceeds maximum.",
-			 function );
-
-			return( -1 );
-		}
-		if( utf16_string_index == NULL )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-16 string index.",
-			 function );
-
-			return( -1 );
-		}
 		if( ( *utf16_string_index + 24 ) > utf16_string_size )
 		{
 			libcerror_error_set(
@@ -1133,39 +1067,6 @@ int libfdatetime_filetime_copy_to_utf32_string_with_index(
 	}
 	else if( result == 0 )
 	{
-		if( utf32_string == NULL )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-32 string.",
-			 function );
-
-			return( -1 );
-		}
-		if( utf32_string_size > (size_t) SSIZE_MAX )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-			 "%s: invalid UTF-32 string size value exceeds maximum.",
-			 function );
-
-			return( -1 );
-		}
-		if( utf32_string_index == NULL )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-32 string index.",
-			 function );
-
-			return( -1 );
-		}
 		if( ( *utf32_string_index + 24 ) > utf32_string_size )
 		{
 			libcerror_error_set(

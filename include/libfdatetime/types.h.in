@@ -242,5 +242,5 @@ typedef intptr_t libfdatetime_systemtime_t;
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_TYPES_H ) */
 
