@@ -607,12 +607,61 @@ int fdatetime_test_fat_date_time_get_string_size(
 	          &fat_date_time,
 	          &error );
 
+	/* Test copy to string
+	 */
+	result = libfdatetime_fat_date_time_copy_from_byte_stream(
+	          fat_date_time,
+	          byte_stream,
+	          4,
+	          LIBFDATETIME_ENDIAN_LITTLE,
+	          &error );
+
+	result = libfdatetime_fat_date_time_get_string_size(
+	          fat_date_time,
+	          &string_size,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "string_size",
+	 string_size,
+	 22 );
+
+        FDATETIME_TEST_ASSERT_IS_NULL(
+         "error",
+         error );
+
 	result = libfdatetime_fat_date_time_copy_from_byte_stream(
 	          fat_date_time,
 	          byte_stream,
 	          4,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	result = libfdatetime_fat_date_time_get_string_size(
+	          fat_date_time,
+	          &string_size,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "string_size",
+	 string_size,
+	 16 );
+
+        FDATETIME_TEST_ASSERT_IS_NULL(
+         "error",
+         error );
 
 	/* Test error cases
 	 */
@@ -675,6 +724,95 @@ on_error:
 	return( 0 );
 }
 
+/* Tests the libfdatetime_fat_date_time_copy_to_utf8_string function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_fat_date_time_copy_to_utf8_string(
+     void )
+{
+	uint8_t date_time_string[ 32 ];
+
+	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+
+	libfdatetime_fat_date_time_t *fat_date_time = NULL;
+	libcerror_error_t *error                    = NULL;
+	int result                                  = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_fat_date_time_initialize(
+	          &fat_date_time,
+	          &error );
+
+	result = libfdatetime_fat_date_time_copy_from_byte_stream(
+	          fat_date_time,
+	          byte_stream,
+	          4,
+	          LIBFDATETIME_ENDIAN_LITTLE,
+	          &error );
+
+	/* Test copy to string
+	 */
+	result = libfdatetime_fat_date_time_copy_to_utf8_string(
+	          fat_date_time,
+	          date_time_string,
+	          32,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 1 );
+
+        FDATETIME_TEST_ASSERT_IS_NULL(
+         "error",
+         error );
+
+	/* Test error cases
+	 */
+	result = libfdatetime_fat_date_time_copy_to_utf8_string(
+	          NULL,
+	          date_time_string,
+	          32,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 -1 );
+
+        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+         "error",
+         error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_fat_date_time_free(
+	          &fat_date_time,
+	          NULL );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( fat_date_time != NULL )
+	{
+		libfdatetime_fat_date_time_free(
+		 &fat_date_time,
+		 NULL );
+	}
+	return( 0 );
+}
+
 /* Tests the libfdatetime_fat_date_time_copy_to_utf8_string_with_index function
  * Returns 1 if successful or 0 if not
  */
@@ -696,6 +834,46 @@ int fdatetime_test_fat_date_time_copy_to_utf8_string_with_index(
 	          &fat_date_time,
 	          &error );
 
+	/* Test copy to string with index
+	 */
+	string_index = 0;
+
+	result = libfdatetime_fat_date_time_copy_from_byte_stream(
+	          fat_date_time,
+	          byte_stream,
+	          4,
+	          LIBFDATETIME_ENDIAN_LITTLE,
+	          &error );
+
+	result = libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
+	          fat_date_time,
+	          date_time_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 1 );
+
+	result = libcstring_narrow_string_compare(
+	          date_time_string,
+	          "Aug 12, 2010 21:06:32",
+	          21 );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 0 );
+
+        FDATETIME_TEST_ASSERT_IS_NULL(
+         "error",
+         error );
+
+	string_index = 0;
+
 	result = libfdatetime_fat_date_time_copy_from_byte_stream(
 	          fat_date_time,
 	          byte_stream,
@@ -703,8 +881,37 @@ int fdatetime_test_fat_date_time_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
 
+	result = libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
+	          fat_date_time,
+	          date_time_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 1 );
+
+	result = libcstring_narrow_string_compare(
+	          date_time_string,
+	          "(0x0c3d 0xd0a8)",
+	          15 );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 0 );
+
+        FDATETIME_TEST_ASSERT_IS_NULL(
+         "error",
+         error );
+
 	/* Test error cases
 	 */
+	string_index = 0;
+
 	result = libfdatetime_fat_date_time_copy_to_utf8_string_with_index(
 	          NULL,
 	          date_time_string,
@@ -847,7 +1054,9 @@ int main(
 	 "libfdatetime_fat_date_time_get_string_size",
 	 fdatetime_test_fat_date_time_get_string_size() )
 
-	/* TODO: add test for libfdatetime_fat_date_time_copy_to_utf8_string */
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_fat_date_time_copy_to_utf8_string",
+	 fdatetime_test_fat_date_time_copy_to_utf8_string() )
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_fat_date_time_copy_to_utf8_string_with_index",

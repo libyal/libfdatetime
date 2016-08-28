@@ -444,7 +444,7 @@ int libfdatetime_fat_date_time_get_string_size(
 	{
 		/* Make sure the string can hold the hexadecimal representation of the FAT date time
 		 */
-		*string_size = 18;
+		*string_size = 16;
 	}
 	return( 1 );
 }
