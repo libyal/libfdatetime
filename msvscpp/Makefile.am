@@ -1,8 +1,7 @@
 MSVSCPP_FILES = \
 	fdatetime_test_error/fdatetime_test_error.vcproj \
 	fdatetime_test_fat_date_time/fdatetime_test_fat_date_time.vcproj \
-	fdatetime_test_filetime_copy_from/fdatetime_test_filetime_copy_from.vcproj \
-	fdatetime_test_filetime_to_string/fdatetime_test_filetime_to_string.vcproj \
+	fdatetime_test_filetime/fdatetime_test_filetime.vcproj \
 	fdatetime_test_floatingtime_copy_from/fdatetime_test_floatingtime_copy_from.vcproj \
 	fdatetime_test_floatingtime_to_string/fdatetime_test_floatingtime_to_string.vcproj \
 	fdatetime_test_get_version/fdatetime_test_get_version.vcproj \
