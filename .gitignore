@@ -122,8 +122,7 @@ stamp-h[1-9]
 /tests/fdatetime_test_error
 /tests/fdatetime_test_fat_date_time
 /tests/fdatetime_test_filetime
-/tests/fdatetime_test_floatingtime_copy_from
-/tests/fdatetime_test_floatingtime_to_string
+/tests/fdatetime_test_floatingtime
 /tests/fdatetime_test_get_version
 /tests/fdatetime_test_hfs_time_copy_from
 /tests/fdatetime_test_hfs_time_to_string

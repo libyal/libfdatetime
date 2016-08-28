@@ -143,5 +143,5 @@ int libfdatetime_floatingtime_copy_to_utf32_string_with_index(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_INTERNAL_FLOATINGTIME_H ) */
 

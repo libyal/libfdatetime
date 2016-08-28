@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="fdatetime_test_floatingtime_to_string"
-	ProjectGUID="{8FF642EB-B7F5-409E-A164-B7EA94A0799D}"
-	RootNamespace="fdatetime_test_floatingtime_to_string"
+	Name="fdatetime_test_floatingtime"
+	ProjectGUID="{708613C3-C697-4168-9734-93DB3FFED60A}"
+	RootNamespace="fdatetime_test_floatingtime"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\fdatetime_test_floatingtime_to_string.c"
+				RelativePath="..\..\tests\fdatetime_test_floatingtime.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\fdatetime_test_memory.c"
 				>
 			</File>
 		</Filter>
@@ -186,15 +190,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\tests\fdatetime_test_libcerror.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\tests\fdatetime_test_libcstring.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\tests\fdatetime_test_libfdatetime.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\fdatetime_test_macros.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\fdatetime_test_memory.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\fdatetime_test_unused.h"
 				>
 			</File>
 		</Filter>
