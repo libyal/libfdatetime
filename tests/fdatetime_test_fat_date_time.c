@@ -349,6 +349,25 @@ int fdatetime_test_fat_date_time_copy_from_byte_stream(
 	result = libfdatetime_fat_date_time_copy_from_byte_stream(
 	          fat_date_time,
 	          byte_stream,
+	          (size_t) SSIZE_MAX + 1,
+	          LIBFDATETIME_ENDIAN_LITTLE,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 -1 );
+
+        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+         "error",
+         error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_fat_date_time_copy_from_byte_stream(
+	          fat_date_time,
+	          byte_stream,
 	          4,
 	          100,
 	          &error );
@@ -388,6 +407,273 @@ on_error:
 	return( 0 );
 }
 
+/* Tests the libfdatetime_fat_date_time_copy_from_32bit function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_fat_date_time_copy_from_32bit(
+     void )
+{
+	libfdatetime_fat_date_time_t *fat_date_time = NULL;
+	libcerror_error_t *error                    = NULL;
+	uint32_t value_32bit                        = 0xa8d03d0c;
+	int result                                  = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_fat_date_time_initialize(
+	          &fat_date_time,
+	          &error );
+
+	/* Test copy from byte stream
+	 */
+	result = libfdatetime_fat_date_time_copy_from_32bit(
+	          fat_date_time,
+	          value_32bit,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 1 );
+
+        FDATETIME_TEST_ASSERT_IS_NULL(
+         "error",
+         error );
+
+	/* Test error cases
+	 */
+	result = libfdatetime_fat_date_time_copy_from_32bit(
+	          NULL,
+	          value_32bit,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 -1 );
+
+        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+         "error",
+         error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_fat_date_time_free(
+	          &fat_date_time,
+	          NULL );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( fat_date_time != NULL )
+	{
+		libfdatetime_fat_date_time_free(
+		 &fat_date_time,
+		 NULL );
+	}
+	return( 0 );
+}
+
+/* Tests the libfdatetime_fat_date_time_copy_to_32bit function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_fat_date_time_copy_to_32bit(
+     void )
+{
+	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+
+	libfdatetime_fat_date_time_t *fat_date_time = NULL;
+	libcerror_error_t *error                    = NULL;
+	uint32_t value_32bit                        = 0;
+	int result                                  = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_fat_date_time_initialize(
+	          &fat_date_time,
+	          &error );
+
+	result = libfdatetime_fat_date_time_copy_from_byte_stream(
+	          fat_date_time,
+	          byte_stream,
+	          4,
+	          LIBFDATETIME_ENDIAN_BIG,
+	          &error );
+
+	/* Test copy to byte stream
+	 */
+	result = libfdatetime_fat_date_time_copy_to_32bit(
+	          fat_date_time,
+	          &value_32bit,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "value_32bit",
+	 value_32bit,
+	 0xd0a80c3d );
+
+        FDATETIME_TEST_ASSERT_IS_NULL(
+         "error",
+         error );
+
+	/* Test error cases
+	 */
+	result = libfdatetime_fat_date_time_copy_to_32bit(
+	          NULL,
+	          &value_32bit,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 -1 );
+
+        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+         "error",
+         error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_fat_date_time_copy_to_32bit(
+	          fat_date_time,
+	          NULL,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 -1 );
+
+        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+         "error",
+         error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_fat_date_time_free(
+	          &fat_date_time,
+	          NULL );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( fat_date_time != NULL )
+	{
+		libfdatetime_fat_date_time_free(
+		 &fat_date_time,
+		 NULL );
+	}
+	return( 0 );
+}
+
+/* Tests the libfdatetime_fat_date_time_get_string_size function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_fat_date_time_get_string_size(
+     void )
+{
+	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+
+	libfdatetime_fat_date_time_t *fat_date_time = NULL;
+	libcerror_error_t *error                    = NULL;
+	size_t string_size                          = 0;
+	int result                                  = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_fat_date_time_initialize(
+	          &fat_date_time,
+	          &error );
+
+	result = libfdatetime_fat_date_time_copy_from_byte_stream(
+	          fat_date_time,
+	          byte_stream,
+	          4,
+	          LIBFDATETIME_ENDIAN_BIG,
+	          &error );
+
+	/* Test error cases
+	 */
+	result = libfdatetime_fat_date_time_get_string_size(
+	          NULL,
+	          &string_size,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 -1 );
+
+        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+         "error",
+         error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_fat_date_time_get_string_size(
+	          fat_date_time,
+	          NULL,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL(
+	 "result",
+	 result,
+	 -1 );
+
+        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+         "error",
+         error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_fat_date_time_free(
+	          &fat_date_time,
+	          NULL );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( fat_date_time != NULL )
+	{
+		libfdatetime_fat_date_time_free(
+		 &fat_date_time,
+		 NULL );
+	}
+	return( 0 );
+}
 
 /* Tests the libfdatetime_fat_date_time_copy_to_utf8_string_with_index function
  * Returns 1 if successful or 0 if not
@@ -549,8 +835,18 @@ int main(
 	 "libfdatetime_fat_date_time_copy_from_byte_stream",
 	 fdatetime_test_fat_date_time_copy_from_byte_stream() )
 
-	/* TODO: add test for libfdatetime_fat_date_time_copy_from_32bit */
-	/* TODO: add test for libfdatetime_fat_date_time_get_string_size */
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_fat_date_time_copy_from_32bit",
+	 fdatetime_test_fat_date_time_copy_from_32bit() )
+
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_fat_date_time_copy_to_32bit",
+	 fdatetime_test_fat_date_time_copy_to_32bit() )
+
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_fat_date_time_get_string_size",
+	 fdatetime_test_fat_date_time_get_string_size() )
+
 	/* TODO: add test for libfdatetime_fat_date_time_copy_to_utf8_string */
 
 	FDATETIME_TEST_RUN(
