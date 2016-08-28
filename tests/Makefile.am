@@ -133,7 +133,7 @@ fdatetime_test_posix_time_SOURCES = \
 	fdatetime_test_posix_time.c \
 	fdatetime_test_unused.h
 
-fdatetime_test_systemtime_LDADD = \
+fdatetime_test_posix_time_LDADD = \
 	../libfdatetime/libfdatetime.la \
 	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@
