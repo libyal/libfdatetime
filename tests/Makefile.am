@@ -27,8 +27,7 @@ check_PROGRAMS = \
 	fdatetime_test_nsf_timedate_copy_from \
 	fdatetime_test_nsf_timedate_to_string \
 	fdatetime_test_posix_time \
-	fdatetime_test_systemtime_copy_from \
-	fdatetime_test_systemtime_to_string
+	fdatetime_test_systemtime
 
 fdatetime_test_error_SOURCES = \
 	fdatetime_test_error.c \
@@ -134,29 +133,20 @@ fdatetime_test_posix_time_SOURCES = \
 	fdatetime_test_posix_time.c \
 	fdatetime_test_unused.h
 
-fdatetime_test_posix_time_LDADD = \
+fdatetime_test_systemtime_LDADD = \
 	../libfdatetime/libfdatetime.la \
 	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@
 
-fdatetime_test_systemtime_copy_from_SOURCES = \
-	fdatetime_test_libcerror.h \
+fdatetime_test_systemtime_SOURCES = \
 	fdatetime_test_libcstring.h \
 	fdatetime_test_libfdatetime.h \
-	fdatetime_test_systemtime_copy_from.c
+	fdatetime_test_macros.h \
+	fdatetime_test_memory.c fdatetime_test_memory.h \
+	fdatetime_test_systemtime.c \
+	fdatetime_test_unused.h
 
-fdatetime_test_systemtime_copy_from_LDADD = \
-	../libfdatetime/libfdatetime.la \
-	@LIBCERROR_LIBADD@ \
-	@LIBCSTRING_LIBADD@
-
-fdatetime_test_systemtime_to_string_SOURCES = \
-	fdatetime_test_libcerror.h \
-	fdatetime_test_libcstring.h \
-	fdatetime_test_libfdatetime.h \
-	fdatetime_test_systemtime_to_string.c
-
-fdatetime_test_systemtime_to_string_LDADD = \
+fdatetime_test_systemtime_LDADD = \
 	../libfdatetime/libfdatetime.la \
 	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@
