@@ -1,5 +1,5 @@
 /*
- * Filetime functions
+ * FILETIME functions
  *
  * Copyright (C) 2009-2016, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -152,5 +152,5 @@ int libfdatetime_filetime_copy_to_utf32_string_with_index(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_INTERNAL_FILETIME_H ) */
 
