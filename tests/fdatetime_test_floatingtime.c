@@ -48,7 +48,7 @@ int fdatetime_test_floatingtime_initialize(
 	          &floatingtime,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -65,7 +65,7 @@ int fdatetime_test_floatingtime_initialize(
 	          &floatingtime,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -84,7 +84,7 @@ int fdatetime_test_floatingtime_initialize(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -102,7 +102,7 @@ int fdatetime_test_floatingtime_initialize(
 	          &floatingtime,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -132,7 +132,7 @@ int fdatetime_test_floatingtime_initialize(
 	}
 	else
 	{
-		FDATETIME_TEST_ASSERT_EQUAL(
+		FDATETIME_TEST_ASSERT_EQUAL_INT(
 		 "result",
 		 result,
 		 -1 );
@@ -162,7 +162,7 @@ int fdatetime_test_floatingtime_initialize(
 	}
 	else
 	{
-		FDATETIME_TEST_ASSERT_EQUAL(
+		FDATETIME_TEST_ASSERT_EQUAL_INT(
 		 "result",
 		 result,
 		 -1 );
@@ -212,7 +212,7 @@ int fdatetime_test_floatingtime_free(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -262,7 +262,7 @@ int fdatetime_test_floatingtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -278,7 +278,7 @@ int fdatetime_test_floatingtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -296,7 +296,7 @@ int fdatetime_test_floatingtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -315,7 +315,7 @@ int fdatetime_test_floatingtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -334,7 +334,7 @@ int fdatetime_test_floatingtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -353,7 +353,7 @@ int fdatetime_test_floatingtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -372,7 +372,7 @@ int fdatetime_test_floatingtime_copy_from_byte_stream(
 	          100,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -431,7 +431,7 @@ int fdatetime_test_floatingtime_copy_from_64bit(
 	          value_64bit,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -447,7 +447,7 @@ int fdatetime_test_floatingtime_copy_from_64bit(
 	          value_64bit,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -515,12 +515,12 @@ int fdatetime_test_floatingtime_copy_to_64bit(
 	          &value_64bit,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_UINT64(
 	 "value_64bit",
 	 value_64bit,
 	 0x40e1d5e800000000 );
@@ -536,7 +536,7 @@ int fdatetime_test_floatingtime_copy_to_64bit(
 	          &value_64bit,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -553,7 +553,7 @@ int fdatetime_test_floatingtime_copy_to_64bit(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -622,12 +622,12 @@ int fdatetime_test_floatingtime_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
 	 32 );
@@ -649,12 +649,12 @@ int fdatetime_test_floatingtime_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
 	 21 );
@@ -671,7 +671,7 @@ int fdatetime_test_floatingtime_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -689,7 +689,7 @@ int fdatetime_test_floatingtime_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -760,7 +760,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -778,7 +778,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -853,7 +853,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -863,7 +863,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	          "Jan 01, 2000 06:00:00.000000000",
 	          31 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
@@ -889,7 +889,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -899,7 +899,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	          "(0x00000000e8d5e140)",
 	          21 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
@@ -920,7 +920,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -940,7 +940,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1011,7 +1011,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1029,7 +1029,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1104,7 +1104,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1130,7 +1130,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1151,7 +1151,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1171,7 +1171,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1242,7 +1242,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1260,7 +1260,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1335,7 +1335,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1361,7 +1361,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1382,7 +1382,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1402,7 +1402,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );

@@ -1,4 +1,5 @@
 TODO
+* systemtime print invalid times as hex string
 * add functions similar to:
   - libfvalue_integer_copy_from_integer and libfvalue_integer_copy_to_integer
 * change function comment for UTF size and copy functions
@@ -6,10 +7,6 @@ TODO
 * formatting support
   - add support for duration
 * filetime check for -0 ?
-* add tests
-  - test to string format flags
-  - test filetime add function
-  - test copy to int functions
 * add a more sophisticated day of the month check in date time values
 * have API functions return 0 if value is not a valid date and time ?
 

@@ -9,7 +9,7 @@ EXIT_IGNORE=77;
 
 TEST_PREFIX=`dirname ${PWD}`;
 TEST_PREFIX=`basename ${TEST_PREFIX} | sed 's/^lib\([^-]*\).*$/\1/'`;
-TEST_TYPES="fat_date_time filetime floatingtime hfs_time posix_time systemtime";
+TEST_TYPES="fat_date_time filetime floatingtime hfs_time nsf_timedate posix_time systemtime";
 
 TEST_PROFILE="lib${TEST_PREFIX}";
 

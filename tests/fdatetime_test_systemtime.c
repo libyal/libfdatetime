@@ -48,7 +48,7 @@ int fdatetime_test_systemtime_initialize(
 	          &systemtime,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -65,7 +65,7 @@ int fdatetime_test_systemtime_initialize(
 	          &systemtime,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -84,7 +84,7 @@ int fdatetime_test_systemtime_initialize(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -102,7 +102,7 @@ int fdatetime_test_systemtime_initialize(
 	          &systemtime,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -132,7 +132,7 @@ int fdatetime_test_systemtime_initialize(
 	}
 	else
 	{
-		FDATETIME_TEST_ASSERT_EQUAL(
+		FDATETIME_TEST_ASSERT_EQUAL_INT(
 		 "result",
 		 result,
 		 -1 );
@@ -162,7 +162,7 @@ int fdatetime_test_systemtime_initialize(
 	}
 	else
 	{
-		FDATETIME_TEST_ASSERT_EQUAL(
+		FDATETIME_TEST_ASSERT_EQUAL_INT(
 		 "result",
 		 result,
 		 -1 );
@@ -212,7 +212,7 @@ int fdatetime_test_systemtime_free(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -262,7 +262,7 @@ int fdatetime_test_systemtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -278,7 +278,7 @@ int fdatetime_test_systemtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -296,7 +296,7 @@ int fdatetime_test_systemtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -315,7 +315,7 @@ int fdatetime_test_systemtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -334,7 +334,7 @@ int fdatetime_test_systemtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -353,7 +353,7 @@ int fdatetime_test_systemtime_copy_from_byte_stream(
 	          LIBFDATETIME_ENDIAN_LITTLE,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -372,7 +372,7 @@ int fdatetime_test_systemtime_copy_from_byte_stream(
 	          100,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -441,12 +441,12 @@ int fdatetime_test_systemtime_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
 	 26 );
@@ -469,12 +469,12 @@ int fdatetime_test_systemtime_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
 	 57 );
@@ -492,7 +492,7 @@ int fdatetime_test_systemtime_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -510,7 +510,7 @@ int fdatetime_test_systemtime_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -581,7 +581,7 @@ int fdatetime_test_systemtime_copy_to_utf8_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -599,7 +599,7 @@ int fdatetime_test_systemtime_copy_to_utf8_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -674,7 +674,7 @@ int fdatetime_test_systemtime_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -684,7 +684,7 @@ int fdatetime_test_systemtime_copy_to_utf8_string_with_index(
 	          "Dec 31, 1999 23:59:59.000",
 	          25 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
@@ -711,7 +711,7 @@ int fdatetime_test_systemtime_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -721,7 +721,7 @@ int fdatetime_test_systemtime_copy_to_utf8_string_with_index(
 	          "(0xce170a3d 0x623acb01)",
 	          23 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
@@ -743,7 +743,7 @@ int fdatetime_test_systemtime_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -764,7 +764,7 @@ int fdatetime_test_systemtime_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -836,7 +836,7 @@ int fdatetime_test_systemtime_copy_to_utf16_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -854,7 +854,7 @@ int fdatetime_test_systemtime_copy_to_utf16_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -929,7 +929,7 @@ int fdatetime_test_systemtime_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -956,7 +956,7 @@ int fdatetime_test_systemtime_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -978,7 +978,7 @@ int fdatetime_test_systemtime_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -999,7 +999,7 @@ int fdatetime_test_systemtime_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1071,7 +1071,7 @@ int fdatetime_test_systemtime_copy_to_utf32_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1089,7 +1089,7 @@ int fdatetime_test_systemtime_copy_to_utf32_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1164,7 +1164,7 @@ int fdatetime_test_systemtime_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1191,7 +1191,7 @@ int fdatetime_test_systemtime_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1213,7 +1213,7 @@ int fdatetime_test_systemtime_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1234,7 +1234,7 @@ int fdatetime_test_systemtime_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );

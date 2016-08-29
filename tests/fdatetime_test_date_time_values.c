@@ -48,7 +48,7 @@ int fdatetime_test_date_time_values_initialize(
 	          &date_time_values,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -65,7 +65,7 @@ int fdatetime_test_date_time_values_initialize(
 	          &date_time_values,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -84,7 +84,7 @@ int fdatetime_test_date_time_values_initialize(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -102,7 +102,7 @@ int fdatetime_test_date_time_values_initialize(
 	          &date_time_values,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -132,7 +132,7 @@ int fdatetime_test_date_time_values_initialize(
 	}
 	else
 	{
-		FDATETIME_TEST_ASSERT_EQUAL(
+		FDATETIME_TEST_ASSERT_EQUAL_INT(
 		 "result",
 		 result,
 		 -1 );
@@ -162,7 +162,7 @@ int fdatetime_test_date_time_values_initialize(
 	}
 	else
 	{
-		FDATETIME_TEST_ASSERT_EQUAL(
+		FDATETIME_TEST_ASSERT_EQUAL_INT(
 		 "result",
 		 result,
 		 -1 );
@@ -212,7 +212,7 @@ int fdatetime_test_date_time_values_free(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );

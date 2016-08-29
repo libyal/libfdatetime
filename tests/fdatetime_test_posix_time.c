@@ -48,7 +48,7 @@ int fdatetime_test_posix_time_initialize(
 	          &posix_time,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -65,7 +65,7 @@ int fdatetime_test_posix_time_initialize(
 	          &posix_time,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -84,7 +84,7 @@ int fdatetime_test_posix_time_initialize(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -102,7 +102,7 @@ int fdatetime_test_posix_time_initialize(
 	          &posix_time,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -132,7 +132,7 @@ int fdatetime_test_posix_time_initialize(
 	}
 	else
 	{
-		FDATETIME_TEST_ASSERT_EQUAL(
+		FDATETIME_TEST_ASSERT_EQUAL_INT(
 		 "result",
 		 result,
 		 -1 );
@@ -162,7 +162,7 @@ int fdatetime_test_posix_time_initialize(
 	}
 	else
 	{
-		FDATETIME_TEST_ASSERT_EQUAL(
+		FDATETIME_TEST_ASSERT_EQUAL_INT(
 		 "result",
 		 result,
 		 -1 );
@@ -212,7 +212,7 @@ int fdatetime_test_posix_time_free(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -263,7 +263,7 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -280,7 +280,7 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -299,7 +299,7 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -319,7 +319,7 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -339,7 +339,7 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -359,7 +359,7 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -379,7 +379,7 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -439,7 +439,7 @@ int fdatetime_test_posix_time_copy_from_32bit(
 	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -456,7 +456,7 @@ int fdatetime_test_posix_time_copy_from_32bit(
 	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -527,12 +527,12 @@ int fdatetime_test_posix_time_copy_to_32bit(
 	          &value_type,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_UINT32(
 	 "value_32bit",
 	 value_32bit,
 	 0x4f649c7f );
@@ -549,7 +549,7 @@ int fdatetime_test_posix_time_copy_to_32bit(
 	          &value_type,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -567,7 +567,7 @@ int fdatetime_test_posix_time_copy_to_32bit(
 	          &value_type,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -585,7 +585,7 @@ int fdatetime_test_posix_time_copy_to_32bit(
 	          NULL,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -655,12 +655,12 @@ int fdatetime_test_posix_time_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
 	 22 );
@@ -677,7 +677,7 @@ int fdatetime_test_posix_time_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -695,7 +695,7 @@ int fdatetime_test_posix_time_get_string_size(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -767,7 +767,7 @@ int fdatetime_test_posix_time_copy_to_utf8_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -785,7 +785,7 @@ int fdatetime_test_posix_time_copy_to_utf8_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -861,7 +861,7 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -871,7 +871,7 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	          "Mar 17, 2012 14:15:27",
 	          21 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
@@ -892,7 +892,7 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -964,7 +964,7 @@ int fdatetime_test_posix_time_copy_to_utf16_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -982,7 +982,7 @@ int fdatetime_test_posix_time_copy_to_utf16_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1058,7 +1058,7 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1079,7 +1079,7 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1151,7 +1151,7 @@ int fdatetime_test_posix_time_copy_to_utf32_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1169,7 +1169,7 @@ int fdatetime_test_posix_time_copy_to_utf32_string(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
@@ -1245,7 +1245,7 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 1 );
@@ -1266,7 +1266,7 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 -1 );
