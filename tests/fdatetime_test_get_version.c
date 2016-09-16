@@ -46,7 +46,7 @@ int fdatetime_test_get_version(
 	          LIBFDATETIME_VERSION_STRING,
 	          9 );
 
-	FDATETIME_TEST_ASSERT_EQUAL(
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
