@@ -1,6 +1,6 @@
 # Files to ignore by git
 #
-# Version: 20160507
+# Version: 20161030
 
 # Generic auto-generated build files
 *~
@@ -57,6 +57,7 @@ stamp-h[1-9]
 /test-driver
 /ylwrap
 /m4/codeset.m4
+/m4/extern-inline.m4
 /m4/fcntl-o.m4
 /m4/gettext.m4
 /m4/glibc2.m4
@@ -123,10 +124,10 @@ stamp-h[1-9]
 /tests/fdatetime_test_fat_date_time
 /tests/fdatetime_test_filetime
 /tests/fdatetime_test_floatingtime
-/tests/fdatetime_test_get_version
 /tests/fdatetime_test_hfs_time
 /tests/fdatetime_test_nsf_timedate
 /tests/fdatetime_test_posix_time
+/tests/fdatetime_test_support
 /tests/fdatetime_test_systemtime
 /tests/tmp*
 

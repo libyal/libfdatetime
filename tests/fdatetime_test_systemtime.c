@@ -1287,43 +1287,43 @@ int main(
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_initialize",
-	 fdatetime_test_systemtime_initialize() )
+	 fdatetime_test_systemtime_initialize );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_free",
-	 fdatetime_test_systemtime_free() )
+	 fdatetime_test_systemtime_free );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_copy_from_byte_stream",
-	 fdatetime_test_systemtime_copy_from_byte_stream() )
+	 fdatetime_test_systemtime_copy_from_byte_stream );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_get_string_size",
-	 fdatetime_test_systemtime_get_string_size() )
+	 fdatetime_test_systemtime_get_string_size );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_copy_to_utf8_string",
-	 fdatetime_test_systemtime_copy_to_utf8_string() )
+	 fdatetime_test_systemtime_copy_to_utf8_string );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_copy_to_utf8_string_with_index",
-	 fdatetime_test_systemtime_copy_to_utf8_string_with_index() )
+	 fdatetime_test_systemtime_copy_to_utf8_string_with_index );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_copy_to_utf16_string",
-	 fdatetime_test_systemtime_copy_to_utf16_string() )
+	 fdatetime_test_systemtime_copy_to_utf16_string );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_copy_to_utf16_string_with_index",
-	 fdatetime_test_systemtime_copy_to_utf16_string_with_index() )
+	 fdatetime_test_systemtime_copy_to_utf16_string_with_index );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_copy_to_utf32_string",
-	 fdatetime_test_systemtime_copy_to_utf32_string() )
+	 fdatetime_test_systemtime_copy_to_utf32_string );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_systemtime_copy_to_utf32_string_with_index",
-	 fdatetime_test_systemtime_copy_to_utf32_string_with_index() )
+	 fdatetime_test_systemtime_copy_to_utf32_string_with_index );
 
 	return( EXIT_SUCCESS );
 

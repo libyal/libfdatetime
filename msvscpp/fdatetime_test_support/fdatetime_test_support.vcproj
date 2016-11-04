@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="fdatetime_test_get_version"
-	ProjectGUID="{26006771-FFCD-4888-A1F0-F2E64BE965A9}"
-	RootNamespace="fdatetime_test_get_version"
+	Name="fdatetime_test_support"
+	ProjectGUID="{E2773C89-C1E9-407E-8051-2AD88F4F92A3}"
+	RootNamespace="fdatetime_test_support"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
@@ -176,7 +176,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\tests\fdatetime_test_get_version.c"
+				RelativePath="..\..\tests\fdatetime_test_support.c"
 				>
 			</File>
 		</Filter>

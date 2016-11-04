@@ -38,10 +38,9 @@
 #include <libfdatetime/extern.h>
 
 #else
-
 #define LIBFDATETIME_EXTERN	extern
 
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_INTERNAL_EXTERN_H ) */
 

@@ -22,10 +22,10 @@ check_PROGRAMS = \
 	fdatetime_test_fat_date_time \
 	fdatetime_test_filetime \
 	fdatetime_test_floatingtime \
-	fdatetime_test_get_version \
 	fdatetime_test_hfs_time \
 	fdatetime_test_nsf_timedate \
 	fdatetime_test_posix_time \
+	fdatetime_test_support \
 	fdatetime_test_systemtime
 
 fdatetime_test_error_SOURCES = \
@@ -78,17 +78,6 @@ fdatetime_test_floatingtime_LDADD = \
 	@LIBCERROR_LIBADD@ \
 	@LIBCSTRING_LIBADD@
 
-fdatetime_test_get_version_SOURCES = \
-	fdatetime_test_get_version.c \
-	fdatetime_test_libcstring.h \
-	fdatetime_test_libfdatetime.h \
-	fdatetime_test_macros.h \
-	fdatetime_test_unused.h
-
-fdatetime_test_get_version_LDADD = \
-	../libfdatetime/libfdatetime.la \
-	@LIBCSTRING_LIBADD@
-
 fdatetime_test_hfs_time_SOURCES = \
 	fdatetime_test_hfs_time.c \
 	fdatetime_test_libcstring.h \
@@ -126,6 +115,17 @@ fdatetime_test_posix_time_SOURCES = \
 fdatetime_test_posix_time_LDADD = \
 	../libfdatetime/libfdatetime.la \
 	@LIBCERROR_LIBADD@ \
+	@LIBCSTRING_LIBADD@
+
+fdatetime_test_support_SOURCES = \
+	fdatetime_test_support.c \
+	fdatetime_test_libcstring.h \
+	fdatetime_test_libfdatetime.h \
+	fdatetime_test_macros.h \
+	fdatetime_test_unused.h
+
+fdatetime_test_support_LDADD = \
+	../libfdatetime/libfdatetime.la \
 	@LIBCSTRING_LIBADD@
 
 fdatetime_test_systemtime_SOURCES = \

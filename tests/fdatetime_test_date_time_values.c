@@ -252,11 +252,11 @@ int main(
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_date_time_values_initialize",
-	 fdatetime_test_date_time_values_initialize() )
+	 fdatetime_test_date_time_values_initialize );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_date_time_values_free",
-	 fdatetime_test_date_time_values_free() )
+	 fdatetime_test_date_time_values_free );
 
 	return( EXIT_SUCCESS );
 

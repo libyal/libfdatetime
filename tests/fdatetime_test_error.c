@@ -123,23 +123,23 @@ int main(
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_error_free",
-	 fdatetime_test_error_free() )
+	 fdatetime_test_error_free );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_error_fprint",
-	 fdatetime_test_error_fprint() )
+	 fdatetime_test_error_fprint );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_error_sprint",
-	 fdatetime_test_error_sprint() )
+	 fdatetime_test_error_sprint );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_error_backtrace_fprint",
-	 fdatetime_test_error_backtrace_fprint() )
+	 fdatetime_test_error_backtrace_fprint );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_error_backtrace_sprint",
-	 fdatetime_test_error_backtrace_sprint() )
+	 fdatetime_test_error_backtrace_sprint );
 
 	return( EXIT_SUCCESS );
 

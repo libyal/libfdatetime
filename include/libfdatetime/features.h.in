@@ -24,8 +24,8 @@
 
 /* The libfdatetime type support features
  */
-#if @HAVE_WIDE_CHARACTER_TYPE@ || defined( HAVE_WIDE_CHARACTER_TYPE )
-#define LIBFDATETIME_HAVE_WIDE_CHARACTER_TYPE		1
+#if defined( WINAPI ) || @HAVE_WIDE_CHARACTER_TYPE@
+#define LIBFDATETIME_HAVE_WIDE_CHARACTER_TYPE	1
 #endif
 
 #if !defined( LIBFDATETIME_DEPRECATED )
@@ -38,5 +38,5 @@
 #endif
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_FEATURES_H ) */
 

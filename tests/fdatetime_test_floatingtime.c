@@ -1454,51 +1454,51 @@ int main(
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_initialize",
-	 fdatetime_test_floatingtime_initialize() )
+	 fdatetime_test_floatingtime_initialize );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_free",
-	 fdatetime_test_floatingtime_free() )
+	 fdatetime_test_floatingtime_free );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_from_byte_stream",
-	 fdatetime_test_floatingtime_copy_from_byte_stream() )
+	 fdatetime_test_floatingtime_copy_from_byte_stream );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_from_64bit",
-	 fdatetime_test_floatingtime_copy_from_64bit() )
+	 fdatetime_test_floatingtime_copy_from_64bit );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_64bit",
-	 fdatetime_test_floatingtime_copy_to_64bit() )
+	 fdatetime_test_floatingtime_copy_to_64bit );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_get_string_size",
-	 fdatetime_test_floatingtime_get_string_size() )
+	 fdatetime_test_floatingtime_get_string_size );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf8_string",
-	 fdatetime_test_floatingtime_copy_to_utf8_string() )
+	 fdatetime_test_floatingtime_copy_to_utf8_string );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf8_string_with_index",
-	 fdatetime_test_floatingtime_copy_to_utf8_string_with_index() )
+	 fdatetime_test_floatingtime_copy_to_utf8_string_with_index );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf16_string",
-	 fdatetime_test_floatingtime_copy_to_utf16_string() )
+	 fdatetime_test_floatingtime_copy_to_utf16_string );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf16_string_with_index",
-	 fdatetime_test_floatingtime_copy_to_utf16_string_with_index() )
+	 fdatetime_test_floatingtime_copy_to_utf16_string_with_index );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf32_string",
-	 fdatetime_test_floatingtime_copy_to_utf32_string() )
+	 fdatetime_test_floatingtime_copy_to_utf32_string );
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf32_string_with_index",
-	 fdatetime_test_floatingtime_copy_to_utf32_string_with_index() )
+	 fdatetime_test_floatingtime_copy_to_utf32_string_with_index );
 
 	return( EXIT_SUCCESS );
 
