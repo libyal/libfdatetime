@@ -20,12 +20,14 @@
  */
 
 #include <common.h>
+#include <file_stream.h>
+#include <narrow_string.h>
+#include <types.h>
 
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
 #include <stdlib.h>
 #endif
 
-#include "fdatetime_test_libcstring.h"
 #include "fdatetime_test_libfdatetime.h"
 #include "fdatetime_test_macros.h"
 #include "fdatetime_test_unused.h"
@@ -41,7 +43,7 @@ int fdatetime_test_get_version(
 
 	version_string = libfdatetime_get_version();
 
-	result = libcstring_narrow_string_compare(
+	result = narrow_string_compare(
 	          version_string,
 	          LIBFDATETIME_VERSION_STRING,
 	          9 );
@@ -59,7 +61,7 @@ on_error:
 
 /* The main program
  */
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 int wmain(
      int argc FDATETIME_TEST_ATTRIBUTE_UNUSED,
      wchar_t * const argv[] FDATETIME_TEST_ATTRIBUTE_UNUSED )

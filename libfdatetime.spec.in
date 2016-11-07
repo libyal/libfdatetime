@@ -7,8 +7,8 @@ License: LGPL
 Source: %{name}-%{version}.tar.gz
 URL: https://github.com/libyal/libfdatetime/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-@libfdatetime_spec_requires@ @ax_libcerror_spec_requires@ @ax_libcstring_spec_requires@
-@libfdatetime_spec_build_requires@ @ax_libcerror_spec_build_requires@ @ax_libcstring_spec_build_requires@
+@libfdatetime_spec_requires@ @ax_libcerror_spec_requires@
+@libfdatetime_spec_build_requires@ @ax_libcerror_spec_build_requires@
 
 %description
 libfdatetime is a library to support various date and time formats that are used in file formats

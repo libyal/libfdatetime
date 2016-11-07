@@ -9,7 +9,6 @@ MSVSCPP_FILES = \
 	fdatetime_test_support/fdatetime_test_support.vcproj \
 	fdatetime_test_systemtime/fdatetime_test_systemtime.vcproj \
 	libcerror/libcerror.vcproj \
-	libcstring/libcstring.vcproj \
 	libfdatetime/libfdatetime.vcproj \
 	libfdatetime.sln
 

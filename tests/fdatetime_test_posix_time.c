@@ -20,6 +20,9 @@
  */
 
 #include <common.h>
+#include <file_stream.h>
+#include <narrow_string.h>
+#include <types.h>
 
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
 #include <stdlib.h>
@@ -27,7 +30,6 @@
 
 #include "fdatetime_test_libfdatetime.h"
 #include "fdatetime_test_libcerror.h"
-#include "fdatetime_test_libcstring.h"
 #include "fdatetime_test_macros.h"
 #include "fdatetime_test_memory.h"
 #include "fdatetime_test_unused.h"
@@ -866,7 +868,7 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	 result,
 	 1 );
 
-	result = libcstring_narrow_string_compare(
+	result = narrow_string_compare(
 	          date_time_string,
 	          "Mar 17, 2012 14:15:27",
 	          21 );
@@ -1303,7 +1305,7 @@ on_error:
 
 /* The main program
  */
-#if defined( LIBCSTRING_HAVE_WIDE_SYSTEM_CHARACTER )
+#if defined( HAVE_WIDE_SYSTEM_CHARACTER )
 int wmain(
      int argc FDATETIME_TEST_ATTRIBUTE_UNUSED,
      wchar_t * const argv[] FDATETIME_TEST_ATTRIBUTE_UNUSED )

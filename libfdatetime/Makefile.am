@@ -1,7 +1,6 @@
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
 	-I$(top_srcdir)/common \
-	@LIBCSTRING_CPPFLAGS@ \
 	@LIBCERROR_CPPFLAGS@
 
 lib_LTLIBRARIES = libfdatetime.la
@@ -17,7 +16,6 @@ libfdatetime_la_SOURCES = \
 	libfdatetime_floatingtime.c libfdatetime_floatingtime.h \
 	libfdatetime_hfs_time.c libfdatetime_hfs_time.h \
 	libfdatetime_libcerror.h \
-	libfdatetime_libcstring.h \
 	libfdatetime_nsf_timedate.c libfdatetime_nsf_timedate.h \
 	libfdatetime_posix_time.c libfdatetime_posix_time.h \
 	libfdatetime_support.c libfdatetime_support.h \
@@ -26,7 +24,6 @@ libfdatetime_la_SOURCES = \
 	libfdatetime_unused.h
 
 libfdatetime_la_LIBADD = \
-	@LIBCSTRING_LIBADD@ \
 	@LIBCERROR_LIBADD@
 
 libfdatetime_la_LDFLAGS = -no-undefined -version-info 1:0:0

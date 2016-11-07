@@ -4,76 +4,61 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_error", "fdatetime_test_error\fdatetime_test_error.vcproj", "{F82A42FC-6728-4BCE-A1B7-D2D1D88E3566}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_fat_date_time", "fdatetime_test_fat_date_time\fdatetime_test_fat_date_time.vcproj", "{7617CF2D-3074-45CC-9312-61B922BB100E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_filetime", "fdatetime_test_filetime\fdatetime_test_filetime.vcproj", "{878E6D0C-2FBC-4CAA-853C-19AFE93074AD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_floatingtime", "fdatetime_test_floatingtime\fdatetime_test_floatingtime.vcproj", "{708613C3-C697-4168-9734-93DB3FFED60A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_hfs_time", "fdatetime_test_hfs_time\fdatetime_test_hfs_time.vcproj", "{FB898E0F-90CA-43D1-A73B-0510F110C00C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_nsf_timedate", "fdatetime_test_nsf_timedate\fdatetime_test_nsf_timedate.vcproj", "{00E436CC-1296-4395-A94D-86836997CE51}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_posix_time", "fdatetime_test_posix_time\fdatetime_test_posix_time.vcproj", "{EF13DB0A-7295-432D-92C7-D464D01D20AD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_support", "fdatetime_test_support\fdatetime_test_support.vcproj", "{E2773C89-C1E9-407E-8051-2AD88F4F92A3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_systemtime", "fdatetime_test_systemtime\fdatetime_test_systemtime.vcproj", "{4E629879-A5E1-48DE-888E-FFE7EC608B67}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfdatetime", "libfdatetime\libfdatetime.vcproj", "{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}"
 	ProjectSection(ProjectDependencies) = postProject
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcstring", "libcstring\libcstring.vcproj", "{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcerror", "libcerror\libcerror.vcproj", "{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F} = {20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,10 +106,6 @@ Global
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.Release|Win32.Build.0 = Release|Win32
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.VSDebug|Win32.Build.0 = VSDebug|Win32
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}.Release|Win32.ActiveCfg = Release|Win32
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}.Release|Win32.Build.0 = Release|Win32
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
-		{20FFC4C9-F44C-45F6-A827-4819B4DF3C9F}.VSDebug|Win32.Build.0 = VSDebug|Win32
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}.Release|Win32.ActiveCfg = Release|Win32
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}.Release|Win32.Build.0 = Release|Win32
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
