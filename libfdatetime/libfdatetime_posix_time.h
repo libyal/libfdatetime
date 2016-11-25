@@ -164,5 +164,5 @@ int libfdatetime_posix_time_copy_to_utf32_string_with_index(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_INTERNAL_POSIX_TIME_H ) */
 

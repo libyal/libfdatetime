@@ -1,4 +1,5 @@
 MSVSCPP_FILES = \
+	fdatetime_test_date_time_values/fdatetime_test_date_time_values.vcproj \
 	fdatetime_test_error/fdatetime_test_error.vcproj \
 	fdatetime_test_fat_date_time/fdatetime_test_fat_date_time.vcproj \
 	fdatetime_test_filetime/fdatetime_test_filetime.vcproj \

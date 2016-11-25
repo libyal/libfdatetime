@@ -43,5 +43,5 @@ const char *libfdatetime_get_version(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_SUPPORT_H ) */
 

@@ -1,5 +1,5 @@
 /*
- * Library date time values type testing program
+ * Library date_time_values type testing program
  *
  * Copyright (C) 2009-2016, Joachim Metz <joachim.metz@gmail.com>
  *
@@ -27,11 +27,15 @@
 #include <stdlib.h>
 #endif
 
-#include "fdatetime_test_libfdatetime.h"
 #include "fdatetime_test_libcerror.h"
+#include "fdatetime_test_libfdatetime.h"
 #include "fdatetime_test_macros.h"
 #include "fdatetime_test_memory.h"
 #include "fdatetime_test_unused.h"
+
+#include "../libfdatetime/libfdatetime_date_time_values.h"
+
+#if defined( __GNUC__ )
 
 /* Tests the libfdatetime_date_time_values_initialize function
  * Returns 1 if successful or 0 if not
@@ -39,11 +43,17 @@
 int fdatetime_test_date_time_values_initialize(
      void )
 {
-	libfdatetime_date_time_values_t *date_time_values = NULL;
 	libcerror_error_t *error                          = NULL;
+	libfdatetime_date_time_values_t *date_time_values = NULL;
 	int result                                        = 0;
 
-	/* Test libfdatetime_date_time_values_initialize without entries
+#if defined( HAVE_FDATETIME_TEST_MEMORY )
+	int number_of_malloc_fail_tests                   = 1;
+	int number_of_memset_fail_tests                   = 1;
+	int test_number                                   = 0;
+#endif
+
+	/* Test regular cases
 	 */
 	result = libfdatetime_date_time_values_initialize(
 	          &date_time_values,
@@ -119,65 +129,89 @@ int fdatetime_test_date_time_values_initialize(
 
 #if defined( HAVE_FDATETIME_TEST_MEMORY )
 
-	/* Test libfdatetime_date_time_values_initialize with malloc failing
-	 */
-	fdatetime_test_malloc_attempts_before_fail = 0;
-
-	result = libfdatetime_date_time_values_initialize(
-	          &date_time_values,
-	          &error );
-
-	if( fdatetime_test_malloc_attempts_before_fail != -1 )
+	for( test_number = 0;
+	     test_number < number_of_malloc_fail_tests;
+	     test_number++ )
 	{
-		fdatetime_test_malloc_attempts_before_fail = -1;
+		/* Test libfdatetime_date_time_values_initialize with malloc failing
+		 */
+		fdatetime_test_malloc_attempts_before_fail = test_number;
+
+		result = libfdatetime_date_time_values_initialize(
+		          &date_time_values,
+		          &error );
+
+		if( fdatetime_test_malloc_attempts_before_fail != -1 )
+		{
+			fdatetime_test_malloc_attempts_before_fail = -1;
+
+			if( date_time_values != NULL )
+			{
+				libfdatetime_date_time_values_free(
+				 &date_time_values,
+				 NULL );
+			}
+		}
+		else
+		{
+			FDATETIME_TEST_ASSERT_EQUAL_INT(
+			 "result",
+			 result,
+			 -1 );
+
+			FDATETIME_TEST_ASSERT_IS_NULL(
+			 "date_time_values",
+			 date_time_values );
+
+			FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+			 "error",
+			 error );
+
+			libcerror_error_free(
+			 &error );
+		}
 	}
-	else
+	for( test_number = 0;
+	     test_number < number_of_memset_fail_tests;
+	     test_number++ )
 	{
-		FDATETIME_TEST_ASSERT_EQUAL_INT(
-		 "result",
-		 result,
-		 -1 );
+		/* Test libfdatetime_date_time_values_initialize with memset failing
+		 */
+		fdatetime_test_memset_attempts_before_fail = test_number;
 
-		FDATETIME_TEST_ASSERT_IS_NULL(
-		 "date_time_values",
-		 date_time_values );
+		result = libfdatetime_date_time_values_initialize(
+		          &date_time_values,
+		          &error );
 
-		FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-		 "error",
-		 error );
+		if( fdatetime_test_memset_attempts_before_fail != -1 )
+		{
+			fdatetime_test_memset_attempts_before_fail = -1;
 
-		libcerror_error_free(
-		 &error );
-	}
-	/* Test libfdatetime_date_time_values_initialize with memset failing
-	 */
-	fdatetime_test_memset_attempts_before_fail = 0;
+			if( date_time_values != NULL )
+			{
+				libfdatetime_date_time_values_free(
+				 &date_time_values,
+				 NULL );
+			}
+		}
+		else
+		{
+			FDATETIME_TEST_ASSERT_EQUAL_INT(
+			 "result",
+			 result,
+			 -1 );
 
-	result = libfdatetime_date_time_values_initialize(
-	          &date_time_values,
-	          &error );
+			FDATETIME_TEST_ASSERT_IS_NULL(
+			 "date_time_values",
+			 date_time_values );
 
-	if( fdatetime_test_memset_attempts_before_fail != -1 )
-	{
-		fdatetime_test_memset_attempts_before_fail = -1;
-	}
-	else
-	{
-		FDATETIME_TEST_ASSERT_EQUAL_INT(
-		 "result",
-		 result,
-		 -1 );
+			FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+			 "error",
+			 error );
 
-		FDATETIME_TEST_ASSERT_IS_NULL(
-		 "date_time_values",
-		 date_time_values );
-
-		FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-		 "error",
-		 error );
-
-		libcerror_error_free(
-		 &error );
+			libcerror_error_free(
+			 &error );
+		}
 	}
 #endif /* defined( HAVE_FDATETIME_TEST_MEMORY ) */
 
@@ -236,6 +270,8 @@ on_error:
 	return( 0 );
 }
 
+#endif /* defined( __GNUC__ ) */
+
 /* The main program
  */
 #if defined( HAVE_WIDE_SYSTEM_CHARACTER )
@@ -251,6 +287,8 @@ int main(
 	FDATETIME_TEST_UNREFERENCED_PARAMETER( argc )
 	FDATETIME_TEST_UNREFERENCED_PARAMETER( argv )
 
+#if defined( __GNUC__ )
+
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_date_time_values_initialize",
 	 fdatetime_test_date_time_values_initialize );
@@ -258,6 +296,16 @@ int main(
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_date_time_values_free",
 	 fdatetime_test_date_time_values_free );
+
+	/* TODO: add tests for libfdatetime_date_time_values_get_string_size */
+
+	/* TODO: add tests for libfdatetime_date_time_values_copy_to_utf8_string_with_index */
+
+	/* TODO: add tests for libfdatetime_date_time_values_copy_to_utf16_string_with_index */
+
+	/* TODO: add tests for libfdatetime_date_time_values_copy_to_utf32_string_with_index */
+
+#endif /* defined( __GNUC__ ) */
 
 	return( EXIT_SUCCESS );
 

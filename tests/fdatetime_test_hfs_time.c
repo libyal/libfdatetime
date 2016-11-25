@@ -632,7 +632,7 @@ int fdatetime_test_hfs_time_get_string_size(
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
-	 22 );
+	 (size_t) 22 );
 
         FDATETIME_TEST_ASSERT_IS_NULL(
          "error",

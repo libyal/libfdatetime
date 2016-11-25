@@ -632,7 +632,7 @@ int fdatetime_test_floatingtime_get_string_size(
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
-	 32 );
+	 (size_t) 32 );
 
         FDATETIME_TEST_ASSERT_IS_NULL(
          "error",
@@ -659,7 +659,7 @@ int fdatetime_test_floatingtime_get_string_size(
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
-	 21 );
+	 (size_t) 21 );
 
         FDATETIME_TEST_ASSERT_IS_NULL(
          "error",

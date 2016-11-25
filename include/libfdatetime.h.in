@@ -1090,5 +1090,5 @@ int libfdatetime_systemtime_copy_to_utf32_string_with_index(
 }
 #endif
 
-#endif
+#endif /* !defined( _LIBFDATETIME_H ) */
 

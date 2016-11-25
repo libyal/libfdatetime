@@ -120,6 +120,7 @@ stamp-h[1-9]
 /include/libfdatetime/types.h
 /libfdatetime/libfdatetime.rc
 /libfdatetime/libfdatetime_definitions.h
+/tests/fdatetime_test_date_time_values
 /tests/fdatetime_test_error
 /tests/fdatetime_test_fat_date_time
 /tests/fdatetime_test_filetime

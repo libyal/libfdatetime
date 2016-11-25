@@ -454,7 +454,7 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 	 */
 	floatingtimestamp      *= 24;
 	date_time_values->hours = (uint8_t) floatingtimestamp;
-	floatingtimestamp    -= date_time_values->hours;
+	floatingtimestamp      -= date_time_values->hours;
 
 	/* There are 60 minutes in an hour correct the value to minutes
 	 */

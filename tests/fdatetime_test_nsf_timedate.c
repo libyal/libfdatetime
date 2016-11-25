@@ -632,7 +632,7 @@ int fdatetime_test_nsf_timedate_get_string_size(
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
-	 26 );
+	 (size_t) 26 );
 
         FDATETIME_TEST_ASSERT_IS_NULL(
          "error",
@@ -659,7 +659,7 @@ int fdatetime_test_nsf_timedate_get_string_size(
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "string_size",
 	 string_size,
-	 24 );
+	 (size_t) 24 );
 
         FDATETIME_TEST_ASSERT_IS_NULL(
          "error",

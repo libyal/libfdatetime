@@ -1,6 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_date_time_values", "fdatetime_test_date_time_values\fdatetime_test_date_time_values.vcproj", "{F348589F-6712-4D5C-BABD-F9F01C26C088}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
+		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_error", "fdatetime_test_error\fdatetime_test_error.vcproj", "{F82A42FC-6728-4BCE-A1B7-D2D1D88E3566}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80} = {1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}
@@ -66,6 +72,10 @@ Global
 		VSDebug|Win32 = VSDebug|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F348589F-6712-4D5C-BABD-F9F01C26C088}.Release|Win32.ActiveCfg = Release|Win32
+		{F348589F-6712-4D5C-BABD-F9F01C26C088}.Release|Win32.Build.0 = Release|Win32
+		{F348589F-6712-4D5C-BABD-F9F01C26C088}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
+		{F348589F-6712-4D5C-BABD-F9F01C26C088}.VSDebug|Win32.Build.0 = VSDebug|Win32
 		{F82A42FC-6728-4BCE-A1B7-D2D1D88E3566}.Release|Win32.ActiveCfg = Release|Win32
 		{F82A42FC-6728-4BCE-A1B7-D2D1D88E3566}.Release|Win32.Build.0 = Release|Win32
 		{F82A42FC-6728-4BCE-A1B7-D2D1D88E3566}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
