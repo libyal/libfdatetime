@@ -1,7 +1,7 @@
 /*
  * Type definitions for libfdatetime
  *
- * Copyright (C) 2009-2016, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2009-2017, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -212,6 +212,8 @@ typedef intptr_t libfdatetime_fat_date_t;
 
 /* FAT 16-bit time definition
  */
+typedef intptr_t libfdatetime_fat_date_t;
+typedef intptr_t libfdatetime_fat_date_time_t;
 typedef intptr_t libfdatetime_fat_time_t;
 
 /* 64-bit filetime definition

@@ -1,7 +1,7 @@
 /*
  * Library HFS time type testing program
  *
- * Copyright (C) 2009-2016, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2009-2017, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -28,8 +28,8 @@
 #include <stdlib.h>
 #endif
 
-#include "fdatetime_test_libfdatetime.h"
 #include "fdatetime_test_libcerror.h"
+#include "fdatetime_test_libfdatetime.h"
 #include "fdatetime_test_macros.h"
 #include "fdatetime_test_memory.h"
 #include "fdatetime_test_unused.h"
@@ -40,11 +40,17 @@
 int fdatetime_test_hfs_time_initialize(
      void )
 {
-	libfdatetime_hfs_time_t *hfs_time = NULL;
 	libcerror_error_t *error          = NULL;
+	libfdatetime_hfs_time_t *hfs_time = NULL;
 	int result                        = 0;
 
-	/* Test libfdatetime_hfs_time_initialize without entries
+#if defined( HAVE_FDATETIME_TEST_MEMORY )
+	int number_of_malloc_fail_tests   = 1;
+	int number_of_memset_fail_tests   = 1;
+	int test_number                   = 0;
+#endif
+
+	/* Test regular cases
 	 */
 	result = libfdatetime_hfs_time_initialize(
 	          &hfs_time,
@@ -120,65 +126,89 @@ int fdatetime_test_hfs_time_initialize(
 
 #if defined( HAVE_FDATETIME_TEST_MEMORY )
 
-	/* Test libfdatetime_hfs_time_initialize with malloc failing
-	 */
-	fdatetime_test_malloc_attempts_before_fail = 0;
-
-	result = libfdatetime_hfs_time_initialize(
-	          &hfs_time,
-	          &error );
-
-	if( fdatetime_test_malloc_attempts_before_fail != -1 )
+	for( test_number = 0;
+	     test_number < number_of_malloc_fail_tests;
+	     test_number++ )
 	{
-		fdatetime_test_malloc_attempts_before_fail = -1;
+		/* Test libfdatetime_hfs_time_initialize with malloc failing
+		 */
+		fdatetime_test_malloc_attempts_before_fail = test_number;
+
+		result = libfdatetime_hfs_time_initialize(
+		          &hfs_time,
+		          &error );
+
+		if( fdatetime_test_malloc_attempts_before_fail != -1 )
+		{
+			fdatetime_test_malloc_attempts_before_fail = -1;
+
+			if( hfs_time != NULL )
+			{
+				libfdatetime_hfs_time_free(
+				 &hfs_time,
+				 NULL );
+			}
+		}
+		else
+		{
+			FDATETIME_TEST_ASSERT_EQUAL_INT(
+			 "result",
+			 result,
+			 -1 );
+
+			FDATETIME_TEST_ASSERT_IS_NULL(
+			 "hfs_time",
+			 hfs_time );
+
+			FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+			 "error",
+			 error );
+
+			libcerror_error_free(
+			 &error );
+		}
 	}
-	else
+	for( test_number = 0;
+	     test_number < number_of_memset_fail_tests;
+	     test_number++ )
 	{
-		FDATETIME_TEST_ASSERT_EQUAL_INT(
-		 "result",
-		 result,
-		 -1 );
+		/* Test libfdatetime_hfs_time_initialize with memset failing
+		 */
+		fdatetime_test_memset_attempts_before_fail = test_number;
 
-		FDATETIME_TEST_ASSERT_IS_NULL(
-		 "hfs_time",
-		 hfs_time );
+		result = libfdatetime_hfs_time_initialize(
+		          &hfs_time,
+		          &error );
 
-		FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-		 "error",
-		 error );
+		if( fdatetime_test_memset_attempts_before_fail != -1 )
+		{
+			fdatetime_test_memset_attempts_before_fail = -1;
 
-		libcerror_error_free(
-		 &error );
-	}
-	/* Test libfdatetime_hfs_time_initialize with memset failing
-	 */
-	fdatetime_test_memset_attempts_before_fail = 0;
+			if( hfs_time != NULL )
+			{
+				libfdatetime_hfs_time_free(
+				 &hfs_time,
+				 NULL );
+			}
+		}
+		else
+		{
+			FDATETIME_TEST_ASSERT_EQUAL_INT(
+			 "result",
+			 result,
+			 -1 );
 
-	result = libfdatetime_hfs_time_initialize(
-	          &hfs_time,
-	          &error );
+			FDATETIME_TEST_ASSERT_IS_NULL(
+			 "hfs_time",
+			 hfs_time );
 
-	if( fdatetime_test_memset_attempts_before_fail != -1 )
-	{
-		fdatetime_test_memset_attempts_before_fail = -1;
-	}
-	else
-	{
-		FDATETIME_TEST_ASSERT_EQUAL_INT(
-		 "result",
-		 result,
-		 -1 );
+			FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+			 "error",
+			 error );
 
-		FDATETIME_TEST_ASSERT_IS_NULL(
-		 "hfs_time",
-		 hfs_time );
-
-		FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-		 "error",
-		 error );
-
-		libcerror_error_free(
-		 &error );
+			libcerror_error_free(
+			 &error );
+		}
 	}
 #endif /* defined( HAVE_FDATETIME_TEST_MEMORY ) */
 
@@ -629,7 +659,7 @@ int fdatetime_test_hfs_time_get_string_size(
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
 	 "string_size",
 	 string_size,
 	 (size_t) 22 );

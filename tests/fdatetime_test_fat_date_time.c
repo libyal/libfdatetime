@@ -1,7 +1,7 @@
 /*
  * Library FAT date time type testing program
  *
- * Copyright (C) 2009-2016, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2009-2017, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
@@ -629,7 +629,7 @@ int fdatetime_test_fat_date_time_get_string_size(
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
 	 "string_size",
 	 string_size,
 	 (size_t) 22 );
@@ -656,7 +656,7 @@ int fdatetime_test_fat_date_time_get_string_size(
 	 result,
 	 1 );
 
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
 	 "string_size",
 	 string_size,
 	 (size_t) 16 );
