@@ -717,13 +717,15 @@ int libfdatetime_posix_time_copy_to_date_time_values(
 		 */
 		posix_timestamp += 1;
 
-		date_time_values->year = 1970;
-
 		if( posix_timestamp >= 10957 )
 		{
 			date_time_values->year = 2000;
 
 			posix_timestamp -= 10957;
+		}
+		else
+		{
+			date_time_values->year = 1970;
 		}
 	}
 	else
