@@ -1,17 +1,17 @@
 Source: libfdatetime
-Section: libs
 Priority: extra
 Maintainer: Joachim Metz <joachim.metz@gmail.com>
-Build-Depends: debhelper (>= 7), autotools-dev
+Build-Depends: debhelper (>= 9), dh-autoreconf, pkg-config
 Standards-Version: 3.9.5
-Homepage: https://github.com/libyal/libfdatetime/
+Section: libs
+Homepage: https://github.com/libyal/libfdatetime
 
 Package: libfdatetime
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: libfdatetime-dbg
-Description: Library to support various date and time formats that are used in file formats
- libfdatetime is a library to support various date and time formats that are used in file formats.
+Description: Library to support various date and time formats
+ libfdatetime is a library to support various date and time formats.
 
 Package: libfdatetime-dbg
 Architecture: any
