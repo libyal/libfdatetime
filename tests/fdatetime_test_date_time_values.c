@@ -35,7 +35,7 @@
 
 #include "../libfdatetime/libfdatetime_date_time_values.h"
 
-#if defined( __GNUC__ )
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
 
 /* Tests the libfdatetime_date_time_values_initialize function
  * Returns 1 if successful or 0 if not
@@ -270,7 +270,7 @@ on_error:
 	return( 0 );
 }
 
-#endif /* defined( __GNUC__ ) */
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
 
 /* The main program
  */
@@ -287,7 +287,7 @@ int main(
 	FDATETIME_TEST_UNREFERENCED_PARAMETER( argc )
 	FDATETIME_TEST_UNREFERENCED_PARAMETER( argv )
 
-#if defined( __GNUC__ )
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_date_time_values_initialize",
@@ -305,7 +305,7 @@ int main(
 
 	/* TODO: add tests for libfdatetime_date_time_values_copy_to_utf32_string_with_index */
 
-#endif /* defined( __GNUC__ ) */
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
 
 	return( EXIT_SUCCESS );
 
