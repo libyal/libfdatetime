@@ -64,13 +64,13 @@ int fdatetime_test_date_time_values_initialize(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "date_time_values",
-         date_time_values );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "date_time_values",
+	 date_time_values );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfdatetime_date_time_values_free(
 	          &date_time_values,
@@ -81,13 +81,13 @@ int fdatetime_test_date_time_values_initialize(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "date_time_values",
-         date_time_values );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "date_time_values",
+	 date_time_values );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -100,9 +100,9 @@ int fdatetime_test_date_time_values_initialize(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -118,9 +118,9 @@ int fdatetime_test_date_time_values_initialize(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -252,9 +252,9 @@ int fdatetime_test_date_time_values_free(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );

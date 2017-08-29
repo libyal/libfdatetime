@@ -61,13 +61,13 @@ int fdatetime_test_nsf_timedate_initialize(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "nsf_timedate",
-         nsf_timedate );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "nsf_timedate",
+	 nsf_timedate );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfdatetime_nsf_timedate_free(
 	          &nsf_timedate,
@@ -78,13 +78,13 @@ int fdatetime_test_nsf_timedate_initialize(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "nsf_timedate",
-         nsf_timedate );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "nsf_timedate",
+	 nsf_timedate );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -97,9 +97,9 @@ int fdatetime_test_nsf_timedate_initialize(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -115,9 +115,9 @@ int fdatetime_test_nsf_timedate_initialize(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -249,9 +249,9 @@ int fdatetime_test_nsf_timedate_free(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -299,9 +299,9 @@ int fdatetime_test_nsf_timedate_copy_from_byte_stream(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfdatetime_nsf_timedate_copy_from_byte_stream(
 	          nsf_timedate,
@@ -315,9 +315,9 @@ int fdatetime_test_nsf_timedate_copy_from_byte_stream(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -333,9 +333,9 @@ int fdatetime_test_nsf_timedate_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -352,9 +352,9 @@ int fdatetime_test_nsf_timedate_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -371,9 +371,9 @@ int fdatetime_test_nsf_timedate_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -390,9 +390,9 @@ int fdatetime_test_nsf_timedate_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -409,9 +409,9 @@ int fdatetime_test_nsf_timedate_copy_from_byte_stream(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -468,9 +468,9 @@ int fdatetime_test_nsf_timedate_copy_from_64bit(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -484,9 +484,9 @@ int fdatetime_test_nsf_timedate_copy_from_64bit(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -557,9 +557,9 @@ int fdatetime_test_nsf_timedate_copy_to_64bit(
 	 value_64bit,
 	 0xc12572b4003b32f6 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -573,9 +573,9 @@ int fdatetime_test_nsf_timedate_copy_to_64bit(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -590,9 +590,9 @@ int fdatetime_test_nsf_timedate_copy_to_64bit(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -664,9 +664,9 @@ int fdatetime_test_nsf_timedate_get_string_size(
 	 string_size,
 	 (size_t) 26 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfdatetime_nsf_timedate_copy_from_byte_stream(
 	          nsf_timedate,
@@ -691,9 +691,9 @@ int fdatetime_test_nsf_timedate_get_string_size(
 	 string_size,
 	 (size_t) 24 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -708,9 +708,9 @@ int fdatetime_test_nsf_timedate_get_string_size(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -726,9 +726,9 @@ int fdatetime_test_nsf_timedate_get_string_size(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -797,9 +797,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf8_string(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -815,9 +815,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf8_string(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -900,9 +900,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf8_string_with_index(
 	 result,
 	 0 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	string_index = 0;
 
@@ -936,9 +936,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf8_string_with_index(
 	 result,
 	 0 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -957,9 +957,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf8_string_with_index(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1028,9 +1028,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf16_string(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1046,9 +1046,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf16_string(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1121,9 +1121,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf16_string_with_index(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	string_index = 0;
 
@@ -1147,9 +1147,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf16_string_with_index(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1168,9 +1168,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf16_string_with_index(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1239,9 +1239,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf32_string(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1257,9 +1257,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf32_string(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
@@ -1332,9 +1332,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf32_string_with_index(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	string_index = 0;
 
@@ -1358,9 +1358,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf32_string_with_index(
 	 result,
 	 1 );
 
-        FDATETIME_TEST_ASSERT_IS_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test error cases
 	 */
@@ -1379,9 +1379,9 @@ int fdatetime_test_nsf_timedate_copy_to_utf32_string_with_index(
 	 result,
 	 -1 );
 
-        FDATETIME_TEST_ASSERT_IS_NOT_NULL(
-         "error",
-         error );
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
 
 	libcerror_error_free(
 	 &error );
