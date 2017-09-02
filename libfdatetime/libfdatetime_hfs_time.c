@@ -499,11 +499,14 @@ int libfdatetime_hfs_time_get_string_size(
 
 		return( -1 );
 	}
-	if( libfdatetime_hfs_time_copy_to_date_time_values(
-	     (libfdatetime_internal_hfs_time_t *) hfs_time,
-	     &date_time_values,
-	     error ) != 1 )
+	result = libfdatetime_hfs_time_copy_to_date_time_values(
+	          (libfdatetime_internal_hfs_time_t *) hfs_time,
+	          &date_time_values,
+	          error );
+
+	if( result != 1 )
 	{
+#if defined( HAVE_DEBUG_OUTPUT )
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
@@ -511,26 +514,38 @@ int libfdatetime_hfs_time_get_string_size(
 		 "%s: unable to set date time values.",
 		 function );
 
-		return( -1 );
-	}
-	result = libfdatetime_date_time_values_get_string_size(
-	          &date_time_values,
-	          string_size,
-	          string_format_flags,
-	          error );
+/* TODO debug print error */
 
-	if( result == -1 )
+#endif /* defined( HAVE_DEBUG_OUTPUT ) */
+
+		if( ( error != NULL )
+		 && ( *error != NULL ) )
+		{
+			libcerror_error_free(
+			 error );
+		}
+	}
+	else
 	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
-		 "%s: unable to get string size.",
-		 function );
+		result = libfdatetime_date_time_values_get_string_size(
+		          &date_time_values,
+		          string_size,
+		          string_format_flags,
+		          error );
 
-		return( -1 );
+		if( result == -1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_GET_FAILED,
+			 "%s: unable to get string size.",
+			 function );
+
+			return( -1 );
+		}
 	}
-	else if( result == 0 )
+	if( result != 1 )
 	{
 		/* Make sure the string can hold the hexadecimal representation of the HFS time
 		 */
@@ -607,11 +622,14 @@ int libfdatetime_hfs_time_copy_to_utf8_string_with_index(
 	}
 	internal_hfs_time = (libfdatetime_internal_hfs_time_t *) hfs_time;
 
-	if( libfdatetime_hfs_time_copy_to_date_time_values(
-	     internal_hfs_time,
-	     &date_time_values,
-	     error ) != 1 )
+	result = libfdatetime_hfs_time_copy_to_date_time_values(
+	          internal_hfs_time,
+	          &date_time_values,
+	          error );
+
+	if( result != 1 )
 	{
+#if defined( HAVE_DEBUG_OUTPUT )
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
@@ -619,30 +637,40 @@ int libfdatetime_hfs_time_copy_to_utf8_string_with_index(
 		 "%s: unable to set date time values.",
 		 function );
 
-		return( -1 );
-	}
-	/* Create the date and time string
-	 */
-	result = libfdatetime_date_time_values_copy_to_utf8_string_with_index(
-	          &date_time_values,
-	          utf8_string,
-	          utf8_string_size,
-	          utf8_string_index,
-	          string_format_flags,
-	          error );
+/* TODO debug print error */
 
-	if( result == -1 )
+#endif /* defined( HAVE_DEBUG_OUTPUT ) */
+
+		if( ( error != NULL )
+		 && ( *error != NULL ) )
+		{
+			libcerror_error_free(
+			 error );
+		}
+	}
+	else
 	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set string.",
-		 function );
+		result = libfdatetime_date_time_values_copy_to_utf8_string_with_index(
+		          &date_time_values,
+		          utf8_string,
+		          utf8_string_size,
+		          utf8_string_index,
+		          string_format_flags,
+		          error );
 
-		return( -1 );
+		if( result == -1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to set UTF-8 string.",
+			 function );
+
+			return( -1 );
+		}
 	}
-	else if( result == 0 )
+	if( result != 1 )
 	{
 		if( utf8_string == NULL )
 		{
@@ -789,11 +817,14 @@ int libfdatetime_hfs_time_copy_to_utf16_string_with_index(
 	}
 	internal_hfs_time = (libfdatetime_internal_hfs_time_t *) hfs_time;
 
-	if( libfdatetime_hfs_time_copy_to_date_time_values(
-	     internal_hfs_time,
-	     &date_time_values,
-	     error ) != 1 )
+	result = libfdatetime_hfs_time_copy_to_date_time_values(
+	          internal_hfs_time,
+	          &date_time_values,
+	          error );
+
+	if( result != 1 )
 	{
+#if defined( HAVE_DEBUG_OUTPUT )
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
@@ -801,30 +832,40 @@ int libfdatetime_hfs_time_copy_to_utf16_string_with_index(
 		 "%s: unable to set date time values.",
 		 function );
 
-		return( -1 );
-	}
-	/* Create the date and time string
-	 */
-	result = libfdatetime_date_time_values_copy_to_utf16_string_with_index(
-	          &date_time_values,
-	          utf16_string,
-	          utf16_string_size,
-	          utf16_string_index,
-	          string_format_flags,
-	          error );
+/* TODO debug print error */
 
-	if( result == -1 )
+#endif /* defined( HAVE_DEBUG_OUTPUT ) */
+
+		if( ( error != NULL )
+		 && ( *error != NULL ) )
+		{
+			libcerror_error_free(
+			 error );
+		}
+	}
+	else
 	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set string.",
-		 function );
+		result = libfdatetime_date_time_values_copy_to_utf16_string_with_index(
+		          &date_time_values,
+		          utf16_string,
+		          utf16_string_size,
+		          utf16_string_index,
+		          string_format_flags,
+		          error );
 
-		return( -1 );
+		if( result == -1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to set UTF-16 string.",
+			 function );
+
+			return( -1 );
+		}
 	}
-	else if( result == 0 )
+	if( result != 1 )
 	{
 		if( utf16_string == NULL )
 		{
@@ -971,11 +1012,14 @@ int libfdatetime_hfs_time_copy_to_utf32_string_with_index(
 	}
 	internal_hfs_time = (libfdatetime_internal_hfs_time_t *) hfs_time;
 
-	if( libfdatetime_hfs_time_copy_to_date_time_values(
-	     internal_hfs_time,
-	     &date_time_values,
-	     error ) != 1 )
+	result = libfdatetime_hfs_time_copy_to_date_time_values(
+	          internal_hfs_time,
+	          &date_time_values,
+	          error );
+
+	if( result != 1 )
 	{
+#if defined( HAVE_DEBUG_OUTPUT )
 		libcerror_error_set(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
@@ -983,30 +1027,40 @@ int libfdatetime_hfs_time_copy_to_utf32_string_with_index(
 		 "%s: unable to set date time values.",
 		 function );
 
-		return( -1 );
-	}
-	/* Create the date and time string
-	 */
-	result = libfdatetime_date_time_values_copy_to_utf32_string_with_index(
-	          &date_time_values,
-	          utf32_string,
-	          utf32_string_size,
-	          utf32_string_index,
-	          string_format_flags,
-	          error );
+/* TODO debug print error */
 
-	if( result == -1 )
+#endif /* defined( HAVE_DEBUG_OUTPUT ) */
+
+		if( ( error != NULL )
+		 && ( *error != NULL ) )
+		{
+			libcerror_error_free(
+			 error );
+		}
+	}
+	else
 	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-		 "%s: unable to set string.",
-		 function );
+		result = libfdatetime_date_time_values_copy_to_utf32_string_with_index(
+		          &date_time_values,
+		          utf32_string,
+		          utf32_string_size,
+		          utf32_string_index,
+		          string_format_flags,
+		          error );
 
-		return( -1 );
+		if( result == -1 )
+		{
+			libcerror_error_set(
+			 error,
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to set UTF-32 string.",
+			 function );
+
+			return( -1 );
+		}
 	}
-	else if( result == 0 )
+	if( result != 1 )
 	{
 		if( utf32_string == NULL )
 		{
