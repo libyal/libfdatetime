@@ -273,7 +273,7 @@ on_error:
 int fdatetime_test_floatingtime_copy_from_byte_stream(
      void )
 {
-	uint8_t byte_stream[ 8 ] = { 0x00, 0x00, 0x00, 0x00, 0xe8, 0xd5, 0xe1, 0x40 };
+	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -520,7 +520,7 @@ on_error:
 int fdatetime_test_floatingtime_copy_to_64bit(
      void )
 {
-	uint8_t byte_stream[ 8 ] = { 0x00, 0x00, 0x00, 0x00, 0xe8, 0xd5, 0xe1, 0x40 };
+	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -555,7 +555,7 @@ int fdatetime_test_floatingtime_copy_to_64bit(
 	FDATETIME_TEST_ASSERT_EQUAL_UINT64(
 	 "value_64bit",
 	 value_64bit,
-	 0x40e1d5e800000000 );
+	 0x40e5048f60b60b61 );
 
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -626,7 +626,7 @@ on_error:
 int fdatetime_test_floatingtime_get_string_size(
      void )
 {
-	uint8_t byte_stream[ 8 ] = { 0x00, 0x00, 0x00, 0x00, 0xe8, 0xd5, 0xe1, 0x40 };
+	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -764,7 +764,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string(
 {
 	uint8_t date_time_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0x00, 0x00, 0x00, 0x00, 0xe8, 0xd5, 0xe1, 0x40 };
+	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -853,7 +853,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 {
 	uint8_t date_time_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0x00, 0x00, 0x00, 0x00, 0xe8, 0xd5, 0xe1, 0x40 };
+	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -892,7 +892,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 
 	result = narrow_string_compare(
 	          date_time_string,
-	          "Jan 01, 2000 06:00:00.000000000",
+	          "Nov 05, 2017 11:32:00.000000181",
 	          31 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
@@ -928,7 +928,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 
 	result = narrow_string_compare(
 	          date_time_string,
-	          "(0x00000000e8d5e140)",
+	          "(0x610bb6608f04e540)",
 	          21 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
@@ -1015,7 +1015,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string(
 {
 	uint16_t date_time_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0x00, 0x00, 0x00, 0x00, 0xe8, 0xd5, 0xe1, 0x40 };
+	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -1104,7 +1104,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 {
 	uint16_t date_time_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0x00, 0x00, 0x00, 0x00, 0xe8, 0xd5, 0xe1, 0x40 };
+	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -1246,7 +1246,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string(
 {
 	uint32_t date_time_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0x00, 0x00, 0x00, 0x00, 0xe8, 0xd5, 0xe1, 0x40 };
+	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -1335,7 +1335,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 {
 	uint32_t date_time_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0x00, 0x00, 0x00, 0x00, 0xe8, 0xd5, 0xe1, 0x40 };
+	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;

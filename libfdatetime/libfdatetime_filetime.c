@@ -472,6 +472,17 @@ int libfdatetime_filetime_copy_to_date_time_values(
 
 		date_time_values->year += 1;
 	}
+	if( date_time_values->year > 9999 )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+		 "%s: invalid filetime - year value out of bounds.",
+		 function );
+
+		return( -1 );
+	}
 	/* Determine the month correct the value to days within the month
 	 */
 	date_time_values->month = 1;

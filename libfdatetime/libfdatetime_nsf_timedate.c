@@ -412,6 +412,18 @@ int libfdatetime_nsf_timedate_copy_to_date_time_values(
 	 */
 	date_time_values->year = (uint16_t) ( number_of_years - 4800 + ( ( number_of_months + 2 ) / 12 ) );
 
+	if( ( date_time_values->year < -9999 )
+	 || ( date_time_values->year > 9999 ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+		 "%s: invalid NSF timedate - year value out of bounds.",
+		 function );
+
+		return( -1 );
+	}
 	/* Determine the month
 	 */
 	date_time_values->month = ( ( number_of_months + 2 ) % 12 ) + 1;

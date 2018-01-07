@@ -329,18 +329,34 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 	}
 	floatingtimestamp = internal_floatingtime->timestamp.floating_point;
 
+	if( ( floatingtimestamp <= -3650000.0 )
+	 || ( floatingtimestamp >= 3650000.0 ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+		 "%s: invalid floatingtime - value out of bounds.",
+		 function );
+
+		return( -1 );
+	}
 	/* Determine the number of years starting at '30 Dec 1899 00:00:00'
 	 * correct the value to days within the year
 	 */
-	date_time_values->year = 1899;
+	date_time_values->year  = 1899;
+	date_time_values->month = 12;
+	date_time_values->day   = 30;
 
-	if( floatingtimestamp >= 2 )
+	if( floatingtimestamp >= 2.0 )
 	{
-		date_time_values->year = 1900;
+		date_time_values->year  = 1900;
+		date_time_values->month = 1;
+		date_time_values->day   = 1;
 
-		floatingtimestamp -= 2;
+		floatingtimestamp -= 2.0;
 	}
-	while( floatingtimestamp > 0 )
+	while( floatingtimestamp > 0.0 )
 	{
 		if( ( date_time_values->year % 400 ) == 0 )
 		{
@@ -358,7 +374,7 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 
 		date_time_values->year += 100;
 	}
-	while( floatingtimestamp > 0 )
+	while( floatingtimestamp > 0.0 )
 	{
 		/* Check for a leap year
 		 * The year is ( ( dividable by 4 ) and ( not dividable by 100 ) ) or ( dividable by 400 )
@@ -381,11 +397,21 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 
 		date_time_values->year += 1;
 	}
+	if( ( date_time_values->year < -9999 )
+	 || ( date_time_values->year > 9999 ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
+		 "%s: invalid floatingtime - year value out of bounds.",
+		 function );
+
+		return( -1 );
+	}
 	/* Determine the month correct the value to days within the month
 	 */
-	date_time_values->month = 1;
-
-	while( floatingtimestamp > 0 )
+	while( floatingtimestamp > 0.0 )
 	{
 		/* February (2)
 		 */
@@ -447,42 +473,42 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 	}
 	/* Determine the day
 	 */
-	date_time_values->day = (uint8_t) floatingtimestamp;
-	floatingtimestamp    -= date_time_values->day;
+	date_time_values->day += (uint8_t) floatingtimestamp;
+	floatingtimestamp     -= (int) floatingtimestamp;
 
 	/* There are 24 hours in a day correct the value to hours
 	 */
-	floatingtimestamp      *= 24;
+	floatingtimestamp      *= 24.0;
 	date_time_values->hours = (uint8_t) floatingtimestamp;
 	floatingtimestamp      -= date_time_values->hours;
 
 	/* There are 60 minutes in an hour correct the value to minutes
 	 */
-	floatingtimestamp        *= 60;
+	floatingtimestamp        *= 60.0;
 	date_time_values->minutes = (uint8_t) floatingtimestamp;
 	floatingtimestamp        -= date_time_values->minutes;
 
 	/* There are 60 seconds in a minute correct the value to seconds
 	 */
-	floatingtimestamp        *= 60;
+	floatingtimestamp        *= 60.0;
 	date_time_values->seconds = (uint8_t) floatingtimestamp;
 	floatingtimestamp        -= date_time_values->seconds;
 
 	/* There are 1000 milli seconds in a seconds correct the value to milli seconds
 	 */
-	floatingtimestamp              *= 1000;
+	floatingtimestamp              *= 1000.0;
 	date_time_values->milli_seconds = (uint8_t) floatingtimestamp;
 	floatingtimestamp              -= date_time_values->milli_seconds;
 
 	/* There are 1000 micro seconds in a seconds correct the value to micro seconds
 	 */
-	floatingtimestamp              *= 1000;
+	floatingtimestamp              *= 1000.0;
 	date_time_values->micro_seconds = (uint8_t) floatingtimestamp;
 	floatingtimestamp              -= date_time_values->micro_seconds;
 
 	/* There are 1000 nano seconds in a seconds correct the value to nano seconds
 	 */
-	floatingtimestamp             *= 1000;
+	floatingtimestamp             *= 1000.0;
 	date_time_values->nano_seconds = (uint8_t) floatingtimestamp;
 
 	return( 1 );
