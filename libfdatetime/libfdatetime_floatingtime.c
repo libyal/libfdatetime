@@ -397,8 +397,7 @@ int libfdatetime_floatingtime_copy_to_date_time_values(
 
 		date_time_values->year += 1;
 	}
-	if( ( date_time_values->year < -9999 )
-	 || ( date_time_values->year > 9999 ) )
+	if( date_time_values->year > 9999 )
 	{
 		libcerror_error_set(
 		 error,
