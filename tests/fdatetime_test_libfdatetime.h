@@ -1,5 +1,5 @@
 /*
- * The internal libfdatetime header
+ * The libfdatetime header wrapper
  *
  * Copyright (C) 2009-2018, Joachim Metz <joachim.metz@gmail.com>
  *
