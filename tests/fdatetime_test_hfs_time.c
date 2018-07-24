@@ -110,6 +110,8 @@ int fdatetime_test_hfs_time_initialize(
 	          &hfs_time,
 	          &error );
 
+	hfs_time = NULL;
+
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
@@ -121,8 +123,6 @@ int fdatetime_test_hfs_time_initialize(
 
 	libcerror_error_free(
 	 &error );
-
-	hfs_time = NULL;
 
 #if defined( HAVE_FDATETIME_TEST_MEMORY )
 
@@ -285,6 +285,19 @@ int fdatetime_test_hfs_time_copy_from_byte_stream(
 	          &hfs_time,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	/* Test copy from byte stream
 	 */
 	result = libfdatetime_hfs_time_copy_from_byte_stream(
@@ -420,7 +433,20 @@ int fdatetime_test_hfs_time_copy_from_byte_stream(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -455,6 +481,19 @@ int fdatetime_test_hfs_time_copy_from_32bit(
 	result = libfdatetime_hfs_time_initialize(
 	          &hfs_time,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test copy from byte stream
 	 */
@@ -495,7 +534,20 @@ int fdatetime_test_hfs_time_copy_from_32bit(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -533,12 +585,34 @@ int fdatetime_test_hfs_time_copy_to_32bit(
 	          &hfs_time,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = libfdatetime_hfs_time_copy_from_byte_stream(
 	          hfs_time,
 	          byte_stream,
 	          4,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test copy to byte stream
 	 */
@@ -601,7 +675,20 @@ int fdatetime_test_hfs_time_copy_to_32bit(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -639,6 +726,19 @@ int fdatetime_test_hfs_time_get_string_size(
 	          &hfs_time,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	/* Test copy to string
 	 */
 	result = libfdatetime_hfs_time_copy_from_byte_stream(
@@ -647,6 +747,15 @@ int fdatetime_test_hfs_time_get_string_size(
 	          4,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfdatetime_hfs_time_get_string_size(
 	          hfs_time,
@@ -710,7 +819,20 @@ int fdatetime_test_hfs_time_get_string_size(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -749,12 +871,34 @@ int fdatetime_test_hfs_time_copy_to_utf8_string(
 	          &hfs_time,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = libfdatetime_hfs_time_copy_from_byte_stream(
 	          hfs_time,
 	          byte_stream,
 	          4,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test copy to string
 	 */
@@ -799,7 +943,20 @@ int fdatetime_test_hfs_time_copy_to_utf8_string(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -839,6 +996,19 @@ int fdatetime_test_hfs_time_copy_to_utf8_string_with_index(
 	          &hfs_time,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	/* Test copy to string with index
 	 */
 	string_index = 0;
@@ -849,6 +1019,15 @@ int fdatetime_test_hfs_time_copy_to_utf8_string_with_index(
 	          4,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfdatetime_hfs_time_copy_to_utf8_string_with_index(
 	          hfs_time,
@@ -905,7 +1084,20 @@ int fdatetime_test_hfs_time_copy_to_utf8_string_with_index(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -944,12 +1136,34 @@ int fdatetime_test_hfs_time_copy_to_utf16_string(
 	          &hfs_time,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = libfdatetime_hfs_time_copy_from_byte_stream(
 	          hfs_time,
 	          byte_stream,
 	          4,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test copy to string
 	 */
@@ -994,7 +1208,20 @@ int fdatetime_test_hfs_time_copy_to_utf16_string(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1034,6 +1261,19 @@ int fdatetime_test_hfs_time_copy_to_utf16_string_with_index(
 	          &hfs_time,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	/* Test copy to string with index
 	 */
 	string_index = 0;
@@ -1044,6 +1284,15 @@ int fdatetime_test_hfs_time_copy_to_utf16_string_with_index(
 	          4,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfdatetime_hfs_time_copy_to_utf16_string_with_index(
 	          hfs_time,
@@ -1090,7 +1339,20 @@ int fdatetime_test_hfs_time_copy_to_utf16_string_with_index(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1129,12 +1391,34 @@ int fdatetime_test_hfs_time_copy_to_utf32_string(
 	          &hfs_time,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = libfdatetime_hfs_time_copy_from_byte_stream(
 	          hfs_time,
 	          byte_stream,
 	          4,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	/* Test copy to string
 	 */
@@ -1179,7 +1463,20 @@ int fdatetime_test_hfs_time_copy_to_utf32_string(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 
@@ -1219,6 +1516,19 @@ int fdatetime_test_hfs_time_copy_to_utf32_string_with_index(
 	          &hfs_time,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	/* Test copy to string with index
 	 */
 	string_index = 0;
@@ -1229,6 +1539,15 @@ int fdatetime_test_hfs_time_copy_to_utf32_string_with_index(
 	          4,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfdatetime_hfs_time_copy_to_utf32_string_with_index(
 	          hfs_time,
@@ -1275,7 +1594,20 @@ int fdatetime_test_hfs_time_copy_to_utf32_string_with_index(
 	 */
 	result = libfdatetime_hfs_time_free(
 	          &hfs_time,
-	          NULL );
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "hfs_time",
+	 hfs_time );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	return( 1 );
 

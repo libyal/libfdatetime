@@ -113,6 +113,8 @@ int fdatetime_test_date_time_values_initialize(
 	          &date_time_values,
 	          &error );
 
+	date_time_values = NULL;
+
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
@@ -125,10 +127,10 @@ int fdatetime_test_date_time_values_initialize(
 	libcerror_error_free(
 	 &error );
 
-	date_time_values = NULL;
-
 #if defined( HAVE_FDATETIME_TEST_MEMORY )
 
+	/* 1 fail in memory_allocate_structure
+	 */
 	for( test_number = 0;
 	     test_number < number_of_malloc_fail_tests;
 	     test_number++ )
@@ -171,6 +173,8 @@ int fdatetime_test_date_time_values_initialize(
 			 &error );
 		}
 	}
+	/* 1 fail in memset after memory_allocate_structure
+	 */
 	for( test_number = 0;
 	     test_number < number_of_memset_fail_tests;
 	     test_number++ )
