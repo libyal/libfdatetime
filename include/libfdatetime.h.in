@@ -230,7 +230,7 @@ int libfdatetime_fat_date_time_copy_to_utf32_string_with_index(
  * FILETIME functions
  * ------------------------------------------------------------------------- */
 
-/* Creates a filetime
+/* Creates a FILETIME
  * Make sure the value filetime is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
@@ -239,7 +239,7 @@ int libfdatetime_filetime_initialize(
      libfdatetime_filetime_t **filetime,
      libfdatetime_error_t **error );
 
-/* Frees a filetime
+/* Frees a FILETIME
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -247,7 +247,7 @@ int libfdatetime_filetime_free(
      libfdatetime_filetime_t **filetime,
      libfdatetime_error_t **error );
 
-/* Adds the additional filetime to the filetime
+/* Adds the additional FILETIME to the FILETIME
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -256,7 +256,7 @@ int libfdatetime_filetime_add(
      libfdatetime_filetime_t *additional_filetime,
      libfdatetime_error_t **error );
 
-/* Converts a byte stream into a filetime
+/* Converts a byte stream into a FILETIME
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -267,7 +267,7 @@ int libfdatetime_filetime_copy_from_byte_stream(
      int byte_order,
      libfdatetime_error_t **error );
 
-/* Converts a 64-bit value into a filetime
+/* Converts a 64-bit value into a FILETIME
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -276,7 +276,7 @@ int libfdatetime_filetime_copy_from_64bit(
      uint64_t value_64bit,
      libfdatetime_error_t **error );
 
-/* Converts a filetime into a 64-bit value
+/* Converts a FILETIME into a 64-bit value
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -285,7 +285,7 @@ int libfdatetime_filetime_copy_to_64bit(
      uint64_t *value_64bit,
      libfdatetime_error_t **error );
 
-/* Deterimes the size of the string for the filetime
+/* Deterimes the size of the string for the FILETIME
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -296,7 +296,7 @@ int libfdatetime_filetime_get_string_size(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the filetime into a string
+/* Converts the FILETIME into a string
  * The strings is encoded in UTF-8
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -309,7 +309,7 @@ int libfdatetime_filetime_copy_to_utf8_string(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the filetime into a string
+/* Converts the FILETIME into a string
  * The strings is encoded in UTF-8
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -323,7 +323,7 @@ int libfdatetime_filetime_copy_to_utf8_string_with_index(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the filetime into a string
+/* Converts the FILETIME into a string
  * The strings is encoded in UTF-16
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -336,7 +336,7 @@ int libfdatetime_filetime_copy_to_utf16_string(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the filetime into a string
+/* Converts the FILETIME into a string
  * The strings is encoded in UTF-16
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -350,7 +350,7 @@ int libfdatetime_filetime_copy_to_utf16_string_with_index(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the filetime into a string
+/* Converts the FILETIME into a string
  * The strings is encoded in UTF-32
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -363,7 +363,7 @@ int libfdatetime_filetime_copy_to_utf32_string(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the filetime into a string
+/* Converts the FILETIME into a string
  * The strings is encoded in UTF-32
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -966,7 +966,7 @@ int libfdatetime_posix_time_copy_to_utf32_string_with_index(
  * Systemtime functions
  * ------------------------------------------------------------------------- */
 
-/* Creates a systemtime
+/* Creates a SYSTEMTIME
  * Make sure the value systemtime is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
@@ -975,7 +975,7 @@ int libfdatetime_systemtime_initialize(
      libfdatetime_systemtime_t **systemtime,
      libfdatetime_error_t **error );
 
-/* Frees a systemtime
+/* Frees a SYSTEMTIME
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -983,7 +983,7 @@ int libfdatetime_systemtime_free(
      libfdatetime_systemtime_t **systemtime,
      libfdatetime_error_t **error );
 
-/* Converts a byte stream into a systemtime
+/* Converts a byte stream into a SYSTEMTIME
  * Returns 1 if successful or -1 on error
  */
 LIBFDATETIME_EXTERN \
@@ -994,7 +994,7 @@ int libfdatetime_systemtime_copy_from_byte_stream(
      int byte_order,
      libfdatetime_error_t **error );
 
-/* Deterimes the size of the string for the systemtime
+/* Deterimes the size of the string for the SYSTEMTIME
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -1005,7 +1005,7 @@ int libfdatetime_systemtime_get_string_size(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the systemtime into a string
+/* Converts the SYSTEMTIME into a string
  * The strings is encoded in UTF-8
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -1018,7 +1018,7 @@ int libfdatetime_systemtime_copy_to_utf8_string(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the systemtime into a string
+/* Converts the SYSTEMTIME into a string
  * The strings is encoded in UTF-8
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -1032,7 +1032,7 @@ int libfdatetime_systemtime_copy_to_utf8_string_with_index(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the systemtime into a string
+/* Converts the SYSTEMTIME into a string
  * The strings is encoded in UTF-16
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -1045,7 +1045,7 @@ int libfdatetime_systemtime_copy_to_utf16_string(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the systemtime into a string
+/* Converts the SYSTEMTIME into a string
  * The strings is encoded in UTF-16
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -1059,7 +1059,7 @@ int libfdatetime_systemtime_copy_to_utf16_string_with_index(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the systemtime into a string
+/* Converts the SYSTEMTIME into a string
  * The strings is encoded in UTF-32
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
@@ -1072,7 +1072,7 @@ int libfdatetime_systemtime_copy_to_utf32_string(
      uint32_t string_format_flags,
      libfdatetime_error_t **error );
 
-/* Converts the systemtime into a string
+/* Converts the SYSTEMTIME into a string
  * The strings is encoded in UTF-32
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error

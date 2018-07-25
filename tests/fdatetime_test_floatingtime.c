@@ -21,7 +21,7 @@
 
 #include <common.h>
 #include <file_stream.h>
-#include <narrow_string.h>
+#include <memory.h>
 #include <types.h>
 
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
@@ -33,6 +33,9 @@
 #include "fdatetime_test_macros.h"
 #include "fdatetime_test_memory.h"
 #include "fdatetime_test_unused.h"
+
+#include "../libfdatetime/libfdatetime_date_time_values.h"
+#include "../libfdatetime/libfdatetime_floatingtime.h"
 
 /* Tests the libfdatetime_floatingtime_initialize function
  * Returns 1 if successful or 0 if not
@@ -273,7 +276,8 @@ on_error:
 int fdatetime_test_floatingtime_copy_from_byte_stream(
      void )
 {
-	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -298,7 +302,7 @@ int fdatetime_test_floatingtime_copy_from_byte_stream(
 	 "error",
 	 error );
 
-	/* Test copy from byte stream
+	/* Test regular cases
 	 */
 	result = libfdatetime_floatingtime_copy_from_byte_stream(
 	          floatingtime,
@@ -414,7 +418,7 @@ int fdatetime_test_floatingtime_copy_from_byte_stream(
 	          floatingtime,
 	          byte_stream,
 	          8,
-	          100,
+	          -1,
 	          &error );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
@@ -495,7 +499,7 @@ int fdatetime_test_floatingtime_copy_from_64bit(
 	 "error",
 	 error );
 
-	/* Test copy from byte stream
+	/* Test regular cases
 	 */
 	result = libfdatetime_floatingtime_copy_from_64bit(
 	          floatingtime,
@@ -572,7 +576,8 @@ on_error:
 int fdatetime_test_floatingtime_copy_to_64bit(
      void )
 {
-	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -614,7 +619,7 @@ int fdatetime_test_floatingtime_copy_to_64bit(
 	 "error",
 	 error );
 
-	/* Test copy to byte stream
+	/* Test regular cases
 	 */
 	result = libfdatetime_floatingtime_copy_to_64bit(
 	          floatingtime,
@@ -707,13 +712,195 @@ on_error:
 	return( 0 );
 }
 
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
+
+/* Tests the libfdatetime_internal_floatingtime_copy_to_date_time_values function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_internal_floatingtime_copy_to_date_time_values(
+     void )
+{
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+
+	libcerror_error_t *error                          = NULL;
+	libfdatetime_date_time_values_t *date_time_values = NULL;
+	libfdatetime_floatingtime_t *floatingtime         = NULL;
+	int result                                        = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_date_time_values_initialize(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libfdatetime_floatingtime_initialize(
+	          &floatingtime,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "floatingtime",
+	 floatingtime );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libfdatetime_floatingtime_copy_from_byte_stream(
+	          floatingtime,
+	          byte_stream,
+	          8,
+	          LIBFDATETIME_ENDIAN_LITTLE,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test regular cases
+	 */
+	result = libfdatetime_internal_floatingtime_copy_to_date_time_values(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	result = libfdatetime_internal_floatingtime_copy_to_date_time_values(
+	          NULL,
+	          date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_date_time_values(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          NULL,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_floatingtime_free(
+	          &floatingtime,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "floatingtime",
+	 floatingtime );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libfdatetime_date_time_values_free(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( floatingtime != NULL )
+	{
+		libfdatetime_floatingtime_free(
+		 &floatingtime,
+		 NULL );
+	}
+	if( floatingtime != NULL )
+	{
+		libfdatetime_date_time_values_free(
+		 &date_time_values,
+		 NULL );
+	}
+	return( 0 );
+}
+
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
+
 /* Tests the libfdatetime_floatingtime_get_string_size function
  * Returns 1 if successful or 0 if not
  */
 int fdatetime_test_floatingtime_get_string_size(
      void )
 {
-	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -739,7 +926,7 @@ int fdatetime_test_floatingtime_get_string_size(
 	 "error",
 	 error );
 
-	/* Test copy to string
+	/* Test regular cases
 	 */
 	result = libfdatetime_floatingtime_copy_from_byte_stream(
 	          floatingtime,
@@ -783,6 +970,15 @@ int fdatetime_test_floatingtime_get_string_size(
 	          8,
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
 
 	result = libfdatetime_floatingtime_get_string_size(
 	          floatingtime,
@@ -878,15 +1074,240 @@ on_error:
 	return( 0 );
 }
 
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
+
+/* Tests the libfdatetime_internal_floatingtime_copy_to_utf8_string_in_hexadecimal function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_internal_floatingtime_copy_to_utf8_string_in_hexadecimal(
+     void )
+{
+	uint8_t expected_utf8_string[ 21 ] = {
+		'(', '0', 'x', '6', '1', '0', 'b', 'b', '6', '6', '0', '8', 'f', '0', '4', 'e',
+		'5', '4', '0', ')', 0 };
+
+	uint8_t utf8_string[ 32 ];
+
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+
+	libcerror_error_t *error                  = NULL;
+	libfdatetime_floatingtime_t *floatingtime = NULL;
+	size_t string_index                       = 0;
+	int result                                = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_floatingtime_initialize(
+	          &floatingtime,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "floatingtime",
+	 floatingtime );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libfdatetime_floatingtime_copy_from_byte_stream(
+	          floatingtime,
+	          byte_stream,
+	          8,
+	          LIBFDATETIME_ENDIAN_BIG,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test regular cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf8_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf8_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf8_string,
+	          expected_utf8_string,
+	          sizeof( uint8_t ) * 21 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf8_string_in_hexadecimal(
+	          NULL,
+	          utf8_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf8_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          NULL,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf8_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf8_string,
+	          (size_t) SSIZE_MAX + 1,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf8_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf8_string,
+	          20,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf8_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf8_string,
+	          32,
+	          NULL,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_floatingtime_free(
+	          &floatingtime,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "floatingtime",
+	 floatingtime );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( floatingtime != NULL )
+	{
+		libfdatetime_floatingtime_free(
+		 &floatingtime,
+		 NULL );
+	}
+	return( 0 );
+}
+
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
+
 /* Tests the libfdatetime_floatingtime_copy_to_utf8_string function
  * Returns 1 if successful or 0 if not
  */
 int fdatetime_test_floatingtime_copy_to_utf8_string(
      void )
 {
-	uint8_t date_time_string[ 32 ];
+	uint8_t utf8_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -927,11 +1348,11 @@ int fdatetime_test_floatingtime_copy_to_utf8_string(
 	 "error",
 	 error );
 
-	/* Test copy to string
+	/* Test regular cases
 	 */
 	result = libfdatetime_floatingtime_copy_to_utf8_string(
 	          floatingtime,
-	          date_time_string,
+	          utf8_string,
 	          32,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
@@ -949,7 +1370,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string(
 	 */
 	result = libfdatetime_floatingtime_copy_to_utf8_string(
 	          NULL,
-	          date_time_string,
+	          utf8_string,
 	          32,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
@@ -1008,9 +1429,18 @@ on_error:
 int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
      void )
 {
-	uint8_t date_time_string[ 32 ];
+	uint8_t expected_utf8_string1[ 32 ] = {
+		'N', 'o', 'v', ' ', '0', '5', ',', ' ', '2', '0', '1', '7', ' ', '1', '1', ':',
+		'3', '2', ':', '0', '0', '.', '0', '0', '0', '0', '0', '0', '1', '8', '1', 0 };
 
-	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+	uint8_t expected_utf8_string2[ 21 ] = {
+		'(', '0', 'x', '6', '1', '0', 'b', 'b', '6', '6', '0', '8', 'f', '0', '4', 'e',
+		'5', '4', '0', ')', 0 };
+
+	uint8_t utf8_string[ 32 ];
+
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -1036,7 +1466,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	 "error",
 	 error );
 
-	/* Test copy to string with index
+	/* Test regular cases
 	 */
 	string_index = 0;
 
@@ -1058,7 +1488,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 
 	result = libfdatetime_floatingtime_copy_to_utf8_string_with_index(
 	          floatingtime,
-	          date_time_string,
+	          utf8_string,
 	          32,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
@@ -1069,19 +1499,19 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	 result,
 	 1 );
 
-	result = narrow_string_compare(
-	          date_time_string,
-	          "Nov 05, 2017 11:32:00.000000181",
-	          31 );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf8_string,
+	          expected_utf8_string1,
+	          sizeof( uint8_t ) * 32 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	string_index = 0;
 
@@ -1092,9 +1522,18 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = libfdatetime_floatingtime_copy_to_utf8_string_with_index(
 	          floatingtime,
-	          date_time_string,
+	          utf8_string,
 	          32,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
@@ -1105,19 +1544,19 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 	 result,
 	 1 );
 
-	result = narrow_string_compare(
-	          date_time_string,
-	          "(0x610bb6608f04e540)",
-	          21 );
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf8_string,
+	          expected_utf8_string2,
+	          sizeof( uint8_t ) * 21 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	/* Test error cases
 	 */
@@ -1125,7 +1564,7 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 
 	result = libfdatetime_floatingtime_copy_to_utf8_string_with_index(
 	          NULL,
-	          date_time_string,
+	          utf8_string,
 	          32,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
@@ -1145,8 +1584,8 @@ int fdatetime_test_floatingtime_copy_to_utf8_string_with_index(
 
 	result = libfdatetime_floatingtime_copy_to_utf8_string_with_index(
 	          floatingtime,
-	          date_time_string,
-	          23,
+	          utf8_string,
+	          20,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
@@ -1199,15 +1638,240 @@ on_error:
 	return( 0 );
 }
 
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
+
+/* Tests the libfdatetime_internal_floatingtime_copy_to_utf16_string_in_hexadecimal function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_internal_floatingtime_copy_to_utf16_string_in_hexadecimal(
+     void )
+{
+	uint16_t expected_utf16_string[ 21 ] = {
+		'(', '0', 'x', '6', '1', '0', 'b', 'b', '6', '6', '0', '8', 'f', '0', '4', 'e',
+		'5', '4', '0', ')', 0 };
+
+	uint16_t utf16_string[ 32 ];
+
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+
+	libcerror_error_t *error                  = NULL;
+	libfdatetime_floatingtime_t *floatingtime = NULL;
+	size_t string_index                       = 0;
+	int result                                = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_floatingtime_initialize(
+	          &floatingtime,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "floatingtime",
+	 floatingtime );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libfdatetime_floatingtime_copy_from_byte_stream(
+	          floatingtime,
+	          byte_stream,
+	          8,
+	          LIBFDATETIME_ENDIAN_BIG,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test regular cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf16_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf16_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf16_string,
+	          expected_utf16_string,
+	          sizeof( uint16_t ) * 21 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf16_string_in_hexadecimal(
+	          NULL,
+	          utf16_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf16_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          NULL,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf16_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf16_string,
+	          (size_t) SSIZE_MAX + 1,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf16_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf16_string,
+	          20,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf16_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf16_string,
+	          32,
+	          NULL,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_floatingtime_free(
+	          &floatingtime,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "floatingtime",
+	 floatingtime );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( floatingtime != NULL )
+	{
+		libfdatetime_floatingtime_free(
+		 &floatingtime,
+		 NULL );
+	}
+	return( 0 );
+}
+
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
+
 /* Tests the libfdatetime_floatingtime_copy_to_utf16_string function
  * Returns 1 if successful or 0 if not
  */
 int fdatetime_test_floatingtime_copy_to_utf16_string(
      void )
 {
-	uint16_t date_time_string[ 32 ];
+	uint16_t utf16_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -1248,11 +1912,11 @@ int fdatetime_test_floatingtime_copy_to_utf16_string(
 	 "error",
 	 error );
 
-	/* Test copy to string
+	/* Test regular cases
 	 */
 	result = libfdatetime_floatingtime_copy_to_utf16_string(
 	          floatingtime,
-	          date_time_string,
+	          utf16_string,
 	          32,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
@@ -1270,7 +1934,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string(
 	 */
 	result = libfdatetime_floatingtime_copy_to_utf16_string(
 	          NULL,
-	          date_time_string,
+	          utf16_string,
 	          32,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
@@ -1329,9 +1993,18 @@ on_error:
 int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
      void )
 {
-	uint16_t date_time_string[ 32 ];
+	uint16_t expected_utf16_string1[ 32 ] = {
+		'N', 'o', 'v', ' ', '0', '5', ',', ' ', '2', '0', '1', '7', ' ', '1', '1', ':',
+		'3', '2', ':', '0', '0', '.', '0', '0', '0', '0', '0', '0', '1', '8', '1', 0 };
 
-	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+	uint16_t expected_utf16_string2[ 21 ] = {
+		'(', '0', 'x', '6', '1', '0', 'b', 'b', '6', '6', '0', '8', 'f', '0', '4', 'e',
+		'5', '4', '0', ')', 0 };
+
+	uint16_t utf16_string[ 32 ];
+
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -1357,7 +2030,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 	 "error",
 	 error );
 
-	/* Test copy to string with index
+	/* Test regular cases
 	 */
 	string_index = 0;
 
@@ -1379,7 +2052,7 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 
 	result = libfdatetime_floatingtime_copy_to_utf16_string_with_index(
 	          floatingtime,
-	          date_time_string,
+	          utf16_string,
 	          32,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
@@ -1393,6 +2066,16 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	result = memory_compare(
+	          utf16_string,
+	          expected_utf16_string1,
+	          sizeof( uint16_t ) * 32 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
 
 	string_index = 0;
 
@@ -1403,9 +2086,18 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = libfdatetime_floatingtime_copy_to_utf16_string_with_index(
 	          floatingtime,
-	          date_time_string,
+	          utf16_string,
 	          32,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
@@ -1420,13 +2112,23 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 	 "error",
 	 error );
 
+	result = memory_compare(
+	          utf16_string,
+	          expected_utf16_string2,
+	          sizeof( uint16_t ) * 21 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
 	/* Test error cases
 	 */
 	string_index = 0;
 
 	result = libfdatetime_floatingtime_copy_to_utf16_string_with_index(
 	          NULL,
-	          date_time_string,
+	          utf16_string,
 	          32,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
@@ -1446,8 +2148,8 @@ int fdatetime_test_floatingtime_copy_to_utf16_string_with_index(
 
 	result = libfdatetime_floatingtime_copy_to_utf16_string_with_index(
 	          floatingtime,
-	          date_time_string,
-	          23,
+	          utf16_string,
+	          20,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
@@ -1500,15 +2202,240 @@ on_error:
 	return( 0 );
 }
 
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
+
+/* Tests the libfdatetime_internal_floatingtime_copy_to_utf32_string_in_hexadecimal function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_internal_floatingtime_copy_to_utf32_string_in_hexadecimal(
+     void )
+{
+	uint32_t expected_utf32_string[ 21 ] = {
+		'(', '0', 'x', '6', '1', '0', 'b', 'b', '6', '6', '0', '8', 'f', '0', '4', 'e',
+		'5', '4', '0', ')', 0 };
+
+	uint32_t utf32_string[ 32 ];
+
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+
+	libcerror_error_t *error                  = NULL;
+	libfdatetime_floatingtime_t *floatingtime = NULL;
+	size_t string_index                       = 0;
+	int result                                = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_floatingtime_initialize(
+	          &floatingtime,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "floatingtime",
+	 floatingtime );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libfdatetime_floatingtime_copy_from_byte_stream(
+	          floatingtime,
+	          byte_stream,
+	          8,
+	          LIBFDATETIME_ENDIAN_BIG,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test regular cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf32_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf32_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf32_string,
+	          expected_utf32_string,
+	          sizeof( uint32_t ) * 21 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf32_string_in_hexadecimal(
+	          NULL,
+	          utf32_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf32_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          NULL,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf32_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf32_string,
+	          (size_t) SSIZE_MAX + 1,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf32_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf32_string,
+	          20,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_internal_floatingtime_copy_to_utf32_string_in_hexadecimal(
+	          (libfdatetime_internal_floatingtime_t *) floatingtime,
+	          utf32_string,
+	          32,
+	          NULL,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_floatingtime_free(
+	          &floatingtime,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "floatingtime",
+	 floatingtime );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( floatingtime != NULL )
+	{
+		libfdatetime_floatingtime_free(
+		 &floatingtime,
+		 NULL );
+	}
+	return( 0 );
+}
+
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
+
 /* Tests the libfdatetime_floatingtime_copy_to_utf32_string function
  * Returns 1 if successful or 0 if not
  */
 int fdatetime_test_floatingtime_copy_to_utf32_string(
      void )
 {
-	uint32_t date_time_string[ 32 ];
+	uint32_t utf32_string[ 32 ];
 
-	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -1549,11 +2476,11 @@ int fdatetime_test_floatingtime_copy_to_utf32_string(
 	 "error",
 	 error );
 
-	/* Test copy to string
+	/* Test regular cases
 	 */
 	result = libfdatetime_floatingtime_copy_to_utf32_string(
 	          floatingtime,
-	          date_time_string,
+	          utf32_string,
 	          32,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
@@ -1571,7 +2498,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string(
 	 */
 	result = libfdatetime_floatingtime_copy_to_utf32_string(
 	          NULL,
-	          date_time_string,
+	          utf32_string,
 	          32,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
@@ -1630,9 +2557,18 @@ on_error:
 int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
      void )
 {
-	uint32_t date_time_string[ 32 ];
+	uint32_t expected_utf32_string1[ 32 ] = {
+		'N', 'o', 'v', ' ', '0', '5', ',', ' ', '2', '0', '1', '7', ' ', '1', '1', ':',
+		'3', '2', ':', '0', '0', '.', '0', '0', '0', '0', '0', '0', '1', '8', '1', 0 };
 
-	uint8_t byte_stream[ 8 ] = { 0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
+	uint32_t expected_utf32_string2[ 21 ] = {
+		'(', '0', 'x', '6', '1', '0', 'b', 'b', '6', '6', '0', '8', 'f', '0', '4', 'e',
+		'5', '4', '0', ')', 0 };
+
+	uint32_t utf32_string[ 32 ];
+
+	uint8_t byte_stream[ 8 ] = {
+		0x61, 0x0b, 0xb6, 0x60, 0x8f, 0x04, 0xe5, 0x40 };
 
 	libfdatetime_floatingtime_t *floatingtime = NULL;
 	libcerror_error_t *error                  = NULL;
@@ -1658,7 +2594,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 	 "error",
 	 error );
 
-	/* Test copy to string with index
+	/* Test regular cases
 	 */
 	string_index = 0;
 
@@ -1680,7 +2616,7 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 
 	result = libfdatetime_floatingtime_copy_to_utf32_string_with_index(
 	          floatingtime,
-	          date_time_string,
+	          utf32_string,
 	          32,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
@@ -1694,6 +2630,16 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	result = memory_compare(
+	          utf32_string,
+	          expected_utf32_string1,
+	          sizeof( uint32_t ) * 32 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
 
 	string_index = 0;
 
@@ -1704,9 +2650,18 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 	          LIBFDATETIME_ENDIAN_BIG,
 	          &error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = libfdatetime_floatingtime_copy_to_utf32_string_with_index(
 	          floatingtime,
-	          date_time_string,
+	          utf32_string,
 	          32,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
@@ -1721,13 +2676,23 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 	 "error",
 	 error );
 
+	result = memory_compare(
+	          utf32_string,
+	          expected_utf32_string2,
+	          sizeof( uint32_t ) * 21 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
 	/* Test error cases
 	 */
 	string_index = 0;
 
 	result = libfdatetime_floatingtime_copy_to_utf32_string_with_index(
 	          NULL,
-	          date_time_string,
+	          utf32_string,
 	          32,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
@@ -1747,8 +2712,8 @@ int fdatetime_test_floatingtime_copy_to_utf32_string_with_index(
 
 	result = libfdatetime_floatingtime_copy_to_utf32_string_with_index(
 	          floatingtime,
-	          date_time_string,
-	          23,
+	          utf32_string,
+	          20,
 	          &string_index,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
 	          &error );
@@ -1836,9 +2801,25 @@ int main(
 	 "libfdatetime_floatingtime_copy_to_64bit",
 	 fdatetime_test_floatingtime_copy_to_64bit );
 
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
+
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_internal_floatingtime_copy_to_date_time_values",
+	 fdatetime_test_internal_floatingtime_copy_to_date_time_values );
+
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
+
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_get_string_size",
 	 fdatetime_test_floatingtime_get_string_size );
+
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
+
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_internal_floatingtime_copy_to_utf8_string_in_hexadecimal",
+	 fdatetime_test_internal_floatingtime_copy_to_utf8_string_in_hexadecimal );
+
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf8_string",
@@ -1848,6 +2829,14 @@ int main(
 	 "libfdatetime_floatingtime_copy_to_utf8_string_with_index",
 	 fdatetime_test_floatingtime_copy_to_utf8_string_with_index );
 
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
+
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_internal_floatingtime_copy_to_utf16_string_in_hexadecimal",
+	 fdatetime_test_internal_floatingtime_copy_to_utf16_string_in_hexadecimal );
+
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
+
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf16_string",
 	 fdatetime_test_floatingtime_copy_to_utf16_string );
@@ -1855,6 +2844,14 @@ int main(
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf16_string_with_index",
 	 fdatetime_test_floatingtime_copy_to_utf16_string_with_index );
+
+#if defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT )
+
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_internal_floatingtime_copy_to_utf32_string_in_hexadecimal",
+	 fdatetime_test_internal_floatingtime_copy_to_utf32_string_in_hexadecimal );
+
+#endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
 
 	FDATETIME_TEST_RUN(
 	 "libfdatetime_floatingtime_copy_to_utf32_string",

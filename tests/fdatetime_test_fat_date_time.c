@@ -22,7 +22,6 @@
 #include <common.h>
 #include <file_stream.h>
 #include <memory.h>
-#include <narrow_string.h>
 #include <types.h>
 
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
@@ -54,7 +53,7 @@ int fdatetime_test_fat_date_time_initialize(
 	int test_number                             = 0;
 #endif
 
-	/* Test libfdatetime_fat_date_time_initialize without entries
+	/* Test regular cases
 	 */
 	result = libfdatetime_fat_date_time_initialize(
 	          &fat_date_time,
@@ -267,7 +266,8 @@ on_error:
 int fdatetime_test_fat_date_time_copy_from_byte_stream(
      void )
 {
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -408,7 +408,7 @@ int fdatetime_test_fat_date_time_copy_from_byte_stream(
 	          fat_date_time,
 	          byte_stream,
 	          4,
-	          100,
+	          -1,
 	          &error );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
@@ -566,7 +566,8 @@ on_error:
 int fdatetime_test_fat_date_time_copy_to_32bit(
      void )
 {
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -709,7 +710,8 @@ on_error:
 int fdatetime_test_internal_fat_date_time_copy_to_date_time_values(
      void )
 {
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libcerror_error_t *error                          = NULL;
 	libfdatetime_date_time_values_t *date_time_values = NULL;
@@ -887,7 +889,8 @@ on_error:
 int fdatetime_test_fat_date_time_get_string_size(
      void )
 {
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -1074,7 +1077,8 @@ int fdatetime_test_internal_fat_date_time_copy_to_utf8_string_in_hexadecimal(
 
 	uint8_t utf8_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -1132,19 +1136,19 @@ int fdatetime_test_internal_fat_date_time_copy_to_utf8_string_in_hexadecimal(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = memory_compare(
 	          utf8_string,
 	          expected_utf8_string,
-	          sizeof( uint8_t ) * 15 );
+	          sizeof( uint8_t ) * 16 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	/* Test error cases
 	 */
@@ -1291,7 +1295,8 @@ int fdatetime_test_fat_date_time_copy_to_utf8_string(
 {
 	uint8_t utf8_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -1414,14 +1419,16 @@ int fdatetime_test_fat_date_time_copy_to_utf8_string_with_index(
      void )
 {
 	uint8_t expected_utf8_string1[ 22 ] = {
-		'A', 'u', 'g', ' ', '1', '2', ',', ' ', '2', '0', '1', '0', ' ', '2', '1', ':', '0', '6', ':', '3', '2', 0 };
+		'A', 'u', 'g', ' ', '1', '2', ',', ' ', '2', '0', '1', '0', ' ', '2', '1', ':',
+		'0', '6', ':', '3', '2', 0 };
 
 	uint8_t expected_utf8_string2[ 16 ] = {
 		'(', '0', 'x', '0', 'c', '3', 'd', ' ', '0', 'x', 'd', '0', 'a', '8', ')', 0 };
 
 	uint8_t utf8_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -1480,6 +1487,10 @@ int fdatetime_test_fat_date_time_copy_to_utf8_string_with_index(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = memory_compare(
 	          utf8_string,
 	          expected_utf8_string1,
@@ -1489,10 +1500,6 @@ int fdatetime_test_fat_date_time_copy_to_utf8_string_with_index(
 	 "result",
 	 result,
 	 0 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	string_index = 0;
 
@@ -1525,19 +1532,19 @@ int fdatetime_test_fat_date_time_copy_to_utf8_string_with_index(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = memory_compare(
 	          utf8_string,
 	          expected_utf8_string2,
-	          sizeof( uint8_t ) * 15 );
+	          sizeof( uint8_t ) * 16 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	/* Test error cases
 	 */
@@ -1632,7 +1639,8 @@ int fdatetime_test_internal_fat_date_time_copy_to_utf16_string_in_hexadecimal(
 
 	uint16_t utf16_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -1690,19 +1698,19 @@ int fdatetime_test_internal_fat_date_time_copy_to_utf16_string_in_hexadecimal(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = memory_compare(
 	          utf16_string,
 	          expected_utf16_string,
-	          sizeof( uint16_t ) * 15 );
+	          sizeof( uint16_t ) * 16 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	/* Test error cases
 	 */
@@ -1849,7 +1857,8 @@ int fdatetime_test_fat_date_time_copy_to_utf16_string(
 {
 	uint16_t utf16_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -1972,14 +1981,16 @@ int fdatetime_test_fat_date_time_copy_to_utf16_string_with_index(
      void )
 {
 	uint16_t expected_utf16_string1[ 22 ] = {
-		'A', 'u', 'g', ' ', '1', '2', ',', ' ', '2', '0', '1', '0', ' ', '2', '1', ':', '0', '6', ':', '3', '2', 0 };
+		'A', 'u', 'g', ' ', '1', '2', ',', ' ', '2', '0', '1', '0', ' ', '2', '1', ':',
+		'0', '6', ':', '3', '2', 0 };
 
 	uint16_t expected_utf16_string2[ 16 ] = {
 		'(', '0', 'x', '0', 'c', '3', 'd', ' ', '0', 'x', 'd', '0', 'a', '8', ')', 0 };
 
 	uint16_t utf16_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -2052,10 +2063,6 @@ int fdatetime_test_fat_date_time_copy_to_utf16_string_with_index(
 	 result,
 	 0 );
 
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	string_index = 0;
 
 	result = libfdatetime_fat_date_time_copy_from_byte_stream(
@@ -2094,16 +2101,12 @@ int fdatetime_test_fat_date_time_copy_to_utf16_string_with_index(
 	result = memory_compare(
 	          utf16_string,
 	          expected_utf16_string2,
-	          sizeof( uint16_t ) * 15 );
+	          sizeof( uint16_t ) * 16 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	/* Test error cases
 	 */
@@ -2198,7 +2201,8 @@ int fdatetime_test_internal_fat_date_time_copy_to_utf32_string_in_hexadecimal(
 
 	uint32_t utf32_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -2256,19 +2260,19 @@ int fdatetime_test_internal_fat_date_time_copy_to_utf32_string_in_hexadecimal(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	result = memory_compare(
 	          utf32_string,
 	          expected_utf32_string,
-	          sizeof( uint32_t ) * 15 );
+	          sizeof( uint32_t ) * 16 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	/* Test error cases
 	 */
@@ -2415,7 +2419,8 @@ int fdatetime_test_fat_date_time_copy_to_utf32_string(
 {
 	uint32_t utf32_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -2538,14 +2543,16 @@ int fdatetime_test_fat_date_time_copy_to_utf32_string_with_index(
      void )
 {
 	uint32_t expected_utf32_string1[ 22 ] = {
-		'A', 'u', 'g', ' ', '1', '2', ',', ' ', '2', '0', '1', '0', ' ', '2', '1', ':', '0', '6', ':', '3', '2', 0 };
+		'A', 'u', 'g', ' ', '1', '2', ',', ' ', '2', '0', '1', '0', ' ', '2', '1', ':',
+		'0', '6', ':', '3', '2', 0 };
 
 	uint32_t expected_utf32_string2[ 16 ] = {
 		'(', '0', 'x', '0', 'c', '3', 'd', ' ', '0', 'x', 'd', '0', 'a', '8', ')', 0 };
 
 	uint32_t utf32_string[ 32 ];
 
-	uint8_t byte_stream[ 4 ] = { 0x0c, 0x3d, 0xd0, 0xa8 };
+	uint8_t byte_stream[ 4 ] = {
+		0x0c, 0x3d, 0xd0, 0xa8 };
 
 	libfdatetime_fat_date_time_t *fat_date_time = NULL;
 	libcerror_error_t *error                    = NULL;
@@ -2618,10 +2625,6 @@ int fdatetime_test_fat_date_time_copy_to_utf32_string_with_index(
 	 result,
 	 0 );
 
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	string_index = 0;
 
 	result = libfdatetime_fat_date_time_copy_from_byte_stream(
@@ -2660,16 +2663,12 @@ int fdatetime_test_fat_date_time_copy_to_utf32_string_with_index(
 	result = memory_compare(
 	          utf32_string,
 	          expected_utf32_string2,
-	          sizeof( uint32_t ) * 15 );
+	          sizeof( uint32_t ) * 16 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
 	 result,
 	 0 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	/* Test error cases
 	 */

@@ -30,7 +30,7 @@
 #include "libfdatetime_systemtime.h"
 #include "libfdatetime_types.h"
 
-/* Creates a systemtime
+/* Creates a SYSTEMTIME
  * Make sure the value systemtime is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
@@ -47,7 +47,7 @@ int libfdatetime_systemtime_initialize(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid systemtime.",
+		 "%s: invalid SYSTEMTIME.",
 		 function );
 
 		return( -1 );
@@ -58,7 +58,7 @@ int libfdatetime_systemtime_initialize(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
-		 "%s: invalid systemtime value already set.",
+		 "%s: invalid SYSTEMTIME value already set.",
 		 function );
 
 		return( -1 );
@@ -72,7 +72,7 @@ int libfdatetime_systemtime_initialize(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_MEMORY,
 		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create systemtime.",
+		 "%s: unable to create SYSTEMTIME.",
 		 function );
 
 		goto on_error;
@@ -86,7 +86,7 @@ int libfdatetime_systemtime_initialize(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_MEMORY,
 		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
-		 "%s: unable to clear systemtime.",
+		 "%s: unable to clear SYSTEMTIME.",
 		 function );
 
 		goto on_error;
@@ -104,7 +104,7 @@ on_error:
 	return( -1 );
 }
 
-/* Frees a systemtime
+/* Frees a SYSTEMTIME
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_systemtime_free(
@@ -120,7 +120,7 @@ int libfdatetime_systemtime_free(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid systemtime.",
+		 "%s: invalid SYSTEMTIME.",
 		 function );
 
 		return( -1 );
@@ -155,7 +155,7 @@ int libfdatetime_systemtime_copy_from_byte_stream(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid systemtime.",
+		 "%s: invalid SYSTEMTIME.",
 		 function );
 
 		return( -1 );
@@ -306,15 +306,15 @@ int libfdatetime_systemtime_copy_from_byte_stream(
 	return( 1 );
 }
 
-/* Converts a systemtime into date time values
+/* Converts a SYSTEMTIME into date time values
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_systemtime_copy_to_date_time_values(
+int libfdatetime_internal_systemtime_copy_to_date_time_values(
      libfdatetime_internal_systemtime_t *internal_systemtime,
      libfdatetime_date_time_values_t *date_time_values,
      libcerror_error_t **error )
 {
-	static char *function = "libfdatetime_systemtime_copy_to_date_time_values";
+	static char *function = "libfdatetime_internal_systemtime_copy_to_date_time_values";
 	uint8_t days_in_month = 0;
 
 	if( internal_systemtime == NULL )
@@ -323,7 +323,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid systemtime.",
+		 "%s: invalid SYSTEMTIME.",
 		 function );
 
 		return( -1 );
@@ -345,7 +345,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid systemtime - milli seconds value out of bounds.",
+		 "%s: invalid SYSTEMTIME - milli seconds value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -360,7 +360,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid systemtime - seconds value out of bounds.",
+		 "%s: invalid SYSTEMTIME - seconds value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -373,7 +373,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid systemtime - minutes value out of bounds.",
+		 "%s: invalid SYSTEMTIME - minutes value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -386,7 +386,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid systemtime - hours value out of bounds.",
+		 "%s: invalid SYSTEMTIME - hours value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -399,7 +399,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid systemtime - year value out of bounds.",
+		 "%s: invalid SYSTEMTIME - year value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -413,7 +413,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid systemtime - month value out of bounds.",
+		 "%s: invalid SYSTEMTIME - month value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -426,7 +426,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid systemtime - day of week value out of bounds.",
+		 "%s: invalid SYSTEMTIME - day of week value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -487,7 +487,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid systemtime - day of month value out of bounds.",
+		 "%s: invalid SYSTEMTIME - day of month value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -497,7 +497,7 @@ int libfdatetime_systemtime_copy_to_date_time_values(
 	return( 1 );
 }
 
-/* Deterimes the size of the string for the systemtime
+/* Deterimes the size of the string for the SYSTEMTIME
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -518,7 +518,7 @@ int libfdatetime_systemtime_get_string_size(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid systemtime.",
+		 "%s: invalid SYSTEMTIME.",
 		 function );
 
 		return( -1 );
@@ -534,7 +534,7 @@ int libfdatetime_systemtime_get_string_size(
 
 		return( -1 );
 	}
-	result = libfdatetime_systemtime_copy_to_date_time_values(
+	result = libfdatetime_internal_systemtime_copy_to_date_time_values(
 	          (libfdatetime_internal_systemtime_t *) systemtime,
 	          &date_time_values,
 	          error );
@@ -582,14 +582,273 @@ int libfdatetime_systemtime_get_string_size(
 	}
 	if( result != 1 )
 	{
-		/* Make sure the string can hold the hexadecimal representation of the systemtime
+		/* Make sure the string can hold the hexadecimal representation of the SYSTEMTIME
 		 */
-		*string_size = 57;
+		*string_size = 58;
 	}
 	return( 1 );
 }
 
-/* Converts the systemtime into an UTF-8 string
+/* Converts the SYSTEMTIME into an UTF-8 string in hexadecimal representation
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_internal_systemtime_copy_to_utf8_string_in_hexadecimal(
+     libfdatetime_internal_systemtime_t *internal_systemtime,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
+     libcerror_error_t **error )
+{
+	static char *function = "libfdatetime_internal_systemtime_copy_to_utf8_string_in_hexadecimal";
+	size_t string_index   = 0;
+	uint8_t byte_value    = 0;
+	int8_t byte_shift     = 0;
+
+	if( internal_systemtime == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid SYSTEMTIME.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf8_string == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-8 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf8_string_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-8 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf8_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-8 string index.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( utf8_string_size < 58 )
+	 || ( *utf8_string_index > ( utf8_string_size - 58 ) ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UTF-8 string is too small.",
+		 function );
+
+		return( -1 );
+	}
+	string_index = *utf8_string_index;
+
+	utf8_string[ string_index++ ] = (uint8_t) '(';
+	utf8_string[ string_index++ ] = (uint8_t) '0';
+	utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->year >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+		}
+		else
+		{
+			utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf8_string[ string_index++ ] = (uint8_t) ' ';
+	utf8_string[ string_index++ ] = (uint8_t) '0';
+	utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->month >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+		}
+		else
+		{
+			utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf8_string[ string_index++ ] = (uint8_t) ' ';
+	utf8_string[ string_index++ ] = (uint8_t) '0';
+	utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->day_of_week >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+		}
+		else
+		{
+			utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf8_string[ string_index++ ] = (uint8_t) ' ';
+	utf8_string[ string_index++ ] = (uint8_t) '0';
+	utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->day_of_month >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+		}
+		else
+		{
+			utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf8_string[ string_index++ ] = (uint8_t) ' ';
+	utf8_string[ string_index++ ] = (uint8_t) '0';
+	utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->hours >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+		}
+		else
+		{
+			utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf8_string[ string_index++ ] = (uint8_t) ' ';
+	utf8_string[ string_index++ ] = (uint8_t) '0';
+	utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->minutes >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+		}
+		else
+		{
+			utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf8_string[ string_index++ ] = (uint8_t) ' ';
+	utf8_string[ string_index++ ] = (uint8_t) '0';
+	utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->seconds >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+		}
+		else
+		{
+			utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf8_string[ string_index++ ] = (uint8_t) ' ';
+	utf8_string[ string_index++ ] = (uint8_t) '0';
+	utf8_string[ string_index++ ] = (uint8_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->milli_seconds >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
+		}
+		else
+		{
+			utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf8_string[ string_index++ ] = (uint8_t) ')';
+
+	utf8_string[ string_index++ ] = 0;
+
+	*utf8_string_index = string_index;
+
+	return( 1 );
+}
+
+/* Converts the SYSTEMTIME into an UTF-8 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -615,7 +874,7 @@ int libfdatetime_systemtime_copy_to_utf8_string(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
-		 "%s: unable to copy systemtime to UTF-8 string.",
+		 "%s: unable to copy SYSTEMTIME to UTF-8 string.",
 		 function );
 
 		return( -1 );
@@ -623,7 +882,7 @@ int libfdatetime_systemtime_copy_to_utf8_string(
 	return( 1 );
 }
 
-/* Converts the systemtime into an UTF-8 string
+/* Converts the SYSTEMTIME into an UTF-8 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -639,9 +898,6 @@ int libfdatetime_systemtime_copy_to_utf8_string_with_index(
 
 	libfdatetime_internal_systemtime_t *internal_systemtime = NULL;
 	static char *function                                   = "libfdatetime_systemtime_copy_to_utf8_string_with_index";
-	size_t string_index                                     = 0;
-	uint8_t byte_value                                      = 0;
-	int8_t byte_shift                                       = 0;
 	int result                                              = 0;
 
 	if( systemtime == NULL )
@@ -650,14 +906,14 @@ int libfdatetime_systemtime_copy_to_utf8_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid systemtime.",
+		 "%s: invalid SYSTEMTIME.",
 		 function );
 
 		return( -1 );
 	}
 	internal_systemtime = (libfdatetime_internal_systemtime_t *) systemtime;
 
-	result = libfdatetime_systemtime_copy_to_date_time_values(
+	result = libfdatetime_internal_systemtime_copy_to_date_time_values(
 	          internal_systemtime,
 	          &date_time_values,
 	          error );
@@ -699,7 +955,7 @@ int libfdatetime_systemtime_copy_to_utf8_string_with_index(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to set UTF-8 string.",
+			 "%s: unable to copy date time values to UTF-8 string.",
 			 function );
 
 			return( -1 );
@@ -707,238 +963,288 @@ int libfdatetime_systemtime_copy_to_utf8_string_with_index(
 	}
 	if( result != 1 )
 	{
-		if( utf8_string == NULL )
+		result = libfdatetime_internal_systemtime_copy_to_utf8_string_in_hexadecimal(
+		          internal_systemtime,
+		          utf8_string,
+		          utf8_string_size,
+		          utf8_string_index,
+		          error );
+
+		if( result == -1 )
 		{
 			libcerror_error_set(
 			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-8 string.",
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to SYSTEMTIME to hexadecimal UTF-8 string.",
 			 function );
 
 			return( -1 );
 		}
-		if( utf8_string_size > (size_t) SSIZE_MAX )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-			 "%s: invalid UTF-8 string size value exceeds maximum.",
-			 function );
-
-			return( -1 );
-		}
-		if( utf8_string_index == NULL )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-8 string index.",
-			 function );
-
-			return( -1 );
-		}
-		if( ( *utf8_string_index + 57 ) > utf8_string_size )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-			 "%s: UTF-8 string is too small.",
-			 function );
-
-			return( -1 );
-		}
-		string_index = *utf8_string_index;
-
-		utf8_string[ string_index++ ] = (uint8_t) '(';
-		utf8_string[ string_index++ ] = (uint8_t) '0';
-		utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->year >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
-			}
-			else
-			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf8_string[ string_index++ ] = (uint8_t) ' ';
-		utf8_string[ string_index++ ] = (uint8_t) '0';
-		utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->month >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
-			}
-			else
-			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf8_string[ string_index++ ] = (uint8_t) ' ';
-		utf8_string[ string_index++ ] = (uint8_t) '0';
-		utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->day_of_week >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
-			}
-			else
-			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf8_string[ string_index++ ] = (uint8_t) ' ';
-		utf8_string[ string_index++ ] = (uint8_t) '0';
-		utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->day_of_month >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
-			}
-			else
-			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf8_string[ string_index++ ] = (uint8_t) ' ';
-		utf8_string[ string_index++ ] = (uint8_t) '0';
-		utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->hours >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
-			}
-			else
-			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf8_string[ string_index++ ] = (uint8_t) ' ';
-		utf8_string[ string_index++ ] = (uint8_t) '0';
-		utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->minutes >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
-			}
-			else
-			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf8_string[ string_index++ ] = (uint8_t) ' ';
-		utf8_string[ string_index++ ] = (uint8_t) '0';
-		utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->seconds >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
-			}
-			else
-			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf8_string[ string_index++ ] = (uint8_t) ' ';
-		utf8_string[ string_index++ ] = (uint8_t) '0';
-		utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->milli_seconds >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf8_string[ string_index++ ] = (uint8_t) '0' + byte_value;
-			}
-			else
-			{
-				utf8_string[ string_index++ ] = (uint8_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf8_string[ string_index++ ] = (uint8_t) ')';
-
-		utf8_string[ string_index++ ] = 0;
-
-		*utf8_string_index = string_index;
 	}
 	return( 1 );
 }
 
-/* Converts the systemtime into an UTF-16 string
+/* Converts the SYSTEMTIME into an UTF-16 string in hexadecimal representation
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_internal_systemtime_copy_to_utf16_string_in_hexadecimal(
+     libfdatetime_internal_systemtime_t *internal_systemtime,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     libcerror_error_t **error )
+{
+	static char *function = "libfdatetime_internal_systemtime_copy_to_utf16_string_in_hexadecimal";
+	size_t string_index   = 0;
+	uint8_t byte_value    = 0;
+	int8_t byte_shift     = 0;
+
+	if( internal_systemtime == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid SYSTEMTIME.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf16_string == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-16 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf16_string_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-16 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf16_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-16 string index.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( utf16_string_size < 58 )
+	 || ( *utf16_string_index > ( utf16_string_size - 58 ) ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UTF-16 string is too small.",
+		 function );
+
+		return( -1 );
+	}
+	string_index = *utf16_string_index;
+
+	utf16_string[ string_index++ ] = (uint16_t) '(';
+	utf16_string[ string_index++ ] = (uint16_t) '0';
+	utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->year >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+		}
+		else
+		{
+			utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf16_string[ string_index++ ] = (uint16_t) ' ';
+	utf16_string[ string_index++ ] = (uint16_t) '0';
+	utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->month >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+		}
+		else
+		{
+			utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf16_string[ string_index++ ] = (uint16_t) ' ';
+	utf16_string[ string_index++ ] = (uint16_t) '0';
+	utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->day_of_week >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+		}
+		else
+		{
+			utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf16_string[ string_index++ ] = (uint16_t) ' ';
+	utf16_string[ string_index++ ] = (uint16_t) '0';
+	utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->day_of_month >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+		}
+		else
+		{
+			utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf16_string[ string_index++ ] = (uint16_t) ' ';
+	utf16_string[ string_index++ ] = (uint16_t) '0';
+	utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->hours >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+		}
+		else
+		{
+			utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf16_string[ string_index++ ] = (uint16_t) ' ';
+	utf16_string[ string_index++ ] = (uint16_t) '0';
+	utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->minutes >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+		}
+		else
+		{
+			utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf16_string[ string_index++ ] = (uint16_t) ' ';
+	utf16_string[ string_index++ ] = (uint16_t) '0';
+	utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->seconds >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+		}
+		else
+		{
+			utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf16_string[ string_index++ ] = (uint16_t) ' ';
+	utf16_string[ string_index++ ] = (uint16_t) '0';
+	utf16_string[ string_index++ ] = (uint16_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->milli_seconds >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
+		}
+		else
+		{
+			utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf16_string[ string_index++ ] = (uint16_t) ')';
+
+	utf16_string[ string_index++ ] = 0;
+
+	*utf16_string_index = string_index;
+
+	return( 1 );
+}
+
+/* Converts the SYSTEMTIME into an UTF-16 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -964,7 +1270,7 @@ int libfdatetime_systemtime_copy_to_utf16_string(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
-		 "%s: unable to copy systemtime to UTF-16 string.",
+		 "%s: unable to copy SYSTEMTIME to UTF-16 string.",
 		 function );
 
 		return( -1 );
@@ -972,7 +1278,7 @@ int libfdatetime_systemtime_copy_to_utf16_string(
 	return( 1 );
 }
 
-/* Converts the systemtime into an UTF-16 string
+/* Converts the SYSTEMTIME into an UTF-16 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -988,9 +1294,6 @@ int libfdatetime_systemtime_copy_to_utf16_string_with_index(
 
 	libfdatetime_internal_systemtime_t *internal_systemtime = NULL;
 	static char *function                                   = "libfdatetime_systemtime_copy_to_utf16_string_with_index";
-	size_t string_index                                     = 0;
-	uint8_t byte_value                                      = 0;
-	int8_t byte_shift                                       = 0;
 	int result                                              = 0;
 
 	if( systemtime == NULL )
@@ -999,14 +1302,14 @@ int libfdatetime_systemtime_copy_to_utf16_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid systemtime.",
+		 "%s: invalid SYSTEMTIME.",
 		 function );
 
 		return( -1 );
 	}
 	internal_systemtime = (libfdatetime_internal_systemtime_t *) systemtime;
 
-	result = libfdatetime_systemtime_copy_to_date_time_values(
+	result = libfdatetime_internal_systemtime_copy_to_date_time_values(
 	          internal_systemtime,
 	          &date_time_values,
 	          error );
@@ -1048,7 +1351,7 @@ int libfdatetime_systemtime_copy_to_utf16_string_with_index(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to set UTF-16 string.",
+			 "%s: unable to copy date time values to UTF-16 string.",
 			 function );
 
 			return( -1 );
@@ -1056,238 +1359,288 @@ int libfdatetime_systemtime_copy_to_utf16_string_with_index(
 	}
 	if( result != 1 )
 	{
-		if( utf16_string == NULL )
+		result = libfdatetime_internal_systemtime_copy_to_utf16_string_in_hexadecimal(
+		          internal_systemtime,
+		          utf16_string,
+		          utf16_string_size,
+		          utf16_string_index,
+		          error );
+
+		if( result == -1 )
 		{
 			libcerror_error_set(
 			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-16 string.",
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to SYSTEMTIME to hexadecimal UTF-16 string.",
 			 function );
 
 			return( -1 );
 		}
-		if( utf16_string_size > (size_t) SSIZE_MAX )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-			 "%s: invalid UTF-16 string size value exceeds maximum.",
-			 function );
-
-			return( -1 );
-		}
-		if( utf16_string_index == NULL )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-16 string index.",
-			 function );
-
-			return( -1 );
-		}
-		if( ( *utf16_string_index + 57 ) > utf16_string_size )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-			 "%s: UTF-16 string is too small.",
-			 function );
-
-			return( -1 );
-		}
-		string_index = *utf16_string_index;
-
-		utf16_string[ string_index++ ] = (uint16_t) '(';
-		utf16_string[ string_index++ ] = (uint16_t) '0';
-		utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->year >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
-			}
-			else
-			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf16_string[ string_index++ ] = (uint16_t) ' ';
-		utf16_string[ string_index++ ] = (uint16_t) '0';
-		utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->month >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
-			}
-			else
-			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf16_string[ string_index++ ] = (uint16_t) ' ';
-		utf16_string[ string_index++ ] = (uint16_t) '0';
-		utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->day_of_week >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
-			}
-			else
-			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf16_string[ string_index++ ] = (uint16_t) ' ';
-		utf16_string[ string_index++ ] = (uint16_t) '0';
-		utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->day_of_month >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
-			}
-			else
-			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf16_string[ string_index++ ] = (uint16_t) ' ';
-		utf16_string[ string_index++ ] = (uint16_t) '0';
-		utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->hours >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
-			}
-			else
-			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf16_string[ string_index++ ] = (uint16_t) ' ';
-		utf16_string[ string_index++ ] = (uint16_t) '0';
-		utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->minutes >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
-			}
-			else
-			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf16_string[ string_index++ ] = (uint16_t) ' ';
-		utf16_string[ string_index++ ] = (uint16_t) '0';
-		utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->seconds >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
-			}
-			else
-			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf16_string[ string_index++ ] = (uint16_t) ' ';
-		utf16_string[ string_index++ ] = (uint16_t) '0';
-		utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->milli_seconds >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf16_string[ string_index++ ] = (uint16_t) '0' + byte_value;
-			}
-			else
-			{
-				utf16_string[ string_index++ ] = (uint16_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf16_string[ string_index++ ] = (uint16_t) ')';
-
-		utf16_string[ string_index++ ] = 0;
-
-		*utf16_string_index = string_index;
 	}
 	return( 1 );
 }
 
-/* Converts the systemtime into an UTF-32 string
+/* Converts the SYSTEMTIME into an UTF-32 string in hexadecimal representation
+ * The string size should include the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+int libfdatetime_internal_systemtime_copy_to_utf32_string_in_hexadecimal(
+     libfdatetime_internal_systemtime_t *internal_systemtime,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
+     libcerror_error_t **error )
+{
+	static char *function = "libfdatetime_internal_systemtime_copy_to_utf32_string_in_hexadecimal";
+	size_t string_index   = 0;
+	uint8_t byte_value    = 0;
+	int8_t byte_shift     = 0;
+
+	if( internal_systemtime == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid SYSTEMTIME.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_size > (size_t) SSIZE_MAX )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
+		 "%s: invalid UTF-32 string size value exceeds maximum.",
+		 function );
+
+		return( -1 );
+	}
+	if( utf32_string_index == NULL )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
+		 "%s: invalid UTF-32 string index.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( utf32_string_size < 58 )
+	 || ( *utf32_string_index > ( utf32_string_size - 58 ) ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
+		 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
+		 "%s: UTF-32 string is too small.",
+		 function );
+
+		return( -1 );
+	}
+	string_index = *utf32_string_index;
+
+	utf32_string[ string_index++ ] = (uint32_t) '(';
+	utf32_string[ string_index++ ] = (uint32_t) '0';
+	utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->year >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+		}
+		else
+		{
+			utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf32_string[ string_index++ ] = (uint32_t) ' ';
+	utf32_string[ string_index++ ] = (uint32_t) '0';
+	utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->month >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+		}
+		else
+		{
+			utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf32_string[ string_index++ ] = (uint32_t) ' ';
+	utf32_string[ string_index++ ] = (uint32_t) '0';
+	utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->day_of_week >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+		}
+		else
+		{
+			utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf32_string[ string_index++ ] = (uint32_t) ' ';
+	utf32_string[ string_index++ ] = (uint32_t) '0';
+	utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->day_of_month >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+		}
+		else
+		{
+			utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf32_string[ string_index++ ] = (uint32_t) ' ';
+	utf32_string[ string_index++ ] = (uint32_t) '0';
+	utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->hours >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+		}
+		else
+		{
+			utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf32_string[ string_index++ ] = (uint32_t) ' ';
+	utf32_string[ string_index++ ] = (uint32_t) '0';
+	utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->minutes >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+		}
+		else
+		{
+			utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf32_string[ string_index++ ] = (uint32_t) ' ';
+	utf32_string[ string_index++ ] = (uint32_t) '0';
+	utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->seconds >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+		}
+		else
+		{
+			utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf32_string[ string_index++ ] = (uint32_t) ' ';
+	utf32_string[ string_index++ ] = (uint32_t) '0';
+	utf32_string[ string_index++ ] = (uint32_t) 'x';
+
+	byte_shift = 14;
+
+	do
+	{
+		byte_value = ( internal_systemtime->milli_seconds >> byte_shift ) & 0x0f;
+
+		if( byte_value <= 9 )
+		{
+			utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
+		}
+		else
+		{
+			utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
+		}
+		byte_shift -= 4;
+	}
+	while( byte_shift >= 0 );
+
+	utf32_string[ string_index++ ] = (uint32_t) ')';
+
+	utf32_string[ string_index++ ] = 0;
+
+	*utf32_string_index = string_index;
+
+	return( 1 );
+}
+
+/* Converts the SYSTEMTIME into an UTF-32 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -1313,7 +1666,7 @@ int libfdatetime_systemtime_copy_to_utf32_string(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
-		 "%s: unable to copy systemtime to UTF-32 string.",
+		 "%s: unable to copy SYSTEMTIME to UTF-32 string.",
 		 function );
 
 		return( -1 );
@@ -1321,7 +1674,7 @@ int libfdatetime_systemtime_copy_to_utf32_string(
 	return( 1 );
 }
 
-/* Converts the systemtime into an UTF-32 string
+/* Converts the SYSTEMTIME into an UTF-32 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -1337,9 +1690,6 @@ int libfdatetime_systemtime_copy_to_utf32_string_with_index(
 
 	libfdatetime_internal_systemtime_t *internal_systemtime = NULL;
 	static char *function                                   = "libfdatetime_systemtime_copy_to_utf32_string_with_index";
-	size_t string_index                                     = 0;
-	uint8_t byte_value                                      = 0;
-	int8_t byte_shift                                       = 0;
 	int result                                              = 0;
 
 	if( systemtime == NULL )
@@ -1348,14 +1698,14 @@ int libfdatetime_systemtime_copy_to_utf32_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid systemtime.",
+		 "%s: invalid SYSTEMTIME.",
 		 function );
 
 		return( -1 );
 	}
 	internal_systemtime = (libfdatetime_internal_systemtime_t *) systemtime;
 
-	result = libfdatetime_systemtime_copy_to_date_time_values(
+	result = libfdatetime_internal_systemtime_copy_to_date_time_values(
 	          internal_systemtime,
 	          &date_time_values,
 	          error );
@@ -1397,7 +1747,7 @@ int libfdatetime_systemtime_copy_to_utf32_string_with_index(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to set UTF-32 string.",
+			 "%s: unable to copy date time values to UTF-32 string.",
 			 function );
 
 			return( -1 );
@@ -1405,233 +1755,24 @@ int libfdatetime_systemtime_copy_to_utf32_string_with_index(
 	}
 	if( result != 1 )
 	{
-		if( utf32_string == NULL )
+		result = libfdatetime_internal_systemtime_copy_to_utf32_string_in_hexadecimal(
+		          internal_systemtime,
+		          utf32_string,
+		          utf32_string_size,
+		          utf32_string_index,
+		          error );
+
+		if( result == -1 )
 		{
 			libcerror_error_set(
 			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-32 string.",
+			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
+			 "%s: unable to SYSTEMTIME to hexadecimal UTF-32 string.",
 			 function );
 
 			return( -1 );
 		}
-		if( utf32_string_size > (size_t) SSIZE_MAX )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_EXCEEDS_MAXIMUM,
-			 "%s: invalid UTF-32 string size value exceeds maximum.",
-			 function );
-
-			return( -1 );
-		}
-		if( utf32_string_index == NULL )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-			 "%s: invalid UTF-32 string index.",
-			 function );
-
-			return( -1 );
-		}
-		if( ( *utf32_string_index + 57 ) > utf32_string_size )
-		{
-			libcerror_error_set(
-			 error,
-			 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
-			 LIBCERROR_ARGUMENT_ERROR_VALUE_TOO_SMALL,
-			 "%s: UTF-32 string is too small.",
-			 function );
-
-			return( -1 );
-		}
-		string_index = *utf32_string_index;
-
-		utf32_string[ string_index++ ] = (uint32_t) '(';
-		utf32_string[ string_index++ ] = (uint32_t) '0';
-		utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->year >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
-			}
-			else
-			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf32_string[ string_index++ ] = (uint32_t) ' ';
-		utf32_string[ string_index++ ] = (uint32_t) '0';
-		utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->month >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
-			}
-			else
-			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf32_string[ string_index++ ] = (uint32_t) ' ';
-		utf32_string[ string_index++ ] = (uint32_t) '0';
-		utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->day_of_week >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
-			}
-			else
-			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf32_string[ string_index++ ] = (uint32_t) ' ';
-		utf32_string[ string_index++ ] = (uint32_t) '0';
-		utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->day_of_month >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
-			}
-			else
-			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf32_string[ string_index++ ] = (uint32_t) ' ';
-		utf32_string[ string_index++ ] = (uint32_t) '0';
-		utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->hours >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
-			}
-			else
-			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf32_string[ string_index++ ] = (uint32_t) ' ';
-		utf32_string[ string_index++ ] = (uint32_t) '0';
-		utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->minutes >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
-			}
-			else
-			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf32_string[ string_index++ ] = (uint32_t) ' ';
-		utf32_string[ string_index++ ] = (uint32_t) '0';
-		utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->seconds >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
-			}
-			else
-			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf32_string[ string_index++ ] = (uint32_t) ' ';
-		utf32_string[ string_index++ ] = (uint32_t) '0';
-		utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-		byte_shift = 14;
-
-		do
-		{
-			byte_value = ( internal_systemtime->milli_seconds >> byte_shift ) & 0x0f;
-
-			if( byte_value <= 9 )
-			{
-				utf32_string[ string_index++ ] = (uint32_t) '0' + byte_value;
-			}
-			else
-			{
-				utf32_string[ string_index++ ] = (uint32_t) 'a' + byte_value - 10;
-			}
-			byte_shift -= 4;
-		}
-		while( byte_shift >= 0 );
-
-		utf32_string[ string_index++ ] = (uint32_t) ')';
-
-		utf32_string[ string_index++ ] = 0;
-
-		*utf32_string_index = string_index;
 	}
 	return( 1 );
 }

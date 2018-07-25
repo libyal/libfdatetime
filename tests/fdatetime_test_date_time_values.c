@@ -21,6 +21,7 @@
 
 #include <common.h>
 #include <file_stream.h>
+#include <memory.h>
 #include <types.h>
 
 #if defined( HAVE_STDLIB_H ) || defined( WINAPI )
@@ -274,6 +275,613 @@ on_error:
 	return( 0 );
 }
 
+/* Tests the libfdatetime_date_time_values_get_string_size function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_date_time_values_get_string_size(
+     void )
+{
+	libcerror_error_t *error                          = NULL;
+	libfdatetime_date_time_values_t *date_time_values = NULL;
+	size_t string_size                                = 0;
+	int result                                        = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_date_time_values_initialize(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	date_time_values->year          = 2018;
+	date_time_values->month         = 7;
+	date_time_values->day           = 25;
+	date_time_values->hours         = 8;
+	date_time_values->minutes       = 49;
+	date_time_values->seconds       = 51;
+	date_time_values->milli_seconds = 123;
+	date_time_values->micro_seconds = 456;
+	date_time_values->nano_seconds  = 789;
+
+	/* Test regular cases
+	 */
+	result = libfdatetime_date_time_values_get_string_size(
+	          date_time_values,
+	          &string_size,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_size",
+	 string_size,
+	 (size_t) 32 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	/* Test error cases
+	 */
+	result = libfdatetime_date_time_values_get_string_size(
+	          NULL,
+	          &string_size,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_date_time_values_get_string_size(
+	          date_time_values,
+	          NULL,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_date_time_values_free(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( date_time_values != NULL )
+	{
+		libfdatetime_date_time_values_free(
+		 &date_time_values,
+		 NULL );
+	}
+	return( 0 );
+}
+
+/* Tests the libfdatetime_date_time_values_copy_to_utf8_string_with_index function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_date_time_values_copy_to_utf8_string_with_index(
+     void )
+{
+	uint8_t expected_utf8_string[ 32 ] = {
+		'J', 'u', 'l', ' ', '2', '5', ',', ' ', '2', '0', '1', '8', ' ', '0', '8', ':',
+		'4', '9', ':', '5', '1', '.', '1', '2', '3', '4', '5', '6', '7', '8', '9', 0 };
+
+	uint8_t utf8_string[ 32 ];
+
+	libcerror_error_t *error                          = NULL;
+	libfdatetime_date_time_values_t *date_time_values = NULL;
+	size_t string_index                               = 0;
+	int result                                        = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_date_time_values_initialize(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	date_time_values->year          = 2018;
+	date_time_values->month         = 7;
+	date_time_values->day           = 25;
+	date_time_values->hours         = 8;
+	date_time_values->minutes       = 49;
+	date_time_values->seconds       = 51;
+	date_time_values->milli_seconds = 123;
+	date_time_values->micro_seconds = 456;
+	date_time_values->nano_seconds  = 789;
+
+	/* Test regular cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_date_time_values_copy_to_utf8_string_with_index(
+	          date_time_values,
+	          utf8_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf8_string,
+	          expected_utf8_string,
+	          sizeof( uint8_t ) * 32 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_date_time_values_copy_to_utf8_string_with_index(
+	          NULL,
+	          utf8_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_date_time_values_copy_to_utf8_string_with_index(
+	          date_time_values,
+	          utf8_string,
+	          31,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_date_time_values_free(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( date_time_values != NULL )
+	{
+		libfdatetime_date_time_values_free(
+		 &date_time_values,
+		 NULL );
+	}
+	return( 0 );
+}
+
+/* Tests the libfdatetime_date_time_values_copy_to_utf16_string_with_index function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_date_time_values_copy_to_utf16_string_with_index(
+     void )
+{
+	uint16_t expected_utf16_string[ 32 ] = {
+		'J', 'u', 'l', ' ', '2', '5', ',', ' ', '2', '0', '1', '8', ' ', '0', '8', ':',
+		'4', '9', ':', '5', '1', '.', '1', '2', '3', '4', '5', '6', '7', '8', '9', 0 };
+
+	uint16_t utf16_string[ 32 ];
+
+	libcerror_error_t *error                          = NULL;
+	libfdatetime_date_time_values_t *date_time_values = NULL;
+	size_t string_index                               = 0;
+	int result                                        = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_date_time_values_initialize(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	date_time_values->year          = 2018;
+	date_time_values->month         = 7;
+	date_time_values->day           = 25;
+	date_time_values->hours         = 8;
+	date_time_values->minutes       = 49;
+	date_time_values->seconds       = 51;
+	date_time_values->milli_seconds = 123;
+	date_time_values->micro_seconds = 456;
+	date_time_values->nano_seconds  = 789;
+
+	/* Test regular cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_date_time_values_copy_to_utf16_string_with_index(
+	          date_time_values,
+	          utf16_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf16_string,
+	          expected_utf16_string,
+	          sizeof( uint16_t ) * 32 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_date_time_values_copy_to_utf16_string_with_index(
+	          NULL,
+	          utf16_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_date_time_values_copy_to_utf16_string_with_index(
+	          date_time_values,
+	          utf16_string,
+	          31,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_date_time_values_free(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( date_time_values != NULL )
+	{
+		libfdatetime_date_time_values_free(
+		 &date_time_values,
+		 NULL );
+	}
+	return( 0 );
+}
+
+/* Tests the libfdatetime_date_time_values_copy_to_utf32_string_with_index function
+ * Returns 1 if successful or 0 if not
+ */
+int fdatetime_test_date_time_values_copy_to_utf32_string_with_index(
+     void )
+{
+	uint32_t expected_utf32_string[ 32 ] = {
+		'J', 'u', 'l', ' ', '2', '5', ',', ' ', '2', '0', '1', '8', ' ', '0', '8', ':',
+		'4', '9', ':', '5', '1', '.', '1', '2', '3', '4', '5', '6', '7', '8', '9', 0 };
+
+	uint32_t utf32_string[ 32 ];
+
+	libcerror_error_t *error                          = NULL;
+	libfdatetime_date_time_values_t *date_time_values = NULL;
+	size_t string_index                               = 0;
+	int result                                        = 0;
+
+	/* Initialize test
+	 */
+	result = libfdatetime_date_time_values_initialize(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	date_time_values->year          = 2018;
+	date_time_values->month         = 7;
+	date_time_values->day           = 25;
+	date_time_values->hours         = 8;
+	date_time_values->minutes       = 49;
+	date_time_values->seconds       = 51;
+	date_time_values->milli_seconds = 123;
+	date_time_values->micro_seconds = 456;
+	date_time_values->nano_seconds  = 789;
+
+	/* Test regular cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_date_time_values_copy_to_utf32_string_with_index(
+	          date_time_values,
+	          utf32_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf32_string,
+	          expected_utf32_string,
+	          sizeof( uint32_t ) * 32 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	/* Test error cases
+	 */
+	string_index = 0;
+
+	result = libfdatetime_date_time_values_copy_to_utf32_string_with_index(
+	          NULL,
+	          utf32_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	result = libfdatetime_date_time_values_copy_to_utf32_string_with_index(
+	          date_time_values,
+	          utf32_string,
+	          31,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	/* Clean up
+	 */
+	result = libfdatetime_date_time_values_free(
+	          &date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "date_time_values",
+	 date_time_values );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	return( 1 );
+
+on_error:
+	if( error != NULL )
+	{
+		libcerror_error_free(
+		 &error );
+	}
+	if( date_time_values != NULL )
+	{
+		libfdatetime_date_time_values_free(
+		 &date_time_values,
+		 NULL );
+	}
+	return( 0 );
+}
+
 #endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
 
 /* The main program
@@ -301,13 +909,21 @@ int main(
 	 "libfdatetime_date_time_values_free",
 	 fdatetime_test_date_time_values_free );
 
-	/* TODO: add tests for libfdatetime_date_time_values_get_string_size */
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_date_time_values_get_string_size",
+	 fdatetime_test_date_time_values_get_string_size );
 
-	/* TODO: add tests for libfdatetime_date_time_values_copy_to_utf8_string_with_index */
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_date_time_values_copy_to_utf8_string_with_index",
+	 fdatetime_test_date_time_values_copy_to_utf8_string_with_index );
 
-	/* TODO: add tests for libfdatetime_date_time_values_copy_to_utf16_string_with_index */
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_date_time_values_copy_to_utf16_string_with_index",
+	 fdatetime_test_date_time_values_copy_to_utf16_string_with_index );
 
-	/* TODO: add tests for libfdatetime_date_time_values_copy_to_utf32_string_with_index */
+	FDATETIME_TEST_RUN(
+	 "libfdatetime_date_time_values_copy_to_utf32_string_with_index",
+	 fdatetime_test_date_time_values_copy_to_utf32_string_with_index );
 
 #endif /* defined( __GNUC__ ) && !defined( LIBFDATETIME_DLL_IMPORT ) */
 

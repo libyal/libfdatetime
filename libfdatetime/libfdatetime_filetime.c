@@ -30,7 +30,7 @@
 #include "libfdatetime_libcerror.h"
 #include "libfdatetime_types.h"
 
-/* Creates a filetime
+/* Creates a FILETIME
  * Make sure the value filetime is referencing, is set to NULL
  * Returns 1 if successful or -1 on error
  */
@@ -47,7 +47,7 @@ int libfdatetime_filetime_initialize(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -58,7 +58,7 @@ int libfdatetime_filetime_initialize(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_ALREADY_SET,
-		 "%s: invalid filetime value already set.",
+		 "%s: invalid FILETIME value already set.",
 		 function );
 
 		return( -1 );
@@ -72,7 +72,7 @@ int libfdatetime_filetime_initialize(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_MEMORY,
 		 LIBCERROR_MEMORY_ERROR_INSUFFICIENT,
-		 "%s: unable to create filetime.",
+		 "%s: unable to create FILETIME.",
 		 function );
 
 		goto on_error;
@@ -86,7 +86,7 @@ int libfdatetime_filetime_initialize(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_MEMORY,
 		 LIBCERROR_MEMORY_ERROR_SET_FAILED,
-		 "%s: unable to clear filetime.",
+		 "%s: unable to clear FILETIME.",
 		 function );
 
 		goto on_error;
@@ -104,7 +104,7 @@ on_error:
 	return( -1 );
 }
 
-/* Frees a filetime
+/* Frees a FILETIME
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_filetime_free(
@@ -120,7 +120,7 @@ int libfdatetime_filetime_free(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -136,7 +136,7 @@ int libfdatetime_filetime_free(
 	return( 1 );
 }
 
-/* Adds the additional filetime to the filetime
+/* Adds the additional FILETIME to the FILETIME
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_filetime_add(
@@ -154,7 +154,7 @@ int libfdatetime_filetime_add(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -167,7 +167,7 @@ int libfdatetime_filetime_add(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid additional filetime.",
+		 "%s: invalid additional FILETIME.",
 		 function );
 
 		return( -1 );
@@ -180,7 +180,7 @@ int libfdatetime_filetime_add(
 	return( 1 );
 }
 
-/* Converts a byte stream into a filetime
+/* Converts a byte stream into a FILETIME
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_filetime_copy_from_byte_stream(
@@ -199,7 +199,7 @@ int libfdatetime_filetime_copy_from_byte_stream(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -278,7 +278,7 @@ int libfdatetime_filetime_copy_from_byte_stream(
 	return( 1 );
 }
 
-/* Converts a 64-bit value into a filetime
+/* Converts a 64-bit value into a FILETIME
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_filetime_copy_from_64bit(
@@ -295,7 +295,7 @@ int libfdatetime_filetime_copy_from_64bit(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -308,7 +308,7 @@ int libfdatetime_filetime_copy_from_64bit(
 	return( 1 );
 }
 
-/* Converts a filetime into a 64-bit value
+/* Converts a FILETIME into a 64-bit value
  * Returns 1 if successful or -1 on error
  */
 int libfdatetime_filetime_copy_to_64bit(
@@ -325,7 +325,7 @@ int libfdatetime_filetime_copy_to_64bit(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -350,15 +350,15 @@ int libfdatetime_filetime_copy_to_64bit(
 	return( 1 );
 }
 
-/* Converts a filetime into date time values
+/* Converts a FILETIME into date time values
  * Returns 1 if successful or -1 on error
  */
-int libfdatetime_filetime_copy_to_date_time_values(
+int libfdatetime_internal_filetime_copy_to_date_time_values(
      libfdatetime_internal_filetime_t *internal_filetime,
      libfdatetime_date_time_values_t *date_time_values,
      libcerror_error_t **error )
 {
-	static char *function    = "libfdatetime_filetime_copy_to_date_time_values";
+	static char *function    = "libfdatetime_internal_filetime_copy_to_date_time_values";
 	uint64_t filetimestamp   = 0;
 	uint32_t days_in_century = 0;
 	uint16_t days_in_year    = 0;
@@ -370,7 +370,7 @@ int libfdatetime_filetime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -478,7 +478,7 @@ int libfdatetime_filetime_copy_to_date_time_values(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_VALUE_OUT_OF_BOUNDS,
-		 "%s: invalid filetime - year value out of bounds.",
+		 "%s: invalid FILETIME - year value out of bounds.",
 		 function );
 
 		return( -1 );
@@ -554,7 +554,7 @@ int libfdatetime_filetime_copy_to_date_time_values(
 	return( 1 );
 }
 
-/* Deterimes the size of the string for the filetime
+/* Deterimes the size of the string for the FILETIME
  * The string size includes the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -575,7 +575,7 @@ int libfdatetime_filetime_get_string_size(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -591,7 +591,7 @@ int libfdatetime_filetime_get_string_size(
 
 		return( -1 );
 	}
-	result = libfdatetime_filetime_copy_to_date_time_values(
+	result = libfdatetime_internal_filetime_copy_to_date_time_values(
 	          (libfdatetime_internal_filetime_t *) filetime,
 	          &date_time_values,
 	          error );
@@ -646,7 +646,7 @@ int libfdatetime_filetime_get_string_size(
 	return( 1 );
 }
 
-/* Converts the filetime into an UTF-8 string in hexadecimal representation
+/* Converts the FILETIME into an UTF-8 string in hexadecimal representation
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -668,7 +668,7 @@ int libfdatetime_internal_filetime_copy_to_utf8_string_in_hexadecimal(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -773,7 +773,7 @@ int libfdatetime_internal_filetime_copy_to_utf8_string_in_hexadecimal(
 	return( 1 );
 }
 
-/* Converts the filetime into an UTF-8 string
+/* Converts the FILETIME into an UTF-8 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -799,7 +799,7 @@ int libfdatetime_filetime_copy_to_utf8_string(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
-		 "%s: unable to copy filetime to UTF-8 string.",
+		 "%s: unable to copy FILETIME to UTF-8 string.",
 		 function );
 
 		return( -1 );
@@ -807,7 +807,7 @@ int libfdatetime_filetime_copy_to_utf8_string(
 	return( 1 );
 }
 
-/* Converts the filetime into an UTF-8 string
+/* Converts the FILETIME into an UTF-8 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -831,14 +831,14 @@ int libfdatetime_filetime_copy_to_utf8_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
 	}
 	internal_filetime = (libfdatetime_internal_filetime_t *) filetime;
 
-	result = libfdatetime_filetime_copy_to_date_time_values(
+	result = libfdatetime_internal_filetime_copy_to_date_time_values(
 	          internal_filetime,
 	          &date_time_values,
 	          error );
@@ -901,7 +901,7 @@ int libfdatetime_filetime_copy_to_utf8_string_with_index(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to filetime to hexadecimal UTF-8 string.",
+			 "%s: unable to FILETIME to hexadecimal UTF-8 string.",
 			 function );
 
 			return( -1 );
@@ -910,7 +910,7 @@ int libfdatetime_filetime_copy_to_utf8_string_with_index(
 	return( 1 );
 }
 
-/* Converts the filetime into an UTF-16 string in hexadecimal representation
+/* Converts the FILETIME into an UTF-16 string in hexadecimal representation
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -932,7 +932,7 @@ int libfdatetime_internal_filetime_copy_to_utf16_string_in_hexadecimal(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -1037,7 +1037,7 @@ int libfdatetime_internal_filetime_copy_to_utf16_string_in_hexadecimal(
 	return( 1 );
 }
 
-/* Converts the filetime into an UTF-16 string
+/* Converts the FILETIME into an UTF-16 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -1063,7 +1063,7 @@ int libfdatetime_filetime_copy_to_utf16_string(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
-		 "%s: unable to copy filetime to UTF-16 string.",
+		 "%s: unable to copy FILETIME to UTF-16 string.",
 		 function );
 
 		return( -1 );
@@ -1071,7 +1071,7 @@ int libfdatetime_filetime_copy_to_utf16_string(
 	return( 1 );
 }
 
-/* Converts the filetime into an UTF-16 string
+/* Converts the FILETIME into an UTF-16 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -1095,14 +1095,14 @@ int libfdatetime_filetime_copy_to_utf16_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
 	}
 	internal_filetime = (libfdatetime_internal_filetime_t *) filetime;
 
-	result = libfdatetime_filetime_copy_to_date_time_values(
+	result = libfdatetime_internal_filetime_copy_to_date_time_values(
 	          internal_filetime,
 	          &date_time_values,
 	          error );
@@ -1190,7 +1190,7 @@ int libfdatetime_filetime_copy_to_utf16_string_with_index(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to filetime to hexadecimal UTF-16 string.",
+			 "%s: unable to FILETIME to hexadecimal UTF-16 string.",
 			 function );
 
 			return( -1 );
@@ -1199,7 +1199,7 @@ int libfdatetime_filetime_copy_to_utf16_string_with_index(
 	return( 1 );
 }
 
-/* Converts the filetime into an UTF-32 string in hexadecimal representation
+/* Converts the FILETIME into an UTF-32 string in hexadecimal representation
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -1221,7 +1221,7 @@ int libfdatetime_internal_filetime_copy_to_utf32_string_in_hexadecimal(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
@@ -1326,7 +1326,7 @@ int libfdatetime_internal_filetime_copy_to_utf32_string_in_hexadecimal(
 	return( 1 );
 }
 
-/* Converts the filetime into an UTF-32 string
+/* Converts the FILETIME into an UTF-32 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -1352,7 +1352,7 @@ int libfdatetime_filetime_copy_to_utf32_string(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 		 LIBCERROR_RUNTIME_ERROR_COPY_FAILED,
-		 "%s: unable to copy filetime to UTF-32 string.",
+		 "%s: unable to copy FILETIME to UTF-32 string.",
 		 function );
 
 		return( -1 );
@@ -1360,7 +1360,7 @@ int libfdatetime_filetime_copy_to_utf32_string(
 	return( 1 );
 }
 
-/* Converts the filetime into an UTF-32 string
+/* Converts the FILETIME into an UTF-32 string
  * The string size should include the end of string character
  * Returns 1 if successful or -1 on error
  */
@@ -1384,14 +1384,14 @@ int libfdatetime_filetime_copy_to_utf32_string_with_index(
 		 error,
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
-		 "%s: invalid filetime.",
+		 "%s: invalid FILETIME.",
 		 function );
 
 		return( -1 );
 	}
 	internal_filetime = (libfdatetime_internal_filetime_t *) filetime;
 
-	result = libfdatetime_filetime_copy_to_date_time_values(
+	result = libfdatetime_internal_filetime_copy_to_date_time_values(
 	          internal_filetime,
 	          &date_time_values,
 	          error );
@@ -1454,7 +1454,7 @@ int libfdatetime_filetime_copy_to_utf32_string_with_index(
 			 error,
 			 LIBCERROR_ERROR_DOMAIN_RUNTIME,
 			 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
-			 "%s: unable to filetime to hexadecimal UTF-32 string.",
+			 "%s: unable to FILETIME to hexadecimal UTF-32 string.",
 			 function );
 
 			return( -1 );

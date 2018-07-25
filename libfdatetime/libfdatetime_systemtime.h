@@ -88,7 +88,7 @@ int libfdatetime_systemtime_copy_from_byte_stream(
      int byte_order,
      libcerror_error_t **error );
 
-int libfdatetime_systemtime_copy_to_date_time_values(
+int libfdatetime_internal_systemtime_copy_to_date_time_values(
      libfdatetime_internal_systemtime_t *internal_systemtime,
      libfdatetime_date_time_values_t *date_time_values,
      libcerror_error_t **error );
@@ -98,6 +98,13 @@ int libfdatetime_systemtime_get_string_size(
      libfdatetime_systemtime_t *systemtime,
      size_t *string_size,
      uint32_t string_format_flags,
+     libcerror_error_t **error );
+
+int libfdatetime_internal_systemtime_copy_to_utf8_string_in_hexadecimal(
+     libfdatetime_internal_systemtime_t *internal_systemtime,
+     uint8_t *utf8_string,
+     size_t utf8_string_size,
+     size_t *utf8_string_index,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
@@ -117,6 +124,13 @@ int libfdatetime_systemtime_copy_to_utf8_string_with_index(
      uint32_t string_format_flags,
      libcerror_error_t **error );
 
+int libfdatetime_internal_systemtime_copy_to_utf16_string_in_hexadecimal(
+     libfdatetime_internal_systemtime_t *internal_systemtime,
+     uint16_t *utf16_string,
+     size_t utf16_string_size,
+     size_t *utf16_string_index,
+     libcerror_error_t **error );
+
 LIBFDATETIME_EXTERN \
 int libfdatetime_systemtime_copy_to_utf16_string(
      libfdatetime_systemtime_t *systemtime,
@@ -132,6 +146,13 @@ int libfdatetime_systemtime_copy_to_utf16_string_with_index(
      size_t utf16_string_size,
      size_t *utf16_string_index,
      uint32_t string_format_flags,
+     libcerror_error_t **error );
+
+int libfdatetime_internal_systemtime_copy_to_utf32_string_in_hexadecimal(
+     libfdatetime_internal_systemtime_t *internal_systemtime,
+     uint32_t *utf32_string,
+     size_t utf32_string_size,
+     size_t *utf32_string_index,
      libcerror_error_t **error );
 
 LIBFDATETIME_EXTERN \
