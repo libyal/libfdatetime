@@ -52,6 +52,9 @@ uint8_t fdatetime_test_posix_time_byte_stream_64bit_invalid[ 8 ] = {
 uint8_t fdatetime_test_posix_time_byte_stream_64bit_with_microseconds[ 8 ] = {
 	0xc0, 0xdd, 0xf0, 0xf4, 0x70, 0xbb, 0x04, 0x00 };
 
+uint8_t fdatetime_test_posix_time_byte_stream_64bit_with_nanoseconds[ 8 ] = {
+	0x0e, 0xa2, 0xb3, 0x12, 0x55, 0x23, 0x52, 0x15 };
+
 /* Tests the libfdatetime_posix_time_initialize function
  * Returns 1 if successful or 0 if not
  */
@@ -333,6 +336,16 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	 "error",
 	 error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_UINT64(
+	 "posix_time->timestamp",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp,
+	 (uint64_t) 0x7f9c644fUL );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "posix_time->value_type",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->value_type,
+	 (uint8_t) LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED );
+
 	result = libfdatetime_posix_time_copy_from_byte_stream(
 	          posix_time,
 	          fdatetime_test_posix_time_byte_stream_32bit,
@@ -349,6 +362,16 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT64(
+	 "posix_time->timestamp",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp,
+	 (uint64_t) 0x4f649c7fUL );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "posix_time->value_type",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->value_type,
+	 (uint8_t) LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED );
 
 	result = libfdatetime_posix_time_copy_from_byte_stream(
 	          posix_time,
@@ -367,6 +390,16 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	 "error",
 	 error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_UINT64(
+	 "posix_time->timestamp",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp,
+	 (uint64_t) 0x4f649c7fUL );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "posix_time->value_type",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->value_type,
+	 (uint8_t) LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED );
+
 	result = libfdatetime_posix_time_copy_from_byte_stream(
 	          posix_time,
 	          fdatetime_test_posix_time_byte_stream_64bit_with_microseconds,
@@ -383,6 +416,43 @@ int fdatetime_test_posix_time_copy_from_byte_stream(
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT64(
+	 "posix_time->timestamp",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp,
+	 (uint64_t) 0x4bb70f4f0ddc0UL );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "posix_time->value_type",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->value_type,
+	 (uint8_t) LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED );
+
+	result = libfdatetime_posix_time_copy_from_byte_stream(
+	          posix_time,
+	          fdatetime_test_posix_time_byte_stream_64bit_with_nanoseconds,
+	          8,
+	          LIBFDATETIME_ENDIAN_LITTLE,
+	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT64(
+	 "posix_time->timestamp",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp,
+	 (uint64_t) 0x1552235512b3a20eUL );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "posix_time->value_type",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->value_type,
+	 (uint8_t) LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED );
 
 	/* Test error cases
 	 */
@@ -647,6 +717,16 @@ int fdatetime_test_posix_time_copy_from_32bit(
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT64(
+	 "posix_time->timestamp",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp,
+	 (uint64_t) 0xcc28b975UL );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "posix_time->value_type",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->value_type,
+	 (uint8_t) LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED );
 
 	/* Test error cases
 	 */
@@ -974,6 +1054,16 @@ int fdatetime_test_posix_time_copy_from_64bit(
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT64(
+	 "posix_time->timestamp",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp,
+	 (uint64_t) 0x00000000cc28b975UL );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "posix_time->value_type",
+	 ( (libfdatetime_internal_posix_time_t *) posix_time )->value_type,
+	 (uint8_t) LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED );
 
 	/* Test error cases
 	 */
@@ -1338,6 +1428,51 @@ int fdatetime_test_internal_posix_time_copy_to_date_time_values(
 	 "error",
 	 error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->year",
+	 date_time_values->year,
+	 (uint16_t) 2012 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->month",
+	 date_time_values->month,
+	 (uint8_t) 3 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->day",
+	 date_time_values->day,
+	 (uint8_t) 17 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->hours",
+	 date_time_values->hours,
+	 (uint8_t) 14 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->minutes",
+	 date_time_values->minutes,
+	 (uint8_t) 15 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->seconds",
+	 date_time_values->seconds,
+	 (uint8_t) 27 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->milli_seconds",
+	 date_time_values->milli_seconds,
+	 (uint16_t) 0 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->micro_seconds",
+	 date_time_values->micro_seconds,
+	 (uint16_t) 0 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->nano_seconds",
+	 date_time_values->nano_seconds,
+	 (uint16_t) 0 );
+
 	result = libfdatetime_posix_time_copy_from_byte_stream(
 	          posix_time,
 	          fdatetime_test_posix_time_byte_stream_64bit,
@@ -1369,6 +1504,51 @@ int fdatetime_test_internal_posix_time_copy_to_date_time_values(
 	 "error",
 	 error );
 
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->year",
+	 date_time_values->year,
+	 (uint16_t) 2012 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->month",
+	 date_time_values->month,
+	 (uint8_t) 3 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->day",
+	 date_time_values->day,
+	 (uint8_t) 17 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->hours",
+	 date_time_values->hours,
+	 (uint8_t) 14 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->minutes",
+	 date_time_values->minutes,
+	 (uint8_t) 15 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->seconds",
+	 date_time_values->seconds,
+	 (uint8_t) 27 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->milli_seconds",
+	 date_time_values->milli_seconds,
+	 (uint16_t) 0 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->micro_seconds",
+	 date_time_values->micro_seconds,
+	 (uint16_t) 0 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->nano_seconds",
+	 date_time_values->nano_seconds,
+	 (uint16_t) 0 );
+
 	result = libfdatetime_posix_time_copy_from_byte_stream(
 	          posix_time,
 	          fdatetime_test_posix_time_byte_stream_64bit_with_microseconds,
@@ -1399,6 +1579,127 @@ int fdatetime_test_internal_posix_time_copy_to_date_time_values(
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->year",
+	 date_time_values->year,
+	 (uint16_t) 2012 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->month",
+	 date_time_values->month,
+	 (uint8_t) 3 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->day",
+	 date_time_values->day,
+	 (uint8_t) 17 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->hours",
+	 date_time_values->hours,
+	 (uint8_t) 14 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->minutes",
+	 date_time_values->minutes,
+	 (uint8_t) 15 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->seconds",
+	 date_time_values->seconds,
+	 (uint8_t) 27 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->milli_seconds",
+	 date_time_values->milli_seconds,
+	 (uint16_t) 0 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->micro_seconds",
+	 date_time_values->micro_seconds,
+	 (uint16_t) 0 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->nano_seconds",
+	 date_time_values->nano_seconds,
+	 (uint16_t) 0 );
+
+	result = libfdatetime_posix_time_copy_from_byte_stream(
+	          posix_time,
+	          fdatetime_test_posix_time_byte_stream_64bit_with_nanoseconds,
+	          8,
+	          LIBFDATETIME_ENDIAN_LITTLE,
+	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = libfdatetime_internal_posix_time_copy_to_date_time_values(
+	          (libfdatetime_internal_posix_time_t *) posix_time,
+	          date_time_values,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->year",
+	 date_time_values->year,
+	 (uint16_t) 2018 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->month",
+	 date_time_values->month,
+	 (uint8_t) 9 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->day",
+	 date_time_values->day,
+	 (uint8_t) 7 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->hours",
+	 date_time_values->hours,
+	 (uint8_t) 14 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->minutes",
+	 date_time_values->minutes,
+	 (uint8_t) 7 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT8(
+	 "date_time_values->seconds",
+	 date_time_values->seconds,
+	 (uint8_t) 51 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->milli_seconds",
+	 date_time_values->milli_seconds,
+	 (uint16_t) 179 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->micro_seconds",
+	 date_time_values->micro_seconds,
+	 (uint16_t) 715 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_UINT16(
+	 "date_time_values->nano_seconds",
+	 date_time_values->nano_seconds,
+	 (uint16_t) 86 );
 
 	/* Test error cases
 	 */
@@ -1550,22 +1851,8 @@ int fdatetime_test_posix_time_get_string_size(
 
 	/* Test regular cases
 	 */
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
 
 	result = libfdatetime_posix_time_get_string_size(
 	          posix_time,
@@ -1587,13 +1874,84 @@ int fdatetime_test_posix_time_get_string_size(
 	 "error",
 	 error );
 
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = 0x80000000UL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED;
+
+	result = libfdatetime_posix_time_get_string_size(
+	          posix_time,
+	          &string_size,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_size",
+	 string_size,
+	 (size_t) 13 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = 0x8000000000000000UL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED;
+
+	result = libfdatetime_posix_time_get_string_size(
+	          posix_time,
+	          &string_size,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_size",
+	 string_size,
+	 (size_t) 21 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
 	/* Test error cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	result = libfdatetime_posix_time_get_string_size(
 	          NULL,
 	          &string_size,
 	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
 	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = 0xff;
+
+	result = libfdatetime_posix_time_get_string_size(
+	          posix_time,
+	          &string_size,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_CTIME | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME,
+	          &error );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -1669,8 +2027,11 @@ on_error:
 int fdatetime_test_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
      void )
 {
-	uint8_t expected_utf8_string[ 13 ] = {
+	uint8_t expected_utf8_string1[ 13 ] = {
 		'(', '0', 'x', '4', 'f', '6', '4', '9', 'c', '7', 'f', ')', 0 };
+	uint8_t expected_utf8_string2[ 21 ] = {
+		'(', '0', 'x', '1', '5', '5', '2', '2', '3', '5', '5', '1', '2', 'b', '3', 'a',
+                '2', '0', 'e', ')', 0 };
 
 	uint8_t utf8_string[ 32 ];
 
@@ -1698,25 +2059,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 	 "error",
 	 error );
 
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	/* Test regular cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	string_index = 0;
 
 	result = libfdatetime_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
@@ -1731,14 +2078,55 @@ int fdatetime_test_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 13 );
+
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
 	result = memory_compare(
 	          utf8_string,
-	          expected_utf8_string,
+	          expected_utf8_string1,
 	          sizeof( uint8_t ) * 13 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x1552235512b3a20e;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED;
+
+	string_index = 0;
+
+	result = libfdatetime_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
+	          (libfdatetime_internal_posix_time_t *) posix_time,
+	          utf8_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 21 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf8_string,
+	          expected_utf8_string2,
+	          sizeof( uint8_t ) * 21 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -1761,6 +2149,39 @@ int fdatetime_test_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 	 result,
 	 -1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = 0xff;
+
+	result = libfdatetime_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
+	          (libfdatetime_internal_posix_time_t *) posix_time,
+	          utf8_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -1779,6 +2200,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 	 "result",
 	 result,
 	 -1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
 
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -1799,6 +2225,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 	 result,
 	 -1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -1818,6 +2249,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 	 result,
 	 -1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -1836,6 +2272,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 	 "result",
 	 result,
 	 -1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
 
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -1913,25 +2354,11 @@ int fdatetime_test_posix_time_copy_to_utf8_string(
 	 "error",
 	 error );
 
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	/* Test regular cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	result = libfdatetime_posix_time_copy_to_utf8_string(
 	          posix_time,
 	          utf8_string,
@@ -2015,6 +2442,10 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 		'M', 'a', 'r', ' ', '1', '7', ',', ' ', '2', '0', '1', '2', ' ', '1', '4', ':',
 		'1', '5', ':', '2', '7', 0 };
 
+	uint8_t expected_utf8_string2[ 30 ] = {
+		'2', '0', '1', '8', '-', '0', '9', '-', '0', '7', 'T', '1', '4', ':', '0', '7',
+		':', '5', '1', '.', '1', '7', '9', '7', '1', '5', '0', '8', '6', 0 };
+
 	uint8_t utf8_string[ 32 ];
 
 	libfdatetime_posix_time_t *posix_time = NULL;
@@ -2043,24 +2474,10 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 
 	/* Test regular cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	string_index = 0;
-
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	result = libfdatetime_posix_time_copy_to_utf8_string_with_index(
 	          posix_time,
@@ -2074,6 +2491,11 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	 "result",
 	 result,
 	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 22 );
 
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -2089,24 +2511,10 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	 result,
 	 0 );
 
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED;
+
 	string_index = 0;
-
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_64bit,
-	          8,
-	          LIBFDATETIME_ENDIAN_BIG,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	result = libfdatetime_posix_time_copy_to_utf8_string_with_index(
 	          posix_time,
@@ -2120,6 +2528,11 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	 "result",
 	 result,
 	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 22 );
 
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -2135,24 +2548,10 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	 result,
 	 0 );
 
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4bb70f4f0ddc0UL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED;
+
 	string_index = 0;
-
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_64bit_with_microseconds,
-	          8,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	result = libfdatetime_posix_time_copy_to_utf8_string_with_index(
 	          posix_time,
@@ -2167,6 +2566,11 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 22 );
+
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
@@ -2175,6 +2579,43 @@ int fdatetime_test_posix_time_copy_to_utf8_string_with_index(
 	          utf8_string,
 	          expected_utf8_string1,
 	          sizeof( uint8_t ) * 22 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x1552235512b3a20eUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED;
+
+	string_index = 0;
+
+	result = libfdatetime_posix_time_copy_to_utf8_string_with_index(
+	          posix_time,
+	          utf8_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_ISO8601 | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 30 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf8_string,
+	          expected_utf8_string2,
+	          sizeof( uint8_t ) * 30 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -2249,8 +2690,11 @@ on_error:
 int fdatetime_test_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
      void )
 {
-	uint16_t expected_utf16_string[ 13 ] = {
+	uint16_t expected_utf16_string1[ 13 ] = {
 		'(', '0', 'x', '4', 'f', '6', '4', '9', 'c', '7', 'f', ')', 0 };
+	uint16_t expected_utf16_string2[ 21 ] = {
+		'(', '0', 'x', '1', '5', '5', '2', '2', '3', '5', '5', '1', '2', 'b', '3', 'a',
+                '2', '0', 'e', ')', 0 };
 
 	uint16_t utf16_string[ 32 ];
 
@@ -2278,25 +2722,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 	 "error",
 	 error );
 
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	/* Test regular cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	string_index = 0;
 
 	result = libfdatetime_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
@@ -2311,14 +2741,55 @@ int fdatetime_test_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 13 );
+
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
 	result = memory_compare(
 	          utf16_string,
-	          expected_utf16_string,
+	          expected_utf16_string1,
 	          sizeof( uint16_t ) * 13 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x1552235512b3a20e;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED;
+
+	string_index = 0;
+
+	result = libfdatetime_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
+	          (libfdatetime_internal_posix_time_t *) posix_time,
+	          utf16_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 21 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf16_string,
+	          expected_utf16_string2,
+	          sizeof( uint16_t ) * 21 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -2341,6 +2812,39 @@ int fdatetime_test_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 	 result,
 	 -1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = 0xff;
+
+	result = libfdatetime_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
+	          (libfdatetime_internal_posix_time_t *) posix_time,
+	          utf16_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -2359,6 +2863,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 	 "result",
 	 result,
 	 -1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
 
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -2398,6 +2907,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 	 result,
 	 -1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -2416,6 +2930,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 	 "result",
 	 result,
 	 -1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
 
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -2493,25 +3012,11 @@ int fdatetime_test_posix_time_copy_to_utf16_string(
 	 "error",
 	 error );
 
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	/* Test regular cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	result = libfdatetime_posix_time_copy_to_utf16_string(
 	          posix_time,
 	          utf16_string,
@@ -2595,6 +3100,10 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 		'M', 'a', 'r', ' ', '1', '7', ',', ' ', '2', '0', '1', '2', ' ', '1', '4', ':',
 		'1', '5', ':', '2', '7', 0 };
 
+	uint16_t expected_utf16_string2[ 30 ] = {
+		'2', '0', '1', '8', '-', '0', '9', '-', '0', '7', 'T', '1', '4', ':', '0', '7',
+		':', '5', '1', '.', '1', '7', '9', '7', '1', '5', '0', '8', '6', 0 };
+
 	uint16_t utf16_string[ 32 ];
 
 	libfdatetime_posix_time_t *posix_time = NULL;
@@ -2623,24 +3132,10 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 
 	/* Test regular cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	string_index = 0;
-
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	result = libfdatetime_posix_time_copy_to_utf16_string_with_index(
 	          posix_time,
@@ -2654,6 +3149,11 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 	 "result",
 	 result,
 	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 22 );
 
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -2669,24 +3169,10 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 	 result,
 	 0 );
 
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED;
+
 	string_index = 0;
-
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_64bit,
-	          8,
-	          LIBFDATETIME_ENDIAN_BIG,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	result = libfdatetime_posix_time_copy_to_utf16_string_with_index(
 	          posix_time,
@@ -2700,6 +3186,11 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 	 "result",
 	 result,
 	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 22 );
 
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -2715,24 +3206,10 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 	 result,
 	 0 );
 
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4bb70f4f0ddc0UL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED;
+
 	string_index = 0;
-
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_64bit_with_microseconds,
-	          8,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	result = libfdatetime_posix_time_copy_to_utf16_string_with_index(
 	          posix_time,
@@ -2747,6 +3224,11 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 22 );
+
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
@@ -2755,6 +3237,43 @@ int fdatetime_test_posix_time_copy_to_utf16_string_with_index(
 	          utf16_string,
 	          expected_utf16_string1,
 	          sizeof( uint16_t ) * 22 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x1552235512b3a20eUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED;
+
+	string_index = 0;
+
+	result = libfdatetime_posix_time_copy_to_utf16_string_with_index(
+	          posix_time,
+	          utf16_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_ISO8601 | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 30 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf16_string,
+	          expected_utf16_string2,
+	          sizeof( uint16_t ) * 30 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -2829,8 +3348,11 @@ on_error:
 int fdatetime_test_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
      void )
 {
-	uint32_t expected_utf32_string[ 13 ] = {
+	uint32_t expected_utf32_string1[ 13 ] = {
 		'(', '0', 'x', '4', 'f', '6', '4', '9', 'c', '7', 'f', ')', 0 };
+	uint32_t expected_utf32_string2[ 21 ] = {
+		'(', '0', 'x', '1', '5', '5', '2', '2', '3', '5', '5', '1', '2', 'b', '3', 'a',
+                '2', '0', 'e', ')', 0 };
 
 	uint32_t utf32_string[ 32 ];
 
@@ -2858,25 +3380,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 	 "error",
 	 error );
 
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	/* Test regular cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	string_index = 0;
 
 	result = libfdatetime_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
@@ -2891,14 +3399,55 @@ int fdatetime_test_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 13 );
+
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
 
 	result = memory_compare(
 	          utf32_string,
-	          expected_utf32_string,
+	          expected_utf32_string1,
 	          sizeof( uint32_t ) * 13 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x1552235512b3a20e;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED;
+
+	string_index = 0;
+
+	result = libfdatetime_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
+	          (libfdatetime_internal_posix_time_t *) posix_time,
+	          utf32_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 21 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf32_string,
+	          expected_utf32_string2,
+	          sizeof( uint32_t ) * 21 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",
@@ -2921,6 +3470,39 @@ int fdatetime_test_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 	 result,
 	 -1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
+	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
+	 "error",
+	 error );
+
+	libcerror_error_free(
+	 &error );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = 0xff;
+
+	result = libfdatetime_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
+	          (libfdatetime_internal_posix_time_t *) posix_time,
+	          utf32_string,
+	          32,
+	          &string_index,
+	          &error );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 -1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -2939,6 +3521,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 	 "result",
 	 result,
 	 -1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
 
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -2959,6 +3546,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 	 result,
 	 -1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -2978,6 +3570,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 	 result,
 	 -1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
+
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
 	 error );
@@ -2996,6 +3593,11 @@ int fdatetime_test_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 	 "result",
 	 result,
 	 -1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 0 );
 
 	FDATETIME_TEST_ASSERT_IS_NOT_NULL(
 	 "error",
@@ -3073,25 +3675,11 @@ int fdatetime_test_posix_time_copy_to_utf32_string(
 	 "error",
 	 error );
 
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
-
 	/* Test regular cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	result = libfdatetime_posix_time_copy_to_utf32_string(
 	          posix_time,
 	          utf32_string,
@@ -3175,6 +3763,10 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 		'M', 'a', 'r', ' ', '1', '7', ',', ' ', '2', '0', '1', '2', ' ', '1', '4', ':',
 		'1', '5', ':', '2', '7', 0 };
 
+	uint32_t expected_utf32_string2[ 30 ] = {
+		'2', '0', '1', '8', '-', '0', '9', '-', '0', '7', 'T', '1', '4', ':', '0', '7',
+		':', '5', '1', '.', '1', '7', '9', '7', '1', '5', '0', '8', '6', 0 };
+
 	uint32_t utf32_string[ 32 ];
 
 	libfdatetime_posix_time_t *posix_time = NULL;
@@ -3203,24 +3795,10 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 
 	/* Test regular cases
 	 */
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED;
+
 	string_index = 0;
-
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_32bit,
-	          4,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	result = libfdatetime_posix_time_copy_to_utf32_string_with_index(
 	          posix_time,
@@ -3234,6 +3812,11 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 	 "result",
 	 result,
 	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 22 );
 
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -3249,24 +3832,10 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 	 result,
 	 0 );
 
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4f649c7fUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED;
+
 	string_index = 0;
-
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_64bit,
-	          8,
-	          LIBFDATETIME_ENDIAN_BIG,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	result = libfdatetime_posix_time_copy_to_utf32_string_with_index(
 	          posix_time,
@@ -3280,6 +3849,11 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 	 "result",
 	 result,
 	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 22 );
 
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
@@ -3295,24 +3869,10 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 	 result,
 	 0 );
 
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x4bb70f4f0ddc0UL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED;
+
 	string_index = 0;
-
-	result = libfdatetime_posix_time_copy_from_byte_stream(
-	          posix_time,
-	          fdatetime_test_posix_time_byte_stream_64bit_with_microseconds,
-	          8,
-	          LIBFDATETIME_ENDIAN_LITTLE,
-	          LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED,
-	          &error );
-
-	FDATETIME_TEST_ASSERT_EQUAL_INT(
-	 "result",
-	 result,
-	 1 );
-
-	FDATETIME_TEST_ASSERT_IS_NULL(
-	 "error",
-	 error );
 
 	result = libfdatetime_posix_time_copy_to_utf32_string_with_index(
 	          posix_time,
@@ -3327,6 +3887,11 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 	 result,
 	 1 );
 
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 22 );
+
 	FDATETIME_TEST_ASSERT_IS_NULL(
 	 "error",
 	 error );
@@ -3335,6 +3900,43 @@ int fdatetime_test_posix_time_copy_to_utf32_string_with_index(
 	          utf32_string,
 	          expected_utf32_string1,
 	          sizeof( uint32_t ) * 22 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 0 );
+
+	( (libfdatetime_internal_posix_time_t *) posix_time )->timestamp  = (uint64_t) 0x1552235512b3a20eUL;
+	( (libfdatetime_internal_posix_time_t *) posix_time )->value_type = LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED;
+
+	string_index = 0;
+
+	result = libfdatetime_posix_time_copy_to_utf32_string_with_index(
+	          posix_time,
+	          utf32_string,
+	          32,
+	          &string_index,
+	          LIBFDATETIME_STRING_FORMAT_TYPE_ISO8601 | LIBFDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS,
+	          &error );
+
+	FDATETIME_TEST_ASSERT_EQUAL_INT(
+	 "result",
+	 result,
+	 1 );
+
+	FDATETIME_TEST_ASSERT_EQUAL_SIZE(
+	 "string_index",
+	 string_index,
+	 (size_t) 30 );
+
+	FDATETIME_TEST_ASSERT_IS_NULL(
+	 "error",
+	 error );
+
+	result = memory_compare(
+	          utf32_string,
+	          expected_utf32_string2,
+	          sizeof( uint32_t ) * 30 );
 
 	FDATETIME_TEST_ASSERT_EQUAL_INT(
 	 "result",

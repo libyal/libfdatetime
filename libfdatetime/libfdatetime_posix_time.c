@@ -243,7 +243,9 @@ int libfdatetime_posix_time_copy_from_byte_stream(
 	else if( ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
 	      || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
 	      || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
-	      || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	      || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	      || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	      || ( value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
 	{
 		if( byte_stream_size < 8 )
 		{
@@ -457,7 +459,9 @@ int libfdatetime_posix_time_copy_from_64bit(
 	if( ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
 	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
 	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
-	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	 && ( value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -521,7 +525,9 @@ int libfdatetime_posix_time_copy_to_64bit(
 	if( ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
 	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
 	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
-	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -590,7 +596,9 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
 	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
 	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
-	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -624,7 +632,9 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	else if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
 	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
 	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
-	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
 	{
 		is_signed = (uint8_t) ( posix_timestamp >> 63 );
 
@@ -648,8 +658,25 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	}
         date_time_values->nano_seconds = 0;
 
+	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
+	{
+		/* The timestamp is in units of nano seconds correct the value to seconds
+		 */
+		if( is_signed == 0 )
+		{
+			date_time_values->nano_seconds = posix_timestamp % 1000;
+		}
+		else
+		{
+			date_time_values->nano_seconds = 1000 - ( posix_timestamp % 1000 );
+		}
+		posix_timestamp /= 1000;
+	}
 	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
-	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED ) )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
 	{
 		/* The timestamp is in units of micro seconds correct the value to seconds
 		 */
@@ -869,8 +896,9 @@ int libfdatetime_posix_time_get_string_size(
 {
 	libfdatetime_date_time_values_t date_time_values;
 
-	static char *function = "libfdatetime_posix_time_get_string_size";
-	int result            = 0;
+	libfdatetime_internal_posix_time_t *internal_posix_time = NULL;
+	static char *function                                   = "libfdatetime_posix_time_get_string_size";
+	int result                                              = 0;
 
 	if( posix_time == NULL )
 	{
@@ -879,6 +907,26 @@ int libfdatetime_posix_time_get_string_size(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid POSIX time.",
+		 function );
+
+		return( -1 );
+	}
+	internal_posix_time = (libfdatetime_internal_posix_time_t *) posix_time;
+
+	if( ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid POSIX time - unsupported value type.",
 		 function );
 
 		return( -1 );
@@ -944,7 +992,15 @@ int libfdatetime_posix_time_get_string_size(
 	{
 		/* Make sure the string can hold the hexadecimal representation of the POSIX time
 		 */
-		*string_size = 13;
+		if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+		 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED ) )
+		{
+			*string_size = 13;
+		}
+		else
+		{
+			*string_size = 21;
+		}
 	}
 	return( 1 );
 }
@@ -962,6 +1018,7 @@ int libfdatetime_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 {
 	static char *function = "libfdatetime_internal_posix_time_copy_to_utf8_string_in_hexadecimal";
 	size_t string_index   = 0;
+	size_t string_size    = 0;
 	uint8_t byte_value    = 0;
 	int8_t byte_shift     = 0;
 
@@ -972,6 +1029,24 @@ int libfdatetime_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid POSIX time.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid POSIX time - unsupported value type.",
 		 function );
 
 		return( -1 );
@@ -1009,8 +1084,19 @@ int libfdatetime_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 
 		return( -1 );
 	}
-	if( ( utf8_string_size < 13 )
-	 || ( *utf8_string_index > ( utf8_string_size - 13 ) ) )
+	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED ) )
+	{
+		string_size = 13;
+		byte_shift  = 28;
+	}
+	else
+	{
+		string_size = 21;
+		byte_shift  = 60;
+	}
+	if( ( utf8_string_size < string_size )
+	 || ( *utf8_string_index > ( utf8_string_size - string_size ) ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -1026,8 +1112,6 @@ int libfdatetime_internal_posix_time_copy_to_utf8_string_in_hexadecimal(
 	utf8_string[ string_index++ ] = (uint8_t) '(';
 	utf8_string[ string_index++ ] = (uint8_t) '0';
 	utf8_string[ string_index++ ] = (uint8_t) 'x';
-
-	byte_shift = 28;
 
 	do
 	{
@@ -1204,6 +1288,7 @@ int libfdatetime_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 {
 	static char *function = "libfdatetime_internal_posix_time_copy_to_utf16_string_in_hexadecimal";
 	size_t string_index   = 0;
+	size_t string_size    = 0;
 	uint8_t byte_value    = 0;
 	int8_t byte_shift     = 0;
 
@@ -1214,6 +1299,24 @@ int libfdatetime_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid POSIX time.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid POSIX time - unsupported value type.",
 		 function );
 
 		return( -1 );
@@ -1251,8 +1354,19 @@ int libfdatetime_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 
 		return( -1 );
 	}
-	if( ( utf16_string_size < 13 )
-	 || ( *utf16_string_index > ( utf16_string_size - 13 ) ) )
+	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED ) )
+	{
+		string_size = 13;
+		byte_shift  = 28;
+	}
+	else
+	{
+		string_size = 21;
+		byte_shift  = 60;
+	}
+	if( ( utf16_string_size < string_size )
+	 || ( *utf16_string_index > ( utf16_string_size - string_size ) ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -1268,8 +1382,6 @@ int libfdatetime_internal_posix_time_copy_to_utf16_string_in_hexadecimal(
 	utf16_string[ string_index++ ] = (uint16_t) '(';
 	utf16_string[ string_index++ ] = (uint16_t) '0';
 	utf16_string[ string_index++ ] = (uint16_t) 'x';
-
-	byte_shift = 28;
 
 	do
 	{
@@ -1446,6 +1558,7 @@ int libfdatetime_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 {
 	static char *function = "libfdatetime_internal_posix_time_copy_to_utf32_string_in_hexadecimal";
 	size_t string_index   = 0;
+	size_t string_size    = 0;
 	uint8_t byte_value    = 0;
 	int8_t byte_shift     = 0;
 
@@ -1456,6 +1569,24 @@ int libfdatetime_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 		 LIBCERROR_ERROR_DOMAIN_ARGUMENTS,
 		 LIBCERROR_ARGUMENT_ERROR_INVALID_VALUE,
 		 "%s: invalid POSIX time.",
+		 function );
+
+		return( -1 );
+	}
+	if( ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_SIGNED )
+	 && ( internal_posix_time->value_type != LIBFDATETIME_POSIX_TIME_VALUE_TYPE_NANO_SECONDS_64BIT_UNSIGNED ) )
+	{
+		libcerror_error_set(
+		 error,
+		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+		 "%s: invalid POSIX time - unsupported value type.",
 		 function );
 
 		return( -1 );
@@ -1493,8 +1624,19 @@ int libfdatetime_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 
 		return( -1 );
 	}
-	if( ( utf32_string_size < 13 )
-	 || ( *utf32_string_index > ( utf32_string_size - 13 ) ) )
+	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_SIGNED )
+	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_32BIT_UNSIGNED ) )
+	{
+		string_size = 13;
+		byte_shift  = 28;
+	}
+	else
+	{
+		string_size = 21;
+		byte_shift  = 60;
+	}
+	if( ( utf32_string_size < string_size )
+	 || ( *utf32_string_index > ( utf32_string_size - string_size ) ) )
 	{
 		libcerror_error_set(
 		 error,
@@ -1510,8 +1652,6 @@ int libfdatetime_internal_posix_time_copy_to_utf32_string_in_hexadecimal(
 	utf32_string[ string_index++ ] = (uint32_t) '(';
 	utf32_string[ string_index++ ] = (uint32_t) '0';
 	utf32_string[ string_index++ ] = (uint32_t) 'x';
-
-	byte_shift = 28;
 
 	do
 	{
