@@ -1,4 +1,4 @@
-dnl Checks for libfdatetime for required headers and functions
+dnl Checks for required headers and functions
 dnl
 dnl Version: 20170905
 
