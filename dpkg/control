@@ -9,6 +9,8 @@ Homepage: https://github.com/libyal/libfdatetime
 Package: libfdatetime
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: libfdatetime1
+Replaces: libfdatetime1
 Suggests: libfdatetime-dbg
 Description: Library to support various date and time formats
  libfdatetime is a library to support various date and time formats.
