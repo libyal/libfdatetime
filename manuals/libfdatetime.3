@@ -1,11 +1,9 @@
-.Dd January 12, 2017
+.Dd March 24, 2019
 .Dt libfdatetime 3
 .Os libfdatetime
 .Sh NAME
 .Nm libfdatetime.h
 .Nd Library to support various date and time formats
-.Sh LIBRARY
-.Lb libfdatetime
 .Sh SYNOPSIS
 .In libfdatetime.h
 .Pp
@@ -17,197 +15,197 @@ Error functions
 .Ft void
 .Fn libfdatetime_error_free "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_error_fprint "libfdatetime_error_t *error, FILE *stream"
+.Fn libfdatetime_error_fprint "libfdatetime_error_t *error" "FILE *stream"
 .Ft int
-.Fn libfdatetime_error_sprint "libfdatetime_error_t *error, char *string, size_t size"
+.Fn libfdatetime_error_sprint "libfdatetime_error_t *error" "char *string" "size_t size"
 .Ft int
-.Fn libfdatetime_error_backtrace_fprint "libfdatetime_error_t *error, FILE *stream"
+.Fn libfdatetime_error_backtrace_fprint "libfdatetime_error_t *error" "FILE *stream"
 .Ft int
-.Fn libfdatetime_error_backtrace_sprint "libfdatetime_error_t *error, char *string, size_t size"
+.Fn libfdatetime_error_backtrace_sprint "libfdatetime_error_t *error" "char *string" "size_t size"
 .Pp
 FAT date and time functions
 .Ft int
-.Fn libfdatetime_fat_date_time_initialize "libfdatetime_fat_date_time_t **fat_date_time, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_initialize "libfdatetime_fat_date_time_t **fat_date_time" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_free "libfdatetime_fat_date_time_t **fat_date_time, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_free "libfdatetime_fat_date_time_t **fat_date_time" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_from_byte_stream "libfdatetime_fat_date_time_t *fat_date_time, const uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_from_byte_stream "libfdatetime_fat_date_time_t *fat_date_time" "const uint8_t *byte_stream" "size_t byte_stream_size" "int byte_order" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_from_32bit "libfdatetime_fat_date_time_t *fat_date_time, uint32_t value_32bit, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_from_32bit "libfdatetime_fat_date_time_t *fat_date_time" "uint32_t value_32bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_to_32bit "libfdatetime_fat_date_time_t *fat_date_time, uint32_t *value_32bit, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_to_32bit "libfdatetime_fat_date_time_t *fat_date_time" "uint32_t *value_32bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_get_string_size "libfdatetime_fat_date_time_t *fat_date_time, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_get_string_size "libfdatetime_fat_date_time_t *fat_date_time" "size_t *string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_to_utf8_string "libfdatetime_fat_date_time_t *fat_date_time, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_to_utf8_string "libfdatetime_fat_date_time_t *fat_date_time" "uint8_t *utf8_string" "size_t utf8_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_to_utf8_string_with_index "libfdatetime_fat_date_time_t *fat_date_time, uint8_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_to_utf8_string_with_index "libfdatetime_fat_date_time_t *fat_date_time" "uint8_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_to_utf16_string "libfdatetime_fat_date_time_t *fat_date_time, uint16_t *utf16_string, size_t utf16_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_to_utf16_string "libfdatetime_fat_date_time_t *fat_date_time" "uint16_t *utf16_string" "size_t utf16_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_to_utf16_string_with_index "libfdatetime_fat_date_time_t *fat_date_time, uint16_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_to_utf16_string_with_index "libfdatetime_fat_date_time_t *fat_date_time" "uint16_t *utf16_string" "size_t utf16_string_size" "size_t *utf16_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_to_utf32_string "libfdatetime_fat_date_time_t *fat_date_time, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_to_utf32_string "libfdatetime_fat_date_time_t *fat_date_time" "uint32_t *utf32_string" "size_t utf32_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_fat_date_time_copy_to_utf32_string_with_index "libfdatetime_fat_date_time_t *fat_date_time, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_fat_date_time_copy_to_utf32_string_with_index "libfdatetime_fat_date_time_t *fat_date_time" "uint32_t *utf32_string" "size_t utf32_string_size" "size_t *utf32_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Pp
 FILETIME functions
 .Ft int
-.Fn libfdatetime_filetime_initialize "libfdatetime_filetime_t **filetime, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_initialize "libfdatetime_filetime_t **filetime" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_free "libfdatetime_filetime_t **filetime, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_free "libfdatetime_filetime_t **filetime" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_add "libfdatetime_filetime_t *filetime, libfdatetime_filetime_t *additional_filetime, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_add "libfdatetime_filetime_t *filetime" "libfdatetime_filetime_t *additional_filetime" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_copy_from_byte_stream "libfdatetime_filetime_t *filetime, const uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_copy_from_byte_stream "libfdatetime_filetime_t *filetime" "const uint8_t *byte_stream" "size_t byte_stream_size" "int byte_order" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_copy_from_64bit "libfdatetime_filetime_t *filetime, uint64_t value_64bit, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_copy_from_64bit "libfdatetime_filetime_t *filetime" "uint64_t value_64bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_copy_to_64bit "libfdatetime_filetime_t *filetime, uint64_t *value_64bit, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_copy_to_64bit "libfdatetime_filetime_t *filetime" "uint64_t *value_64bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_get_string_size "libfdatetime_filetime_t *filetime, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_get_string_size "libfdatetime_filetime_t *filetime" "size_t *string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_copy_to_utf8_string "libfdatetime_filetime_t *filetime, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_copy_to_utf8_string "libfdatetime_filetime_t *filetime" "uint8_t *utf8_string" "size_t utf8_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_copy_to_utf8_string_with_index "libfdatetime_filetime_t *filetime, uint8_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_copy_to_utf8_string_with_index "libfdatetime_filetime_t *filetime" "uint8_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_copy_to_utf16_string "libfdatetime_filetime_t *filetime, uint16_t *utf16_string, size_t utf16_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_copy_to_utf16_string "libfdatetime_filetime_t *filetime" "uint16_t *utf16_string" "size_t utf16_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_copy_to_utf16_string_with_index "libfdatetime_filetime_t *filetime, uint16_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_copy_to_utf16_string_with_index "libfdatetime_filetime_t *filetime" "uint16_t *utf16_string" "size_t utf16_string_size" "size_t *utf16_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_copy_to_utf32_string "libfdatetime_filetime_t *filetime, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_copy_to_utf32_string "libfdatetime_filetime_t *filetime" "uint32_t *utf32_string" "size_t utf32_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_filetime_copy_to_utf32_string_with_index "libfdatetime_filetime_t *filetime, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_filetime_copy_to_utf32_string_with_index "libfdatetime_filetime_t *filetime" "uint32_t *utf32_string" "size_t utf32_string_size" "size_t *utf32_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Pp
 Floatingtime functions
 .Ft int
-.Fn libfdatetime_floatingtime_initialize "libfdatetime_floatingtime_t **floatingtime, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_initialize "libfdatetime_floatingtime_t **floatingtime" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_free "libfdatetime_floatingtime_t **floatingtime, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_free "libfdatetime_floatingtime_t **floatingtime" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_copy_from_byte_stream "libfdatetime_floatingtime_t *floatingtime, const uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_copy_from_byte_stream "libfdatetime_floatingtime_t *floatingtime" "const uint8_t *byte_stream" "size_t byte_stream_size" "int byte_order" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_copy_from_64bit "libfdatetime_floatingtime_t *floatingtime, uint64_t value_64bit, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_copy_from_64bit "libfdatetime_floatingtime_t *floatingtime" "uint64_t value_64bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_copy_to_64bit "libfdatetime_floatingtime_t *floatingtime, uint64_t *value_64bit, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_copy_to_64bit "libfdatetime_floatingtime_t *floatingtime" "uint64_t *value_64bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_get_string_size "libfdatetime_floatingtime_t *floatingtime, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_get_string_size "libfdatetime_floatingtime_t *floatingtime" "size_t *string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_copy_to_utf8_string "libfdatetime_floatingtime_t *floatingtime, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_copy_to_utf8_string "libfdatetime_floatingtime_t *floatingtime" "uint8_t *utf8_string" "size_t utf8_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_copy_to_utf8_string_with_index "libfdatetime_floatingtime_t *floatingtime, uint8_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_copy_to_utf8_string_with_index "libfdatetime_floatingtime_t *floatingtime" "uint8_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_copy_to_utf16_string "libfdatetime_floatingtime_t *floatingtime, uint16_t *utf16_string, size_t utf16_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_copy_to_utf16_string "libfdatetime_floatingtime_t *floatingtime" "uint16_t *utf16_string" "size_t utf16_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_copy_to_utf16_string_with_index "libfdatetime_floatingtime_t *floatingtime, uint16_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_copy_to_utf16_string_with_index "libfdatetime_floatingtime_t *floatingtime" "uint16_t *utf16_string" "size_t utf16_string_size" "size_t *utf16_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_copy_to_utf32_string "libfdatetime_floatingtime_t *floatingtime, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_copy_to_utf32_string "libfdatetime_floatingtime_t *floatingtime" "uint32_t *utf32_string" "size_t utf32_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_floatingtime_copy_to_utf32_string_with_index "libfdatetime_floatingtime_t *floatingtime, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_floatingtime_copy_to_utf32_string_with_index "libfdatetime_floatingtime_t *floatingtime" "uint32_t *utf32_string" "size_t utf32_string_size" "size_t *utf32_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Pp
 HFS time functions
 .Ft int
-.Fn libfdatetime_hfs_time_initialize "libfdatetime_hfs_time_t **hfs_time, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_initialize "libfdatetime_hfs_time_t **hfs_time" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_free "libfdatetime_hfs_time_t **hfs_time, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_free "libfdatetime_hfs_time_t **hfs_time" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_copy_from_byte_stream "libfdatetime_hfs_time_t *hfs_time, const uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_copy_from_byte_stream "libfdatetime_hfs_time_t *hfs_time" "const uint8_t *byte_stream" "size_t byte_stream_size" "int byte_order" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_copy_from_32bit "libfdatetime_hfs_time_t *hfs_time, uint32_t value_32bit, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_copy_from_32bit "libfdatetime_hfs_time_t *hfs_time" "uint32_t value_32bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_copy_to_32bit "libfdatetime_hfs_time_t *hfs_time, uint32_t *value_32bit, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_copy_to_32bit "libfdatetime_hfs_time_t *hfs_time" "uint32_t *value_32bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_get_string_size "libfdatetime_hfs_time_t *hfs_time, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_get_string_size "libfdatetime_hfs_time_t *hfs_time" "size_t *string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_copy_to_utf8_string "libfdatetime_hfs_time_t *hfs_time, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_copy_to_utf8_string "libfdatetime_hfs_time_t *hfs_time" "uint8_t *utf8_string" "size_t utf8_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_copy_to_utf8_string_with_index "libfdatetime_hfs_time_t *hfs_time, uint8_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_copy_to_utf8_string_with_index "libfdatetime_hfs_time_t *hfs_time" "uint8_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_copy_to_utf16_string "libfdatetime_hfs_time_t *hfs_time, uint16_t *utf16_string, size_t utf16_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_copy_to_utf16_string "libfdatetime_hfs_time_t *hfs_time" "uint16_t *utf16_string" "size_t utf16_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_copy_to_utf16_string_with_index "libfdatetime_hfs_time_t *hfs_time, uint16_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_copy_to_utf16_string_with_index "libfdatetime_hfs_time_t *hfs_time" "uint16_t *utf16_string" "size_t utf16_string_size" "size_t *utf16_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_copy_to_utf32_string "libfdatetime_hfs_time_t *hfs_time, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_copy_to_utf32_string "libfdatetime_hfs_time_t *hfs_time" "uint32_t *utf32_string" "size_t utf32_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_hfs_time_copy_to_utf32_string_with_index "libfdatetime_hfs_time_t *hfs_time, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_hfs_time_copy_to_utf32_string_with_index "libfdatetime_hfs_time_t *hfs_time" "uint32_t *utf32_string" "size_t utf32_string_size" "size_t *utf32_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Pp
 NSF timedate functions
 .Ft int
-.Fn libfdatetime_nsf_timedate_initialize "libfdatetime_nsf_timedate_t **nsf_timedate, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_initialize "libfdatetime_nsf_timedate_t **nsf_timedate" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_free "libfdatetime_nsf_timedate_t **nsf_timedate, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_free "libfdatetime_nsf_timedate_t **nsf_timedate" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_copy_from_byte_stream "libfdatetime_nsf_timedate_t *nsf_timedate, const uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_copy_from_byte_stream "libfdatetime_nsf_timedate_t *nsf_timedate" "const uint8_t *byte_stream" "size_t byte_stream_size" "int byte_order" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_copy_from_64bit "libfdatetime_nsf_timedate_t *nsf_timedate, uint64_t value_64bit, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_copy_from_64bit "libfdatetime_nsf_timedate_t *nsf_timedate" "uint64_t value_64bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_copy_to_64bit "libfdatetime_nsf_timedate_t *nsf_timedate, uint64_t *value_64bit, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_copy_to_64bit "libfdatetime_nsf_timedate_t *nsf_timedate" "uint64_t *value_64bit" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_get_string_size "libfdatetime_nsf_timedate_t *nsf_timedate, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_get_string_size "libfdatetime_nsf_timedate_t *nsf_timedate" "size_t *string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_copy_to_utf8_string "libfdatetime_nsf_timedate_t *nsf_timedate, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_copy_to_utf8_string "libfdatetime_nsf_timedate_t *nsf_timedate" "uint8_t *utf8_string" "size_t utf8_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_copy_to_utf8_string_with_index "libfdatetime_nsf_timedate_t *nsf_timedate, uint8_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_copy_to_utf8_string_with_index "libfdatetime_nsf_timedate_t *nsf_timedate" "uint8_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_copy_to_utf16_string "libfdatetime_nsf_timedate_t *nsf_timedate, uint16_t *utf16_string, size_t utf16_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_copy_to_utf16_string "libfdatetime_nsf_timedate_t *nsf_timedate" "uint16_t *utf16_string" "size_t utf16_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_copy_to_utf16_string_with_index "libfdatetime_nsf_timedate_t *nsf_timedate, uint16_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_copy_to_utf16_string_with_index "libfdatetime_nsf_timedate_t *nsf_timedate" "uint16_t *utf16_string" "size_t utf16_string_size" "size_t *utf16_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_copy_to_utf32_string "libfdatetime_nsf_timedate_t *nsf_timedate, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_copy_to_utf32_string "libfdatetime_nsf_timedate_t *nsf_timedate" "uint32_t *utf32_string" "size_t utf32_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_nsf_timedate_copy_to_utf32_string_with_index "libfdatetime_nsf_timedate_t *nsf_timedate, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_nsf_timedate_copy_to_utf32_string_with_index "libfdatetime_nsf_timedate_t *nsf_timedate" "uint32_t *utf32_string" "size_t utf32_string_size" "size_t *utf32_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Pp
 POSIX time functions
 .Ft int
-.Fn libfdatetime_posix_time_initialize "libfdatetime_posix_time_t **posix_time, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_initialize "libfdatetime_posix_time_t **posix_time" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_free "libfdatetime_posix_time_t **posix_time, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_free "libfdatetime_posix_time_t **posix_time" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_from_byte_stream "libfdatetime_posix_time_t *posix_time, const uint8_t *byte_stream, size_t byte_stream_size, int byte_order, uint8_t value_type, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_from_byte_stream "libfdatetime_posix_time_t *posix_time" "const uint8_t *byte_stream" "size_t byte_stream_size" "int byte_order" "uint8_t value_type" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_from_32bit "libfdatetime_posix_time_t *posix_time, uint32_t value_32bit, uint8_t value_type, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_from_32bit "libfdatetime_posix_time_t *posix_time" "uint32_t value_32bit" "uint8_t value_type" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_to_32bit "libfdatetime_posix_time_t *posix_time, uint32_t *value_32bit, uint8_t *value_type, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_to_32bit "libfdatetime_posix_time_t *posix_time" "uint32_t *value_32bit" "uint8_t *value_type" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_from_64bit "libfdatetime_posix_time_t *posix_time, uint64_t value_64bit, uint8_t value_type, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_from_64bit "libfdatetime_posix_time_t *posix_time" "uint64_t value_64bit" "uint8_t value_type" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_to_64bit "libfdatetime_posix_time_t *posix_time, uint64_t *value_64bit, uint8_t *value_type, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_to_64bit "libfdatetime_posix_time_t *posix_time" "uint64_t *value_64bit" "uint8_t *value_type" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_get_string_size "libfdatetime_posix_time_t *posix_time, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_get_string_size "libfdatetime_posix_time_t *posix_time" "size_t *string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_to_utf8_string "libfdatetime_posix_time_t *posix_time, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_to_utf8_string "libfdatetime_posix_time_t *posix_time" "uint8_t *utf8_string" "size_t utf8_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_to_utf8_string_with_index "libfdatetime_posix_time_t *posix_time, uint8_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_to_utf8_string_with_index "libfdatetime_posix_time_t *posix_time" "uint8_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_to_utf16_string "libfdatetime_posix_time_t *posix_time, uint16_t *utf16_string, size_t utf16_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_to_utf16_string "libfdatetime_posix_time_t *posix_time" "uint16_t *utf16_string" "size_t utf16_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_to_utf16_string_with_index "libfdatetime_posix_time_t *posix_time, uint16_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_to_utf16_string_with_index "libfdatetime_posix_time_t *posix_time" "uint16_t *utf16_string" "size_t utf16_string_size" "size_t *utf16_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_to_utf32_string "libfdatetime_posix_time_t *posix_time, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_to_utf32_string "libfdatetime_posix_time_t *posix_time" "uint32_t *utf32_string" "size_t utf32_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_posix_time_copy_to_utf32_string_with_index "libfdatetime_posix_time_t *posix_time, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_posix_time_copy_to_utf32_string_with_index "libfdatetime_posix_time_t *posix_time" "uint32_t *utf32_string" "size_t utf32_string_size" "size_t *utf32_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Pp
 Systemtime functions
 .Ft int
-.Fn libfdatetime_systemtime_initialize "libfdatetime_systemtime_t **systemtime, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_initialize "libfdatetime_systemtime_t **systemtime" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_systemtime_free "libfdatetime_systemtime_t **systemtime, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_free "libfdatetime_systemtime_t **systemtime" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_systemtime_copy_from_byte_stream "libfdatetime_systemtime_t *systemtime, const uint8_t *byte_stream, size_t byte_stream_size, int byte_order, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_copy_from_byte_stream "libfdatetime_systemtime_t *systemtime" "const uint8_t *byte_stream" "size_t byte_stream_size" "int byte_order" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_systemtime_get_string_size "libfdatetime_systemtime_t *systemtime, size_t *string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_get_string_size "libfdatetime_systemtime_t *systemtime" "size_t *string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_systemtime_copy_to_utf8_string "libfdatetime_systemtime_t *systemtime, uint8_t *utf8_string, size_t utf8_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_copy_to_utf8_string "libfdatetime_systemtime_t *systemtime" "uint8_t *utf8_string" "size_t utf8_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_systemtime_copy_to_utf8_string_with_index "libfdatetime_systemtime_t *systemtime, uint8_t *utf8_string, size_t utf8_string_size, size_t *utf8_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_copy_to_utf8_string_with_index "libfdatetime_systemtime_t *systemtime" "uint8_t *utf8_string" "size_t utf8_string_size" "size_t *utf8_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_systemtime_copy_to_utf16_string "libfdatetime_systemtime_t *systemtime, uint16_t *utf16_string, size_t utf16_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_copy_to_utf16_string "libfdatetime_systemtime_t *systemtime" "uint16_t *utf16_string" "size_t utf16_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_systemtime_copy_to_utf16_string_with_index "libfdatetime_systemtime_t *systemtime, uint16_t *utf16_string, size_t utf16_string_size, size_t *utf16_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_copy_to_utf16_string_with_index "libfdatetime_systemtime_t *systemtime" "uint16_t *utf16_string" "size_t utf16_string_size" "size_t *utf16_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_systemtime_copy_to_utf32_string "libfdatetime_systemtime_t *systemtime, uint32_t *utf32_string, size_t utf32_string_size, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_copy_to_utf32_string "libfdatetime_systemtime_t *systemtime" "uint32_t *utf32_string" "size_t utf32_string_size" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Ft int
-.Fn libfdatetime_systemtime_copy_to_utf32_string_with_index "libfdatetime_systemtime_t *systemtime, uint32_t *utf32_string, size_t utf32_string_size, size_t *utf32_string_index, uint32_t string_format_flags, libfdatetime_error_t **error"
+.Fn libfdatetime_systemtime_copy_to_utf32_string_with_index "libfdatetime_systemtime_t *systemtime" "uint32_t *utf32_string" "size_t utf32_string_size" "size_t *utf32_string_index" "uint32_t string_format_flags" "libfdatetime_error_t **error"
 .Sh DESCRIPTION
 The
 .Fn libfdatetime_get_version
@@ -225,7 +223,7 @@ Please report bugs of any kind on the project issue tracker: https://github.com/
 These man pages are generated from "libfdatetime.h".
 .Sh COPYRIGHT
 Copyright (C) 2009-2019, Joachim Metz <joachim.metz@gmail.com>.
-
+.sp
 This is free software; see the source for copying conditions.
 There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 .Sh SEE ALSO
