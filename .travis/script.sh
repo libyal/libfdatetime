@@ -25,7 +25,7 @@ then
 
 		make install DESTDIR=${PWD}/osx-pkg;
 		mkdir -p ${PWD}/osx-pkg/usr/share/doc/libfdatetime;
-		cp AUTHORS COPYING NEWS README ${PWD}/osx-pkg/usr/share/doc/libfdatetime;
+		cp AUTHORS COPYING COPYING.LESSER NEWS README ${PWD}/osx-pkg/usr/share/doc/libfdatetime;
 
 		pkgbuild --root osx-pkg --identifier com.github.libyal.libfdatetime --version ${VERSION} --ownership recommended ../libfdatetime-${VERSION}.pkg;
 	fi
