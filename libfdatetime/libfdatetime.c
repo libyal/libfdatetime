@@ -1,7 +1,7 @@
 /*
  * Library to support various date and time formats
  *
- * Copyright (C) 2009-2019, Joachim Metz <joachim.metz@gmail.com>
+ * Copyright (C) 2009-2020, Joachim Metz <joachim.metz@gmail.com>
  *
  * Refer to AUTHORS for acknowledgements.
  *
