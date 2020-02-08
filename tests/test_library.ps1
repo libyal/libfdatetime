@@ -1,12 +1,12 @@
 # Tests C library functions and types.
 #
-# Version: 20181221
+# Version: 20200126
 
 $ExitSuccess = 0
 $ExitFailure = 1
 $ExitIgnore = 77
 
-$LibraryTests = "date_time_values error fat_date_time filetime floatingtime hfs_time nsf_timedate posix_time support systemtime"
+$LibraryTests = "date_time_values error fat_date fat_date_time fat_time filetime floatingtime hfs_time nsf_timedate posix_time support systemtime"
 $LibraryTestsWithInput = ""
 
 $InputGlob = "*"
@@ -41,7 +41,7 @@ Function GetTestToolDirectory
 {
 	$TestToolDirectory = ""
 
-	ForEach (${VSDirectory} in "msvscpp vs2008 vs2010 vs2012 vs2013 vs2015 vs2017" -split " ")
+	ForEach (${VSDirectory} in "msvscpp vs2008 vs2010 vs2012 vs2013 vs2015 vs2017 vs2019" -split " ")
 	{
 		ForEach (${VSConfiguration} in "Release VSDebug" -split " ")
 		{
