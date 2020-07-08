@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #endif
 
-#include "fdatetime_test_libcerror.h"
 #include "fdatetime_test_libfdatetime.h"
 #include "fdatetime_test_macros.h"
 #include "fdatetime_test_unused.h"
