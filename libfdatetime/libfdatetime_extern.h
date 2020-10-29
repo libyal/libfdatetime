@@ -30,7 +30,11 @@
 
 #include <libfdatetime/extern.h>
 
+#if defined( __CYGWIN__ )
+#define LIBFDATETIME_EXTERN_VARIABLE	extern
+#else
 #define LIBFDATETIME_EXTERN_VARIABLE	LIBFDATETIME_EXTERN
+#endif
 
 #else
 #define LIBFDATETIME_EXTERN		/* extern */
