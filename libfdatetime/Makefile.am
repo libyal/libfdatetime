@@ -38,11 +38,13 @@ MAINTAINERCLEANFILES = \
 	Makefile.in
 
 distclean: clean
-	/bin/rm -f libfdatetime_definitions.h
-	/bin/rm -f libfdatetime.rc
-	/bin/rm -f Makefile
+	-rm -f libfdatetime_definitions.h
+	-rm -f libfdatetime.rc
+	-rm -f Makefile
 
-splint:
+sources-local: $(BUILT_SOURCES)
+
+splint-local:
 	@echo "Running splint on libfdatetime ..."
 	-splint -preproc -redef $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(libfdatetime_la_SOURCES)
 

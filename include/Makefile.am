@@ -18,9 +18,9 @@ MAINTAINERCLEANFILES = \
 	Makefile.in
 
 distclean: clean
-	/bin/rm -f libfdatetime.h
-	/bin/rm -f libfdatetime/definitions.h
-	/bin/rm -f libfdatetime/features.h
-	/bin/rm -f libfdatetime/types.h
-	/bin/rm -f Makefile
+	-rm -f libfdatetime.h
+	-rm -f libfdatetime/definitions.h
+	-rm -f libfdatetime/features.h
+	-rm -f libfdatetime/types.h
+	-rm -f Makefile
 
