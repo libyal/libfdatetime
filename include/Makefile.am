@@ -14,13 +14,11 @@ EXTRA_DIST = \
 	libfdatetime/features.h.in \
 	libfdatetime/types.h.in
 
-MAINTAINERCLEANFILES = \
+DISTCLEANFILES = \
+	libfdatetime.h \
+	libfdatetime/definitions.h \
+	libfdatetime/features.h \
+	libfdatetime/types.h \
+	Makefile \
 	Makefile.in
-
-distclean: clean
-	-rm -f libfdatetime.h
-	-rm -f libfdatetime/definitions.h
-	-rm -f libfdatetime/features.h
-	-rm -f libfdatetime/types.h
-	-rm -f Makefile
 
