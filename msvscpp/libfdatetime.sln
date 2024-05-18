@@ -59,12 +59,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fdatetime_test_systemtime",
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcerror", "libcerror\libcerror.vcproj", "{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfdatetime", "libfdatetime\libfdatetime.vcproj", "{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C} = {BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcerror", "libcerror\libcerror.vcproj", "{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,14 +112,14 @@ Global
 		{4E629879-A5E1-48DE-888E-FFE7EC608B67}.Release|Win32.Build.0 = Release|Win32
 		{4E629879-A5E1-48DE-888E-FFE7EC608B67}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
 		{4E629879-A5E1-48DE-888E-FFE7EC608B67}.VSDebug|Win32.Build.0 = VSDebug|Win32
-		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.Release|Win32.ActiveCfg = Release|Win32
-		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.Release|Win32.Build.0 = Release|Win32
-		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
-		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.VSDebug|Win32.Build.0 = VSDebug|Win32
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}.Release|Win32.ActiveCfg = Release|Win32
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}.Release|Win32.Build.0 = Release|Win32
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
 		{BD3A95FA-A3DE-4B79-A889-A7E5ECA4B69C}.VSDebug|Win32.Build.0 = VSDebug|Win32
+		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.Release|Win32.ActiveCfg = Release|Win32
+		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.Release|Win32.Build.0 = Release|Win32
+		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.VSDebug|Win32.ActiveCfg = VSDebug|Win32
+		{1B41CCDA-9549-4EC4-A213-CF03DBC2DD80}.VSDebug|Win32.Build.0 = VSDebug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
