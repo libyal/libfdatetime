@@ -212,8 +212,6 @@ typedef intptr_t libfdatetime_fat_date_t;
 
 /* FAT 16-bit time definition
  */
-typedef intptr_t libfdatetime_fat_date_t;
-typedef intptr_t libfdatetime_fat_date_time_t;
 typedef intptr_t libfdatetime_fat_time_t;
 
 /* 64-bit filetime definition
