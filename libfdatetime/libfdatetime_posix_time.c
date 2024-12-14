@@ -576,6 +576,8 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 {
 	static char *function    = "libfdatetime_internal_posix_time_copy_to_date_time_values";
 	uint64_t posix_timestamp = 0;
+	uint64_t remaining_years = 0;
+	uint32_t days_in_century = 0;
 	uint16_t days_in_year    = 0;
 	uint8_t days_in_month    = 0;
 	uint8_t is_signed        = 0;
@@ -627,7 +629,21 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	{
 		is_signed = (uint8_t) ( posix_timestamp >> 31 );
 
-		posix_timestamp &= 0x7fffffffUL;
+		if( is_signed != 0 )
+		{
+			if( ( posix_timestamp & 0x7fffffffUL ) == 0 )
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+				 "%s: unsupported timestamp.",
+				 function );
+
+				return( -1 );
+			}
+			posix_timestamp = -( (int32_t) posix_timestamp );
+		}
 	}
 	else if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_SIGNED )
 	      || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_SECONDS_64BIT_UNSIGNED )
@@ -638,23 +654,25 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	{
 		is_signed = (uint8_t) ( posix_timestamp >> 63 );
 
+		if( is_signed != 0 )
+		{
 #if defined( __BORLANDC__ ) && ( __BORLANDC__ < 0x0560 )
-		posix_timestamp &= 0x7fffffffffffffffUL;
+			if( ( posix_timestamp & 0x7fffffffffffffffUL ) == 0 )
 #else
-		posix_timestamp &= 0x7fffffffffffffffULL;
+			if( ( posix_timestamp & 0x7fffffffffffffffULL ) == 0 )
 #endif
-	}
-	if( ( is_signed != 0 )
-	 && ( posix_timestamp == 0 ) )
-	{
-		libcerror_error_set(
-		 error,
-		 LIBCERROR_ERROR_DOMAIN_RUNTIME,
-		 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
-		 "%s: unsupported timestamp.",
-		 function );
+			{
+				libcerror_error_set(
+				 error,
+				 LIBCERROR_ERROR_DOMAIN_RUNTIME,
+				 LIBCERROR_RUNTIME_ERROR_UNSUPPORTED_VALUE,
+				 "%s: unsupported timestamp.",
+				 function );
 
-		return( -1 );
+				return( -1 );
+			}
+			posix_timestamp = -( (int64_t) posix_timestamp );
+		}
 	}
         date_time_values->nano_seconds = 0;
 
@@ -663,15 +681,14 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	{
 		/* The timestamp is in units of nano seconds correct the value to seconds
 		 */
-		if( is_signed == 0 )
-		{
-			date_time_values->nano_seconds = posix_timestamp % 1000;
-		}
-		else
-		{
-			date_time_values->nano_seconds = 1000 - ( posix_timestamp % 1000 );
-		}
+		date_time_values->nano_seconds = posix_timestamp % 1000;
 		posix_timestamp /= 1000;
+
+		if( ( is_signed != 0 )
+		 && ( date_time_values->nano_seconds > 0 ) )
+		{
+			date_time_values->nano_seconds = 999 - date_time_values->nano_seconds;
+		}
 	}
 	if( ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_SIGNED )
 	 || ( internal_posix_time->value_type == LIBFDATETIME_POSIX_TIME_VALUE_TYPE_MICRO_SECONDS_64BIT_UNSIGNED )
@@ -680,30 +697,31 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	{
 		/* The timestamp is in units of micro seconds correct the value to seconds
 		 */
-		if( is_signed == 0 )
-		{
-			date_time_values->micro_seconds = posix_timestamp % 1000;
-		}
-		else
-		{
-			date_time_values->micro_seconds = 1000 - ( posix_timestamp % 1000 );
-		}
+		date_time_values->micro_seconds = posix_timestamp % 1000;
 		posix_timestamp /= 1000;
 
-		if( is_signed == 0 )
+		if( ( is_signed != 0 )
+		 && ( date_time_values->micro_seconds > 0 ) )
 		{
-			date_time_values->milli_seconds = posix_timestamp % 1000;
+			date_time_values->micro_seconds = 999 - date_time_values->micro_seconds;
 		}
-		else
-		{
-			date_time_values->milli_seconds = 1000 - ( posix_timestamp % 1000 );
-		}
+		date_time_values->milli_seconds = posix_timestamp % 1000;
 		posix_timestamp /= 1000;
+
+		if( ( is_signed != 0 )
+		 && ( date_time_values->milli_seconds > 0 ) )
+		{
+			date_time_values->milli_seconds = 999 - date_time_values->milli_seconds;
+		}
 	}
 	else
 	{
 	        date_time_values->micro_seconds = 0;
 	        date_time_values->milli_seconds = 0;
+	}
+	if( is_signed != 0 )
+	{
+		posix_timestamp -= 1;
 	}
 	/* There are 60 seconds in a minute correct the value to minutes
 	 */
@@ -713,7 +731,7 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	if( ( is_signed != 0 )
 	 && ( date_time_values->seconds > 0 ) )
 	{
-		date_time_values->seconds = 60 - date_time_values->seconds;
+		date_time_values->seconds = 59 - date_time_values->seconds;
 	}
 	/* There are 60 minutes in an hour correct the value to hours
 	 */
@@ -723,7 +741,7 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	if( ( is_signed != 0 )
 	 && ( date_time_values->minutes > 0 ) )
 	{
-		date_time_values->minutes = 60 - date_time_values->minutes;
+		date_time_values->minutes = 59 - date_time_values->minutes;
 	}
 	/* There are 24 hours in a day correct the value to days
 	 */
@@ -733,7 +751,7 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	if( ( is_signed != 0 )
 	 && ( date_time_values->hours > 0 ) )
 	{
-		date_time_values->hours = 24 - date_time_values->hours;
+		date_time_values->hours = 23 - date_time_values->hours;
 	}
 	/* Determine the number of years starting at 'Jan 1, 1970 00:00:00'
 	 * correct the value to days within the year
@@ -757,11 +775,70 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 	}
 	else
 	{
-		/* Remove 1 day to compensate that Jan 1, 1970 is represented as 0
-		 */
-		posix_timestamp -= 1;
-
 		date_time_values->year = 1969;
+	}
+	remaining_years = posix_timestamp % 100;
+
+	while( remaining_years > 0 )
+	{
+		/* Check for a leap year
+		 * The year is ( ( dividable by 4 ) and ( not dividable by 100 ) ) or ( dividable by 400 )
+		 */
+		if( ( ( ( date_time_values->year % 4 ) == 0 )
+		  &&  ( ( date_time_values->year % 100 ) != 0 ) )
+		 || ( ( date_time_values->year % 400 ) == 0 ) )
+		{
+			days_in_year = 366;
+		}
+		else
+		{
+			days_in_year = 365;
+		}
+		if( posix_timestamp <= days_in_year )
+		{
+			break;
+		}
+		posix_timestamp -= days_in_year;
+
+		if( is_signed == 0 )
+		{
+			date_time_values->year += 1;
+		}
+		else
+		{
+			date_time_values->year -= 1;
+		}
+		remaining_years -= 1;
+	}
+	while( posix_timestamp > 0 )
+	{
+		/* Check for a leap year
+		 * The year is ( ( dividable by 4 ) and ( not dividable by 100 ) ) or ( dividable by 400 )
+		 */
+		if( ( ( ( date_time_values->year % 4 ) == 0 )
+		  &&  ( ( date_time_values->year % 100 ) != 0 ) )
+		 || ( ( date_time_values->year % 400 ) == 0 ) )
+		{
+			days_in_century = 36525;
+		}
+		else
+		{
+			days_in_century = 36524;
+		}
+		if( posix_timestamp <= days_in_century )
+		{
+			break;
+		}
+		posix_timestamp -= days_in_century;
+
+		if( is_signed == 0 )
+		{
+			date_time_values->year += 100;
+		}
+		else
+		{
+			date_time_values->year -= 100;
+		}
 	}
 	while( posix_timestamp > 0 )
 	{
@@ -793,7 +870,6 @@ int libfdatetime_internal_posix_time_copy_to_date_time_values(
 			date_time_values->year -= 1;
 		}
 	}
-
 	/* Determine the month correct the value to days within the month
 	 */
 	if( is_signed == 0 )
