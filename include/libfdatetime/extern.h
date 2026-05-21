@@ -31,14 +31,17 @@
  */
 #if defined( LIBFDATETIME_DLL_EXPORT )
 #define LIBFDATETIME_EXTERN __declspec(dllexport)
+#define LIBFDATETIME_EXTERN_VARIABLE extern __declspec(dllexport)
 
 #elif defined( LIBFDATETIME_DLL_IMPORT )
-#define LIBFDATETIME_EXTERN extern __declspec(dllimport)
+#define LIBFDATETIME_EXTERN __declspec(dllimport)
+#define LIBFDATETIME_EXTERN_VARIABLE extern __declspec(dllimport)
 
 #else
 #define LIBFDATETIME_EXTERN extern
+#define LIBFDATETIME_EXTERN_VARIABLE extern
 
-#endif
+#endif /* defined( LIBFDATETIME_DLL_EXPORT ) */
 
 #endif /* !defined( _LIBFDATETIME_EXTERN_H ) */
 
