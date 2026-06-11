@@ -1,6 +1,6 @@
 # Files to ignore by git
 #
-# Version: 20251129
+# Version: 20260604
 
 # Generic auto-generated build files
 *~
@@ -127,7 +127,12 @@ stamp-h[1-9]
 /libfdatetime.spec
 /libfdatetime/libfdatetime.rc
 /libfdatetime/libfdatetime_definitions.h
+/tests/*.dir
 /tests/*.exe
+/tests/*.log
+/tests/*.tmp
+/tests/atconfig
+/tests/atlocal
 /tests/fdatetime_test_date_time_values
 /tests/fdatetime_test_error
 /tests/fdatetime_test_fat_date_time
@@ -138,6 +143,9 @@ stamp-h[1-9]
 /tests/fdatetime_test_posix_time
 /tests/fdatetime_test_support
 /tests/fdatetime_test_systemtime
+/tests/package.m4
+/tests/test_library
+/tests/test_manpages
 /tests/tmp*
 
 # Local library dependencies specific files

@@ -24,6 +24,19 @@
 
 #include <common.h>
 
+#if !defined( __CYGWIN__ ) && !defined( _WIN32 ) && defined( __has_attribute )
+#if __has_attribute( visibility )
+#define LIBFDATETIME_INTERNAL	__attribute__((visibility("hidden"))) extern
+
+#else
+#define LIBFDATETIME_INTERNAL	extern
+
+#endif /* __has_attribute( visibility ) */
+#else
+#define LIBFDATETIME_INTERNAL	extern
+
+#endif /* !defined( __CYGWIN__ ) && !defined( _WIN32 ) && defined( __has_attribute ) */
+
 /* Define HAVE_LOCAL_LIBFDATETIME for local use of libfdatetime
  */
 #if !defined( HAVE_LOCAL_LIBFDATETIME )
@@ -32,7 +45,7 @@
 
 #else
 #define LIBFDATETIME_EXTERN		/* extern */
-#define LIBFDATETIME_EXTERN_VARIABLE	extern
+#define LIBFDATETIME_EXTERN_VARIABLE	LIBFDATETIME_INTERNAL
 
 #endif /* !defined( HAVE_LOCAL_LIBFDATETIME ) */
 
