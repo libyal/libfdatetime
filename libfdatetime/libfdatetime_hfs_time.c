@@ -513,14 +513,15 @@ int libfdatetime_hfs_time_get_string_size(
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
-
-/* TODO debug print error */
-
-#endif /* defined( HAVE_DEBUG_OUTPUT ) */
-
+#endif
 		if( ( error != NULL )
 		 && ( *error != NULL ) )
 		{
+#if defined( HAVE_DEBUG_OUTPUT ) && defined( DISABLED )
+			libcerror_error_backtrace_fprint(
+			 *error,
+			 stderr );
+#endif
 			libcerror_error_free(
 			 error );
 		}
@@ -738,14 +739,15 @@ int libfdatetime_hfs_time_copy_to_utf8_string_with_index(
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
-
-/* TODO debug print error */
-
-#endif /* defined( HAVE_DEBUG_OUTPUT ) */
-
+#endif
 		if( ( error != NULL )
 		 && ( *error != NULL ) )
 		{
+#if defined( HAVE_DEBUG_OUTPUT ) && defined( DISABLED )
+			libcerror_error_backtrace_fprint(
+			 *error,
+			 stderr );
+#endif
 			libcerror_error_free(
 			 error );
 		}
@@ -980,14 +982,15 @@ int libfdatetime_hfs_time_copy_to_utf16_string_with_index(
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
-
-/* TODO debug print error */
-
-#endif /* defined( HAVE_DEBUG_OUTPUT ) */
-
+#endif
 		if( ( error != NULL )
 		 && ( *error != NULL ) )
 		{
+#if defined( HAVE_DEBUG_OUTPUT ) && defined( DISABLED )
+			libcerror_error_backtrace_fprint(
+			 *error,
+			 stderr );
+#endif
 			libcerror_error_free(
 			 error );
 		}
@@ -1269,14 +1272,15 @@ int libfdatetime_hfs_time_copy_to_utf32_string_with_index(
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
-
-/* TODO debug print error */
-
-#endif /* defined( HAVE_DEBUG_OUTPUT ) */
-
+#endif
 		if( ( error != NULL )
 		 && ( *error != NULL ) )
 		{
+#if defined( HAVE_DEBUG_OUTPUT ) && defined( DISABLED )
+			libcerror_error_backtrace_fprint(
+			 *error,
+			 stderr );
+#endif
 			libcerror_error_free(
 			 error );
 		}

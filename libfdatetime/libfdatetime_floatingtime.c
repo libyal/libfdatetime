@@ -462,7 +462,7 @@ int libfdatetime_internal_floatingtime_copy_to_date_time_values(
 
 			return( -1 );
 		}
-		if( floatingtimestamp <= days_in_month )
+		if( floatingtimestamp < days_in_month )
 		{
 			break;
 		}
@@ -496,19 +496,19 @@ int libfdatetime_internal_floatingtime_copy_to_date_time_values(
 	/* There are 1000 milli seconds in a seconds correct the value to milli seconds
 	 */
 	floatingtimestamp              *= 1000.0;
-	date_time_values->milli_seconds = (uint8_t) floatingtimestamp;
+	date_time_values->milli_seconds = (uint16_t) floatingtimestamp;
 	floatingtimestamp              -= date_time_values->milli_seconds;
 
 	/* There are 1000 micro seconds in a seconds correct the value to micro seconds
 	 */
 	floatingtimestamp              *= 1000.0;
-	date_time_values->micro_seconds = (uint8_t) floatingtimestamp;
+	date_time_values->micro_seconds = (uint16_t) floatingtimestamp;
 	floatingtimestamp              -= date_time_values->micro_seconds;
 
 	/* There are 1000 nano seconds in a seconds correct the value to nano seconds
 	 */
 	floatingtimestamp             *= 1000.0;
-	date_time_values->nano_seconds = (uint8_t) floatingtimestamp;
+	date_time_values->nano_seconds = (uint16_t) floatingtimestamp;
 
 	return( 1 );
 }
@@ -564,14 +564,15 @@ int libfdatetime_floatingtime_get_string_size(
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
-
-/* TODO debug print error */
-
-#endif /* defined( HAVE_DEBUG_OUTPUT ) */
-
+#endif
 		if( ( error != NULL )
 		 && ( *error != NULL ) )
 		{
+#if defined( HAVE_DEBUG_OUTPUT ) && defined( DISABLED )
+			libcerror_error_backtrace_fprint(
+			 *error,
+			 stderr );
+#endif
 			libcerror_error_free(
 			 error );
 		}
@@ -789,14 +790,15 @@ int libfdatetime_floatingtime_copy_to_utf8_string_with_index(
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
-
-/* TODO debug print error */
-
-#endif /* defined( HAVE_DEBUG_OUTPUT ) */
-
+#endif
 		if( ( error != NULL )
 		 && ( *error != NULL ) )
 		{
+#if defined( HAVE_DEBUG_OUTPUT ) && defined( DISABLED )
+			libcerror_error_backtrace_fprint(
+			 *error,
+			 stderr );
+#endif
 			libcerror_error_free(
 			 error );
 		}
@@ -1031,14 +1033,15 @@ int libfdatetime_floatingtime_copy_to_utf16_string_with_index(
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
-
-/* TODO debug print error */
-
-#endif /* defined( HAVE_DEBUG_OUTPUT ) */
-
+#endif
 		if( ( error != NULL )
 		 && ( *error != NULL ) )
 		{
+#if defined( HAVE_DEBUG_OUTPUT ) && defined( DISABLED )
+			libcerror_error_backtrace_fprint(
+			 *error,
+			 stderr );
+#endif
 			libcerror_error_free(
 			 error );
 		}
@@ -1273,14 +1276,15 @@ int libfdatetime_floatingtime_copy_to_utf32_string_with_index(
 		 LIBCERROR_RUNTIME_ERROR_SET_FAILED,
 		 "%s: unable to set date time values.",
 		 function );
-
-/* TODO debug print error */
-
-#endif /* defined( HAVE_DEBUG_OUTPUT ) */
-
+#endif
 		if( ( error != NULL )
 		 && ( *error != NULL ) )
 		{
+#if defined( HAVE_DEBUG_OUTPUT ) && defined( DISABLED )
+			libcerror_error_backtrace_fprint(
+			 *error,
+			 stderr );
+#endif
 			libcerror_error_free(
 			 error );
 		}
